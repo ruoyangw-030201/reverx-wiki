@@ -1,0 +1,70 @@
+:root {
+  --color-bg: #f7f5ef;
+  --color-paper: #fbfaf6;
+  --color-ink: #151515;
+  --color-muted: #6f6f6f;
+
+  --color-black: #090909;
+  --color-blue: #2d5f96;
+  --color-blue-light: #8aa9c9;
+  --color-gold: #c89b5a;
+  --color-gold-light: #e0c28f;
+
+  --border-thin: 1px solid rgba(200, 155, 90, 0.65);
+  --border-blue: 1px solid rgba(45, 95, 150, 0.65);
+
+  --font-serif: "Songti SC", "STSong", "Noto Serif SC", "SimSun", serif;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-latin: "Times New Roman", Georgia, serif;
+
+  --theme-bg: #ffffff;
+  --theme-paper: #fbfaf6;
+  --theme-ink: #151515;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+::selection {
+  background: rgba(200, 155, 90, 0.28);
+}
