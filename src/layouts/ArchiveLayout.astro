@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import ContentFrame from "../components/ContentFrame.astro";
 import "../styles/archive.css";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -132,7 +133,9 @@ function isSideActive(href) {
       </aside>
 
       <section class="archive-content-area">
-        <slot />
+        <ContentFrame>
+          <slot />
+        </ContentFrame>
       </section>
     </main>
   </div>

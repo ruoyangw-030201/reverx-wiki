@@ -1,0 +1,92 @@
+---
+const {
+  title = "世界简介",
+  subtitle = "INTRODUCTION",
+  minHeight = "1000px",
+} = Astro.props;
+---
+
+<div class="content-frame" style={`--content-frame-min-height: ${minHeight};`}>
+  <div class="content-frame-underlay" aria-hidden="true">
+    <img class="content-frame-texture content-frame-texture-left-wash" src="/texture/texture-4.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-left-blue" src="/texture/texture-11.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-left-gold" src="/texture/texture-12.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-left-blue-small" src="/texture/texture-11.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-bottom-blue" src="/texture/texture-11.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-bottom-gold" src="/texture/texture-12.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-right-gold-a" src="/texture/texture-12.png" alt="" />
+    <img class="content-frame-texture content-frame-texture-right-gold-b" src="/texture/texture-12.png" alt="" />
+
+    <span class="content-frame-white-block content-frame-white-block-right"></span>
+    <span class="content-frame-white-block content-frame-white-block-lower"></span>
+    <span class="content-frame-white-block content-frame-white-block-left"></span>
+  </div>
+
+  <div class="content-frame-paper" aria-hidden="true"></div>
+
+  <svg class="content-frame-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="content-frame-gold-edge" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#d6a35b" stop-opacity="0.9" />
+        <stop offset="44%" stop-color="#9a6335" stop-opacity="0.68" />
+        <stop offset="72%" stop-color="#2d5f96" stop-opacity="0.45" />
+        <stop offset="100%" stop-color="#c89b5a" stop-opacity="0.9" />
+      </linearGradient>
+      <linearGradient id="content-frame-russet-edge" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#8f5d35" stop-opacity="0.82" />
+        <stop offset="54%" stop-color="#c89b5a" stop-opacity="0.58" />
+        <stop offset="100%" stop-color="#2d5f96" stop-opacity="0.38" />
+      </linearGradient>
+    </defs>
+
+    <polyline
+      class="content-frame-line content-frame-line-main"
+      stroke="url(#content-frame-gold-edge)"
+      points="122,126 610,148 675,294 805,294 805,838 685,998 196,998 196,918 112,828 154,624 96,592 178,278 178,196"
+    />
+    <polyline
+      class="content-frame-line content-frame-line-blue"
+      points="132,138 598,156 660,306 785,306 785,824 672,982 210,982 210,912 130,822 170,626"
+    />
+    <polyline
+      class="content-frame-line content-frame-line-russet"
+      stroke="url(#content-frame-russet-edge)"
+      points="184,276 118,588 174,620 134,818 216,906 216,980 680,980 785,838 785,292 675,292"
+    />
+    <polyline
+      class="content-frame-line content-frame-line-left-spine"
+      points="174,196 174,996"
+    />
+    <polyline
+      class="content-frame-line content-frame-line-corner"
+      points="88,270 174,270 174,196 122,126"
+    />
+    <polyline
+      class="content-frame-line content-frame-line-right-spine"
+      points="805,268 805,384 785,384 785,636"
+    />
+    <line class="content-frame-line content-frame-line-short" x1="96" y1="468" x2="170" y2="468" />
+    <line class="content-frame-line content-frame-line-short" x1="108" y1="686" x2="208" y2="686" />
+    <line class="content-frame-line content-frame-line-short" x1="803" y1="424" x2="908" y2="424" />
+  </svg>
+
+  <div class="content-frame-title">
+    <span class="content-frame-title-cn">{title}</span>
+    <span class="content-frame-title-en">{subtitle}</span>
+  </div>
+
+  <div class="content-frame-icon-stack" aria-hidden="true">
+    <span class="content-frame-icon-box content-frame-icon-box-main"></span>
+    <span class="content-frame-icon-box content-frame-icon-box-inner"></span>
+    <span class="content-frame-icon-box content-frame-icon-box-outer"></span>
+  </div>
+
+  <div class="content-frame-junction" aria-hidden="true">
+    <img src="/texture/texture-13.png" alt="" />
+    <span></span>
+  </div>
+
+  <div class="content-frame-body">
+    <slot />
+  </div>
+</div>
