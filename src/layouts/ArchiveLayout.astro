@@ -2,31 +2,32 @@
 import BaseLayout from "./BaseLayout.astro";
 import ContentFrame from "../components/ContentFrame.astro";
 import "../styles/archive.css";
+import { topTabs, sidebarBySection } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
+function getCurrentSection(path) {
+  if (path === "/system" || path.startsWith("/system/")) {
+    return "system";
+  }
+
+  if (path === "/characters" || path.startsWith("/characters/")) {
+    return "characters";
+  }
+
+  return "world";
+}
+
+const currentSection = getCurrentSection(currentPath);
+
 const {
-  chapter = "CHAPTER 01",
-  pageTitle = "世界观概览",
-  pageSubtitle = "OVERVIEW OF THE WORLD",
-  intro = "在现实世界之外，存在着由生物活动痕迹构成的次维度。痕迹逸散，恶意滋生。少数人因此觉醒异能，也因此背负诅咒，行走于世界的边缘。",
   sidebarTitle = "档案分类",
   sidebarTitleEn = "ARCHIVES",
-  sidebarItems = [
-    { label: "世界观概览", href: "/world", icon: "/icon/ling.png" },
-    { label: "能力体系", href: "/system", icon: "/icon/ling.png" },
-    { label: "魔物档案", href: "/system/monsters", icon: "/icon/ling.png" },
-    { label: "武器图鉴", href: "/system/weapons", icon: "/icon/ling.png" },
-    { label: "角色档案", href: "/characters", icon: "/icon/ling.png" },
-    { label: "世界库", href: "/system/worldku", icon: "/icon/ling.png" },
-  ],
+  sidebarItems: sidebarItemsOverride,
 } = Astro.props;
 
-const topTabs = [
-  { key: "world", label: "世界观", href: "/world" },
-  { key: "system", label: "能力体系", href: "/system" },
-  { key: "characters", label: "角色档案", href: "/characters" },
-];
+const sidebarItems =
+  sidebarItemsOverride ?? sidebarBySection[currentSection] ?? sidebarBySection.world;
 
 function isTopActive(href) {
   const normalized = href.replace(/\/$/, "");
@@ -34,8 +35,9 @@ function isTopActive(href) {
 }
 
 function isSideActive(href) {
+  if (!href) return false;
   const normalized = href.replace(/\/$/, "") || "/";
-  return currentPath === normalized || currentPath.startsWith(normalized + "/");
+  return currentPath === normalized;
 }
 ---
 
@@ -78,7 +80,8 @@ function isSideActive(href) {
             ]}
             href={tab.href}
           >
-            {tab.label}
+            <span>{tab.label}</span>
+            <small>{tab.labelEn}</small>
           </a>
         ))}
       </nav>
@@ -102,13 +105,6 @@ function isSideActive(href) {
 
     <main class="archive-shell">
       <aside class="archive-sidebar">
-        <section class="archive-sidebar-intro">
-          <p class="archive-sidebar-chapter">{chapter}</p>
-          <h1>{pageTitle}</h1>
-          <p class="archive-sidebar-subtitle">{pageSubtitle}</p>
-          <p class="archive-sidebar-desc">{intro}</p>
-        </section>
-
         <section class="archive-sidebar-nav">
           <div class="archive-sidebar-heading">
             <span>{sidebarTitle}</span>
@@ -117,16 +113,44 @@ function isSideActive(href) {
 
           <nav aria-label="档案分类">
             {sidebarItems.map((item) => (
-              <a
-                class:list={[
-                  "archive-sidebar-link",
-                  isSideActive(item.href) && "is-active",
-                ]}
-                href={item.href}
-              >
-                <img src={item.icon} alt="" />
-                <span>{item.label}</span>
-              </a>
+              item.type === "group" ? (
+                item.href ? (
+                  <a
+                    class:list={[
+                      "archive-sidebar-group",
+                      isSideActive(item.href) && "is-active",
+                    ]}
+                    href={item.href}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <div class="archive-sidebar-group">
+                    {item.label}
+                  </div>
+                )
+              ) : (
+                <a
+                  class:list={[
+                    "archive-sidebar-link",
+                    item.depth === 1 && "is-depth-1",
+                    isSideActive(item.href) && "is-active",
+                  ]}
+                   href={item.href}
+                >
+                  {item.icon && (
+                    <img
+                      class:list={[
+                        "archive-sidebar-icon",
+                        item.icon.startsWith("/icon/") && "is-small-source",
+                      ]}
+                      src={item.icon}
+                      alt=""
+                    />
+                  )}
+                  <span>{item.label}</span>
+                </a>
+              )
             ))}
           </nav>
         </section>

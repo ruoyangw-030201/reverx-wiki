@@ -1,22 +1,9 @@
 ---
 import ArchiveLayout from "../layouts/ArchiveLayout.astro";
-
-const sidebarItems = [
-  { label: "世界观概览", href: "/world", icon: "/icon/ling.png" },
-  { label: "凡多纳", href: "/world/ferdona", icon: "/icon/ling.png" },
-  { label: "海西", href: "/world/hespera", icon: "/icon/ling.png" },
-  { label: "暗影会", href: "/world/darkness", icon: "/icon/ling.png" },
-];
 ---
 
-<ArchiveLayout
-  pageTitle="世界观概览"
-  pageSubtitle="OVERVIEW OF THE WORLD"
-  chapter="CHAPTER 01"
-  sidebarItems={sidebarItems}
->
-  <div style="padding: 60px; min-height: 800px;">
-    <h1>这里之后放中间不规则文本框</h1>
-    <p>现在先测试 headbar、header、sidebar 和背景纹理。</p>
-  </div>
+<ArchiveLayout title="世界观概览" subtitle="OVERVIEW OF THE WORLD" chapter="ARCHIVE 01">
+  <p class="archive-kicker">世界观</p>
+  <h1>世界观概览</h1>
+  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
 </ArchiveLayout>
