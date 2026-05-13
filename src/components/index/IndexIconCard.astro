@@ -1,0 +1,17 @@
+---
+const {
+  href,
+  icon,
+  caption,
+  alt = "",
+} = Astro.props;
+
+const hasIcon = Boolean(icon);
+---
+
+<a class="index-icon-card" href={href} aria-label={caption}>
+  <span class:list={["index-icon-card-frame", !hasIcon && "is-empty-icon"]}>
+    {hasIcon && <img src={icon} alt={alt} />}
+  </span>
+  {caption && <span class="index-icon-card-caption">{caption}</span>}
+</a>

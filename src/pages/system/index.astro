@@ -1,9 +1,45 @@
 ---
-import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import IndexIconCard from "../../components/index/IndexIconCard.astro";
+import IndexSection from "../../components/index/IndexSection.astro";
+import IndexLayout from "../../layouts/IndexLayout.astro";
 ---
 
-<ArchiveLayout title="能力体系" subtitle="POWER SYSTEM" chapter="ARCHIVE 02" activeSection="system">
-  <p class="archive-kicker">能力体系</p>
-  <h1>能力体系</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
-</ArchiveLayout>
+<IndexLayout>
+  <div slot="intro" class="archive-index-intro-copy">
+    <p>
+      在凡多纳都市传说中，有一群拥有异能的人，会给身边的人带来诅咒。和他们接触容易让人们生病、厄运缠身甚至离奇去世。传说中，奇异的眼睛颜色，比如红色，是这种诅咒的征兆之一。
+    </p>
+    <p>
+      在普通人眼中，这些只是都市传说，并不真的确定是否有这一群体存在。
+    </p>
+    <p>
+      但其实确有其事——这些人被称为恶能者。他们会使用异能，或是武器、或是操控元素、或是心理暗示。这种能力对普通人不可见，但能对普通人造成影响和伤害。因为这类人群会给身边的人带来诅咒，这种异能被称作“恶能”，或者“恶意”。
+    </p>
+    <p>
+      接下来，可以点击下方不同的概念，了解能力体系。
+    </p>
+  </div>
+
+  <section class="system-index-grid" aria-label="能力体系分区">
+    <IndexSection title="世界的本质" subtitle="The Real World">
+      <div class="index-icon-list">
+        <IndexIconCard href="/system/hypodimension" icon="/icon/hypodimension.png" caption="次维度" alt="次维度图标" />
+        <IndexIconCard href="/system/trace" icon="/icon/chang.png" caption="痕迹，“灵”与“场”" alt="痕迹，灵与场图标" />
+        <IndexIconCard href="/system/innerworld" caption="？？？" />
+      </div>
+    </IndexSection>
+
+    <IndexSection title="魔物" subtitle="Malit">
+      <div class="index-icon-list">
+        <IndexIconCard href="/system/malit" icon="/icon/malit.png" caption="魔物" alt="魔物图标" />
+      </div>
+    </IndexSection>
+
+    <IndexSection title="恶能体系" subtitle="Malice System">
+      <div class="index-icon-list">
+        <IndexIconCard href="/system/malice" icon="/icon/trace.png" caption="恶能" alt="恶能图标" />
+        <IndexIconCard href="/system/weapons" icon="/icon/mergeweapon.png" caption="恶能武器" alt="恶能武器图标" />
+      </div>
+    </IndexSection>
+  </section>
+</IndexLayout>

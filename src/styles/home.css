@@ -1,0 +1,237 @@
+.home-page {
+  --home-paper: rgb(239, 237, 237);
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--home-paper);
+  color: #fff;
+}
+
+.home-main {
+  height: 100svh;
+  overflow: hidden;
+  background: var(--home-paper);
+}
+
+.home-panel {
+  position: relative;
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.home-intro-panel {
+  background: var(--home-paper);
+}
+
+.home-headbar-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  animation: home-headbar-reveal 0.8s ease var(--home-headbar-delay, 9600ms) forwards;
+}
+
+.home-headbar-layer .archive-headbar {
+  z-index: 1;
+}
+
+.home-copy-underlay {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  animation: home-underlay-reveal var(--home-overlay-duration, 1200ms) ease var(--home-overlay-delay, 2450ms) forwards;
+}
+
+.home-type-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 116px clamp(32px, 8vw, 140px) 64px;
+  pointer-events: none;
+  text-align: center;
+}
+
+.home-type-copy {
+  width: min(980px, 100%);
+  max-height: 100%;
+  color: #fff;
+  font-family: var(--font-sans);
+}
+
+.home-paragraph {
+  margin: 0 0 20px;
+  font-size: clamp(18px, 1.34vw, 25px);
+  line-height: 1.36;
+  letter-spacing: 0;
+  opacity: 0;
+  animation: home-paragraph-reveal 0.9s ease var(--paragraph-delay, 3600ms) forwards;
+}
+
+.home-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes home-underlay-reveal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes home-paragraph-reveal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes home-headbar-reveal {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  1% {
+    visibility: visible;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 980px) {
+  .home-page {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .home-main {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .home-panel {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .home-headbar-layer .archive-headbar {
+    min-height: 192px;
+  }
+
+  .home-type-layer {
+    position: relative;
+    inset: auto;
+    min-height: 100svh;
+    height: auto;
+    padding: 232px 24px 48px;
+  }
+
+  .home-type-copy {
+    width: min(680px, 100%);
+    max-height: none;
+    overflow: visible;
+  }
+
+  .home-paragraph {
+    margin-bottom: 10px;
+    font-size: clamp(15px, 3.6vw, 18px);
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-headbar-layer .archive-headbar {
+    min-height: 236px;
+  }
+
+  .home-type-layer {
+    padding: 276px 18px 40px;
+  }
+
+  .home-paragraph {
+    margin-bottom: 9px;
+    font-size: clamp(14px, 3.7vw, 17px);
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-birds-layer img,
+  .home-frame-box,
+  .home-copy-underlay,
+  .home-paragraph,
+  .home-headbar-layer {
+    animation: none;
+  }
+
+  .home-birds-layer img {
+    opacity: 0.94;
+    filter: none;
+  }
+
+  .home-frame-box {
+    opacity: 0.86;
+  }
+
+  .home-copy-underlay,
+  .home-paragraph,
+  .home-headbar-layer {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.home-intro-is-skipped .home-birds-layer img,
+.home-intro-is-skipped .home-frame-box,
+.home-intro-is-skipped .home-copy-underlay,
+.home-intro-is-skipped .home-paragraph,
+.home-intro-is-skipped .home-headbar-layer {
+  animation: none;
+}
+
+.home-intro-is-skipped .home-birds-layer img {
+  opacity: 0.94;
+  filter: none;
+}
+
+.home-intro-is-skipped .home-frame-box {
+  opacity: 0.86;
+}
+
+.home-intro-is-skipped .home-copy-underlay,
+.home-intro-is-skipped .home-paragraph,
+.home-intro-is-skipped .home-headbar-layer {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}

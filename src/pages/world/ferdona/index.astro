@@ -1,9 +1,10 @@
 ---
-import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+import WorldMapLayout from "../../../layouts/WorldMapLayout.astro";
+import { worldMaps } from "../../../data/worldMaps.js";
 ---
 
-<ArchiveLayout title="凡多纳" subtitle="FERDONA" chapter="WORLD FILE" activeSection="world">
-  <p class="archive-kicker">世界观</p>
-  <h1>凡多纳</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
-</ArchiveLayout>
+<WorldMapLayout mapConfig={worldMaps.ferdona}>
+  <p>
+    平行世界的美国（北美），恶能时代的先驱、故事的主要舞台。
+  </p>
+</WorldMapLayout>

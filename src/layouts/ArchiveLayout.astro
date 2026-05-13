@@ -1,48 +1,42 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import ContentFrame from "../components/ContentFrame.astro";
+import Headbar from "../components/Headbar.astro";
+import ArchiveSidebar from "../components/ArchiveSidebar.astro";
+import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
+import ArchiveHeightSync from "../components/ArchiveHeightSync.astro";
+import ContentFrame from "../components/content-frame/ContentFrame.astro";
+import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
 import "../styles/archive.css";
-import { topTabs, sidebarBySection } from "../data/navigation.js";
+import "../styles/content.css";
+import { findNavigationItemByPath, getSectionFromPath, topTabs } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-
-function getCurrentSection(path) {
-  if (path === "/system" || path.startsWith("/system/")) {
-    return "system";
-  }
-
-  if (path === "/characters" || path.startsWith("/characters/")) {
-    return "characters";
-  }
-
-  return "world";
-}
-
-const currentSection = getCurrentSection(currentPath);
+const currentSection = getSectionFromPath(currentPath);
 
 const {
-  sidebarTitle = "档案分类",
-  sidebarTitleEn = "ARCHIVES",
-  sidebarItems: sidebarItemsOverride,
+  title,
+  subtitle,
+  contentMode = "auto",
 } = Astro.props;
 
-const sidebarItems =
-  sidebarItemsOverride ?? sidebarBySection[currentSection] ?? sidebarBySection.world;
-
-function isTopActive(href) {
-  const normalized = href.replace(/\/$/, "");
-  return currentPath === normalized || currentPath.startsWith(normalized + "/");
-}
-
-function isSideActive(href) {
-  if (!href) return false;
-  const normalized = href.replace(/\/$/, "") || "/";
-  return currentPath === normalized;
-}
+const navigationItem = findNavigationItemByPath(currentPath);
+const sectionTab = topTabs.find((tab) => tab.key === currentSection);
+const sectionKicker =
+  currentSection === "characters" ? "FILES" : sectionTab?.labelEn ?? currentSection.toUpperCase();
+const frameTitle = title ?? navigationItem?.label ?? "世界简介";
+const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? "introduction";
+const contentFrameIcon =
+  currentSection === "characters"
+    ? navigationItem?.frameIcon
+    : currentSection === "world" || currentSection === "system"
+      ? navigationItem?.icon
+      : undefined;
+const contentFrameIconCaption = currentSection === "system" ? navigationItem?.label : undefined;
+const contentFrameIconVariant = currentSection === "characters" ? "figure" : "default";
 ---
 
 <BaseLayout>
-  <div class="archive-page">
+  <div class:list={["archive-page", `is-${currentSection}`]}>
     <div class="archive-bg-layer" aria-hidden="true">
       <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
       <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
@@ -62,38 +56,10 @@ function isSideActive(href) {
       <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
     </div>
 
-    <header class="archive-headbar">
-      <a class="archive-brand" href="/">
-        <span class="archive-brand-mark" aria-hidden="true"></span>
-        <span class="archive-brand-text">
-          <span class="archive-brand-title">ReverX世界观快速入坑包</span>
-          <span class="archive-brand-subtitle">ARCHIVES OF MALEVOLENT POWERS</span>
-        </span>
-      </a>
-
-      <nav class="archive-topnav" aria-label="主导航">
-        {topTabs.map((tab) => (
-          <a
-            class:list={[
-              "archive-topnav-item",
-              isTopActive(tab.href) && "is-active",
-            ]}
-            href={tab.href}
-          >
-            <span>{tab.label}</span>
-            <small>{tab.labelEn}</small>
-          </a>
-        ))}
-      </nav>
-
-      <div class="archive-head-actions" aria-hidden="true">
-        <span class="archive-search-icon"></span>
-        <span class="archive-dot-grid"></span>
-      </div>
-    </header>
+    <Headbar />
 
     <section class="archive-hero" aria-hidden="true">
-      <img src="/bg/bg-big-4.png" alt="" />
+      <HomeCoverCanvas variant="static" />
     </section>
 
     <div class="archive-scroll-decor" aria-hidden="true">
@@ -104,63 +70,26 @@ function isSideActive(href) {
     </div>
 
     <main class="archive-shell">
-      <aside class="archive-sidebar">
-        <section class="archive-sidebar-nav">
-          <div class="archive-sidebar-heading">
-            <span>{sidebarTitle}</span>
-            <small>{sidebarTitleEn}</small>
-          </div>
-
-          <nav aria-label="档案分类">
-            {sidebarItems.map((item) => (
-              item.type === "group" ? (
-                item.href ? (
-                  <a
-                    class:list={[
-                      "archive-sidebar-group",
-                      isSideActive(item.href) && "is-active",
-                    ]}
-                    href={item.href}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <div class="archive-sidebar-group">
-                    {item.label}
-                  </div>
-                )
-              ) : (
-                <a
-                  class:list={[
-                    "archive-sidebar-link",
-                    item.depth === 1 && "is-depth-1",
-                    isSideActive(item.href) && "is-active",
-                  ]}
-                   href={item.href}
-                >
-                  {item.icon && (
-                    <img
-                      class:list={[
-                        "archive-sidebar-icon",
-                        item.icon.startsWith("/icon/") && "is-small-source",
-                      ]}
-                      src={item.icon}
-                      alt=""
-                    />
-                  )}
-                  <span>{item.label}</span>
-                </a>
-              )
-            ))}
-          </nav>
-        </section>
-      </aside>
+      <ArchiveSidebar />
 
       <section class="archive-content-area">
-        <ContentFrame>
+        <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
+
+        {contentMode === "custom" ? (
           <slot />
-        </ContentFrame>
+        ) : (
+          <ContentFrame
+            icon={contentFrameIcon}
+            iconAlt={frameTitle}
+            iconCaption={contentFrameIconCaption}
+            iconFrameVariant={contentFrameIconVariant}
+          >
+            <slot />
+          </ContentFrame>
+        )}
       </section>
     </main>
+
+    <ArchiveHeightSync />
   </div>
 </BaseLayout>

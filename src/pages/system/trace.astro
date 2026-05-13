@@ -1,9 +1,59 @@
 ---
+import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
+import ContentFrame from "../../components/content-frame/ContentFrame.astro";
+import ContentFrameBox from "../../components/content-frame/ContentFrameBox.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import { getSidebarAnchorsForPath } from "../../data/navigation.js";
+
+const traceIcons = [
+  { icon: "/icon/trace.png", caption: "「痕迹」" },
+  { icon: "/icon/ling.png", caption: "「灵」" },
+  { icon: "/icon/chang.png", caption: "「场」" },
+];
+
+const anchorsById = Object.fromEntries(
+  getSidebarAnchorsForPath("/system/trace").map((anchor) => [anchor.id, anchor])
+);
+const foundersPlan = anchorsById["founders-plan"];
 ---
 
-<ArchiveLayout title="痕迹" subtitle="TRACE" chapter="SYSTEM FILE" activeSection="system">
-  <p class="archive-kicker">能力体系</p>
-  <h1>痕迹</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
+<ArchiveLayout contentMode="custom">
+  <ContentFrame iconItems={traceIcons} iconFrameVariant="extended">
+    <p>
+      每一个生命在次维度中都对应着一个“灵”，生命在次维度中的投影。一个人活着时，他在现实中的全部经历，都会不断在自己的灵上留下痕迹。痕迹积累得越多，灵承担的压力也越大；当这种积累超过极限，生命就会走向死亡。
+    </p>
+    <p>
+      正常情况下，现实中的人并不会直接接触次维度里的东西。但现实与次维度之间天然存在一些“裂缝”。少量痕迹会通过这些裂缝逸散到现实中，漂浮在空气里。因此，“恶意”这种异能的本质就是「痕迹」。
+    </p>
+    <p>
+      在人类之中，有少部分人可以将空气中飘散的痕迹聚集在自身周围，形成一个自己的“恶意场”（简称场）作为能量池，为自己的特殊能力供能，这些人便是恶能者。场里的痕迹被使用后，可以从空气中继续慢慢补充恢复。而被使用出去的的痕迹，也会再次回到空气中。
+    </p>
+    <p>
+      如果普通人接触空气中的痕迹过多，就会无形中增加灵上痕迹的积累，让自己的灵过早达到痕迹承载上限，并因此死去。而恶能者能将外界痕迹隔绝，存于自身周围形成“场”，灵不会被外界痕迹直接侵蚀，这种现象被称作拥有「抵抗」。
+    </p>
+    <p>
+      正是因为恶能者有“场”，恶能者身边空气中的痕迹浓度会比较大，这会深刻影响没有「抵抗」的普通人。这是恶能者对普通人产生诅咒效果的原因。
+    </p>
+    <p>
+      实际上，由于裂缝的存在，自古以来，人类中便存在少量的恶能者。拥有古老传承的海西，更是早早发展出了属于他们的恶能体系。
+    </p>
+  </ContentFrame>
+
+  <ArchiveEntryHeading
+    id={foundersPlan.id}
+    variant="secondary"
+    title={foundersPlan.label}
+    subtitle={foundersPlan.labelEn}
+  />
+  <ContentFrameBox>
+    <p>
+      在凡多纳，恶能者最早零散聚居于与世隔绝的舍拉姆小镇。1941年，第一台恶能摄影设备被发明，政府首次确认了恶能者这一群体的存在。上世纪中期，出于世界大战与冷战的需求，政府开始秘密招募能力出众的恶能者参与特工体系。其中有二十二人逐渐形成了建立隐秘的、独立的恶能者社会的共同理念，后来被称为“创立者们”，也被后世称作“邪恶老年人”。
+    </p>
+    <p>
+      彼时，恶能者在社会中仍极为稀少。为了扩充同类、推动恶能者社会的形成，“创立者们”付出巨大代价，秘密推动了「开洞计划」，强行撕开现实与次维度之间的裂缝。短时间内，大量痕迹自裂缝涌入现实世界，恶能者的人数陡增，建立隐秘独立社会的夙愿成功，恶能者总部由此诞生。
+    </p>
+    <p>
+      但「开洞计划」带来的并不只有新生。随着痕迹大量泄入现实，随之而来的还有一系列失控的后果，其中最直接的，便是魔物数量的急剧增长。
+    </p>
+  </ContentFrameBox>
 </ArchiveLayout>

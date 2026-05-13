@@ -1,9 +1,16 @@
 ---
-import ArchiveLayout from "../layouts/ArchiveLayout.astro";
+import HomeLayout from "../layouts/HomeLayout.astro";
+
+const homeIntroParagraphs = [
+  "在这个现代的平行世界，存在因由生物活动痕迹产生的神秘异能。能够使用异能的人会对周围的人产生诅咒，“恶意”由此得名。千百年来，恶能者们聚居于远离普通人的地方，行走于人类文明的边缘，出现在不被明说的历史记录里。",
+  "1692年，舍拉姆女巫审判案，舍拉姆的恶能者小镇与法官达成互不干涉协议。",
+  "1941年，第一台证明恶能存在的摄像机在凡多纳被发明，恶能者们首次被政府秘密收编，成为特工编制；",
+  "2010年，“创立者们”打开了链接“恶意”所在次维度的裂缝，开启了潘多拉的盒子，史称「开洞计划」。",
+  "因为大量恶意涌入现实世界，恶能者、魔物陡生。凡多纳出现了初创的独立于普通人的隐秘恶能者社会，来对抗魔物，这种人类之敌。",
+  "开洞计划后的数十年，人类世界的格局悄然改变。",
+  "在凡多纳的隐秘恶能者社会内部，总部、科技公司、辖外之地，各种势力相继崛起，构建成新的权力网络。而广泛的普通人社会中，宗教、魔物崇拜、恐怖组织，这些概念也在逐渐打破常人的认知。",
+  "与此同时，拥有古老恶能传承的海西与特律庭，也需要各自面对时代的潮流。",
+];
 ---
 
-<ArchiveLayout title="世界观概览" subtitle="OVERVIEW OF THE WORLD" chapter="ARCHIVE 01">
-  <p class="archive-kicker">世界观</p>
-  <h1>世界观概览</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
-</ArchiveLayout>
+<HomeLayout introParagraphs={homeIntroParagraphs} />

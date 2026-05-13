@@ -1,9 +1,43 @@
 ---
-import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import IndexIconCard from "../../components/index/IndexIconCard.astro";
+import IndexMapCard from "../../components/index/IndexMapCard.astro";
+import IndexSection from "../../components/index/IndexSection.astro";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import { worldEntities } from "../../data/worldEntities.js";
+
+const ferdonaEntities = ["hq", "prospect", "cabin", "blueprint", "teccasino"].map((key) => worldEntities[key]);
+const hesperaEntities = ["tibernan", "triatine"].map((key) => worldEntities[key]);
+const worldIndexEntities = [...ferdonaEntities, ...hesperaEntities];
 ---
 
-<ArchiveLayout title="世界观概览" subtitle="OVERVIEW OF THE WORLD" chapter="ARCHIVE 01">
-  <p class="archive-kicker">世界观</p>
-  <h1>世界观概览</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
-</ArchiveLayout>
+<IndexLayout>
+  <div slot="intro" class="archive-index-intro-copy">
+    <p>
+      本世界观建立在现实世界的平行世界基础之上。由于海平面相较现实略有下降，陆地版图发生了细微变化，也推动历史进程走向了不同的分支。同样，因为恶能——这种超能力的存在，诞生了隐秘的恶能者势力。本标签主要介绍该世界的现代地理格局、主要势力分布与宗教体系。
+    </p>
+    <p>
+      接下来，可以点击下方地图，先获得对世界版图与区域关系的直观印象；或者直接点击各个势力，了解这个世界。
+    </p>
+  </div>
+  <section class="world-index-grid" aria-label="世界观分区">
+    <IndexSection title="凡多纳" subtitle="FERDONA" description="故事的主舞台">
+      <IndexMapCard href="/world/ferdona" src="/map/ferdona/ferdona_raw.png" alt="凡多纳地图" />
+    </IndexSection>
+
+    <IndexSection title="海西" subtitle="HESPERA" description="古老的传承">
+      <IndexMapCard href="/world/hespera" src="/map/hespera/hespera_raw.png" alt="海西地图" />
+    </IndexSection>
+
+    <IndexSection title="其他势力" subtitle="OTHERS" description="分散于各地的势力">
+      <div class="index-icon-list">
+        <IndexIconCard href="/world/umbral" icon="/big-icon/umbral.png" caption="暗影会" alt="暗影会图标" />
+      </div>
+    </IndexSection>
+  </section>
+
+  <section class="index-icon-list world-index-entity-strip" aria-label="世界观主要势力">
+    {worldIndexEntities.map((entity) => (
+      <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
+    ))}
+  </section>
+</IndexLayout>

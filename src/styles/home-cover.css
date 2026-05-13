@@ -1,0 +1,170 @@
+.home-cover-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: max(100vw, 177.879svh);
+  height: max(100svh, 56.254vw);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-birds-layer {
+  z-index: 1;
+}
+
+.home-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.home-cover-canvas .home-layer img {
+  object-fit: fill;
+}
+
+.home-birds-layer img {
+  opacity: 0;
+  filter: blur(5px);
+  animation: home-birds-resolve 1.2s ease-out 0.12s forwards;
+}
+
+.home-frame-layer {
+  z-index: 2;
+}
+
+.home-frame-box {
+  --home-frame-line-width: clamp(1px, 0.104vw, 2px);
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 1;
+  display: block;
+  width: var(--w);
+  height: var(--h);
+  border: var(--home-frame-line-width) solid currentColor;
+  background: transparent;
+  opacity: 0;
+  animation: home-frame-error-pop 0.26s steps(1, end) var(--frame-delay, 560ms) forwards;
+}
+
+.home-frame-box.is-black-outline {
+  z-index: 2;
+  color: rgba(6, 8, 10, 0.9);
+}
+
+.home-frame-box.is-blue-outline {
+  z-index: 1;
+  color: rgba(48, 91, 145, 0.82);
+}
+
+.home-frame-box.is-blue-filled {
+  z-index: 4;
+  color: rgba(48, 91, 145, 0.86);
+  background: rgb(239, 237, 237);
+  animation-name: home-frame-soft-pop;
+  animation-duration: 0.18s;
+}
+
+.home-frame-box.is-gold-outline {
+  z-index: 3;
+  color: rgba(213, 171, 102, 0.9);
+}
+
+@keyframes home-birds-resolve {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  46% {
+    opacity: 0.62;
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 0.94;
+    filter: blur(0);
+  }
+}
+
+@keyframes home-frame-error-pop {
+  0% {
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 0.15;
+  }
+
+  56% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0.86;
+  }
+}
+
+@keyframes home-frame-soft-pop {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.82;
+  }
+
+  54% {
+    opacity: 0.28;
+  }
+
+  100% {
+    opacity: 0.86;
+  }
+}
+
+.home-cover-canvas.is-static {
+  top: calc(50svh - var(--archive-hero-home-crop-y, 78px));
+}
+
+.home-cover-canvas.is-static .home-birds-layer img,
+.home-cover-canvas.is-static .home-frame-box {
+  animation: none;
+}
+
+.home-cover-canvas.is-static .home-birds-layer img {
+  opacity: 0.94;
+  filter: none;
+}
+
+.home-cover-canvas.is-static .home-frame-box {
+  opacity: 0.86;
+}
+
+@media (max-width: 980px) {
+  .home-layer img {
+    object-position: 42% center;
+  }
+
+  .home-frame-box {
+    border-width: 1px;
+  }
+}

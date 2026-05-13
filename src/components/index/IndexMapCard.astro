@@ -1,0 +1,11 @@
+---
+const {
+  href,
+  src,
+  alt = "",
+} = Astro.props;
+---
+
+<a class="index-map-card" href={href} aria-label={alt}>
+  <img src={src} alt={alt} />
+</a>

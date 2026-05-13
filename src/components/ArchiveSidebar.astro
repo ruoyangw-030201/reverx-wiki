@@ -1,0 +1,201 @@
+---
+import "../styles/sidebar.css";
+import "../styles/active-marker.css";
+import {
+  getSidebarAnchorsForPath,
+  getSidebarItemsForPath,
+  normalizeNavigationHref,
+} from "../data/navigation.js";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const items = getSidebarItemsForPath(currentPath);
+const title = "档案分类";
+const titleEn = "CATEGORIES";
+const ariaLabel = "档案分类";
+
+function isSideActive(href) {
+  if (!href) return false;
+  if (href.includes("#")) return false;
+  return currentPath === normalizeNavigationHref(href);
+}
+
+function normalizeAnchor(itemPath, anchor) {
+  const href = anchor.href ?? `${itemPath}#${anchor.id}`;
+
+  return {
+    ...anchor,
+    depth: 2,
+    isAnchor: true,
+    href,
+  };
+}
+
+function withPageAnchors(sidebarItems) {
+  return sidebarItems.flatMap((item) => {
+    const itemPath = normalizeNavigationHref(item.href);
+    if (item.type === "group" || !itemPath) {
+      return [item];
+    }
+
+    const anchorsForItem = getSidebarAnchorsForPath(itemPath).map((anchor) =>
+      normalizeAnchor(itemPath, anchor)
+    );
+
+    return anchorsForItem.length > 0 ? [item, ...anchorsForItem] : [item];
+  });
+}
+
+const sidebarItems = withPageAnchors(items);
+---
+
+<aside class="archive-sidebar">
+  <section class="archive-sidebar-nav">
+    <div class="archive-sidebar-heading">
+      <span>{title}</span>
+      <small>{titleEn}</small>
+    </div>
+
+    <nav aria-label={ariaLabel}>
+      {sidebarItems.map((item) => (
+        item.type === "group" ? (
+          item.href ? (
+            <a
+              class:list={[
+                "archive-sidebar-group",
+                "is-clickable",
+                isSideActive(item.href) && "is-active",
+              ]}
+              href={item.href}
+            >
+              {item.label}
+              <span class="archive-hourglass-marker" aria-hidden="true">
+                <span class="archive-hourglass-cap"></span>
+                <span class="archive-hourglass-line"></span>
+                <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+              </span>
+            </a>
+          ) : (
+            <div class="archive-sidebar-group">
+              {item.label}
+            </div>
+          )
+        ) : (
+          <a
+            class:list={[
+              "archive-sidebar-link",
+              item.depth === 2 && "is-depth-2",
+              item.isAnchor && "is-anchor",
+              isSideActive(item.href) && "is-active",
+            ]}
+            href={item.href}
+            data-sidebar-anchor={item.isAnchor ? item.href : undefined}
+          >
+            {item.icon && (
+              <img
+                class:list={[
+                  "archive-sidebar-icon",
+                  item.icon.startsWith("/icon/") && "is-small-source",
+                ]}
+                src={item.icon}
+                alt=""
+              />
+            )}
+            <span class="archive-sidebar-label">{item.label}</span>
+            <span class="archive-hourglass-marker" aria-hidden="true">
+              <span class="archive-hourglass-line"></span>
+              <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+              <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+            </span>
+          </a>
+        )
+      ))}
+    </nav>
+  </section>
+</aside>
+
+<script is:inline>
+  (() => {
+    const initSidebarAnchorState = () => {
+      const normalizePath = (path) => path.replace(/\/$/, "") || "/";
+      const currentPath = normalizePath(window.location.pathname);
+      const anchorLinks = Array.from(document.querySelectorAll("[data-sidebar-anchor]"))
+        .filter((link) => {
+          const href = link.getAttribute("href");
+          if (!href) return false;
+          const url = new URL(href, window.location.origin);
+          return normalizePath(url.pathname) === currentPath && Boolean(url.hash);
+        });
+
+      if (!anchorLinks.length) return;
+
+      const linkById = new Map();
+      const targets = [];
+
+      anchorLinks.forEach((link) => {
+        const url = new URL(link.getAttribute("href"), window.location.origin);
+        const id = decodeURIComponent(url.hash.slice(1));
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        if (!linkById.has(id)) {
+          linkById.set(id, []);
+          targets.push(target);
+        }
+        linkById.get(id).push(link);
+      });
+
+      if (!targets.length) return;
+
+      const setActiveAnchor = (id) => {
+        anchorLinks.forEach((link) => link.classList.remove("is-anchor-active"));
+        if (!id || !linkById.has(id)) return;
+        linkById.get(id).forEach((link) => link.classList.add("is-anchor-active"));
+      };
+
+      const updateActiveAnchor = () => {
+        const referenceY = window.innerHeight * 0.36;
+        let activeTarget = null;
+
+        targets.forEach((target, index) => {
+          const rect = target.getBoundingClientRect();
+          const nextTarget = targets[index + 1];
+          const nextContent = target.nextElementSibling;
+          const rangeBottom = nextTarget
+            ? nextTarget.getBoundingClientRect().top
+            : Math.max(
+                rect.bottom,
+                nextContent?.getBoundingClientRect().bottom ?? rect.bottom
+              );
+
+          if (rect.top <= referenceY && rangeBottom > referenceY) {
+            activeTarget = target;
+          }
+        });
+
+        setActiveAnchor(activeTarget?.id);
+      };
+
+      let ticking = false;
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          ticking = false;
+          updateActiveAnchor();
+        });
+      };
+
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate);
+      window.addEventListener("hashchange", requestUpdate);
+      updateActiveAnchor();
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initSidebarAnchorState, { once: true });
+    } else {
+      initSidebarAnchorState();
+    }
+  })();
+</script>

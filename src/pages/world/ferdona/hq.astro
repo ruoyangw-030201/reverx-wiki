@@ -1,9 +1,96 @@
 ---
+import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
+import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
+import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
+import ContentFrameJunction from "../../../components/content-frame/ContentFrameJunction.astro";
+import { resolveWorldEntity } from "../../../data/worldEntities.js";
 import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+
+const hq = resolveWorldEntity("hq");
+const shalom = resolveWorldEntity("shalom");
+const rattown = resolveWorldEntity("rattown");
+const taran = resolveWorldEntity("taran");
+const contech = resolveWorldEntity("contech");
+const ida = resolveWorldEntity("ida");
 ---
 
-<ArchiveLayout title="恶能者总部" subtitle="HEADQUARTERS" chapter="WORLD FILE" activeSection="world">
-  <p class="archive-kicker">世界观</p>
-  <h1>恶能者总部</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
+<ArchiveLayout contentMode="custom">
+  <ContentFrame icon={hq.icon} iconAlt={hq.label}>
+    <p>
+      由「开洞计划」的“创立者们”建设的、政府承认的官方恶能者社会，不为普通人所知，仅收容恶能者们于基地中生活，主要有舍拉姆、莱城、塔兰三大基地和数个小基地，隐秘分布于各个州中。上设主席，上议会（又称创立者议会），下议会。主要辖地为凡多纳东、北部。
+    </p>
+    <p>
+      在基地中，恶能者社会如正常社会一般运行。能力出众者可以进入「猎魔者」小队中，进行消灭魔物的战斗。
+    </p>
+  </ContentFrame>
+
+  <ArchiveEntryHeading id="shalom-base" variant="secondary" title={shalom.label} subtitle={shalom.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon="/big-icon/shalom.png" />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      管理东北部比乐吉等五州的恶能者基地，位置处于比乐吉州。
+    </p>
+    <p>
+      平行世界的塞勒姆，是移民以来凡多纳恶能者与世隔绝的聚居小镇。1692年，名为“女巫”的魔物肆虐了这里，留下了后世的审判案。这里是大多数“创立者们”的家乡，改建为最早的三大基地之一。建筑呈现出典型的小镇风格。
+    </p>
+  </ContentFrameBox>
+
+  <ArchiveEntryHeading id="rattown-base" variant="secondary" title={rattown.label} subtitle={rattown.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon="/big-icon/rattown.png" />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      管理中部华斯特兰等四州的恶能者基地，位置处于华斯特兰州。
+    </p>
+    <p>
+      平行世界的底特律，现恶能者世界的总部政府所在地和行政中心，人口众多。基地建筑呈现出工业风格。
+    </p>
+  </ContentFrameBox>
+
+  <ArchiveEntryHeading id="taran-base" variant="secondary" title={taran.label} subtitle={taran.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon="/big-icon/taran.png" />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      管理北部林恩和卢瑞菲尔德二州的恶能者基地，位置处于林恩州。主角西奥多·维杰所属组织。
+    </p>
+    <p>
+      平行世界的多伦多，建造时间晚于前两个基地，因而呈现出现代化感。
+    </p>
+  </ContentFrameBox>
+
+  <ArchiveEntryHeading id="contech" variant="secondary" title={contech.label} subtitle={contech.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon={contech.icon} />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      总部为对抗希景成立的科技公司，主要发展与恶能能量相关的前沿技术。总部官方武器供应。位于莱城基地，在塔兰基地有守恒-塔兰分部。
+    </p>
+  </ContentFrameBox>
+
+  <ArchiveEntryHeading id="ida" variant="secondary" title={ida.label} subtitle={ida.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon={ida.icon} />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      致力于寻找拥有「解构级」能力的恶能者的协会。主办IDA峰会，是总部和其他势力交流的平台。同样发行军火武器，与守恒科技一起构成总部的武器部。
+    </p>
+  </ContentFrameBox>
 </ArchiveLayout>

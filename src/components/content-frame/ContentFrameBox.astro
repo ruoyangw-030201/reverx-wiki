@@ -1,0 +1,64 @@
+---
+import "../../styles/content-frame.css";
+
+const {
+  minHeight = "250px",
+  decorHeight = "1000px",
+  showPaper = true,
+  showLines = true,
+  showUnderlay = false,
+} = Astro.props;
+
+const minHeightValue = String(minHeight);
+const minHeightNumber = Number.parseFloat(minHeightValue);
+const frameTop = 126;
+const frameHeight = minHeightValue.endsWith("px") && Number.isFinite(minHeightNumber)
+  ? minHeightNumber
+  : 250;
+const visualHeight = frameTop + frameHeight;
+const glyphOffset = 28;
+const glyphTop = frameTop + frameHeight * (118 / 872) + glyphOffset;
+const glyphMiddle = frameTop + frameHeight * (328 / 872) + glyphOffset;
+const glyphBottom = frameTop + frameHeight * (538 / 872) + glyphOffset;
+const glyphHeight = glyphBottom - glyphTop;
+
+const frameVars = [
+  `--content-frame-box-height: ${minHeightValue}`,
+  `--content-frame-decor-height: ${decorHeight}`,
+  `--content-frame-visual-height: ${visualHeight}px`,
+  `--content-frame-glyph-y-1: ${glyphTop}px`,
+  `--content-frame-glyph-y-2: ${glyphMiddle}px`,
+  `--content-frame-glyph-y-3: ${glyphBottom}px`,
+  `--content-frame-glyph-height: ${glyphHeight}px`,
+].join("; ");
+---
+
+<div class="content-frame" style={frameVars}>
+  {showUnderlay && (
+    <div class="content-frame-underlay" aria-hidden="true">
+      <slot name="underlay" />
+    </div>
+  )}
+
+  {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
+
+  {showLines && (
+    <div class="content-frame-lines" aria-hidden="true">
+      <span class="content-frame-line-box content-frame-line-main"></span>
+      <span class="content-frame-line-box content-frame-line-blue"></span>
+      <span class="content-frame-line-box content-frame-line-russet"></span>
+      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
+      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
+      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
+      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
+    </div>
+  )}
+
+  <div class="content-frame-overlay" aria-hidden="true">
+    <slot name="overlay" />
+  </div>
+
+  <div class="content-frame-body">
+    <slot />
+  </div>
+</div>

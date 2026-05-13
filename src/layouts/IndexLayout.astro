@@ -1,0 +1,61 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Headbar from "../components/Headbar.astro";
+import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
+import ArchiveHeightSync from "../components/ArchiveHeightSync.astro";
+import "../styles/archive.css";
+import "../styles/content.css";
+import "../styles/index.css";
+import { findNavigationItemByPath, getSectionFromPath, topTabs } from "../data/navigation.js";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const currentSection = getSectionFromPath(currentPath);
+
+const {
+  title,
+  subtitle,
+} = Astro.props;
+
+const navigationItem = findNavigationItemByPath(currentPath);
+const sectionTab = topTabs.find((tab) => tab.key === currentSection);
+const sectionKicker = "INDEX";
+const frameTitle = title ?? navigationItem?.label ?? sectionTab?.label ?? "档案";
+const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn ?? "index";
+---
+
+<BaseLayout>
+  <div class:list={["archive-page", "archive-index-page", `is-${currentSection}`]}>
+    <div class="archive-bg-layer" aria-hidden="true">
+      <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
+      <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
+      <img class="bg-texture bg-texture-3" src="/texture/texture-3.png" alt="" />
+      <img class="bg-texture bg-texture-7" src="/texture/texture-7.png" alt="" />
+      <img class="bg-texture bg-texture-9" src="/texture/texture-9.png" alt="" />
+
+      <img class="bg-texture bg-gold-dot bg-gold-dot-1" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-2" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-3" src="/texture/texture-5.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-2" src="/texture/texture-6.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-2" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
+    </div>
+
+    <Headbar />
+
+    <main class="archive-shell archive-index-shell">
+      <section class="archive-content-area archive-index-content">
+        <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
+        <section class="archive-index-intro-box">
+          <slot name="intro" />
+        </section>
+        <slot />
+      </section>
+    </main>
+
+    <ArchiveHeightSync />
+  </div>
+</BaseLayout>

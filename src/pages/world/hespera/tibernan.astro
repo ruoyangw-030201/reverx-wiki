@@ -1,9 +1,41 @@
 ---
+import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
+import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
+import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
+import ContentFrameJunction from "../../../components/content-frame/ContentFrameJunction.astro";
+import { resolveWorldEntity } from "../../../data/worldEntities.js";
 import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+
+const tibernan = resolveWorldEntity("tibernan");
+const celespian = resolveWorldEntity("celespian");
 ---
 
-<ArchiveLayout title="缇柏南城" subtitle="TIBERNAN" chapter="WORLD FILE" activeSection="world">
-  <p class="archive-kicker">世界观</p>
-  <h1>缇柏南城</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
+<ArchiveLayout contentMode="custom">
+  <ContentFrame icon={tibernan.icon} iconAlt={tibernan.label}>
+    <p>
+      平行世界的梵蒂冈城。千百年来的缇波纳（平行世界的罗马）首都，主教廷所在地。
+    </p>
+    <p>
+      海西普遍体制为君主立宪，然而，主教廷实际上保有千百年来恶能者的传承，形成以古老贵族家族为主的封闭体系。在海西，恶能者被称为「圣术师」，意为被“主”启迪的圣术。奉行地、水、风、火、以太的五大元素分支。历代教廷皇帝-教皇（又称塞勒西，见下）作为贵族家族的顶端，也是圣术师社会的掌控者。
+    </p>
+  </ContentFrame>
+
+  <ArchiveEntryHeading id="celespian" variant="secondary" title={celespian.label} subtitle={celespian.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon={celespian.icon} />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      信仰“主”的一神教，认为古代贤人塞勒西是主的化身。有圣权派和圣民派两个分支。
+    </p>
+    <p>
+      【圣权派】坚持君权神授，历代缇波纳皇帝都会冠以“塞勒西”头衔，既是皇帝，也是教皇，更被视为此世主的化身。海西普遍信仰圣权派，即皇帝本人。
+    </p>
+    <p>
+      【圣民派】认为与主的联系属于每一个人，主张个人修行与自由信仰，不信仰皇帝塞勒西。在海西属于异端。
+    </p>
+  </ContentFrameBox>
 </ArchiveLayout>

@@ -1,9 +1,32 @@
 ---
+import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
+import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
+import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
+import ContentFrameJunction from "../../../components/content-frame/ContentFrameJunction.astro";
+import { resolveWorldEntity } from "../../../data/worldEntities.js";
 import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+
+const triatine = resolveWorldEntity("triatine");
+const qenevian = resolveWorldEntity("qenevian");
 ---
 
-<ArchiveLayout title="特律庭" subtitle="TRIATINE" chapter="WORLD FILE" activeSection="world">
-  <p class="archive-kicker">世界观</p>
-  <h1>特律庭</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
+<ArchiveLayout contentMode="custom">
+  <ContentFrame icon={triatine.icon} iconAlt={triatine.label}>
+    <p>
+      平行世界的以色列、拜占庭与古俄罗斯的糅合国家。经历古特律庭（罗马时代）、东特律庭（中世纪）、新特律庭（现代）阶段。普遍信仰珂涅教，宗教氛围浓厚。
+    </p>
+  </ContentFrame>
+
+  <ArchiveEntryHeading id="qenevian" variant="secondary" title={qenevian.label} subtitle={qenevian.labelEn} />
+  <ContentFrameBox>
+    <Fragment slot="overlay">
+      <ContentFrameIconFrame icon={qenevian.icon} />
+      <ContentFrameJunction />
+    </Fragment>
+
+    <p>
+      比塞勒西教更为古老的宗教、塞勒西教的前身，只信仰“主”的一神教。与塞勒西教的分歧在于认为塞勒西只是“主”的先知，而非他的化身。反对偶像崇拜。
+    </p>
+  </ContentFrameBox>
 </ArchiveLayout>

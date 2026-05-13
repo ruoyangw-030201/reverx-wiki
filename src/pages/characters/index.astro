@@ -1,9 +1,35 @@
 ---
-import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import IndexIconCard from "../../components/index/IndexIconCard.astro";
+import IndexSection from "../../components/index/IndexSection.astro";
+import IndexLayout from "../../layouts/IndexLayout.astro";
 ---
 
-<ArchiveLayout title="角色档案" subtitle="CHARACTER FILES" chapter="ARCHIVE 03" activeSection="characters">
-  <p class="archive-kicker">角色档案</p>
-  <h1>角色档案</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
-</ArchiveLayout>
+<IndexLayout>
+  <div slot="intro" class="archive-index-intro-copy">
+    <p>
+      本标签收录了主要角色档案，包括人物身份、所属势力、能力设定等。
+    </p>
+    <p>
+      接下来，可以点击下方的人物头像，了解角色档案。
+    </p>
+  </div>
+
+  <section class="characters-index-grid" aria-label="角色档案分区">
+    <IndexSection title="总部势力" subtitle="HQ">
+      <div class="index-icon-list">
+        <IndexIconCard href="/characters/theo" icon="/figure-icon/theo.png" caption="西奥多·维杰" alt="西奥多·维杰人物图标" />
+        <IndexIconCard href="/characters/ornette" icon="/figure-icon/op.png" caption="欧奈特·帕克" alt="欧奈特·帕克人物图标" />
+      </div>
+    </IndexSection>
+
+    <IndexSection title="希景势力" subtitle="Prospect" />
+
+    <IndexSection title="小屋势力" subtitle="Cabin" />
+
+    <IndexSection title="其他凡多纳势力" subtitle="Others in Ferdona" />
+
+    <IndexSection title="海西势力" subtitle="Hespera" />
+
+    <IndexSection title="魔物与其他" subtitle="Malit & Others" />
+  </section>
+</IndexLayout>

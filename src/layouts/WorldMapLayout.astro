@@ -1,0 +1,196 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Headbar from "../components/Headbar.astro";
+import ArchiveSidebar from "../components/ArchiveSidebar.astro";
+import ArchiveHeightSync from "../components/ArchiveHeightSync.astro";
+import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
+import "../styles/archive.css";
+import "../styles/world-map.css";
+
+const { mapConfig } = Astro.props;
+const { width, height } = mapConfig.size;
+const hasContent = Astro.slots.has("default");
+
+function positionStyle(x, y) {
+  return `--map-x: ${(x / width) * 100}%; --map-y: ${(y / height) * 100}%;`;
+}
+---
+
+<BaseLayout>
+  <div class="archive-page world-map-page">
+    <div class="archive-bg-layer" aria-hidden="true">
+      <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
+      <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
+      <img class="bg-texture bg-texture-3" src="/texture/texture-3.png" alt="" />
+      <img class="bg-texture bg-texture-7" src="/texture/texture-7.png" alt="" />
+      <img class="bg-texture bg-texture-9" src="/texture/texture-9.png" alt="" />
+
+      <img class="bg-texture bg-gold-dot bg-gold-dot-1" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-2" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-3" src="/texture/texture-5.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-2" src="/texture/texture-6.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-2" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
+    </div>
+
+    <Headbar />
+
+    <div class="archive-scroll-decor world-map-scroll-decor" aria-hidden="true">
+      <img class="scroll-decor scroll-decor-big" src="/bg/bg-big-3.png" alt="" />
+      <img class="scroll-decor scroll-decor-tri" src="/bg/bg-small-2.png" alt="" />
+      <img class="scroll-decor scroll-decor-orb" src="/bg/bg-small-3.png" alt="" />
+      <img class="scroll-decor scroll-decor-poly" src="/bg/bg-small-4.png" alt="" />
+    </div>
+
+    <main class="archive-shell world-map-shell">
+      <section class="world-map-content-area" aria-labelledby="world-map-title">
+        <div class="world-map-panel" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
+          <div class="world-map-stage">
+            <img class="world-map-image" src={mapConfig.image} alt={`${mapConfig.title}地图`} />
+
+            <svg
+              class="world-map-regions"
+              viewBox={`0 0 ${width} ${height}`}
+              preserveAspectRatio="none"
+              aria-label={`${mapConfig.title}势力区域`}
+            >
+              <defs>
+                <filter id={`world-map-region-glow-${mapConfig.key}`} x="-8%" y="-8%" width="116%" height="116%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#e0c28f" flood-opacity="0.72" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#c89b5a" flood-opacity="0.34" />
+                </filter>
+              </defs>
+
+              {mapConfig.regions.map((region) => (
+                region.href ? (
+                  <a
+                    class="world-map-region is-clickable"
+                    href={region.href}
+                    style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
+                    aria-label={region.label}
+                    data-region-label={region.label}
+                    data-region-label-en={region.labelEn}
+                    data-region-icon={region.icon ?? "/icon/document.png"}
+                  >
+                    <title>{region.label}</title>
+                    <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
+                  </a>
+                ) : (
+                  <g
+                    class="world-map-region"
+                    style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
+                    aria-label={region.label}
+                    data-region-label={region.label}
+                    data-region-label-en={region.labelEn}
+                    data-region-icon={region.icon ?? "/icon/document.png"}
+                  >
+                    <title>{region.label}</title>
+                    <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
+                  </g>
+                )
+              ))}
+            </svg>
+
+            <div class="world-map-label-layer" aria-hidden="true">
+              {mapConfig.labels.map((label) => (
+                <span class="world-map-label is-state" style={positionStyle(label.x, label.y)}>
+                  {label.text}
+                </span>
+              ))}
+
+              {mapConfig.cities.map((city) => (
+                <>
+                  <span class="world-map-city-marker" style={positionStyle(city.markerX, city.markerY)}></span>
+                  <span class="world-map-label is-city" style={positionStyle(city.x, city.y)}>
+                    {city.text}
+                  </span>
+                </>
+              ))}
+            </div>
+
+            <div class="world-map-region-card" aria-hidden="true">
+              <img class="world-map-region-card-icon" src="/icon/document.png" alt="" />
+              <span class="world-map-region-card-copy">
+                <span class="world-map-region-card-label"></span>
+                <small class="world-map-region-card-label-en"></small>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="world-map-lower">
+        <ArchiveSidebar />
+
+        <div class="world-map-details">
+          <header class="world-map-heading">
+            <span class="world-map-heading-kicker">WORLD MAP</span>
+            <h1 id="world-map-title">{mapConfig.title}</h1>
+            <p>{mapConfig.subtitle}</p>
+          </header>
+
+          <ContentFrameBox minHeight="250px">
+            {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
+          </ContentFrameBox>
+        </div>
+      </section>
+    </main>
+
+    <ArchiveHeightSync />
+  </div>
+</BaseLayout>
+
+<script>
+  function setupWorldMapRegionCards() {
+    document.querySelectorAll(".world-map-stage").forEach((stage) => {
+      const svg = stage.querySelector(".world-map-regions");
+      const card = stage.querySelector(".world-map-region-card");
+      const cardIcon = stage.querySelector(".world-map-region-card-icon");
+      const cardLabel = stage.querySelector(".world-map-region-card-label");
+      const cardLabelEn = stage.querySelector(".world-map-region-card-label-en");
+
+      if (!(svg instanceof SVGSVGElement) || !card || !cardIcon || !cardLabel || !cardLabelEn) return;
+
+      const viewBox = svg.viewBox.baseVal;
+
+      function showCard(region) {
+        const shape = region.querySelector(".world-map-region-shape");
+        const label = region.dataset.regionLabel ?? "";
+        const labelEn = region.dataset.regionLabelEn ?? "";
+        const icon = region.dataset.regionIcon ?? "/icon/document.png";
+
+        if (!(shape instanceof SVGGraphicsElement) || !label) return;
+
+        const box = shape.getBBox();
+        const centerX = ((box.x + box.width / 2) / viewBox.width) * 100;
+        const centerY = ((box.y + box.height / 2) / viewBox.height) * 100;
+
+        card.style.setProperty("--card-x", `${centerX}%`);
+        card.style.setProperty("--card-y", `${centerY}%`);
+        cardIcon.setAttribute("src", icon);
+        cardLabel.textContent = label;
+        cardLabelEn.textContent = labelEn;
+        cardLabelEn.toggleAttribute("hidden", !labelEn);
+        card.classList.add("is-visible");
+      }
+
+      function hideCard() {
+        card.classList.remove("is-visible");
+      }
+
+      stage.querySelectorAll(".world-map-region").forEach((region) => {
+        region.addEventListener("pointerenter", () => showCard(region));
+        region.addEventListener("pointerleave", hideCard);
+        region.addEventListener("focusin", () => showCard(region));
+        region.addEventListener("focusout", hideCard);
+      });
+    });
+  }
+
+  setupWorldMapRegionCards();
+  document.addEventListener("astro:page-load", setupWorldMapRegionCards);
+</script>

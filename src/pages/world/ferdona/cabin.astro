@@ -1,9 +1,28 @@
 ---
+import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
+import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
+import { resolveWorldEntity } from "../../../data/worldEntities.js";
 import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+
+const cabin = resolveWorldEntity("cabin");
+const pathera = resolveWorldEntity("pathera");
 ---
 
-<ArchiveLayout title="福尔瑙伊州小屋" subtitle="CABIN" chapter="WORLD FILE" activeSection="world">
-  <p class="archive-kicker">世界观</p>
-  <h1>福尔瑙伊州小屋</h1>
-  <p class="archive-placeholder">此档案页已接入 ReverX 档案库视觉骨架。正文内容等待后续指令导入。</p>
+<ArchiveLayout contentMode="custom">
+  <ContentFrame icon={cabin.icon} iconAlt={cabin.label}>
+    <p>
+      总部的辖外之地，早期希景公司的殖民地。在经历由希景公司出逃的改造成品——切泽·伯恩带领的变革、反抗后，逐渐发展为遍布凡多纳西部的独立势力，也获得了总部的承认。最高管理者为名为「小屋」的猎魔者机构。
+    </p>
+    <p>
+      不设集中基地，福州的恶能者们生活在网状分布的安全屋中，与普通人的接触比总部更多。保证安全的模式是小屋的响应机制，在恶能者成员遇到危险的时候，小屋有一套成熟的快速支援系统。
+    </p>
+  </ContentFrame>
+
+  <ArchiveEntryHeading id="pathera" variant="secondary" title={pathera.label} subtitle={pathera.labelEn} />
+  <ContentFrameBox>
+    <p>
+      总部的辖外之地，在福尔瑙伊州小屋建成后加入了小屋的系统中，现在也属于小屋的管辖范围。小屋的战略盟友。拥有自己独立的恶能者工业企业-边缘计划公司/EP（Edge Project Co.）。
+    </p>
+  </ContentFrameBox>
 </ArchiveLayout>

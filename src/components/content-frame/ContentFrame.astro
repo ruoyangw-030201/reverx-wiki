@@ -1,0 +1,57 @@
+---
+import ContentFrameBox from "./ContentFrameBox.astro";
+import ContentFrameIconFrame from "./ContentFrameIconFrame.astro";
+import ContentFrameJunction from "./ContentFrameJunction.astro";
+import ContentFrameLeftDecor from "./ContentFrameLeftDecor.astro";
+import ContentFrameRightDecor from "./ContentFrameRightDecor.astro";
+
+const {
+  minHeight = "250px",
+  decorHeight = "1000px",
+  showPaper = true,
+  showLines = true,
+  showLeftDecor = true,
+  showRightDecor = true,
+  showIconFrame = true,
+  showJunction = true,
+  icon,
+  iconAlt = "",
+  iconCaption,
+  iconItems,
+  iconFrameVariant = "default",
+} = Astro.props;
+
+const showDecor = showLeftDecor || showRightDecor;
+---
+
+<ContentFrameBox
+  minHeight={minHeight}
+  decorHeight={decorHeight}
+  showPaper={showPaper}
+  showLines={showLines}
+  showUnderlay={showDecor}
+>
+  {showDecor && (
+    <Fragment slot="underlay">
+      {showLeftDecor && <ContentFrameLeftDecor />}
+      {showRightDecor && <ContentFrameRightDecor />}
+    </Fragment>
+  )}
+
+  {(showIconFrame || showJunction) && (
+    <Fragment slot="overlay">
+      {showIconFrame && (
+        <ContentFrameIconFrame
+          icon={icon}
+          iconAlt={iconAlt}
+          caption={iconCaption}
+          items={iconItems}
+          variant={iconFrameVariant}
+        />
+      )}
+      {showJunction && <ContentFrameJunction />}
+    </Fragment>
+  )}
+
+  <slot />
+</ContentFrameBox>

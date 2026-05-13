@@ -1,0 +1,70 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Headbar from "../components/Headbar.astro";
+import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
+import "../styles/home.css";
+
+const {
+  introParagraphs = [],
+} = Astro.props;
+
+const OVERLAY_START_DELAY = 2450;
+const OVERLAY_DURATION = 1200;
+const PARAGRAPH_START_DELAY = 3600;
+const PARAGRAPH_STEP = 1900;
+const PARAGRAPH_FADE_DURATION = 900;
+const HEADBAR_REVEAL_GAP = 2100;
+
+const homeParagraphs = introParagraphs
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
+
+const lastParagraphDelay = PARAGRAPH_START_DELAY + Math.max(0, homeParagraphs.length - 1) * PARAGRAPH_STEP;
+const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION + HEADBAR_REVEAL_GAP;
+---
+
+<BaseLayout>
+  <script is:inline>
+    (() => {
+      const introSeenKey = "reverx-home-intro-seen";
+
+      try {
+        if (window.sessionStorage.getItem(introSeenKey) === "true") {
+          document.documentElement.classList.add("home-intro-is-skipped");
+          return;
+        }
+
+        window.sessionStorage.setItem(introSeenKey, "true");
+      } catch {
+        // If storage is unavailable, keep the animated first-run experience.
+      }
+    })();
+  </script>
+
+  <div
+    class="home-page"
+    style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms;`}
+  >
+    <main class="home-main" aria-label="首页介绍">
+      <section class="home-panel home-intro-panel" aria-label="ReverX 首页视觉开场">
+        <div class="home-headbar-layer">
+          <Headbar />
+        </div>
+
+        <HomeCoverCanvas variant="animated" />
+
+        <div class="home-copy-underlay" aria-hidden="true"></div>
+
+        <div class="home-type-layer">
+          <div class="home-type-copy">
+            {homeParagraphs.map((paragraph, index) => (
+              <p class="home-paragraph" style={`--paragraph-delay: ${PARAGRAPH_START_DELAY + index * PARAGRAPH_STEP}ms;`}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>

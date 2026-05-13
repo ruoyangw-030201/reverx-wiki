@@ -1,0 +1,55 @@
+---
+import "../styles/headbar.css";
+import "../styles/active-marker.css";
+import { topTabs } from "../data/navigation.js";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+function normalizeHref(href) {
+  if (!href) return "";
+  const [path] = href.split("#");
+  return path.replace(/\/$/, "") || "/";
+}
+
+function isTopActive(href) {
+  const normalized = normalizeHref(href);
+  return currentPath === normalized || currentPath.startsWith(normalized + "/");
+}
+---
+
+<header class="archive-headbar">
+  <a class="archive-brand" href="/">
+    <img class="archive-brand-icon" src="/big-icon/reverx.png" alt="" aria-hidden="true" />
+    <span class="archive-brand-text">
+      <span class="archive-brand-title">世界观快速入坑包</span>
+    </span>
+  </a>
+
+  <nav class="archive-topnav" aria-label="主导航">
+    {topTabs.map((tab, index) => (
+      <>
+        {index > 0 && <span class="archive-topnav-divider" aria-hidden="true"></span>}
+        <a
+          class:list={[
+            "archive-topnav-item",
+            isTopActive(tab.href) && "is-active",
+          ]}
+          href={tab.href}
+        >
+          <span>{tab.label}</span>
+          <small>{tab.labelEn}</small>
+          <span class="archive-hourglass-marker" aria-hidden="true">
+            <span class="archive-hourglass-line"></span>
+            <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+            <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+          </span>
+        </a>
+      </>
+    ))}
+  </nav>
+
+  <div class="archive-head-actions" aria-hidden="true">
+    <span class="archive-search-icon"></span>
+    <span class="archive-dot-grid"></span>
+  </div>
+</header>
