@@ -1,8 +1,6 @@
 .archive-page {
-  --archive-page-bottom-margin: 160px;
-  --archive-page-measured-height: 100svh;
   position: relative;
-  min-height: max(100svh, var(--archive-page-measured-height));
+  min-height: max(2200px, 280vh);
   background: var(--theme-bg);
   color: var(--color-ink);
   overflow-x: hidden;
@@ -30,7 +28,7 @@
 .bg-texture-1 {
   width: 15.75vw;
   min-width: 173px;
-  top: 132px;
+  top: 0px;
   left: 30vw;
 }
 
@@ -144,11 +142,12 @@
 
 .archive-scroll-decor {
   position: absolute;
-  inset: 78px 0 0;
+  left: 0;
+  top: 78px;
+  width: 100%;
+  min-height: max(2200px, 280vh);
   z-index: 6;
   pointer-events: none;
-  contain: layout paint;
-  content-visibility: auto;
   overflow: hidden;
 }
 
@@ -163,8 +162,7 @@
 /* 下方大背景：常规视图中露出一半，另一半滚动后出现 */
 .scroll-decor-big {
   width: 110%;
-  height: 1500px;
-  max-height: 110%;
+  height: 110%;
   right: -2vw;
   top: 100px;
   opacity: 0.3;
@@ -191,8 +189,7 @@
 /* 左下三角素描 */
 .scroll-decor-tri {
   width: 40%;
-  height: 820px;
-  max-height: 40%;
+  height: 40%;
   right: 70vw;
   top: 900px;
 }
@@ -206,7 +203,7 @@
   grid-template-columns: 216px minmax(0, 1fr);
   align-items: start;
   gap: 42px;
-  padding: 24px 40px 0 0;
+  padding: 24px 40px 160px 0;
 }
 
 /* ========== content frame ========== */
@@ -215,11 +212,11 @@
   --archive-heading-frame-offset: -84px;
   --archive-section-gap: 0px;
   position: relative;
-  min-height: 0;
+  min-height: 1200px;
   width: calc(100% + 86px);
   margin-top: 0;
   margin-left: -72px;
-  padding: 0;
+  padding: 0 0 120px 0;
   z-index: 2;
 }
 
@@ -238,10 +235,6 @@
 /* ========== responsive ========== */
 
 @media (max-width: 980px) {
-  .archive-page {
-    --archive-page-bottom-margin: 80px;
-  }
-
   .archive-page.is-world .archive-hero {
     --archive-hero-home-crop-y: 192px;
   }
@@ -257,7 +250,6 @@
   .archive-shell {
     grid-template-columns: 1fr;
     padding: 20px;
-    padding-bottom: 0;
   }
 
   .archive-content-area {
@@ -266,7 +258,7 @@
     margin-top: 0;
     margin-left: 0;
     min-height: 0;
-    padding: 12px 0 0;
+    padding: 12px 0 80px;
   }
 
 }

@@ -5,9 +5,8 @@
 }
 
 .archive-index-page.is-characters {
-  --archive-page-bottom-margin: 96px;
   height: auto;
-  min-height: max(100svh, var(--archive-page-measured-height));
+  min-height: 100svh;
   overflow-x: hidden;
   overflow-y: visible;
 }
@@ -25,7 +24,7 @@
   height: auto;
   min-height: calc(100svh - 78px);
   overflow: visible;
-  padding-bottom: 0;
+  padding-bottom: 96px;
 }
 
 .archive-index-content {
@@ -36,7 +35,7 @@
 }
 
 .archive-index-page.is-characters .archive-index-content {
-  padding-bottom: 0;
+  padding-bottom: 96px;
 }
 
 .archive-index-intro-box {

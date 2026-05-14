@@ -1,18 +1,22 @@
 <script is:inline>
   (() => {
     const cleanupKey = "__reverxArchiveHeightSyncCleanup";
-    const eventCleanupKey = "__reverxArchiveHeightSyncEventCleanup";
     const fixedPageSelector = ".archive-index-page:not(.is-characters)";
     const targetSelector = [
+<<<<<<< ours
       ".archive-shell",
       ".archive-sidebar",
       ".archive-content-area",
       ".archive-index-content",
+=======
+      ".archive-sidebar",
+>>>>>>> theirs
       ".archive-index-intro-box",
       ".world-index-grid",
       ".world-index-entity-strip",
       ".characters-index-grid",
       ".system-index-grid",
+<<<<<<< ours
       ".world-map-shell",
       ".world-map-content-area",
       ".world-map-lower",
@@ -20,21 +24,24 @@
       ".world-map-panel",
       ".secret-text-box",
       ".content-frame",
+=======
+      ".world-map-panel",
+      ".secret-text-box",
+>>>>>>> theirs
       ".content-frame-body",
       ".content-frame-icon-stack",
       ".content-frame-icon-media",
       ".content-frame-icon-item",
       ".content-frame-icon-image",
+<<<<<<< ours
       ".content-frame-junction",
+=======
+>>>>>>> theirs
       "[data-archive-height-target]",
     ].join(",");
 
     if (window[cleanupKey]) {
       window[cleanupKey]();
-    }
-
-    if (window[eventCleanupKey]) {
-      window[eventCleanupKey]();
     }
 
     function readPxVariable(element, name, fallback) {
@@ -82,18 +89,15 @@
       if (!pages.length) return () => {};
 
       let frame = 0;
-      let timeout = 0;
 
       const sync = () => {
         frame = 0;
-        timeout = 0;
         pages.forEach(measurePage);
       };
 
       const requestSync = () => {
-        if (frame || timeout) return;
+        if (frame) return;
         frame = window.requestAnimationFrame(sync);
-        timeout = window.setTimeout(sync, 120);
       };
 
       const watchedImages = [];
@@ -120,23 +124,15 @@
       }
 
       window.addEventListener("resize", requestSync, { passive: true });
-      window.addEventListener("load", requestSync, { once: true });
-      window.addEventListener("pageshow", requestSync, { passive: true });
       document.fonts?.ready?.then(requestSync);
-      sync();
+      requestSync();
 
       return () => {
         if (frame) {
           window.cancelAnimationFrame(frame);
         }
 
-        if (timeout) {
-          window.clearTimeout(timeout);
-        }
-
         window.removeEventListener("resize", requestSync);
-        window.removeEventListener("load", requestSync);
-        window.removeEventListener("pageshow", requestSync);
         resizeObserver?.disconnect();
         watchedImages.forEach((image) => {
           image.removeEventListener("load", requestSync);
@@ -146,17 +142,12 @@
     }
 
     window[cleanupKey] = setupArchiveHeightSync();
-    const handleAstroPageLoad = () => {
+    document.addEventListener("astro:page-load", () => {
       if (window[cleanupKey]) {
         window[cleanupKey]();
       }
 
       window[cleanupKey] = setupArchiveHeightSync();
-    };
-
-    document.addEventListener("astro:page-load", handleAstroPageLoad);
-    window[eventCleanupKey] = () => {
-      document.removeEventListener("astro:page-load", handleAstroPageLoad);
-    };
+    });
   })();
 </script>

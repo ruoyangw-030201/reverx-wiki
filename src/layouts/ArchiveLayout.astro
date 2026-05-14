@@ -3,7 +3,6 @@ import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
-import ArchiveHeightSync from "../components/ArchiveHeightSync.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
 import "../styles/archive.css";
@@ -89,7 +88,5 @@ const contentFrameIconVariant = currentSection === "characters" ? "figure" : "de
         )}
       </section>
     </main>
-
-    <ArchiveHeightSync />
   </div>
 </BaseLayout>

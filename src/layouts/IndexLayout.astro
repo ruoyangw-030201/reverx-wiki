@@ -2,7 +2,6 @@
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
-import ArchiveHeightSync from "../components/ArchiveHeightSync.astro";
 import "../styles/archive.css";
 import "../styles/content.css";
 import "../styles/index.css";
@@ -55,7 +54,5 @@ const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn
         <slot />
       </section>
     </main>
-
-    <ArchiveHeightSync />
   </div>
 </BaseLayout>
