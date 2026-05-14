@@ -22,12 +22,10 @@ function positionStyle(x, y) {
   <div class="archive-page world-map-page">
     <ArchiveBackgroundLayer />
 
-    <Headbar />
-
     <ArchiveScrollDecor class="world-map-scroll-decor" />
 
     <main class="archive-shell world-map-shell">
-      <section class="world-map-content-area" aria-labelledby="world-map-title">
+      <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
         <div class="world-map-panel" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
           <div class="world-map-stage">
             <img class="world-map-image" src={mapConfig.image} alt={`${mapConfig.title}地图`} />
@@ -103,20 +101,24 @@ function positionStyle(x, y) {
         </div>
       </section>
 
-      <section class="world-map-lower">
-        <ArchiveSidebar />
+      <section class="world-map-archive" aria-labelledby="world-map-title">
+        <Headbar />
 
-        <div class="world-map-details">
-          <header class="world-map-heading">
-            <span class="world-map-heading-kicker">WORLD MAP</span>
-            <h1 id="world-map-title">{mapConfig.title}</h1>
-            <p>{mapConfig.subtitle}</p>
-          </header>
+        <section class="world-map-lower">
+          <ArchiveSidebar />
 
-          <ContentFrameBox minHeight="250px">
-            {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
-          </ContentFrameBox>
-        </div>
+          <div class="world-map-details">
+            <header class="world-map-heading">
+              <span class="world-map-heading-kicker">WORLD MAP</span>
+              <h1 id="world-map-title">{mapConfig.title}</h1>
+              <p>{mapConfig.subtitle}</p>
+            </header>
+
+            <ContentFrameBox minHeight="250px">
+              {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
+            </ContentFrameBox>
+          </div>
+        </section>
       </section>
     </main>
 
@@ -173,4 +175,118 @@ function positionStyle(x, y) {
 
   setupWorldMapRegionCards();
   document.addEventListener("astro:page-load", setupWorldMapRegionCards);
+
+  function setupWorldMapPager() {
+    const page = document.querySelector(".world-map-page");
+    const archive = document.querySelector(".world-map-archive");
+    if (!page || !(archive instanceof HTMLElement)) return;
+    if (page instanceof HTMLElement && page.dataset.worldMapPagerReady === "true") return;
+    if (page instanceof HTMLElement) page.dataset.worldMapPagerReady = "true";
+
+    let isPaging = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartedInPager = false;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function archiveTop() {
+      return archive.offsetTop;
+    }
+
+    function pageTo(top) {
+      const target = Math.max(0, Math.round(top));
+      if (Math.abs(window.scrollY - target) < 2) return;
+
+      isPaging = true;
+      window.scrollTo({
+        top: target,
+        behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+      });
+
+      window.setTimeout(() => {
+        isPaging = false;
+      }, prefersReducedMotion.matches ? 120 : 720);
+    }
+
+    function shouldPageDown() {
+      return window.scrollY < archiveTop() - 8;
+    }
+
+    function shouldPageUp() {
+      return window.scrollY <= archiveTop() + 32;
+    }
+
+    function handleWheel(event) {
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+
+      if (isPaging) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.deltaY > 0 && shouldPageDown()) {
+        event.preventDefault();
+        pageTo(archiveTop());
+        return;
+      }
+
+      if (event.deltaY < 0 && shouldPageUp()) {
+        event.preventDefault();
+        pageTo(0);
+      }
+    }
+
+    function handleTouchStart(event) {
+      const touch = event.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchStartedInPager = true;
+    }
+
+    function handleTouchEnd(event) {
+      if (!touchStartedInPager || isPaging) return;
+      touchStartedInPager = false;
+
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
+
+      if (deltaY < 0 && shouldPageDown()) {
+        pageTo(archiveTop());
+        return;
+      }
+
+      if (deltaY > 0 && shouldPageUp()) {
+        pageTo(0);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+      const downKeys = ["ArrowDown", "PageDown", " "];
+      const upKeys = ["ArrowUp", "PageUp"];
+
+      if (downKeys.includes(event.key) && shouldPageDown()) {
+        event.preventDefault();
+        pageTo(archiveTop());
+        return;
+      }
+
+      if (upKeys.includes(event.key) && shouldPageUp()) {
+        event.preventDefault();
+        pageTo(0);
+      }
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("keydown", handleKeyDown);
+  }
+
+  setupWorldMapPager();
+  document.addEventListener("astro:page-load", setupWorldMapPager);
 </script>
