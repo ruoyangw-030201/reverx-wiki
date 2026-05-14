@@ -3,10 +3,12 @@ import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
+import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
+import ArchiveHero from "../components/archive/ArchiveHero.astro";
+import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
-import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
-import "../styles/archive.css";
-import "../styles/content.css";
+import "../styles/archive/layout.css";
+import "../styles/content/content.css";
 import { findNavigationItemByPath, getSectionFromPath, topTabs } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -36,37 +38,13 @@ const contentFrameIconVariant = currentSection === "characters" ? "figure" : "de
 
 <BaseLayout>
   <div class:list={["archive-page", `is-${currentSection}`]}>
-    <div class="archive-bg-layer" aria-hidden="true">
-      <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
-      <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
-      <img class="bg-texture bg-texture-3" src="/texture/texture-3.png" alt="" />
-      <img class="bg-texture bg-texture-7" src="/texture/texture-7.png" alt="" />
-      <img class="bg-texture bg-texture-9" src="/texture/texture-9.png" alt="" />
-
-      <img class="bg-texture bg-gold-dot bg-gold-dot-1" src="/texture/texture-5.png" alt="" />
-      <img class="bg-texture bg-gold-dot bg-gold-dot-2" src="/texture/texture-5.png" alt="" />
-      <img class="bg-texture bg-gold-dot bg-gold-dot-3" src="/texture/texture-5.png" alt="" />
-
-      <img class="bg-texture bg-blue-dot bg-blue-dot-left-1" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-left-2" src="/texture/texture-6.png" alt="" />
-
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-1" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-2" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
-    </div>
+    <ArchiveBackgroundLayer />
 
     <Headbar />
 
-    <section class="archive-hero" aria-hidden="true">
-      <HomeCoverCanvas variant="static" />
-    </section>
+    <ArchiveHero />
 
-    <div class="archive-scroll-decor" aria-hidden="true">
-      <img class="scroll-decor scroll-decor-big" src="/bg/bg-big-3.png" alt="" />
-      <img class="scroll-decor scroll-decor-tri" src="/bg/bg-small-2.png" alt="" />
-      <img class="scroll-decor scroll-decor-orb" src="/bg/bg-small-3.png" alt="" />
-      <img class="scroll-decor scroll-decor-poly" src="/bg/bg-small-4.png" alt="" />
-    </div>
+    <ArchiveScrollDecor />
 
     <main class="archive-shell">
       <ArchiveSidebar />

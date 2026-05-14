@@ -1,13 +1,19 @@
 ---
-import "../../styles/content-frame.css";
+import "../../styles/content/content-frame.css";
+import "../../styles/content/content.css";
 
 const {
+  class: className,
   minHeight = "250px",
   decorHeight = "1000px",
+  variant = "ornate",
+  tone = "light",
   showPaper = true,
   showLines = true,
   showUnderlay = false,
 } = Astro.props;
+
+const isSimple = variant === "simple";
 
 const minHeightValue = String(minHeight);
 const minHeightNumber = Number.parseFloat(minHeightValue);
@@ -24,6 +30,7 @@ const glyphHeight = glyphBottom - glyphTop;
 
 const frameVars = [
   `--content-frame-box-height: ${minHeightValue}`,
+  `--content-frame-simple-min-height: ${minHeightValue}`,
   `--content-frame-decor-height: ${decorHeight}`,
   `--content-frame-visual-height: ${visualHeight}px`,
   `--content-frame-glyph-y-1: ${glyphTop}px`,
@@ -33,32 +40,48 @@ const frameVars = [
 ].join("; ");
 ---
 
-<div class="content-frame" style={frameVars}>
-  {showUnderlay && (
-    <div class="content-frame-underlay" aria-hidden="true">
-      <slot name="underlay" />
+<div
+  class:list={[
+    "content-frame",
+    isSimple ? "content-frame-simple" : "content-frame-ornate",
+    `is-${tone}`,
+    className,
+  ]}
+  style={frameVars}
+>
+  {isSimple ? (
+    <div class="content-frame-body content-prose">
+      <slot />
     </div>
+  ) : (
+    <>
+      {showUnderlay && (
+        <div class="content-frame-underlay" aria-hidden="true">
+          <slot name="underlay" />
+        </div>
+      )}
+
+      {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
+
+      {showLines && (
+        <div class="content-frame-lines" aria-hidden="true">
+          <span class="content-frame-line-box content-frame-line-main"></span>
+          <span class="content-frame-line-box content-frame-line-blue"></span>
+          <span class="content-frame-line-box content-frame-line-russet"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
+        </div>
+      )}
+
+      <div class="content-frame-overlay" aria-hidden="true">
+        <slot name="overlay" />
+      </div>
+
+      <div class="content-frame-body content-prose">
+        <slot />
+      </div>
+    </>
   )}
-
-  {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
-
-  {showLines && (
-    <div class="content-frame-lines" aria-hidden="true">
-      <span class="content-frame-line-box content-frame-line-main"></span>
-      <span class="content-frame-line-box content-frame-line-blue"></span>
-      <span class="content-frame-line-box content-frame-line-russet"></span>
-      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
-      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
-      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
-      <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
-    </div>
-  )}
-
-  <div class="content-frame-overlay" aria-hidden="true">
-    <slot name="overlay" />
-  </div>
-
-  <div class="content-frame-body">
-    <slot />
-  </div>
 </div>

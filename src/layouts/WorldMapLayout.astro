@@ -2,8 +2,10 @@
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
+import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
+import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
-import "../styles/archive.css";
+import "../styles/archive/layout.css";
 import "../styles/world-map.css";
 
 const { mapConfig } = Astro.props;
@@ -17,33 +19,11 @@ function positionStyle(x, y) {
 
 <BaseLayout>
   <div class="archive-page world-map-page">
-    <div class="archive-bg-layer" aria-hidden="true">
-      <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
-      <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
-      <img class="bg-texture bg-texture-3" src="/texture/texture-3.png" alt="" />
-      <img class="bg-texture bg-texture-7" src="/texture/texture-7.png" alt="" />
-      <img class="bg-texture bg-texture-9" src="/texture/texture-9.png" alt="" />
-
-      <img class="bg-texture bg-gold-dot bg-gold-dot-1" src="/texture/texture-5.png" alt="" />
-      <img class="bg-texture bg-gold-dot bg-gold-dot-2" src="/texture/texture-5.png" alt="" />
-      <img class="bg-texture bg-gold-dot bg-gold-dot-3" src="/texture/texture-5.png" alt="" />
-
-      <img class="bg-texture bg-blue-dot bg-blue-dot-left-1" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-left-2" src="/texture/texture-6.png" alt="" />
-
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-1" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-2" src="/texture/texture-6.png" alt="" />
-      <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
-    </div>
+    <ArchiveBackgroundLayer />
 
     <Headbar />
 
-    <div class="archive-scroll-decor world-map-scroll-decor" aria-hidden="true">
-      <img class="scroll-decor scroll-decor-big" src="/bg/bg-big-3.png" alt="" />
-      <img class="scroll-decor scroll-decor-tri" src="/bg/bg-small-2.png" alt="" />
-      <img class="scroll-decor scroll-decor-orb" src="/bg/bg-small-3.png" alt="" />
-      <img class="scroll-decor scroll-decor-poly" src="/bg/bg-small-4.png" alt="" />
-    </div>
+    <ArchiveScrollDecor class="world-map-scroll-decor" />
 
     <main class="archive-shell world-map-shell">
       <section class="world-map-content-area" aria-labelledby="world-map-title">

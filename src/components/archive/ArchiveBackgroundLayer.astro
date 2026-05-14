@@ -1,0 +1,32 @@
+---
+import "../../styles/archive/decor.css";
+
+const {
+  variant = "default",
+} = Astro.props;
+
+const isSecret = variant === "secret";
+---
+
+<div class:list={["archive-bg-layer", isSecret && "secret-bg-layer"]} aria-hidden="true">
+  {!isSecret && (
+    <>
+      <img class="bg-texture bg-texture-1" src="/texture/texture-1.png" alt="" />
+      <img class="bg-texture bg-texture-2" src="/texture/texture-2.png" alt="" />
+      <img class="bg-texture bg-texture-3" src="/texture/texture-3.png" alt="" />
+      <img class="bg-texture bg-texture-7" src="/texture/texture-7.png" alt="" />
+      <img class="bg-texture bg-texture-9" src="/texture/texture-9.png" alt="" />
+
+      <img class="bg-texture bg-gold-dot bg-gold-dot-1" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-2" src="/texture/texture-5.png" alt="" />
+      <img class="bg-texture bg-gold-dot bg-gold-dot-3" src="/texture/texture-5.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-left-2" src="/texture/texture-6.png" alt="" />
+
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-1" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-2" src="/texture/texture-6.png" alt="" />
+      <img class="bg-texture bg-blue-dot bg-blue-dot-right-3" src="/texture/texture-6.png" alt="" />
+    </>
+  )}
+</div>

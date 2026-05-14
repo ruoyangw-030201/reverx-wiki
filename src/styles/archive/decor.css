@@ -1,13 +1,3 @@
-.archive-page {
-  position: relative;
-  min-height: max(2200px, 280vh);
-  background: var(--theme-bg);
-  color: var(--color-ink);
-  overflow-x: hidden;
-}
-
-/* ========== fixed background texture layer ========== */
-
 .archive-bg-layer {
   position: fixed;
   inset: 0;
@@ -108,7 +98,12 @@
   top: 462px;
 }
 
-/* ========== hero header ========== */
+.secret-bg-layer {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(45, 95, 150, 0.18), transparent 34%),
+    radial-gradient(circle at 26% 46%, rgba(200, 155, 90, 0.12), transparent 28%),
+    #050505;
+}
 
 .archive-hero {
   position: relative;
@@ -138,7 +133,10 @@
   object-position: center center;
 }
 
-/* ========== scroll-moving decorative background layer ========== */
+.secret-hero {
+  background: #080808;
+  border-bottom-color: rgba(200, 155, 90, 0.24);
+}
 
 .archive-scroll-decor {
   position: absolute;
@@ -159,7 +157,6 @@
   object-fit: contain;
 }
 
-/* 下方大背景：常规视图中露出一半，另一半滚动后出现 */
 .scroll-decor-big {
   width: 110%;
   height: 110%;
@@ -168,7 +165,6 @@
   opacity: 0.3;
 }
 
-/* 右上金色圆球 */
 .scroll-decor-orb {
   width: 45vw;
   max-width: 780px;
@@ -177,7 +173,6 @@
   top: -150px;
 }
 
-/* 右下蓝色六边形/多边形：一半在首屏，一半滚动后出现 */
 .scroll-decor-poly {
   width: 51vw;
   max-width: 930px;
@@ -186,7 +181,6 @@
   top: 500px;
 }
 
-/* 左下三角素描 */
 .scroll-decor-tri {
   width: 40%;
   height: 40%;
@@ -194,45 +188,22 @@
   top: 900px;
 }
 
-/* ========== shell ========== */
-
-.archive-shell {
-  position: relative;
-  z-index: 12;
-  display: grid;
-  grid-template-columns: 216px minmax(0, 1fr);
-  align-items: start;
-  gap: 42px;
-  padding: 24px 40px 160px 0;
+.secret-scroll-decor {
+  opacity: 1;
+  mix-blend-mode: screen;
 }
 
-/* ========== content frame ========== */
-
-.archive-content-area {
-  --archive-heading-frame-offset: -84px;
-  --archive-section-gap: 0px;
-  position: relative;
-  min-height: 1200px;
-  width: calc(100% + 86px);
-  margin-top: 0;
-  margin-left: -72px;
-  padding: 0 0 120px 0;
-  z-index: 2;
+.secret-scroll-decor .scroll-decor-big {
+  top: 100px;
+  right: -350px;
+  opacity: 0.6;
 }
 
-.archive-content-area > :first-child {
-  margin-top: 0;
+.secret-scroll-decor .scroll-decor-tri,
+.secret-scroll-decor .scroll-decor-orb,
+.secret-scroll-decor .scroll-decor-poly {
+  opacity: 0.5;
 }
-
-.archive-content-area > .archive-entry-heading + .content-frame {
-  margin-top: var(--archive-heading-frame-offset);
-}
-
-.archive-content-area > .content-frame + .archive-entry-heading {
-  margin-top: var(--archive-section-gap);
-}
-
-/* ========== responsive ========== */
 
 @media (max-width: 980px) {
   .archive-page.is-world .archive-hero {
@@ -246,21 +217,6 @@
   .archive-page.is-characters .archive-hero {
     --archive-hero-home-crop-y: calc((100svh - 194px) * 0.75);
   }
-
-  .archive-shell {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .archive-content-area {
-    order: -1;
-    width: 100%;
-    margin-top: 0;
-    margin-left: 0;
-    min-height: 0;
-    padding: 12px 0 80px;
-  }
-
 }
 
 @media (max-width: 620px) {

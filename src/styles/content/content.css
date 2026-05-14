@@ -1,3 +1,21 @@
+.content-prose {
+  font-size: 16px;
+  line-height: var(--content-prose-line-height, 1.6);
+}
+
+.content-prose > :first-child {
+  margin-top: 0;
+}
+
+.content-prose p {
+  margin: 0 0 24px;
+  text-indent: 2em;
+}
+
+.content-prose > :last-child {
+  margin-bottom: 0;
+}
+
 .archive-placeholder {
   color: rgba(21, 21, 21, 0.58);
   font-size: 17px;
@@ -123,6 +141,14 @@
 }
 
 @media (max-width: 980px) {
+  .content-frame-body.content-prose {
+    --content-prose-line-height: 1.85;
+  }
+
+  .content-frame-simple .content-frame-body.content-prose {
+    --content-prose-line-height: var(--content-frame-simple-line-height, 1.7);
+  }
+
   .archive-table {
     font-size: 15px;
   }

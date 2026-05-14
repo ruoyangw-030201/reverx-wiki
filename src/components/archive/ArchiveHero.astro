@@ -1,0 +1,12 @@
+---
+import HomeCoverCanvas from "../HomeCoverCanvas.astro";
+import "../../styles/archive/decor.css";
+
+const {
+  variant = "default",
+} = Astro.props;
+---
+
+<section class:list={["archive-hero", variant === "secret" && "secret-hero"]} aria-hidden="true">
+  <HomeCoverCanvas variant="static" />
+</section>
