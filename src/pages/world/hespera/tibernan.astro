@@ -22,9 +22,11 @@ const celespian = resolveWorldEntity("celespian");
   </ContentFrame>
 
   <ArchiveEntryHeading id="celespian" variant="secondary" title={celespian.label} subtitle={celespian.labelEn} />
-  <ContentFrameBox>
-    <Fragment slot="overlay">
+  <ContentFrameBox decorVisualHeight="1000px">
+    <Fragment slot="measure">
       <ContentFrameIconFrame icon={celespian.icon} />
+    </Fragment>
+    <Fragment slot="decor">
       <ContentFrameJunction />
     </Fragment>
 

@@ -5,12 +5,13 @@
   --content-frame-offset-x: 72px;
   --content-frame-offset-y: 28px;
   --content-frame-box-height: 250px;
-  --content-frame-decor-height: 1000px;
   --content-frame-frame-top: 126px;
   --content-frame-paper-top: 172px;
   --content-frame-body-top: 222px;
   --content-frame-body-bottom: 70px;
   --content-frame-visual-height: calc(var(--content-frame-frame-top) + var(--content-frame-box-height));
+  --content-frame-measure-height: 0px;
+  --content-frame-decor-visual-height: 100%;
   --content-frame-main-left: calc(12.2% - var(--content-frame-offset-x));
   --content-frame-main-right: calc(19.5% + var(--content-frame-offset-x));
   --content-frame-main-top: calc(var(--content-frame-frame-top) - var(--content-frame-offset-y));
@@ -30,25 +31,30 @@
   --content-frame-junction-right: 19.8%;
   position: relative;
   width: 100%;
-  min-height: var(--content-frame-visual-height);
+  min-height: max(var(--content-frame-visual-height), var(--content-frame-measure-height));
   color: var(--color-ink);
 }
 
-.content-frame-underlay,
+.content-frame-decor-underlay,
 .content-frame-paper,
 .content-frame-lines,
-.content-frame-overlay,
+.content-frame-measure-layer,
+.content-frame-decor-overlay,
 .content-frame-icon-stack,
 .content-frame-junction {
   position: absolute;
   pointer-events: none;
 }
 
-.content-frame-underlay {
+.content-frame:has(.content-frame-measure-layer .content-frame-icon-stack) {
+  --content-frame-measure-height: calc(var(--content-frame-icon-top) + 352px);
+}
+
+.content-frame-decor-underlay {
   left: 0;
   top: 0;
   right: 0;
-  height: var(--content-frame-decor-height);
+  height: var(--content-frame-decor-visual-height);
   z-index: 0;
 }
 
@@ -140,11 +146,19 @@
   width: 1px;
 }
 
-.content-frame-overlay {
+.content-frame-measure-layer {
   left: 0;
   top: 0;
   right: 0;
-  height: var(--content-frame-decor-height);
+  bottom: 0;
+  z-index: 5;
+}
+
+.content-frame-decor-overlay {
+  left: 0;
+  top: 0;
+  right: 0;
+  height: var(--content-frame-decor-visual-height);
   z-index: 8;
 }
 
@@ -446,7 +460,6 @@
   .content-frame {
     --content-frame-offset-x: 0px;
     --content-frame-offset-y: 0px;
-    --content-frame-decor-height: 720px;
     --content-frame-body-top: 136px;
     --content-frame-body-bottom: 72px;
     min-height: 720px;

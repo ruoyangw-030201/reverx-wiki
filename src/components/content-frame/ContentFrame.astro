@@ -7,7 +7,6 @@ import ContentFrameRightDecor from "./ContentFrameRightDecor.astro";
 
 const {
   minHeight = "250px",
-  decorHeight = "1000px",
   showPaper = true,
   showLines = true,
   showLeftDecor = true,
@@ -19,37 +18,54 @@ const {
   iconCaption,
   iconItems,
   iconFrameVariant = "default",
+  decorVisualHeight = "1000px",
 } = Astro.props;
 
 const showDecor = showLeftDecor || showRightDecor;
+const resolvedIconItems = Array.isArray(iconItems)
+  ? iconItems
+  : icon
+    ? [{ icon, iconAlt, caption: iconCaption }]
+    : [];
+const iconFrameTop = 34;
+const iconFrameHeight =
+  iconFrameVariant === "figure"
+    ? 1000
+    : iconFrameVariant === "extended"
+      ? Math.max(352, 120 + resolvedIconItems.length * 132)
+      : 352;
+const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` : undefined;
 ---
 
 <ContentFrameBox
   minHeight={minHeight}
-  decorHeight={decorHeight}
+  measureHeight={iconMeasureHeight}
+  decorVisualHeight={decorVisualHeight}
   showPaper={showPaper}
   showLines={showLines}
-  showUnderlay={showDecor}
 >
   {showDecor && (
-    <Fragment slot="underlay">
+    <Fragment slot="decor-underlay">
       {showLeftDecor && <ContentFrameLeftDecor />}
       {showRightDecor && <ContentFrameRightDecor />}
     </Fragment>
   )}
 
-  {(showIconFrame || showJunction) && (
-    <Fragment slot="overlay">
-      {showIconFrame && (
-        <ContentFrameIconFrame
-          icon={icon}
-          iconAlt={iconAlt}
-          caption={iconCaption}
-          items={iconItems}
-          variant={iconFrameVariant}
-        />
-      )}
-      {showJunction && <ContentFrameJunction />}
+  {showIconFrame && (
+    <Fragment slot="measure">
+      <ContentFrameIconFrame
+        icon={icon}
+        iconAlt={iconAlt}
+        caption={iconCaption}
+        items={iconItems}
+        variant={iconFrameVariant}
+      />
+    </Fragment>
+  )}
+
+  {showJunction && (
+    <Fragment slot="decor">
+      <ContentFrameJunction />
     </Fragment>
   )}
 

@@ -5,15 +5,17 @@ import "../../styles/content/content.css";
 const {
   class: className,
   minHeight = "250px",
-  decorHeight = "1000px",
+  measureHeight,
+  decorVisualHeight,
   variant = "ornate",
   tone = "light",
   showPaper = true,
   showLines = true,
-  showUnderlay = false,
 } = Astro.props;
 
 const isSimple = variant === "simple";
+const measureHeightValue = measureHeight ? String(measureHeight) : undefined;
+const decorVisualHeightValue = decorVisualHeight ? String(decorVisualHeight) : undefined;
 
 const minHeightValue = String(minHeight);
 const minHeightNumber = Number.parseFloat(minHeightValue);
@@ -31,13 +33,14 @@ const glyphHeight = glyphBottom - glyphTop;
 const frameVars = [
   `--content-frame-box-height: ${minHeightValue}`,
   `--content-frame-simple-min-height: ${minHeightValue}`,
-  `--content-frame-decor-height: ${decorHeight}`,
   `--content-frame-visual-height: ${visualHeight}px`,
+  measureHeightValue && `--content-frame-measure-height: ${measureHeightValue}`,
+  decorVisualHeightValue && `--content-frame-decor-visual-height: ${decorVisualHeightValue}`,
   `--content-frame-glyph-y-1: ${glyphTop}px`,
   `--content-frame-glyph-y-2: ${glyphMiddle}px`,
   `--content-frame-glyph-y-3: ${glyphBottom}px`,
   `--content-frame-glyph-height: ${glyphHeight}px`,
-].join("; ");
+].filter(Boolean).join("; ");
 ---
 
 <div
@@ -55,11 +58,9 @@ const frameVars = [
     </div>
   ) : (
     <>
-      {showUnderlay && (
-        <div class="content-frame-underlay" aria-hidden="true">
-          <slot name="underlay" />
-        </div>
-      )}
+      <div class="content-frame-decor-underlay" aria-hidden="true">
+        <slot name="decor-underlay" />
+      </div>
 
       {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
 
@@ -75,8 +76,12 @@ const frameVars = [
         </div>
       )}
 
-      <div class="content-frame-overlay" aria-hidden="true">
-        <slot name="overlay" />
+      <div class="content-frame-measure-layer" aria-hidden="true">
+        <slot name="measure" />
+      </div>
+
+      <div class="content-frame-decor-overlay" aria-hidden="true">
+        <slot name="decor" />
       </div>
 
       <div class="content-frame-body content-prose">

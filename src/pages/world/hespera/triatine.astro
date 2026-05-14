@@ -19,9 +19,11 @@ const qenevian = resolveWorldEntity("qenevian");
   </ContentFrame>
 
   <ArchiveEntryHeading id="qenevian" variant="secondary" title={qenevian.label} subtitle={qenevian.labelEn} />
-  <ContentFrameBox>
-    <Fragment slot="overlay">
+  <ContentFrameBox decorVisualHeight="1000px">
+    <Fragment slot="measure">
       <ContentFrameIconFrame icon={qenevian.icon} />
+    </Fragment>
+    <Fragment slot="decor">
       <ContentFrameJunction />
     </Fragment>
 
