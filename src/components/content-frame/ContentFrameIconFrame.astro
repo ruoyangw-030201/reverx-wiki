@@ -7,6 +7,7 @@ const {
   caption,
   items,
   variant = "default",
+  showJunction = true,
 } = Astro.props;
 
 const iconItems = Array.isArray(items)
@@ -33,6 +34,16 @@ const iconFrameHeight = isExtended
 >
   <span class="content-frame-icon-box content-frame-icon-box-main"></span>
   <span class="content-frame-icon-box content-frame-icon-box-inner"></span>
+  {showJunction && (
+    <>
+      <span class="content-frame-icon-junction content-frame-icon-junction-top">
+        <img src="/texture/texture-13.png" alt="" />
+      </span>
+      <span class="content-frame-icon-junction content-frame-icon-junction-bottom">
+        <span></span>
+      </span>
+    </>
+  )}
   {iconItems.length > 0 && (
     <span
       class:list={[

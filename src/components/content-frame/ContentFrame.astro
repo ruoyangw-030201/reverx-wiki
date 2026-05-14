@@ -1,7 +1,6 @@
 ---
 import ContentFrameBox from "./ContentFrameBox.astro";
 import ContentFrameIconFrame from "./ContentFrameIconFrame.astro";
-import ContentFrameJunction from "./ContentFrameJunction.astro";
 import ContentFrameLeftDecor from "./ContentFrameLeftDecor.astro";
 import ContentFrameRightDecor from "./ContentFrameRightDecor.astro";
 
@@ -59,13 +58,8 @@ const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` 
         caption={iconCaption}
         items={iconItems}
         variant={iconFrameVariant}
+        showJunction={showJunction}
       />
-    </Fragment>
-  )}
-
-  {showJunction && (
-    <Fragment slot="decor">
-      <ContentFrameJunction />
     </Fragment>
   )}
 
