@@ -1,0 +1,78 @@
+.archive-endbar {
+  position: relative;
+  z-index: 50;
+  isolation: isolate;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: auto;
+  min-height: 39px;
+  padding: 0 8px 0 32px;
+  overflow: hidden;
+  border-top: 1px solid rgba(200, 155, 90, 0.42);
+  background: rgba(2, 2, 2, 0.96);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.archive-endbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/bg/bg-headbar-gold.png") center / 100% 100% no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.archive-endbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.archive-endbar-brand {
+  position: relative;
+  flex: 0 0 auto;
+  color: var(--color-gold);
+  font-family: var(--font-latin);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.archive-endbar-brand .archive-hourglass-marker {
+  display: block;
+  left: -24px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.52);
+}
+
+.archive-endbar-meta {
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-latin);
+  letter-spacing: 0.08em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .archive-endbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+    padding: 10px 12px 10px 32px;
+    line-height: 1.2;
+  }
+
+  .archive-endbar-meta {
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    text-align: left;
+    white-space: normal;
+  }
+}

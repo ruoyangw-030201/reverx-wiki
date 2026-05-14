@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
+import Endbar from "../components/Endbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
 import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
@@ -66,5 +67,7 @@ const contentFrameIconVariant = currentSection === "characters" ? "figure" : "de
         )}
       </section>
     </main>
+
+    <Endbar />
   </div>
 </BaseLayout>

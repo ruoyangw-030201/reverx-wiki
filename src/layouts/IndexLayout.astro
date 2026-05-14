@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
+import Endbar from "../components/Endbar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
 import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
@@ -39,5 +40,7 @@ const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn
         <slot />
       </section>
     </main>
+
+    {currentSection === "characters" && <Endbar />}
   </div>
 </BaseLayout>

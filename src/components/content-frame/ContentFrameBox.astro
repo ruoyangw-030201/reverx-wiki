@@ -59,7 +59,9 @@ const frameVars = [
   ) : (
     <>
       <div class="content-frame-decor-underlay" aria-hidden="true">
-        <slot name="decor-underlay" />
+        <div class="content-frame-decor-canvas">
+          <slot name="decor-underlay" />
+        </div>
       </div>
 
       {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}

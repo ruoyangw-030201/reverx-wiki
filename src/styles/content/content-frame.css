@@ -34,6 +34,7 @@
 }
 
 .content-frame-decor-underlay,
+.content-frame-decor-canvas,
 .content-frame-paper,
 .content-frame-lines,
 .content-frame-measure-layer,
@@ -53,6 +54,14 @@
   right: 0;
   height: var(--content-frame-decor-visual-height);
   z-index: 0;
+  overflow: visible;
+}
+
+.content-frame-decor-canvas {
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
 }
 
 .content-frame-paper {

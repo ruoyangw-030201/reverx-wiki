@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
+import Endbar from "../components/Endbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
@@ -118,6 +119,8 @@ function positionStyle(x, y) {
         </div>
       </section>
     </main>
+
+    <Endbar />
   </div>
 </BaseLayout>
 

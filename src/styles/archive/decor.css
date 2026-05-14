@@ -142,9 +142,11 @@
   position: absolute;
   left: 0;
   top: 78px;
+  bottom: 0;
   width: 100%;
-  min-height: max(2200px, 280vh);
+  min-height: 0;
   z-index: 6;
+  contain: paint;
   pointer-events: none;
   overflow: hidden;
 }
