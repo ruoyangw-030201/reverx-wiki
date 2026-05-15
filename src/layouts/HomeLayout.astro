@@ -10,17 +10,16 @@ const {
 
 const OVERLAY_START_DELAY = 2450;
 const OVERLAY_DURATION = 1200;
-const PARAGRAPH_START_DELAY = 3600;
-const PARAGRAPH_STEP = 1900;
+const PARAGRAPH_START_DELAY = 3000;
+const PARAGRAPH_STEP = 1000;
 const PARAGRAPH_FADE_DURATION = 900;
-const HEADBAR_REVEAL_GAP = 2100;
 
 const homeParagraphs = introParagraphs
   .map((paragraph) => paragraph.trim())
   .filter(Boolean);
 
 const lastParagraphDelay = PARAGRAPH_START_DELAY + Math.max(0, homeParagraphs.length - 1) * PARAGRAPH_STEP;
-const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION + HEADBAR_REVEAL_GAP;
+const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
 ---
 
 <BaseLayout>

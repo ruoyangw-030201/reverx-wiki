@@ -4,7 +4,6 @@ import Headbar from "../components/Headbar.astro";
 import Endbar from "../components/Endbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
-import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ArchiveHero from "../components/archive/ArchiveHero.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
@@ -39,8 +38,6 @@ const contentFrameIconVariant = currentSection === "characters" ? "figure" : "de
 
 <BaseLayout>
   <div class:list={["archive-page", `is-${currentSection}`]}>
-    <ArchiveBackgroundLayer />
-
     <Headbar />
 
     <ArchiveHero />

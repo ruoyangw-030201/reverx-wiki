@@ -16,6 +16,7 @@ const currentSection = getSectionFromPath(currentPath);
 const {
   title,
   subtitle,
+  number,
 } = Astro.props;
 
 const navigationItem = findNavigationItemByPath(currentPath);
@@ -23,6 +24,7 @@ const sectionTab = topTabs.find((tab) => tab.key === currentSection);
 const sectionKicker = "INDEX";
 const frameTitle = title ?? navigationItem?.label ?? sectionTab?.label ?? "档案";
 const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn ?? "index";
+const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "00";
 ---
 
 <BaseLayout>
@@ -31,13 +33,32 @@ const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn
 
     <Headbar />
 
+    <div class="index-fixed-crosshair" aria-hidden="true">
+      <span class="index-fixed-line index-fixed-line-vertical"></span>
+      <span class="index-fixed-line index-fixed-line-horizontal"></span>
+
+      <div class="index-side-mark">
+        <span class="index-side-mark-number-box">
+        <span class="index-side-mark-number">{frameNumber}</span>
+        </span>
+        <span class="index-side-mark-slash"></span>
+        <span class="index-side-mark-label">{frameSubtitle}</span>
+      </div>
+    </div>
+
     <main class="archive-shell archive-index-shell">
       <section class="archive-content-area archive-index-content">
-        <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
-        <ContentFrameBox class="archive-index-intro-box" variant="simple" tone="light" minHeight="118px">
-          <slot name="intro" />
-        </ContentFrameBox>
-        <slot />
+        <div class="index-animate index-animate-heading-intro">
+          <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
+
+          <ContentFrameBox class="archive-index-intro-box" variant="simple" tone="light" minHeight="118px">
+            <slot name="intro" />
+          </ContentFrameBox>
+        </div>
+
+        <div class="index-animate index-animate-grid">
+          <slot />
+        </div>
       </section>
     </main>
 

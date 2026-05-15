@@ -34,7 +34,7 @@
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  animation: home-headbar-reveal 0.8s ease var(--home-headbar-delay, 9600ms) forwards;
+  animation: home-headbar-reveal 0.8s ease var(--home-headbar-delay, 8000ms) forwards;
 }
 
 .home-headbar-layer .archive-headbar {

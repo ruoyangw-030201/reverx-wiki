@@ -3,7 +3,6 @@ import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import Endbar from "../components/Endbar.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
-import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
@@ -20,9 +19,9 @@ function positionStyle(x, y) {
 
 <BaseLayout>
   <div class="archive-page world-map-page">
-    <ArchiveBackgroundLayer />
-
     <ArchiveScrollDecor class="world-map-scroll-decor" />
+
+    <div class="world-map-reveal-mask" aria-hidden="true"></div>
 
     <main class="archive-shell world-map-shell">
       <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>

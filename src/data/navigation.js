@@ -6,18 +6,21 @@ export const topTabs = [
     label: "世界观",
     labelEn: "WORLD",
     href: "/world",
+    number: "01",
   },
   {
     key: "system",
     label: "能力体系",
     labelEn: "SYSTEM",
     href: "/system",
+    number: "02",
   },
   {
     key: "characters",
     label: "角色档案",
     labelEn: "CHARACTERS",
     href: "/characters",
+    number: "03",
   },
 ];
 

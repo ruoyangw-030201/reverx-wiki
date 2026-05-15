@@ -16,86 +16,63 @@
 }
 
 .bg-texture-1 {
-  width: 15.75vw;
+  width: 60vw;
   min-width: 173px;
   top: 0px;
-  left: 30vw;
-}
-
-.bg-texture-2 {
-  width: 24vw;
-  min-width: 270px;
-  top: 138px;
-  left: 47vw;
+  left: 0vw;
+  opacity: 0.3
 }
 
 .bg-texture-3 {
   width: 18.75vw;
   min-width: 240px;
-  top: 96px;
-  right: -1.5vw;
+  top: -10vh;
+  right: -6vw;
+}
+
+.bg-texture-5 {
+  width: 18.75vw;
+  min-width: 240px;
+  top: -10vh;
+  right: 6vw;
 }
 
 .bg-texture-7 {
   width: 14.25vw;
   min-width: 188px;
-  top: 154px;
-  right: 0.5vw;
-}
-
-.bg-texture-9 {
-  width: 18.75vw;
-  min-width: 218px;
-  left: 18vw;
-  bottom: 2vh;
+  top: 150px;
+  right: 5vw;
 }
 
 .bg-gold-dot {
-  width: 16.5vw;
-  min-width: 195px;
-  left: 20.5vw;
-}
-
-.bg-gold-dot-1 {
-  top: 430px;
-}
-
-.bg-gold-dot-2 {
-  top: 535px;
-}
-
-.bg-gold-dot-3 {
-  top: 640px;
-}
-
-.bg-blue-dot {
-  width: 15vw;
+  width: 14.25vw;
   min-width: 188px;
+  right: 15vw;
+  top: 10vh;
 }
 
-.bg-blue-dot-left-1 {
-  left: 27vw;
-  bottom: 38px;
+.bg-small-5 {
+  width: 14.25vw;
+  min-width: 188px;
+  top: 300px;
+  right: 5vw;
+  opacity: 0.6
 }
 
-.bg-blue-dot-left-2 {
-  left: 36vw;
-  bottom: 34px;
+.bg-small-6 {
+  width: 14.25vw;
+  min-width: 188px;
+  top: 450px;
+  right: 5vw;
+  opacity: 0.6
 }
 
-.bg-blue-dot-right-1 {
-  right: 8vw;
-  top: 344px;
-}
-
-.bg-blue-dot-right-2 {
-  right: -0.5vw;
-  top: 344px;
-}
-
-.bg-blue-dot-right-3 {
-  right: 3vw;
-  top: 462px;
+.bg-small-7 {
+  width: 14.25vw;
+  min-width: 188px;
+  top: 600px;
+  right: 5vw;
+  opacity: 0.6
 }
 
 .secret-bg-layer {
@@ -160,11 +137,18 @@
 }
 
 .scroll-decor-big {
-  width: 110%;
-  height: 110%;
-  right: -2vw;
+  width: clamp(1200px, 110vw, 1900px);
+  height: auto;
+  right: -6vw;
   top: 100px;
   opacity: 0.3;
+}
+
+.scroll-decor-small {
+  width: 30vw;
+  min-width: 195px;
+  right: 30vw;
+  top: 70px;
 }
 
 .scroll-decor-orb {
@@ -196,8 +180,7 @@
 }
 
 .secret-scroll-decor .scroll-decor-big {
-  top: 100px;
-  right: -350px;
+  top: 0px;
   opacity: 0.6;
 }
 

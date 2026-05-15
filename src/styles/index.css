@@ -4,6 +4,147 @@
   overflow: hidden;
 }
 
+.index-fixed-crosshair {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.index-fixed-line {
+  position: absolute;
+  display: block;
+  background: rgba(120, 126, 132, 0.55);
+  z-index: 2;
+}
+
+.index-fixed-line-vertical {
+  top: 0;
+  bottom: 0;
+  right: 120px;
+  width: 1px;
+}
+
+.index-fixed-line-horizontal {
+  left: 0;
+  right: 0;
+  bottom: 80px;
+  height: 1px;
+}
+
+/*
+.index-fixed-mask {
+  position: absolute;
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 1;
+}
+
+/* 竖线右侧区域
+.index-fixed-mask-right {
+  top: 78px;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+}
+
+/* 横线下方区域；right: 120px 避免和右侧遮罩叠加变成更黑
+.index-fixed-mask-bottom {
+  left: 0;
+  right: 120px;
+  bottom: 0;
+  height: 80px;
+}
+*/
+
+.index-side-mark {
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 154px;
+  height: 118px;
+  color: #171717;
+  font-family: var(--font-en-condensed);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/*
+  数字裁切盒子：
+  以后“切口”固定在这个盒子上，而不是固定在数字文字本身上。
+*/
+.index-side-mark-number-box {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  display: block;
+  width: 118px;
+  height: 82px;
+  overflow: hidden;
+  z-index: 1;
+
+  /*
+    只切右下角：
+    这条斜边和下面的 slash 使用同一套视觉角度。
+    如果要微调切口大小，主要改 100% 19% 和 39% 100%。
+  */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 19%,
+    39% 100%,
+    0 100%
+  );
+}
+
+/* 金色数字本体：只负责显示，不再负责裁切 */
+.index-side-mark-number {
+  position: absolute;
+  left: 14px;
+  top: -2px;
+  display: block;
+  font-family: var(--font-en-condensed);
+  font-size: 78px;
+  line-height: 0.86;
+  letter-spacing: -0.08em;
+  color: var(--color-gold);
+  font-weight: 1000;
+}
+
+/*
+  黑色 slash：
+  这条线和 number-box 的裁切边对齐。
+*/
+.index-side-mark-slash {
+  position: absolute;
+  left: 46px;
+  top: 86px;
+  width: 90px;
+  height: 4px;
+  background: #171717;
+  transform: rotate(-43deg);
+  transform-origin: left center;
+  z-index: 3;
+}
+
+/* 英文 label */
+.index-side-mark-label {
+  position: absolute;
+  left: 50px;
+  top: 81px;
+  display: block;
+  width: 118px;
+  font-family: var(--font-latin);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #171717;
+  font-weight: 900;
+  z-index: 4;
+  white-space: nowrap;
+}
+
 .archive-index-page.is-characters {
   height: auto;
   min-height: 100svh;
@@ -14,7 +155,7 @@
 .archive-index-shell {
   grid-template-columns: minmax(0, 1fr);
   height: calc(100svh - 78px);
-  padding-top: 28px;
+  padding-top: 14px;
   padding-bottom: 0;
   padding-left: 0;
   overflow: hidden;
@@ -29,7 +170,7 @@
 
 .archive-index-content {
   width: calc(100% - 120px);
-  margin-left: 40px;
+  margin-left: 5px;
   min-height: 0;
   padding-bottom: 0;
 }
@@ -40,13 +181,13 @@
 
 .archive-index-intro-box {
   width: min(1160px, calc(100% - 176px));
-  margin: 22px 0 0 72px;
+  margin: 14px 0 0 72px;
   --content-frame-simple-padding: 24px 34px;
   --content-frame-simple-line-height: 1.7;
 }
 
 .archive-index-content > .archive-entry-heading + .archive-index-intro-box {
-  margin-top: 22px;
+  margin-top: 14px;
 }
 
 .archive-index-intro-copy p {
@@ -317,7 +458,53 @@
   transform-origin: center;
 }
 
+/* ========== index entrance animation ========== */
+
+.index-animate {
+  opacity: 0;
+  transform: translateY(18px);
+  will-change: opacity, transform;
+  animation-name: index-enter;
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.18, 0.82, 0.28, 1);
+  animation-fill-mode: forwards;
+}
+
+/* heading + intro 一起出现 */
+.index-animate-heading-intro {
+  animation-delay: 750ms;
+}
+
+/* grid section 第二段出现 */
+.index-animate-grid {
+  animation-delay: 1500ms;
+}
+
+@keyframes index-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index-animate {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 @media (max-width: 980px) {
+  .index-fixed-crosshair {
+    display: none;
+  }
+
   .archive-index-content {
     width: 100%;
     margin-left: 0;
