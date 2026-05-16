@@ -75,3 +75,119 @@
   border-right: 7px solid transparent;
   border-bottom: 11px solid currentColor;
 }
+
+/* ========== shared directional arrow marker ========== */
+
+.active-direction-marker {
+  --active-direction-color: var(--color-blue);
+  --active-direction-size: 48px;
+  --active-direction-rotate: 0deg;
+
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--active-direction-color);
+  pointer-events: none;
+  user-select: none;
+}
+
+.active-direction-marker::before {
+  content: attr(data-label);
+  display: none;
+  font-size: 10px;
+  font-family: var(--font-latin);
+  line-height: 1;
+  letter-spacing: 0.24em;
+  font-weight: 900;
+  color: currentColor;
+}
+
+.active-direction-marker[data-label]::before {
+  display: block;
+}
+
+.active-direction-marker__icon {
+  position: relative;
+  display: block;
+  width: var(--active-direction-size);
+  height: var(--active-direction-size);
+  transform: rotate(var(--active-direction-rotate));
+}
+
+.active-direction-marker__icon::before,
+.active-direction-marker__icon::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  width: 22px;
+  height: 16px;
+  background: currentColor;
+}
+
+/* upper two blades */
+.active-direction-marker__icon::before {
+  top: 8px;
+  clip-path: polygon(0 0, 38% 0, 100% 100%, 62% 100%);
+  box-shadow: 16px 0 0 currentColor;
+}
+
+/* lower two blades */
+.active-direction-marker__icon::after {
+  bottom: 8px;
+  clip-path: polygon(62% 0, 100% 0, 38% 100%, 0 100%);
+  box-shadow: 16px 0 0 currentColor;
+}
+
+/* right */
+.active-direction-marker--right {
+  top: 60%;
+  right: clamp(0px, 1.5vw, 26px);
+  transform: translateY(-50%);
+  --active-direction-rotate: 0deg;
+}
+
+/* down */
+.active-direction-marker--down {
+  left: 50%;
+  bottom: clamp(0px, 0.5vh, 8px);
+  transform: translateX(-50%);
+  --active-direction-rotate: 90deg;
+  --active-direction-move-x: 0px;
+  --active-direction-move-y: 12px;
+  animation: active-direction-marker-loop 1.35s cubic-bezier(0.35, 0, 0.2, 1) infinite;
+}
+
+@keyframes active-direction-marker-loop {
+  0% {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  55% {
+    opacity: 1;
+    translate: var(--active-direction-move-x) var(--active-direction-move-y);
+  }
+
+  75% {
+    opacity: 0;
+    translate: var(--active-direction-move-x) var(--active-direction-move-y);
+  }
+
+  76% {
+    opacity: 0;
+    translate: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-direction-marker {
+    animation: none;
+  }
+}

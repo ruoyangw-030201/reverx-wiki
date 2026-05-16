@@ -7,6 +7,7 @@ import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/world-map.css";
+import "../styles/active-marker.css";
 
 const { mapConfig } = Astro.props;
 const { width, height } = mapConfig.size;
@@ -97,6 +98,10 @@ function positionStyle(x, y) {
               </span>
             </div>
           </div>
+        </div>
+
+        <div class="active-direction-marker active-direction-marker--down world-map-scroll-marker" data-label="SCROLL" aria-hidden="true">
+          <span class="active-direction-marker__icon"></span>
         </div>
       </section>
 

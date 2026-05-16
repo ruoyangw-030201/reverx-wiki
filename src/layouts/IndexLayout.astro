@@ -1,17 +1,18 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
-import Endbar from "../components/Endbar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
 import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
 import "../styles/index.css";
-import { findNavigationItemByPath, getSectionFromPath, topTabs } from "../data/navigation.js";
+import "../styles/active-marker.css";
+import { findNavigationItemByPath, getNextTopTabForPath, getSectionFromPath, topTabs } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const currentSection = getSectionFromPath(currentPath);
+const nextIndexTab = getNextTopTabForPath(currentPath);
 
 const {
   title,
@@ -32,6 +33,22 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
     <ArchiveBackgroundLayer />
 
     <Headbar />
+
+    <div class="active-direction-marker active-direction-marker--down index-animate-marker" data-label="SCROLL" aria-hidden="true">
+      <span class="active-direction-marker__icon"></span>
+    </div>
+
+    {
+      nextIndexTab && (
+        <a
+          class="active-direction-marker active-direction-marker--right index-animate-marker index-tab-arrow index-tab-arrow--next"
+          href={nextIndexTab.href}
+          aria-label={`进入${nextIndexTab.label}`}
+        >
+          <span class="active-direction-marker__icon"></span>
+        </a>
+      )
+    }
 
     <div class="index-fixed-crosshair" aria-hidden="true">
       <span class="index-fixed-line index-fixed-line-vertical"></span>
@@ -62,6 +79,5 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
       </section>
     </main>
 
-    {currentSection === "characters" && <Endbar />}
   </div>
 </BaseLayout>

@@ -266,3 +266,13 @@ export function findNavigationItemByPath(path) {
 
   return topTabs.find((tab) => normalizeNavigationHref(tab.href) === path);
 }
+
+export function getNextTopTabForPath(path) {
+  const normalizedPath = normalizeNavigationHref(path);
+  const currentSection = getSectionFromPath(normalizedPath);
+  const currentIndex = topTabs.findIndex((tab) => tab.key === currentSection);
+
+  if (currentIndex < 0) return null;
+
+  return topTabs[(currentIndex + 1) % topTabs.length] ?? null;
+}

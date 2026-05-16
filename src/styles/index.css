@@ -255,7 +255,7 @@
   flex: 1 1 auto;
   min-width: 0;
   margin: 0 0 5px;
-  color: rgba(21, 21, 21, 0.58);
+  color: rgba(21, 21, 21, 0.7);
   font-family: var(--font-latin);
   font-size: 14px;
   line-height: 1.4;
@@ -337,7 +337,7 @@
 
 .world-index-entity-strip {
   width: min(1420px, calc(100% - 144px));
-  margin: 22px 0 0 72px;
+  margin: 15px 0 0 72px;
   gap: 16px 10px;
   align-items: flex-start;
 }
@@ -492,10 +492,54 @@
   }
 }
 
+/* 箭头 */
+.archive-index-page .index-tab-arrow {
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.archive-index-page .index-tab-arrow:hover,
+.archive-index-page .index-tab-arrow:focus-visible,
+.archive-index-page .index-tab-arrow:active {
+  color: var(--color-gold);
+}
+
+.archive-index-page .index-tab-arrow:focus-visible {
+  outline: 1px solid var(--color-gold-light);
+  outline-offset: 8px;
+}
+
+.archive-index-page .active-direction-marker--right.index-animate-marker {
+  opacity: 0;
+  animation: index-marker-enter 360ms ease 2020ms forwards;
+}
+
+.archive-index-page .active-direction-marker--down.index-animate-marker {
+  opacity: 0;
+  animation-delay: 2020ms;
+}
+
+@keyframes index-marker-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .index-animate {
     opacity: 1;
     transform: none;
+    animation: none;
+  }
+
+  .archive-index-page .active-direction-marker.index-animate-marker {
+    opacity: 1;
     animation: none;
   }
 }

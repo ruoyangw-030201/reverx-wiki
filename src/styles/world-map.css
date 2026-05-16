@@ -47,6 +47,13 @@
   scroll-snap-align: start;
 }
 
+.world-map-cover .world-map-scroll-marker {
+  position: absolute;
+  z-index: 60;
+  opacity: 0;
+  animation-delay: 2020ms;
+}
+
 .world-map-archive {
   position: relative;
   z-index: 12;
@@ -404,5 +411,9 @@
     animation: none;
     opacity: 0;
     visibility: hidden;
+  }
+
+  .world-map-cover .world-map-scroll-marker {
+    opacity: 1;
   }
 }
