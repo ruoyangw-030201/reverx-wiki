@@ -12,25 +12,32 @@
 /* ========== shell ========== */
 
 .archive-shell {
+  --archive-sidebar-track: clamp(190px, 13.758vw, 216px);
+  --archive-shell-gap: clamp(28px, 2.675vw, 42px);
+  --archive-shell-pad-top: clamp(18px, 1.529vw, 24px);
+  --archive-shell-pad-right: clamp(24px, 2.548vw, 40px);
   position: relative;
   z-index: 12;
   display: grid;
-  grid-template-columns: 216px minmax(0, 1fr);
+  grid-template-columns: var(--archive-sidebar-track) minmax(0, 1fr);
   align-items: start;
-  gap: 42px;
-  padding: 24px 40px 160px 0;
+  gap: var(--archive-shell-gap);
+  padding: var(--archive-shell-pad-top) var(--archive-shell-pad-right) 160px 0;
 }
 
 /* ========== content frame ========== */
 
 .archive-content-area {
+  --archive-content-outset-x: clamp(48px, 4.586vw, 72px);
+  --archive-content-outset-width: clamp(58px, 5.478vw, 86px);
+  --archive-heading-offset-x: var(--archive-content-outset-x);
   --archive-heading-frame-offset: -84px;
   --archive-section-gap: 0px;
   position: relative;
   min-height: 0;
-  width: calc(100% + 86px);
+  width: calc(100% + var(--archive-content-outset-width));
   margin-top: 0;
-  margin-left: -72px;
+  margin-left: calc(var(--archive-content-outset-x) * -1);
   padding: 0 0 120px 0;
   z-index: 2;
 }

@@ -1,15 +1,23 @@
 /* ========== shared headbar ========== */
 
 .archive-headbar {
+  --archive-headbar-brand-track: clamp(300px, 30.573vw, 480px);
+  --archive-headbar-actions-track: clamp(96px, 8.917vw, 140px);
+  --archive-headbar-pad-x: clamp(20px, 2.038vw, 32px);
+  --archive-headbar-nav-gap: clamp(10px, 1.146vw, 18px);
+  --archive-headbar-nav-pad-right: clamp(6px, 0.764vw, 12px);
+  --archive-headbar-item-min-width: clamp(96px, 7.134vw, 112px);
+  --archive-headbar-item-pad-x: clamp(12px, 1.146vw, 18px);
+  --archive-headbar-actions-gap: clamp(14px, 1.401vw, 22px);
   position: relative;
   z-index: 20;
   isolation: isolate;
   overflow: hidden;
   height: 78px;
   display: grid;
-  grid-template-columns: 480px 1fr 140px;
+  grid-template-columns: var(--archive-headbar-brand-track) minmax(0, 1fr) var(--archive-headbar-actions-track);
   align-items: center;
-  padding: 0 32px;
+  padding: 0 var(--archive-headbar-pad-x);
   background: rgba(2, 2, 2, 0.96);
   border-bottom: 1px solid rgba(200, 155, 90, 0.42);
 }
@@ -76,11 +84,11 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  gap: 18px;
+  gap: var(--archive-headbar-nav-gap);
   height: 100%;
   align-items: center;
   margin-left: auto;
-  padding-right: 12px;
+  padding-right: var(--archive-headbar-nav-pad-right);
 }
 
 .archive-topnav::before {
@@ -106,9 +114,9 @@
   align-items: flex-start;
   justify-content: center;
   gap: 4px;
-  min-width: 112px;
+  min-width: var(--archive-headbar-item-min-width);
   height: 50px;
-  padding: 0 18px;
+  padding: 0 var(--archive-headbar-item-pad-x);
   color: var(--color-blue-light);
   border: 1px solid rgba(45, 95, 150, 0.56);
   background: rgba(255, 255, 255, 0.03);
@@ -197,7 +205,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 22px;
+  gap: var(--archive-headbar-actions-gap);
 }
 
 .archive-search-icon {

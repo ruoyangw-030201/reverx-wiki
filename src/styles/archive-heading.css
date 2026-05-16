@@ -8,7 +8,7 @@
   row-gap: 2px;
   width: fit-content;
   max-width: min(720px, calc(100% - 112px));
-  margin: 4px 0 0 72px;
+  margin: 4px 0 0 var(--archive-heading-offset-x, clamp(48px, 4.586vw, 72px));
   padding: 0 4px;
   color: var(--color-ink);
   scroll-margin-top: 112px;

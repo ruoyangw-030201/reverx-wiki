@@ -1,5 +1,5 @@
 .content-frame-unit {
-  --content-frame-offset-x: 72px;
+  --content-frame-offset-x: clamp(48px, 4.586vw, 72px);
   --content-frame-main-right: calc(19.5% + var(--content-frame-offset-x));
   position: relative;
   width: 100%;
@@ -9,7 +9,7 @@
   --content-frame-edge-gold: rgba(200, 155, 90, 0.74);
   --content-frame-edge-russet: rgba(143, 93, 53, 0.74);
   --content-frame-edge-blue: rgba(45, 95, 150, 0.68);
-  --content-frame-offset-x: 72px;
+  --content-frame-offset-x: clamp(48px, 4.586vw, 72px);
   --content-frame-offset-y: 28px;
   --content-frame-box-height: 250px;
   --content-frame-frame-top: 126px;
@@ -34,6 +34,11 @@
   --content-frame-body-right: calc(23% + 36px + var(--content-frame-offset-x));
   --content-frame-icon-top: 34px;
   --content-frame-icon-right: 18px;
+  --content-frame-icon-stack-width: clamp(230px, 19.108vw, 300px);
+  --content-frame-icon-stack-height: clamp(270px, 22.42vw, 352px);
+  --content-frame-icon-image-width: clamp(190px, 15.924vw, 250px);
+  --content-frame-icon-image-multiple-width: clamp(116px, 9.554vw, 150px);
+  --content-frame-figure-height: clamp(650px, 63.694vw, 1000px);
   position: relative;
   width: 100%;
   min-height: max(var(--content-frame-visual-height), var(--content-frame-measure-height));
@@ -52,7 +57,11 @@
 }
 
 .content-frame:has(.content-frame-measure-layer .content-frame-icon-stack) {
-  --content-frame-measure-height: calc(var(--content-frame-icon-top) + 352px);
+  --content-frame-measure-height: calc(var(--content-frame-icon-top) + var(--content-frame-icon-stack-height));
+}
+
+.content-frame:has(.content-frame-icon-stack.is-figure) {
+  --content-frame-body-right: max(calc(23% + 36px + var(--content-frame-offset-x)), 360px);
 }
 
 .content-frame-decor-underlay {
@@ -171,8 +180,8 @@
   right: var(--content-frame-icon-right);
   top: var(--content-frame-icon-top);
   z-index: 5;
-  width: 300px;
-  height: var(--content-frame-icon-stack-height, 352px);
+  width: var(--content-frame-icon-stack-width);
+  height: var(--content-frame-icon-stack-height);
   isolation: isolate;
 }
 
@@ -281,12 +290,12 @@
 
 .content-frame-icon-image {
   display: block;
-  width: 250px;
+  width: var(--content-frame-icon-image-width);
   object-fit: contain;
 }
 
 .content-frame-icon-media.is-multiple .content-frame-icon-image {
-  width: 150px;
+  width: var(--content-frame-icon-image-multiple-width);
 }
 
 .content-frame-icon-media.is-figure {
@@ -308,7 +317,7 @@
 
 .content-frame-icon-media.is-figure .content-frame-icon-image {
   width: auto;
-  height: 1000px;
+  height: var(--content-frame-figure-height);
   max-width: none;
   max-height: none;
   object-fit: contain;
@@ -592,7 +601,7 @@
 }
 
 .content-frame-next-link-standalone {
-  --content-frame-next-right: calc(19.5% + 72px);
+  --content-frame-next-right: calc(19.5% + clamp(48px, 4.586vw, 72px));
   margin: 0 var(--content-frame-next-right) 0 auto;
 }
 

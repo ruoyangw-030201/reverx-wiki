@@ -24,7 +24,8 @@
 
 .archive-table-wrap {
   width: 100%;
-  overflow: visible;
+  overflow-x: auto;
+  overflow-y: visible;
   margin: 14px 0 22px;
 }
 
