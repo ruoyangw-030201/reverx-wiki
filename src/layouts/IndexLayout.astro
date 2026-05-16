@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
+import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
+import NextPageTrigger from "../components/NextPageTrigger.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
 import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
@@ -8,11 +10,21 @@ import "../styles/archive/layout.css";
 import "../styles/content/content.css";
 import "../styles/index.css";
 import "../styles/active-marker.css";
-import { findNavigationItemByPath, getNextTopTabForPath, getSectionFromPath, topTabs } from "../data/navigation.js";
+import {
+  findNavigationItemByPath,
+  getNextArchivePageForPath,
+  getNextTopTabForPath,
+  getSectionFromPath,
+  topTabs,
+} from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const currentSection = getSectionFromPath(currentPath);
 const nextIndexTab = getNextTopTabForPath(currentPath);
+const indexScrollNextPage =
+  currentPath === "/world" || currentPath === "/system"
+    ? getNextArchivePageForPath(currentPath)
+    : null;
 
 const {
   title,
@@ -29,24 +41,34 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
 ---
 
 <BaseLayout>
-  <div class:list={["archive-page", "archive-index-page", `is-${currentSection}`]}>
+  <div
+    class:list={["archive-page", "archive-index-page", `is-${currentSection}`]}
+    data-index-next-page={indexScrollNextPage?.href}
+  >
     <ArchiveBackgroundLayer />
 
     <Headbar />
 
-    <div class="active-direction-marker active-direction-marker--down index-animate-marker" data-label="SCROLL" aria-hidden="true">
-      <span class="active-direction-marker__icon"></span>
-    </div>
+    {
+      indexScrollNextPage && (
+        <ActiveDirectionMarker
+          direction="down"
+          label="SCROLL"
+          class="index-animate-marker index-page-arrow index-page-arrow--down"
+          href={indexScrollNextPage.href}
+          ariaLabel={`进入${indexScrollNextPage.label ?? indexScrollNextPage.labelEn ?? "下一页"}`}
+        />
+      )
+    }
 
     {
       nextIndexTab && (
-        <a
-          class="active-direction-marker active-direction-marker--right index-animate-marker index-tab-arrow index-tab-arrow--next"
+        <ActiveDirectionMarker
+          direction="right"
+          class="index-animate-marker index-tab-arrow index-tab-arrow--next"
           href={nextIndexTab.href}
-          aria-label={`进入${nextIndexTab.label}`}
-        >
-          <span class="active-direction-marker__icon"></span>
-        </a>
+          ariaLabel={`进入${nextIndexTab.label}`}
+        />
       )
     }
 
@@ -78,6 +100,8 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
         </div>
       </section>
     </main>
+
+    {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} />}
 
   </div>
 </BaseLayout>

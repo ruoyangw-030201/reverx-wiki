@@ -2,16 +2,20 @@
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import Endbar from "../components/Endbar.astro";
+import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/world-map.css";
 import "../styles/active-marker.css";
+import { getArchivePageNextLinkForPath } from "../data/navigation.js";
 
 const { mapConfig } = Astro.props;
 const { width, height } = mapConfig.size;
 const hasContent = Astro.slots.has("default");
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const nextPageLink = getArchivePageNextLinkForPath(currentPath);
 
 function positionStyle(x, y) {
   return `--map-x: ${(x / width) * 100}%; --map-y: ${(y / height) * 100}%;`;
@@ -100,9 +104,7 @@ function positionStyle(x, y) {
           </div>
         </div>
 
-        <div class="active-direction-marker active-direction-marker--down world-map-scroll-marker" data-label="SCROLL" aria-hidden="true">
-          <span class="active-direction-marker__icon"></span>
-        </div>
+        <ActiveDirectionMarker direction="down" label="SCROLL" class="world-map-scroll-marker" />
       </section>
 
       <section class="world-map-archive" aria-labelledby="world-map-title">
@@ -118,7 +120,7 @@ function positionStyle(x, y) {
               <p>{mapConfig.subtitle}</p>
             </header>
 
-            <ContentFrameBox minHeight="250px">
+            <ContentFrameBox minHeight="250px" nextPageLink={nextPageLink}>
               {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
             </ContentFrameBox>
           </div>

@@ -18,6 +18,7 @@ const {
   iconItems,
   iconFrameVariant = "default",
   decorVisualHeight = "1000px",
+  nextPageLink,
 } = Astro.props;
 
 const showDecor = showLeftDecor || showRightDecor;
@@ -42,6 +43,7 @@ const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` 
   decorVisualHeight={decorVisualHeight}
   showPaper={showPaper}
   showLines={showLines}
+  nextPageLink={nextPageLink}
 >
   {showDecor && (
     <Fragment slot="decor-underlay">

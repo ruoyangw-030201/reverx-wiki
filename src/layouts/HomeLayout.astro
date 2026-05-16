@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
+import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
+import NextPageTrigger from "../components/NextPageTrigger.astro";
+import { getNextArchivePageForPath } from "../data/navigation.js";
 import "../styles/home/home.css";
 
 const {
@@ -20,6 +23,7 @@ const homeParagraphs = introParagraphs
 
 const lastParagraphDelay = PARAGRAPH_START_DELAY + Math.max(0, homeParagraphs.length - 1) * PARAGRAPH_STEP;
 const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
+const homeNextPage = getNextArchivePageForPath("/");
 ---
 
 <BaseLayout>
@@ -44,6 +48,18 @@ const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
     class="home-page"
     style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms;`}
   >
+    {
+      homeNextPage && (
+        <ActiveDirectionMarker
+          direction="down"
+          label="SCROLL"
+          class="home-next-page-arrow"
+          href={homeNextPage.href}
+          ariaLabel={`进入${homeNextPage.label ?? homeNextPage.labelEn ?? "下一页"}`}
+        />
+      )
+    }
+
     <main class="home-main" aria-label="首页介绍">
       <section class="home-panel home-intro-panel" aria-label="ReverX 首页视觉开场">
         <div class="home-headbar-layer">
@@ -65,5 +81,7 @@ const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
         </div>
       </section>
     </main>
+
+    {homeNextPage && <NextPageTrigger nextHref={homeNextPage.href} />}
   </div>
 </BaseLayout>

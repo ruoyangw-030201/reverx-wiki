@@ -1,0 +1,72 @@
+---
+const { nextHref } = Astro.props;
+---
+
+{nextHref && <span data-next-page-trigger data-next-href={nextHref} hidden></span>}
+
+<script>
+  function setupNextPageTrigger() {
+    const trigger = document.querySelector("[data-next-page-trigger]");
+    if (!(trigger instanceof HTMLElement)) return;
+    if (trigger.dataset.nextPageTriggerReady === "true") return;
+
+    const nextHref = trigger.dataset.nextHref;
+    if (!nextHref) return;
+
+    trigger.dataset.nextPageTriggerReady = "true";
+
+    let isPaging = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStarted = false;
+
+    function goNext() {
+      if (isPaging) return;
+      isPaging = true;
+      window.location.assign(nextHref);
+    }
+
+    function handleWheel(event) {
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      if (event.deltaY <= 0) return;
+
+      event.preventDefault();
+      goNext();
+    }
+
+    function handleTouchStart(event) {
+      const touch = event.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchStarted = true;
+    }
+
+    function handleTouchEnd(event) {
+      if (!touchStarted) return;
+      touchStarted = false;
+
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
+      if (deltaY < 0) goNext();
+    }
+
+    function handleKeyDown(event) {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key !== "PageDown" && event.key !== "ArrowDown") return;
+
+      event.preventDefault();
+      goNext();
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("keydown", handleKeyDown);
+  }
+
+  setupNextPageTrigger();
+  document.addEventListener("astro:page-load", setupNextPageTrigger);
+</script>

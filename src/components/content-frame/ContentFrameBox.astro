@@ -1,4 +1,5 @@
 ---
+import ContentFrameNextLink from "./ContentFrameNextLink.astro";
 import "../../styles/content/content-frame.css";
 import "../../styles/content/content.css";
 
@@ -11,6 +12,7 @@ const {
   tone = "light",
   showPaper = true,
   showLines = true,
+  nextPageLink,
 } = Astro.props;
 
 const isSimple = variant === "simple";
@@ -45,46 +47,62 @@ const frameVars = [
 
 <div
   class:list={[
-    "content-frame",
-    isSimple ? "content-frame-simple" : "content-frame-ornate",
-    `is-${tone}`,
+    "content-frame-unit",
+    isSimple ? "is-simple" : "is-ornate",
     className,
   ]}
   style={frameVars}
 >
-  {isSimple ? (
-    <div class="content-frame-body content-prose">
-      <slot />
-    </div>
-  ) : (
-    <>
-      <div class="content-frame-decor-underlay" aria-hidden="true">
-        <div class="content-frame-decor-canvas">
-          <slot name="decor-underlay" />
-        </div>
-      </div>
-
-      {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
-
-      {showLines && (
-        <div class="content-frame-lines" aria-hidden="true">
-          <span class="content-frame-line-box content-frame-line-main"></span>
-          <span class="content-frame-line-box content-frame-line-blue"></span>
-          <span class="content-frame-line-box content-frame-line-russet"></span>
-          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
-          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
-          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
-          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
-        </div>
-      )}
-
-      <div class="content-frame-measure-layer" aria-hidden="true">
-        <slot name="measure" />
-      </div>
-
+  <div
+    class:list={[
+      "content-frame",
+      isSimple ? "content-frame-simple" : "content-frame-ornate",
+      `is-${tone}`,
+    ]}
+    style={frameVars}
+  >
+    {isSimple ? (
       <div class="content-frame-body content-prose">
         <slot />
       </div>
-    </>
+    ) : (
+      <>
+        <div class="content-frame-decor-underlay" aria-hidden="true">
+          <div class="content-frame-decor-canvas">
+            <slot name="decor-underlay" />
+          </div>
+        </div>
+
+        {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
+
+        {showLines && (
+          <div class="content-frame-lines" aria-hidden="true">
+            <span class="content-frame-line-box content-frame-line-main"></span>
+            <span class="content-frame-line-box content-frame-line-blue"></span>
+            <span class="content-frame-line-box content-frame-line-russet"></span>
+            <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
+            <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
+            <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
+            <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
+          </div>
+        )}
+
+        <div class="content-frame-measure-layer" aria-hidden="true">
+          <slot name="measure" />
+        </div>
+
+        <div class="content-frame-body content-prose">
+          <slot />
+        </div>
+      </>
+    )}
+  </div>
+
+  {nextPageLink && (
+    <ContentFrameNextLink
+      {...nextPageLink}
+      tone={tone}
+      class="content-frame-next-link-in-frame"
+    />
   )}
 </div>

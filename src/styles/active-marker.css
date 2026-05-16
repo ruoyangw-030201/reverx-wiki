@@ -82,6 +82,12 @@
   --active-direction-color: var(--color-blue);
   --active-direction-size: 48px;
   --active-direction-rotate: 0deg;
+  --active-direction-blade-width: calc(var(--active-direction-size) * 0.33);
+  --active-direction-blade-height: calc(var(--active-direction-size) * 0.22);
+  --active-direction-blade-copy-x: calc(var(--active-direction-size) * 0.25);
+  --active-direction-blade-left: calc(var(--active-direction-size) * 0.12);
+  --active-direction-blade-top: calc(var(--active-direction-size) * 0.22);
+  --active-direction-blade-row-gap: calc(var(--active-direction-size) * 0.25);
 
   position: fixed;
   z-index: 50;
@@ -116,28 +122,37 @@
   transform: rotate(var(--active-direction-rotate));
 }
 
-.active-direction-marker__icon::before,
-.active-direction-marker__icon::after {
-  content: "";
+.active-direction-marker__blade {
   position: absolute;
-  left: 7px;
-  width: 22px;
-  height: 16px;
+  left: var(--active-direction-blade-left);
+  top: var(--active-direction-blade-top);
+  display: block;
+  width: var(--active-direction-blade-width);
+  height: var(--active-direction-blade-height);
   background: currentColor;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--active-direction-blade-height)) 0,
+    100% 100%,
+    var(--active-direction-blade-height) 100%
+  );
+  transform-origin: center;
 }
 
-/* upper two blades */
-.active-direction-marker__icon::before {
-  top: 8px;
-  clip-path: polygon(0 0, 38% 0, 100% 100%, 62% 100%);
-  box-shadow: 16px 0 0 currentColor;
+.active-direction-marker__blade:nth-child(1) {
+  transform: translate(0, 0);
 }
 
-/* lower two blades */
-.active-direction-marker__icon::after {
-  bottom: 8px;
-  clip-path: polygon(62% 0, 100% 0, 38% 100%, 0 100%);
-  box-shadow: 16px 0 0 currentColor;
+.active-direction-marker__blade:nth-child(2) {
+  transform: translateX(var(--active-direction-blade-copy-x));
+}
+
+.active-direction-marker__blade:nth-child(3) {
+  transform: translateY(var(--active-direction-blade-row-gap)) scaleY(-1);
+}
+
+.active-direction-marker__blade:nth-child(4) {
+  transform: translate(var(--active-direction-blade-copy-x), var(--active-direction-blade-row-gap)) scaleY(-1);
 }
 
 /* right */

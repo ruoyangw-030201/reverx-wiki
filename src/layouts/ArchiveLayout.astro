@@ -7,9 +7,15 @@ import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
 import ArchiveHero from "../components/archive/ArchiveHero.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
+import ContentFrameNextLink from "../components/content-frame/ContentFrameNextLink.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
-import { findNavigationItemByPath, getSectionFromPath, topTabs } from "../data/navigation.js";
+import {
+  findNavigationItemByPath,
+  getArchivePageNextLinkForPath,
+  getSectionFromPath,
+  topTabs,
+} from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const currentSection = getSectionFromPath(currentPath);
@@ -34,6 +40,7 @@ const contentFrameIcon =
       : undefined;
 const contentFrameIconCaption = currentSection === "system" ? navigationItem?.label : undefined;
 const contentFrameIconVariant = currentSection === "characters" ? "figure" : "default";
+const nextPageLink = getArchivePageNextLinkForPath(currentPath);
 ---
 
 <BaseLayout>
@@ -51,13 +58,22 @@ const contentFrameIconVariant = currentSection === "characters" ? "figure" : "de
         <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
 
         {contentMode === "custom" ? (
-          <slot />
+          <>
+            <slot />
+            {nextPageLink && (
+              <ContentFrameNextLink
+                {...nextPageLink}
+                class="content-frame-next-link-standalone"
+              />
+            )}
+          </>
         ) : (
           <ContentFrame
             icon={contentFrameIcon}
             iconAlt={frameTitle}
             iconCaption={contentFrameIconCaption}
             iconFrameVariant={contentFrameIconVariant}
+            nextPageLink={nextPageLink}
           >
             <slot />
           </ContentFrame>

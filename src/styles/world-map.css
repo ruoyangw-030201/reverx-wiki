@@ -98,7 +98,7 @@
   margin-left: 72px;
 }
 
-.world-map-details > .content-frame {
+.world-map-details > .content-frame-unit {
   margin-top: var(--world-map-heading-frame-offset);
 }
 

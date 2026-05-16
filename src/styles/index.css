@@ -145,6 +145,13 @@
   white-space: nowrap;
 }
 
+.archive-index-page.is-characters .index-side-mark-label {
+  width: 64px;
+  line-height: 0.95;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .archive-index-page.is-characters {
   height: auto;
   min-height: 100svh;
@@ -493,7 +500,8 @@
 }
 
 /* 箭头 */
-.archive-index-page .index-tab-arrow {
+.archive-index-page .index-tab-arrow,
+.archive-index-page .index-page-arrow {
   pointer-events: auto;
   cursor: pointer;
   text-decoration: none;
@@ -502,11 +510,15 @@
 
 .archive-index-page .index-tab-arrow:hover,
 .archive-index-page .index-tab-arrow:focus-visible,
-.archive-index-page .index-tab-arrow:active {
+.archive-index-page .index-tab-arrow:active,
+.archive-index-page .index-page-arrow:hover,
+.archive-index-page .index-page-arrow:focus-visible,
+.archive-index-page .index-page-arrow:active {
   color: var(--color-gold);
 }
 
-.archive-index-page .index-tab-arrow:focus-visible {
+.archive-index-page .index-tab-arrow:focus-visible,
+.archive-index-page .index-page-arrow:focus-visible {
   outline: 1px solid var(--color-gold-light);
   outline-offset: 8px;
 }

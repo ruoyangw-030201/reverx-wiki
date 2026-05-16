@@ -276,3 +276,67 @@ export function getNextTopTabForPath(path) {
 
   return topTabs[(currentIndex + 1) % topTabs.length] ?? null;
 }
+
+export function getArchivePageSequence() {
+  const pages = [{ href: "/" }];
+  const seen = new Set(["/"]);
+
+  function addPage(item) {
+    const href = normalizeNavigationHref(item?.href);
+    if (!href || seen.has(href)) return;
+
+    seen.add(href);
+    pages.push({
+      ...item,
+      href,
+    });
+  }
+
+  topTabs.forEach((tab) => {
+    addPage(tab);
+
+    (sidebarBySection[tab.key] ?? []).forEach((item) => {
+      addPage(hydrateNavigationItem(item));
+    });
+  });
+
+  return pages;
+}
+
+export function getNextArchivePageForPath(path) {
+  const normalizedPath = normalizeNavigationHref(path);
+  const pages = getArchivePageSequence();
+  const currentIndex = pages.findIndex((page) => page.href === normalizedPath);
+
+  if (currentIndex < 0) return null;
+
+  const nextPage = pages[currentIndex + 1];
+  if (nextPage) return nextPage;
+
+  const currentSection = getSectionFromPath(normalizedPath);
+  const sectionTab = topTabs.find((tab) => tab.key === currentSection);
+
+  return sectionTab
+    ? {
+        ...sectionTab,
+        href: normalizeNavigationHref(sectionTab.href),
+      }
+    : null;
+}
+
+export function getArchivePageNextLinkForPath(path) {
+  const normalizedPath = normalizeNavigationHref(path);
+  const pages = getArchivePageSequence();
+  const currentIndex = pages.findIndex((page) => page.href === normalizedPath);
+
+  if (currentIndex < 0) return null;
+
+  const nextPage = getNextArchivePageForPath(normalizedPath);
+  if (!nextPage) return null;
+
+  return {
+    href: nextPage.href,
+    label: nextPage.label ?? nextPage.labelEn ?? nextPage.href,
+    action: currentIndex === pages.length - 1 ? "回到" : "进入",
+  };
+}

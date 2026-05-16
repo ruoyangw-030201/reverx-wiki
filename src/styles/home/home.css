@@ -1,3 +1,5 @@
+@import "../active-marker.css";
+
 .home-page {
   --home-paper: rgb(239, 237, 237);
   position: relative;
@@ -39,6 +41,27 @@
 
 .home-headbar-layer .archive-headbar {
   z-index: 1;
+}
+
+.home-page .home-next-page-arrow {
+  z-index: 30;
+  opacity: 0;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 180ms ease;
+  animation-delay: var(--home-headbar-delay, 8000ms);
+}
+
+.home-page .home-next-page-arrow:hover,
+.home-page .home-next-page-arrow:focus-visible,
+.home-page .home-next-page-arrow:active {
+  color: var(--color-gold);
+}
+
+.home-page .home-next-page-arrow:focus-visible {
+  outline: 1px solid var(--color-gold-light);
+  outline-offset: 8px;
 }
 
 .home-copy-underlay {
@@ -208,6 +231,11 @@
     pointer-events: auto;
     transform: none;
   }
+
+  .home-page .home-next-page-arrow {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .home-intro-is-skipped .home-birds-layer img,
@@ -234,4 +262,8 @@
   opacity: 1;
   pointer-events: auto;
   transform: none;
+}
+
+.home-intro-is-skipped .home-next-page-arrow {
+  animation-delay: 0ms;
 }

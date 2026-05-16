@@ -1,0 +1,35 @@
+---
+import ActiveDirectionMarker from "../ActiveDirectionMarker.astro";
+import "../../styles/active-marker.css";
+import "../../styles/content/content-frame.css";
+
+const {
+  href,
+  label,
+  action = "\u8fdb\u5165",
+  class: className,
+  tone = "light",
+} = Astro.props;
+
+const separator = "\uff1a";
+---
+
+{
+  href && (
+    <a
+      class:list={[
+        "content-frame-next-link",
+        `is-${tone}`,
+        className,
+      ]}
+      href={href}
+      aria-label={`${action}${separator}${label}`}
+    >
+      <span class="content-frame-next-link-label">{action}{separator}{label}</span>
+      <ActiveDirectionMarker
+        direction="right"
+        class="content-frame-next-link-marker"
+      />
+    </a>
+  )
+}

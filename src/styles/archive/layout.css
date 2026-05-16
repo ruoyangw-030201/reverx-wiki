@@ -39,11 +39,11 @@
   margin-top: 0;
 }
 
-.archive-content-area > .archive-entry-heading + .content-frame {
+.archive-content-area > .archive-entry-heading + .content-frame-unit {
   margin-top: var(--archive-heading-frame-offset);
 }
 
-.archive-content-area > .content-frame + .archive-entry-heading {
+.archive-content-area > .content-frame-unit + .archive-entry-heading {
   margin-top: var(--archive-section-gap);
 }
 
