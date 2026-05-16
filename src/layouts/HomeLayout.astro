@@ -23,6 +23,7 @@ const homeParagraphs = introParagraphs
 
 const lastParagraphDelay = PARAGRAPH_START_DELAY + Math.max(0, homeParagraphs.length - 1) * PARAGRAPH_STEP;
 const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
+const arrowDelay = headbarDelay + PARAGRAPH_FADE_DURATION;
 const homeNextPage = getNextArchivePageForPath("/");
 ---
 
@@ -46,7 +47,7 @@ const homeNextPage = getNextArchivePageForPath("/");
 
   <div
     class="home-page"
-    style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms;`}
+    style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms;`}
   >
     {
       homeNextPage && (

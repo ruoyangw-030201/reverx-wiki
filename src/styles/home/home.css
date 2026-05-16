@@ -50,7 +50,7 @@
   cursor: pointer;
   text-decoration: none;
   transition: color 180ms ease;
-  animation-delay: var(--home-headbar-delay, 8000ms);
+  animation-delay: var(--arrow-delay, 8000ms);
 }
 
 .home-page .home-next-page-arrow:hover,
