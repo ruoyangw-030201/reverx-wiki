@@ -2,16 +2,26 @@
 import "../styles/sidebar.css";
 import "../styles/active-marker.css";
 import {
+  getSectionFromPath,
   getSidebarAnchorsForPath,
   getSidebarItemsForPath,
   normalizeNavigationHref,
+  topTabs,
 } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const { collapseInactiveGroups = false } = Astro.props;
+const currentSection = getSectionFromPath(currentPath);
 const items = getSidebarItemsForPath(currentPath);
+const sectionTab = topTabs.find((tab) => tab.key === currentSection);
 const title = "档案分类";
 const titleEn = "CATEGORIES";
+const collapsibleGroupKeys = new Set(["ferdona", "hespera"]);
 const ariaLabel = "档案分类";
+
+function isCollapsibleGroup(item) {
+  return item.type === "group" && (collapsibleGroupKeys.has(item.entityKey) || !item.href);
+}
 
 function isSideActive(href) {
   if (!href) return false;
@@ -45,7 +55,55 @@ function withPageAnchors(sidebarItems) {
   });
 }
 
+function groupSidebarItems(sidebarItems) {
+  const groupedItems = [];
+  let currentCollapsibleGroup = null;
+
+  sidebarItems.forEach((item) => {
+    if (isCollapsibleGroup(item)) {
+      currentCollapsibleGroup = {
+        type: "collapsible-group",
+        item,
+        id: `archive-sidebar-group-${item.entityKey ?? groupedItems.length}`,
+        children: [],
+      };
+      groupedItems.push(currentCollapsibleGroup);
+      return;
+    }
+
+    if (item.type === "group") {
+      currentCollapsibleGroup = null;
+      groupedItems.push({
+        type: "item",
+        item,
+      });
+      return;
+    }
+
+    if (currentCollapsibleGroup) {
+      currentCollapsibleGroup.children.push(item);
+      return;
+    }
+
+    groupedItems.push({
+      type: "item",
+      item,
+    });
+  });
+
+  return groupedItems;
+}
+
 const sidebarItems = withPageAnchors(items);
+const groupedSidebarItems = groupSidebarItems(sidebarItems);
+
+function isCollapsibleEntryActive(entry) {
+  return isSideActive(entry.item.href) || entry.children.some((item) => isSideActive(item.href));
+}
+
+function isCollapsibleEntryExpanded(entry) {
+  return !collapseInactiveGroups || isCollapsibleEntryActive(entry);
+}
 ---
 
 <aside class="archive-sidebar">
@@ -56,58 +114,145 @@ const sidebarItems = withPageAnchors(items);
     </div>
 
     <nav aria-label={ariaLabel}>
-      {sidebarItems.map((item) => (
-        item.type === "group" ? (
-          item.href ? (
+      {sectionTab && (
+        <a class="archive-sidebar-section-link" href={sectionTab.href}>
+          <span>{sectionTab.label}</span>
+        </a>
+      )}
+
+      {groupedSidebarItems.map((entry) => (
+        entry.type === "collapsible-group" ? (
+          <div
+            class:list={[
+              "archive-sidebar-collapsible-group",
+              !isCollapsibleEntryExpanded(entry) && "is-collapsed",
+            ]}
+            data-sidebar-collapsible
+          >
+            <div class="archive-sidebar-group-row">
+              <button
+                class="archive-sidebar-group-toggle"
+                type="button"
+                aria-expanded={String(isCollapsibleEntryExpanded(entry))}
+                aria-controls={entry.id}
+                aria-label={`折叠或展开${entry.item.label}`}
+                data-sidebar-toggle
+              ></button>
+              {entry.item.href ? (
+                <a
+                  class:list={[
+                    "archive-sidebar-group",
+                    "archive-sidebar-group-label",
+                    "is-clickable",
+                    isSideActive(entry.item.href) && "is-active",
+                  ]}
+                  href={entry.item.href}
+                >
+                  {entry.item.label}
+                  <span class="archive-hourglass-marker" aria-hidden="true">
+                    <span class="archive-hourglass-cap"></span>
+                    <span class="archive-hourglass-line"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                  </span>
+                </a>
+              ) : (
+                <span class="archive-sidebar-group archive-sidebar-group-label">
+                  {entry.item.label}
+                </span>
+              )}
+            </div>
+
+            <div
+              class="archive-sidebar-group-children"
+              id={entry.id}
+              data-sidebar-children
+              hidden={!isCollapsibleEntryExpanded(entry)}
+            >
+              {entry.children.map((item) => (
+                <a
+                  class:list={[
+                    "archive-sidebar-link",
+                    item.depth === 2 && "is-depth-2",
+                    item.isAnchor && "is-anchor",
+                    isSideActive(item.href) && "is-active",
+                  ]}
+                  href={item.href}
+                  data-sidebar-anchor={item.isAnchor ? item.href : undefined}
+                >
+                  {item.icon && (
+                    <img
+                      class:list={[
+                        "archive-sidebar-icon",
+                        item.icon.startsWith("/icon/") && "is-small-source",
+                      ]}
+                      src={item.icon}
+                      alt=""
+                    />
+                  )}
+                  <span class="archive-sidebar-label">{item.label}</span>
+                  <span class="archive-hourglass-marker" aria-hidden="true">
+                    <span class="archive-hourglass-line"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          entry.item.type === "group" ? (
+            entry.item.href ? (
+              <a
+                class:list={[
+                  "archive-sidebar-group",
+                  "is-clickable",
+                  isSideActive(entry.item.href) && "is-active",
+                ]}
+                href={entry.item.href}
+              >
+                {entry.item.label}
+                <span class="archive-hourglass-marker" aria-hidden="true">
+                  <span class="archive-hourglass-cap"></span>
+                  <span class="archive-hourglass-line"></span>
+                  <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                  <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                </span>
+              </a>
+            ) : (
+              <div class="archive-sidebar-group">
+                {entry.item.label}
+              </div>
+            )
+          ) : (
             <a
               class:list={[
-                "archive-sidebar-group",
-                "is-clickable",
-                isSideActive(item.href) && "is-active",
+                "archive-sidebar-link",
+                entry.item.depth === 2 && "is-depth-2",
+                entry.item.isAnchor && "is-anchor",
+                isSideActive(entry.item.href) && "is-active",
               ]}
-              href={item.href}
+              href={entry.item.href}
+              data-sidebar-anchor={entry.item.isAnchor ? entry.item.href : undefined}
             >
-              {item.label}
+              {entry.item.icon && (
+                <img
+                  class:list={[
+                    "archive-sidebar-icon",
+                    entry.item.icon.startsWith("/icon/") && "is-small-source",
+                  ]}
+                  src={entry.item.icon}
+                  alt=""
+                />
+              )}
+              <span class="archive-sidebar-label">{entry.item.label}</span>
               <span class="archive-hourglass-marker" aria-hidden="true">
-                <span class="archive-hourglass-cap"></span>
                 <span class="archive-hourglass-line"></span>
                 <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
                 <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
               </span>
             </a>
-          ) : (
-            <div class="archive-sidebar-group">
-              {item.label}
-            </div>
           )
-        ) : (
-          <a
-            class:list={[
-              "archive-sidebar-link",
-              item.depth === 2 && "is-depth-2",
-              item.isAnchor && "is-anchor",
-              isSideActive(item.href) && "is-active",
-            ]}
-            href={item.href}
-            data-sidebar-anchor={item.isAnchor ? item.href : undefined}
-          >
-            {item.icon && (
-              <img
-                class:list={[
-                  "archive-sidebar-icon",
-                  item.icon.startsWith("/icon/") && "is-small-source",
-                ]}
-                src={item.icon}
-                alt=""
-              />
-            )}
-            <span class="archive-sidebar-label">{item.label}</span>
-            <span class="archive-hourglass-marker" aria-hidden="true">
-              <span class="archive-hourglass-line"></span>
-              <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-              <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
-            </span>
-          </a>
         )
       ))}
     </nav>
@@ -116,6 +261,23 @@ const sidebarItems = withPageAnchors(items);
 
 <script is:inline>
   (() => {
+    const initSidebarCollapsibleGroups = () => {
+      document.querySelectorAll("[data-sidebar-collapsible]").forEach((group) => {
+        const toggle = group.querySelector("[data-sidebar-toggle]");
+        const children = group.querySelector("[data-sidebar-children]");
+
+        if (!(toggle instanceof HTMLButtonElement) || !(children instanceof HTMLElement)) return;
+
+        toggle.addEventListener("click", () => {
+          const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+
+          toggle.setAttribute("aria-expanded", String(!isExpanded));
+          children.hidden = isExpanded;
+          group.classList.toggle("is-collapsed", isExpanded);
+        });
+      });
+    };
+
     const initSidebarAnchorState = () => {
       const normalizePath = (path) => path.replace(/\/$/, "") || "/";
       const currentPath = normalizePath(window.location.pathname);
@@ -193,8 +355,12 @@ const sidebarItems = withPageAnchors(items);
     };
 
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initSidebarAnchorState, { once: true });
+      document.addEventListener("DOMContentLoaded", () => {
+        initSidebarCollapsibleGroups();
+        initSidebarAnchorState();
+      }, { once: true });
     } else {
+      initSidebarCollapsibleGroups();
       initSidebarAnchorState();
     }
   })();

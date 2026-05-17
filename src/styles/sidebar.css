@@ -76,6 +76,32 @@
   white-space: nowrap;
 }
 
+.archive-sidebar-section-link {
+  display: block;
+  margin: 0 0 14px;
+  padding: 0 20px;
+  color: var(--color-blue-light);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.archive-sidebar-section-link span {
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.archive-sidebar-section-link:hover,
+.archive-sidebar-section-link:focus-visible {
+  color: var(--color-gold-light);
+}
+
+.archive-sidebar-section-link:focus-visible {
+  outline: 1px solid rgba(224, 194, 143, 0.72);
+  outline-offset: 4px;
+}
+
 .archive-sidebar-link {
   position: relative;
   display: flex;
@@ -206,6 +232,82 @@
 
 .archive-sidebar-group.is-active .archive-hourglass-marker {
   display: block;
+}
+
+.archive-sidebar-collapsible-group {
+  position: relative;
+}
+
+.archive-sidebar-group-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 12px 0 5px;
+  padding: 0 8px;
+}
+
+.archive-sidebar-group-row .archive-sidebar-group {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0 28px 0 0;
+}
+
+.archive-sidebar-group-label {
+  font-size: 17px;
+}
+
+.archive-sidebar-group-toggle {
+  position: relative;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-blue-light);
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.archive-sidebar-group-toggle::before,
+.archive-sidebar-group-toggle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.archive-sidebar-group-toggle::after {
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.archive-sidebar-collapsible-group.is-collapsed .archive-sidebar-group-toggle::before {
+  transform: translate(-50%, -50%);
+}
+
+.archive-sidebar-collapsible-group.is-collapsed .archive-sidebar-group-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.archive-sidebar-group-toggle:hover,
+.archive-sidebar-group-toggle:focus-visible {
+  color: var(--color-gold-light);
+}
+
+.archive-sidebar-group-toggle:focus-visible {
+  outline: 1px solid rgba(224, 194, 143, 0.72);
+  outline-offset: 3px;
+}
+
+.archive-sidebar-group-children[hidden] {
+  display: none;
 }
 
 .archive-sidebar-link.is-depth-2 {

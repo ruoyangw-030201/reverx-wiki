@@ -7,8 +7,8 @@ import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
-import "../styles/world-map.css";
 import "../styles/active-marker.css";
+import "../styles/world-map.css";
 import { getArchivePageNextLinkForPath } from "../data/navigation.js";
 
 const { mapConfig } = Astro.props;
@@ -16,6 +16,7 @@ const { width, height } = mapConfig.size;
 const hasContent = Astro.slots.has("default");
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const nextPageLink = getArchivePageNextLinkForPath(currentPath);
+const WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS = 1500;
 
 function positionStyle(x, y) {
   return `--map-x: ${(x / width) * 100}%; --map-y: ${(y / height) * 100}%;`;
@@ -23,12 +24,36 @@ function positionStyle(x, y) {
 ---
 
 <BaseLayout>
-  <div class="archive-page world-map-page">
+  <div
+    class="archive-page world-map-page"
+    style={`--world-map-scroll-marker-ready-delay: ${WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS}ms;`}
+    data-world-map-ready-delay-ms={WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS}
+  >
     <ArchiveScrollDecor class="world-map-scroll-decor" />
 
-    <div class="world-map-reveal-mask" aria-hidden="true"></div>
-
     <main class="archive-shell world-map-shell">
+      <section class="world-map-archive" aria-labelledby="world-map-title">
+        <Headbar />
+
+        <section class="world-map-lower">
+          <ArchiveSidebar collapseInactiveGroups />
+
+          <div class="world-map-details">
+            <header class="world-map-heading">
+              <span class="world-map-heading-kicker">WORLD MAP</span>
+              <h1 id="world-map-title">{mapConfig.title}</h1>
+              <p>{mapConfig.subtitle}</p>
+            </header>
+
+            <ContentFrameBox minHeight="250px" nextPageLink={nextPageLink}>
+              {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
+            </ContentFrameBox>
+          </div>
+        </section>
+
+        <ActiveDirectionMarker direction="down" label="继续下滑进入可交互地图" class="world-map-scroll-marker" />
+      </section>
+
       <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
         <div class="world-map-panel" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
           <div class="world-map-stage">
@@ -104,31 +129,10 @@ function positionStyle(x, y) {
           </div>
         </div>
 
-        <ActiveDirectionMarker direction="down" label="SCROLL" class="world-map-scroll-marker" />
+        <Endbar />
       </section>
 
-      <section class="world-map-archive" aria-labelledby="world-map-title">
-        <Headbar />
-
-        <section class="world-map-lower">
-          <ArchiveSidebar />
-
-          <div class="world-map-details">
-            <header class="world-map-heading">
-              <span class="world-map-heading-kicker">WORLD MAP</span>
-              <h1 id="world-map-title">{mapConfig.title}</h1>
-              <p>{mapConfig.subtitle}</p>
-            </header>
-
-            <ContentFrameBox minHeight="250px" nextPageLink={nextPageLink}>
-              {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
-            </ContentFrameBox>
-          </div>
-        </section>
-      </section>
     </main>
-
-    <Endbar />
   </div>
 </BaseLayout>
 
@@ -139,7 +143,7 @@ function positionStyle(x, y) {
     isScrollNavigationLocked,
   } from "../scripts/scrollNavigationGuard.js";
 
-  const WORLD_MAP_READY_DELAY_MS = 2020;
+  const WORLD_MAP_READY_DELAY_MS_FALLBACK = 1500;
 
   function setupWorldMapRegionCards() {
     document.querySelectorAll(".world-map-stage").forEach((stage) => {
@@ -192,17 +196,19 @@ function positionStyle(x, y) {
 
   function setupWorldMapPager() {
     const page = document.querySelector(".world-map-page");
-    const archive = document.querySelector(".world-map-archive");
-    if (!page || !(archive instanceof HTMLElement)) return;
+    const mapCover = document.querySelector(".world-map-cover");
+    if (!page || !(mapCover instanceof HTMLElement)) return;
     if (page instanceof HTMLElement && page.dataset.worldMapPagerReady === "true") return;
     if (page instanceof HTMLElement) page.dataset.worldMapPagerReady = "true";
 
+    const readyDelayMs = Number(page.dataset.worldMapReadyDelayMs) || WORLD_MAP_READY_DELAY_MS_FALLBACK;
     let isPaging = false;
     let touchStartX = 0;
     let touchStartY = 0;
     let touchStartedInPager = false;
     let blockedInputUntil = 0;
-    let readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
+    let readyAt = Date.now() + readyDelayMs;
+    let resizeFrame = 0;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -210,8 +216,12 @@ function positionStyle(x, y) {
       window.history.scrollRestoration = "manual";
     }
 
-    function archiveTop() {
-      return archive.offsetTop;
+    function mapTop() {
+      return mapCover.offsetTop;
+    }
+
+    function currentPageIndex() {
+      return window.scrollY >= mapTop() / 2 ? 1 : 0;
     }
 
     function isHistoryRestore(event) {
@@ -224,7 +234,7 @@ function positionStyle(x, y) {
       isPaging = false;
       touchStartedInPager = false;
       blockedInputUntil = Date.now() + SCROLL_NAVIGATION_LOCK_MS;
-      readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
+      readyAt = Date.now() + readyDelayMs;
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
 
@@ -235,6 +245,7 @@ function positionStyle(x, y) {
       isPaging = true;
       window.scrollTo({
         top: target,
+        left: 0,
         behavior: prefersReducedMotion.matches ? "auto" : "smooth",
       });
 
@@ -243,12 +254,29 @@ function positionStyle(x, y) {
       }, prefersReducedMotion.matches ? 120 : 720);
     }
 
-    function shouldPageDown() {
-      return window.scrollY < archiveTop() - 8;
+    function snapToNearestPage() {
+      const target = currentPageIndex() === 1 ? mapTop() : 0;
+      window.scrollTo({ top: target, left: 0, behavior: "auto" });
     }
 
-    function shouldPageUp() {
-      return window.scrollY <= archiveTop() + 32;
+    function pageDown() {
+      if (currentPageIndex() === 1) {
+        pageTo(mapTop());
+        return;
+      }
+
+      if (shouldConsumePagerInput()) return;
+      pageTo(mapTop());
+    }
+
+    function pageUp() {
+      if (currentPageIndex() === 0) {
+        pageTo(0);
+        return;
+      }
+
+      if (shouldConsumePagerInput()) return;
+      pageTo(0);
     }
 
     function isReady() {
@@ -278,23 +306,19 @@ function positionStyle(x, y) {
 
     function handleWheel(event) {
       if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      event.preventDefault();
 
       if (isPaging) {
-        event.preventDefault();
         return;
       }
 
-      if (event.deltaY > 0 && shouldPageDown()) {
-        event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(archiveTop());
+      if (event.deltaY > 0) {
+        pageDown();
         return;
       }
 
-      if (event.deltaY < 0 && shouldPageUp()) {
-        event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(0);
+      if (event.deltaY < 0) {
+        pageUp();
       }
     }
 
@@ -303,6 +327,17 @@ function positionStyle(x, y) {
       touchStartX = touch.clientX;
       touchStartY = touch.clientY;
       touchStartedInPager = true;
+    }
+
+    function handleTouchMove(event) {
+      if (!touchStartedInPager) return;
+
+      const touch = event.touches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaY) <= Math.abs(deltaX) || Math.abs(deltaY) < 4) return;
+
+      event.preventDefault();
     }
 
     function handleTouchEnd(event) {
@@ -314,44 +349,47 @@ function positionStyle(x, y) {
       const deltaY = touch.clientY - touchStartY;
       if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
 
-      if (deltaY < 0 && shouldPageDown()) {
-        event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(archiveTop());
+      event.preventDefault();
+
+      if (deltaY < 0) {
+        pageDown();
         return;
       }
 
-      if (deltaY > 0 && shouldPageUp()) {
-        event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(0);
+      if (deltaY > 0) {
+        pageUp();
       }
     }
 
     function handleKeyDown(event) {
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
 
-      const downKeys = ["ArrowDown", "PageDown", " "];
+      const downKeys = ["ArrowDown", "PageDown"];
       const upKeys = ["ArrowUp", "PageUp"];
 
-      if (downKeys.includes(event.key) && shouldPageDown()) {
+      if (downKeys.includes(event.key)) {
         event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(archiveTop());
+        pageDown();
         return;
       }
 
-      if (upKeys.includes(event.key) && shouldPageUp()) {
+      if (upKeys.includes(event.key)) {
         event.preventDefault();
-        if (shouldConsumePagerInput()) return;
-        pageTo(0);
+        pageUp();
       }
+    }
+
+    function handleResize() {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(snapToNearestPage);
     }
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("touchend", handleTouchEnd, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
     window.addEventListener("pageshow", (event) => {
       if (isHistoryRestore(event)) resetAfterHistoryRestore();
     });
