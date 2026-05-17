@@ -134,6 +134,7 @@ function positionStyle(x, y) {
 
 <script>
   import {
+    SCROLL_NAVIGATION_LOCK_MS,
     SCROLL_NAVIGATION_QUIET_MS,
     isScrollNavigationLocked,
   } from "../scripts/scrollNavigationGuard.js";
@@ -201,12 +202,30 @@ function positionStyle(x, y) {
     let touchStartY = 0;
     let touchStartedInPager = false;
     let blockedInputUntil = 0;
-    const readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
+    let readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     function archiveTop() {
       return archive.offsetTop;
+    }
+
+    function isHistoryRestore(event) {
+      if (event.persisted) return true;
+      const navigation = performance.getEntriesByType?.("navigation")?.[0];
+      return navigation?.type === "back_forward";
+    }
+
+    function resetAfterHistoryRestore() {
+      isPaging = false;
+      touchStartedInPager = false;
+      blockedInputUntil = Date.now() + SCROLL_NAVIGATION_LOCK_MS;
+      readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
 
     function pageTo(top) {
@@ -333,6 +352,11 @@ function positionStyle(x, y) {
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchend", handleTouchEnd, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("pageshow", (event) => {
+      if (isHistoryRestore(event)) resetAfterHistoryRestore();
+    });
+
+    if (isHistoryRestore({ persisted: false })) resetAfterHistoryRestore();
   }
 
   setupWorldMapPager();

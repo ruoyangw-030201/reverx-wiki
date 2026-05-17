@@ -40,16 +40,33 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
 
     const readyDelayMs = Number(trigger.dataset.readyDelayMs) || 0;
     const skipReadyDelayClass = trigger.dataset.skipReadyDelayWhenHtmlClass;
-    const shouldSkipReadyDelay =
-      Boolean(skipReadyDelayClass) &&
-      document.documentElement.classList.contains(skipReadyDelayClass);
-    const readyAt = Date.now() + (shouldSkipReadyDelay ? 0 : readyDelayMs);
+    let readyAt = Date.now() + getReadyDelayMs();
 
     let isPaging = false;
     let touchStartX = 0;
     let touchStartY = 0;
     let touchStarted = false;
     let blockedInputUntil = 0;
+
+    function getReadyDelayMs() {
+      const shouldSkipReadyDelay =
+        Boolean(skipReadyDelayClass) &&
+        document.documentElement.classList.contains(skipReadyDelayClass);
+      return shouldSkipReadyDelay ? 0 : readyDelayMs;
+    }
+
+    function isHistoryRestore(event) {
+      if (event.persisted) return true;
+      const navigation = performance.getEntriesByType?.("navigation")?.[0];
+      return navigation?.type === "back_forward";
+    }
+
+    function resetAfterHistoryRestore() {
+      isPaging = false;
+      touchStarted = false;
+      blockedInputUntil = Date.now() + SCROLL_NAVIGATION_LOCK_MS;
+      readyAt = Date.now() + getReadyDelayMs();
+    }
 
     function isReady() {
       return Date.now() >= readyAt;
@@ -128,6 +145,11 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchend", handleTouchEnd, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("pageshow", (event) => {
+      if (isHistoryRestore(event)) resetAfterHistoryRestore();
+    });
+
+    if (isHistoryRestore({ persisted: false })) resetAfterHistoryRestore();
   }
 
   setupNextPageTrigger();
