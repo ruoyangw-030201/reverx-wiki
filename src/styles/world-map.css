@@ -253,7 +253,7 @@
   border: 1px solid rgba(200, 155, 90, 0.8);
   background:
     linear-gradient(rgba(2, 2, 2, 0.72), rgba(2, 2, 2, 0.72)),
-    url("/bg/bg-headbar-gold.png") center / 100% 100% no-repeat,
+    url("/bg/bg-headbar-gold.webp") center / 100% 100% no-repeat,
     rgba(2, 2, 2, 0.96);
   color: var(--color-gold-light);
   box-shadow: none;

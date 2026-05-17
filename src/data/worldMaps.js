@@ -121,7 +121,7 @@ export const worldMaps = {
   ferdona: withMapEntity({
     key: "ferdona",
     size: MAP_SIZE,
-    image: "/map/ferdona/ferdona_raw.png",
+    image: "/map/ferdona/ferdona_raw.webp",
     regions: withGeneratedPaths("ferdona", ferdonaRegions),
     labels: [
       { text: "国王领州", x: 158, y: 188 },
@@ -168,7 +168,7 @@ export const worldMaps = {
   hespera: withMapEntity({
     key: "hespera",
     size: MAP_SIZE,
-    image: "/map/hespera/hespera_raw.png",
+    image: "/map/hespera/hespera_raw.webp",
     regions: withGeneratedPaths("hespera", hesperaRegions),
     labels: [
       { text: "奎尔德", x: 394, y: 360 },

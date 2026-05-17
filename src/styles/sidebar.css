@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("/bg/bg-sidebar-vertical.png") center top / 100% auto repeat-y;
+  background: url("/bg/bg-sidebar-vertical.webp") center top / 100% auto repeat-y;
   opacity: 0.26;
   pointer-events: none;
 }

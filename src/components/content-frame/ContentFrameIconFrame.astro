@@ -16,6 +16,29 @@ const iconItems = Array.isArray(items)
     ? [{ icon, iconAlt, caption }]
     : [];
 
+const originalOnlyBigIcons = new Set([
+  "/big-icon/rattown.webp",
+  "/big-icon/shalom.webp",
+  "/big-icon/taran.webp",
+]);
+
+function resolveFrameIcon(iconPath) {
+  if (typeof iconPath !== "string") return iconPath;
+  if (originalOnlyBigIcons.has(iconPath)) return iconPath;
+  if (iconPath.startsWith("/big-icon/") && iconPath.endsWith(".webp")) {
+    return iconPath.replace("/big-icon/", "/big-icon-dark/");
+  }
+  if (iconPath.startsWith("/icon/") && iconPath.endsWith(".png")) {
+    return iconPath.replace("/icon/", "/icon-dark/");
+  }
+  return iconPath;
+}
+
+const displayIconItems = iconItems.map((item) => ({
+  ...item,
+  icon: resolveFrameIcon(item.icon),
+}));
+
 const isExtended = variant === "extended";
 const isFigure = variant === "figure";
 const iconFrameHeight = isExtended
@@ -52,7 +75,7 @@ const iconFrameHeight = isExtended
         isFigure && "is-figure",
       ]}
     >
-      {iconItems.map((item) => (
+      {displayIconItems.map((item) => (
         <span class="content-frame-icon-item">
           <img class="content-frame-icon-image" src={item.icon} alt={item.iconAlt ?? ""} />
           {item.caption && <span class="content-frame-icon-caption">{item.caption}</span>}

@@ -7,7 +7,7 @@ import { worldEntities } from "../../data/worldEntities.js";
 
 const ferdonaEntities = ["hq", "prospect", "cabin", "blueprint", "teccasino"].map((key) => worldEntities[key]);
 const hesperaEntities = ["tibernan", "triatine"].map((key) => worldEntities[key]);
-const worldIndexEntities = [...ferdonaEntities, ...hesperaEntities];
+const otherEntities = [worldEntities.umbral];
 ---
 
 <IndexLayout>
@@ -19,25 +19,38 @@ const worldIndexEntities = [...ferdonaEntities, ...hesperaEntities];
       接下来，可以点击下方地图，先获得对世界版图与区域关系的直观印象；或者直接点击各个势力，了解这个世界。
     </p>
   </div>
+
   <section class="world-index-grid" aria-label="世界观分区">
     <IndexSection title="凡多纳" subtitle="FERDONA" description="故事的主舞台">
-      <IndexMapCard href="/world/ferdona" src="/map/ferdona/ferdona_raw.png" alt="凡多纳地图" />
+      <div class="world-index-section-flow">
+        <IndexMapCard href="/world/ferdona" src="/map/ferdona/ferdona_raw.webp" alt="凡多纳地图" />
+        <div class="index-icon-list world-index-section-icons">
+          {ferdonaEntities.map((entity) => (
+            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
+          ))}
+        </div>
+      </div>
     </IndexSection>
 
     <IndexSection title="海西" subtitle="HESPERA" description="古老的传承">
-      <IndexMapCard href="/world/hespera" src="/map/hespera/hespera_raw.png" alt="海西地图" />
+      <div class="world-index-section-flow">
+        <IndexMapCard href="/world/hespera" src="/map/hespera/hespera_raw.webp" alt="海西地图" />
+        <div class="index-icon-list world-index-section-icons">
+          {hesperaEntities.map((entity) => (
+            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
+          ))}
+        </div>
+      </div>
     </IndexSection>
 
     <IndexSection title="其他势力" subtitle="OTHERS" description="分散于各地的势力">
-      <div class="index-icon-list">
-        <IndexIconCard href="/world/umbral" icon="/big-icon/umbral.png" caption="暗影会" alt="暗影会图标" />
+      <div class="world-index-section-flow">
+        <div class="index-icon-list world-index-section-icons">
+          {otherEntities.map((entity) => (
+            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
+          ))}
+        </div>
       </div>
     </IndexSection>
-  </section>
-
-  <section class="index-icon-list world-index-entity-strip" aria-label="世界观主要势力">
-    {worldIndexEntities.map((entity) => (
-      <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
-    ))}
   </section>
 </IndexLayout>
