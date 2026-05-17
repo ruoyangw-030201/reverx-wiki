@@ -83,6 +83,14 @@ const homeNextPage = getNextArchivePageForPath("/");
       </section>
     </main>
 
-    {homeNextPage && <NextPageTrigger nextHref={homeNextPage.href} />}
+    {
+      homeNextPage && (
+        <NextPageTrigger
+          nextHref={homeNextPage.href}
+          readyDelayMs={arrowDelay}
+          skipReadyDelayWhenHtmlClass="home-intro-is-skipped"
+        />
+      )
+    }
   </div>
 </BaseLayout>

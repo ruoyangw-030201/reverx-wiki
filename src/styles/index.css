@@ -277,7 +277,7 @@
 .world-index-section-icons {
   flex: 1 1 auto;
   min-width: 0;
-  gap: 12px 8px;
+  max-width: 100%;
 }
 
 .characters-index-grid {
@@ -397,20 +397,27 @@
 }
 
 .index-icon-list {
+  --index-icon-card-size: 96px;
+  --index-icon-frame-size: 80px;
+  --index-icon-card-gap: 9px;
+  --index-icon-card-font-size: 13px;
+  --index-icon-frame-outline-inset: -7px 8px 7px -8px;
+  --index-icon-list-row-gap: 10px;
+  --index-icon-list-column-gap: 10px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--index-icon-list-row-gap) var(--index-icon-list-column-gap);
   align-items: flex-start;
 }
 
 .index-icon-card {
   display: inline-grid;
   justify-items: center;
-  gap: 9px;
-  width: 96px;
+  gap: var(--index-icon-card-gap, 9px);
+  width: var(--index-icon-card-size, 96px);
   color: var(--color-blue);
   font-family: var(--font-latin);
-  font-size: 13px;
+  font-size: var(--index-icon-card-font-size, 13px);
   letter-spacing: 0.14em;
   text-decoration: none;
   transition: color 180ms ease;
@@ -426,7 +433,7 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 80px;
+  width: var(--index-icon-frame-size, 80px);
   aspect-ratio: 1;
   background:
     radial-gradient(circle at 50% 35%, rgba(30, 26, 20, 0.96) 0, rgba(10, 10, 9, 0.98) 58%, #030303 100%),
@@ -443,7 +450,7 @@
 .index-icon-card-frame::before {
   content: "";
   position: absolute;
-  inset: -7px 8px 7px -8px;
+  inset: var(--index-icon-frame-outline-inset, -7px 8px 7px -8px);
   border: 1px solid rgba(45, 95, 150, 0.48);
   pointer-events: none;
   transition: border-color 180ms ease;
@@ -496,10 +503,8 @@
   overflow-wrap: anywhere;
 }
 
-.characters-index-grid .index-icon-card {
-  gap: 6px;
-  width: 96px;
-  font-size: 13px;
+.characters-index-grid .index-icon-list {
+  --index-icon-card-gap: 6px;
 }
 
 .characters-index-grid .index-icon-card-frame {
@@ -517,6 +522,18 @@
   height: 92%;
   transform: scale(1.45);
   transform-origin: center;
+}
+
+@media (max-width: 1360px) {
+  .archive-index-content .index-icon-list {
+    --index-icon-card-size: clamp(74px, 7vw, 96px);
+    --index-icon-frame-size: clamp(62px, 5.85vw, 80px);
+    --index-icon-card-gap: clamp(6px, 0.65vw, 9px);
+    --index-icon-card-font-size: clamp(11px, 0.95vw, 13px);
+    --index-icon-frame-outline-inset: clamp(-7px, -0.5vw, -5px) clamp(6px, 0.6vw, 8px) clamp(5px, 0.5vw, 7px) clamp(-8px, -0.6vw, -6px);
+    --index-icon-list-row-gap: clamp(8px, 0.8vw, 10px);
+    --index-icon-list-column-gap: clamp(6px, 0.75vw, 10px);
+  }
 }
 
 /* ========== index entrance animation ========== */

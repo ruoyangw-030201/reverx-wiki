@@ -1,10 +1,33 @@
 ---
-const { nextHref } = Astro.props;
+const {
+  nextHref,
+  readyDelayMs = 0,
+  skipReadyDelayWhenHtmlClass,
+} = Astro.props;
+
+const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
 ---
 
-{nextHref && <span data-next-page-trigger data-next-href={nextHref} hidden></span>}
+{
+  nextHref && (
+    <span
+      data-next-page-trigger
+      data-next-href={nextHref}
+      data-ready-delay-ms={resolvedReadyDelayMs}
+      data-skip-ready-delay-when-html-class={skipReadyDelayWhenHtmlClass}
+      hidden
+    ></span>
+  )
+}
 
 <script>
+  import {
+    isScrollNavigationLocked,
+    setScrollNavigationLock,
+  } from "../scripts/scrollNavigationGuard.js";
+
+  const SCROLL_NAVIGATION_LOCK_MS = 900;
+
   function setupNextPageTrigger() {
     const trigger = document.querySelector("[data-next-page-trigger]");
     if (!(trigger instanceof HTMLElement)) return;
@@ -15,14 +38,30 @@ const { nextHref } = Astro.props;
 
     trigger.dataset.nextPageTriggerReady = "true";
 
+    const readyDelayMs = Number(trigger.dataset.readyDelayMs) || 0;
+    const skipReadyDelayClass = trigger.dataset.skipReadyDelayWhenHtmlClass;
+    const shouldSkipReadyDelay =
+      Boolean(skipReadyDelayClass) &&
+      document.documentElement.classList.contains(skipReadyDelayClass);
+    const readyAt = Date.now() + (shouldSkipReadyDelay ? 0 : readyDelayMs);
+
     let isPaging = false;
     let touchStartX = 0;
     let touchStartY = 0;
     let touchStarted = false;
 
+    function isReady() {
+      return Date.now() >= readyAt;
+    }
+
+    function shouldBlockInput() {
+      return isScrollNavigationLocked() || !isReady();
+    }
+
     function goNext() {
       if (isPaging) return;
       isPaging = true;
+      setScrollNavigationLock(SCROLL_NAVIGATION_LOCK_MS);
       window.location.assign(nextHref);
     }
 
@@ -31,6 +70,7 @@ const { nextHref } = Astro.props;
       if (event.deltaY <= 0) return;
 
       event.preventDefault();
+      if (shouldBlockInput()) return;
       goNext();
     }
 
@@ -50,7 +90,11 @@ const { nextHref } = Astro.props;
       const deltaY = touch.clientY - touchStartY;
 
       if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
-      if (deltaY < 0) goNext();
+      if (deltaY < 0) {
+        event.preventDefault();
+        if (shouldBlockInput()) return;
+        goNext();
+      }
     }
 
     function handleKeyDown(event) {
@@ -58,12 +102,13 @@ const { nextHref } = Astro.props;
       if (event.key !== "PageDown" && event.key !== "ArrowDown") return;
 
       event.preventDefault();
+      if (shouldBlockInput()) return;
       goNext();
     }
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
   }
 
