@@ -22,11 +22,11 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
 
 <script>
   import {
+    SCROLL_NAVIGATION_LOCK_MS,
+    SCROLL_NAVIGATION_QUIET_MS,
     isScrollNavigationLocked,
     setScrollNavigationLock,
   } from "../scripts/scrollNavigationGuard.js";
-
-  const SCROLL_NAVIGATION_LOCK_MS = 900;
 
   function setupNextPageTrigger() {
     const trigger = document.querySelector("[data-next-page-trigger]");
@@ -49,13 +49,31 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
     let touchStartX = 0;
     let touchStartY = 0;
     let touchStarted = false;
+    let blockedInputUntil = 0;
 
     function isReady() {
       return Date.now() >= readyAt;
     }
 
-    function shouldBlockInput() {
+    function isBaseBlocked() {
       return isScrollNavigationLocked() || !isReady();
+    }
+
+    function isQuietBlocked() {
+      return Date.now() < blockedInputUntil;
+    }
+
+    function extendQuietWindow() {
+      blockedInputUntil = Date.now() + SCROLL_NAVIGATION_QUIET_MS;
+    }
+
+    function shouldConsumeInput() {
+      if (isBaseBlocked()) {
+        extendQuietWindow();
+        return true;
+      }
+
+      return isQuietBlocked();
     }
 
     function goNext() {
@@ -70,7 +88,7 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
       if (event.deltaY <= 0) return;
 
       event.preventDefault();
-      if (shouldBlockInput()) return;
+      if (shouldConsumeInput()) return;
       goNext();
     }
 
@@ -92,7 +110,7 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
       if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
       if (deltaY < 0) {
         event.preventDefault();
-        if (shouldBlockInput()) return;
+        if (shouldConsumeInput()) return;
         goNext();
       }
     }
@@ -102,7 +120,7 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
       if (event.key !== "PageDown" && event.key !== "ArrowDown") return;
 
       event.preventDefault();
-      if (shouldBlockInput()) return;
+      if (shouldConsumeInput()) return;
       goNext();
     }
 

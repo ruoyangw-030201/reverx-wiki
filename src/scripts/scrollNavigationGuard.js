@@ -1,6 +1,9 @@
 const SCROLL_NAVIGATION_LOCK_KEY = "reverx-scroll-navigation-lock-until";
 
-export function setScrollNavigationLock(durationMs = 900) {
+export const SCROLL_NAVIGATION_LOCK_MS = 1600;
+export const SCROLL_NAVIGATION_QUIET_MS = 450;
+
+export function setScrollNavigationLock(durationMs = SCROLL_NAVIGATION_LOCK_MS) {
   try {
     const lockUntil = Date.now() + Math.max(0, Number(durationMs) || 0);
     window.sessionStorage.setItem(SCROLL_NAVIGATION_LOCK_KEY, String(lockUntil));

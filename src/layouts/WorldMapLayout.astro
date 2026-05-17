@@ -133,7 +133,10 @@ function positionStyle(x, y) {
 </BaseLayout>
 
 <script>
-  import { isScrollNavigationLocked } from "../scripts/scrollNavigationGuard.js";
+  import {
+    SCROLL_NAVIGATION_QUIET_MS,
+    isScrollNavigationLocked,
+  } from "../scripts/scrollNavigationGuard.js";
 
   const WORLD_MAP_READY_DELAY_MS = 2020;
 
@@ -197,6 +200,7 @@ function positionStyle(x, y) {
     let touchStartX = 0;
     let touchStartY = 0;
     let touchStartedInPager = false;
+    let blockedInputUntil = 0;
     const readyAt = Date.now() + WORLD_MAP_READY_DELAY_MS;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -232,8 +236,25 @@ function positionStyle(x, y) {
       return Date.now() >= readyAt;
     }
 
-    function shouldBlockPagerInput() {
+    function isBaseBlocked() {
       return isScrollNavigationLocked() || !isReady();
+    }
+
+    function isQuietBlocked() {
+      return Date.now() < blockedInputUntil;
+    }
+
+    function extendQuietWindow() {
+      blockedInputUntil = Date.now() + SCROLL_NAVIGATION_QUIET_MS;
+    }
+
+    function shouldConsumePagerInput() {
+      if (isBaseBlocked()) {
+        extendQuietWindow();
+        return true;
+      }
+
+      return isQuietBlocked();
     }
 
     function handleWheel(event) {
@@ -246,14 +267,14 @@ function positionStyle(x, y) {
 
       if (event.deltaY > 0 && shouldPageDown()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(archiveTop());
         return;
       }
 
       if (event.deltaY < 0 && shouldPageUp()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(0);
       }
     }
@@ -276,14 +297,14 @@ function positionStyle(x, y) {
 
       if (deltaY < 0 && shouldPageDown()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(archiveTop());
         return;
       }
 
       if (deltaY > 0 && shouldPageUp()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(0);
       }
     }
@@ -296,14 +317,14 @@ function positionStyle(x, y) {
 
       if (downKeys.includes(event.key) && shouldPageDown()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(archiveTop());
         return;
       }
 
       if (upKeys.includes(event.key) && shouldPageUp()) {
         event.preventDefault();
-        if (shouldBlockPagerInput()) return;
+        if (shouldConsumePagerInput()) return;
         pageTo(0);
       }
     }
