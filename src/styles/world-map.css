@@ -572,11 +572,15 @@
 
 @media (max-width: 560px) {
   .world-map-heading {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 14px;
   }
 
   .world-map-heading-kicker {
-    display: none;
+    display: block;
+    padding: 5px 7px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
   }
 }
 
