@@ -632,7 +632,7 @@
   }
 
   .content-frame-unit.is-icon-figure .content-frame {
-    --content-frame-mobile-icon-space: calc(70svh + 34px);
+    --content-frame-mobile-icon-space: 90svh;
     --content-frame-mobile-icon-stack-height: clamp(170px, 42vw, 220px);
   }
 
@@ -794,7 +794,7 @@
 
   .content-frame-icon-media.is-figure .content-frame-icon-image {
     width: auto;
-    height: 70svh;
+    height: var(--content-frame-mobile-icon-space);
     max-width: none;
     max-height: none;
     object-fit: contain;
