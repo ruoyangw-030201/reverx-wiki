@@ -36,7 +36,9 @@ function positionStyle(x, y) {
         <Headbar />
 
         <section class="world-map-lower">
-          <ArchiveSidebar collapseInactiveGroups />
+          <div class="world-map-sidebar-desktop">
+            <ArchiveSidebar collapseInactiveGroups idPrefix="world-map-sidebar-desktop" />
+          </div>
 
           <div class="world-map-details">
             <header class="world-map-heading">
@@ -55,6 +57,8 @@ function positionStyle(x, y) {
       </section>
 
       <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
+        <div class="world-map-map-viewport" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
+          <div class="world-map-rotation-frame">
         <div class="world-map-panel" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
           <div class="world-map-stage">
             <img class="world-map-image" src={mapConfig.image} alt={`${mapConfig.title}地图`} />
@@ -128,6 +132,12 @@ function positionStyle(x, y) {
             </div>
           </div>
         </div>
+          </div>
+        </div>
+
+        <div class="world-map-sidebar-mobile">
+          <ArchiveSidebar collapseInactiveGroups idPrefix="world-map-sidebar-mobile" />
+        </div>
 
         <Endbar />
       </section>
@@ -144,9 +154,18 @@ function positionStyle(x, y) {
   } from "../scripts/scrollNavigationGuard.js";
 
   const WORLD_MAP_READY_DELAY_MS_FALLBACK = 1500;
+  const WORLD_MAP_MOBILE_QUERY = window.matchMedia("(max-width: 980px)");
+  const MOBILE_REGION_NAVIGATION_MIN_DELAY_MS = 220;
+  const MOBILE_REGION_NAVIGATION_LOCK_MS = 700;
+
+  function isMobileWorldMap() {
+    return WORLD_MAP_MOBILE_QUERY.matches;
+  }
 
   function setupWorldMapRegionCards() {
     document.querySelectorAll(".world-map-stage").forEach((stage) => {
+      if (stage instanceof HTMLElement && stage.dataset.worldMapRegionCardsReady === "true") return;
+
       const svg = stage.querySelector(".world-map-regions");
       const card = stage.querySelector(".world-map-region-card");
       const cardIcon = stage.querySelector(".world-map-region-card-icon");
@@ -154,8 +173,12 @@ function positionStyle(x, y) {
       const cardLabelEn = stage.querySelector(".world-map-region-card-label-en");
 
       if (!(svg instanceof SVGSVGElement) || !card || !cardIcon || !cardLabel || !cardLabelEn) return;
+      if (stage instanceof HTMLElement) stage.dataset.worldMapRegionCardsReady = "true";
 
       const viewBox = svg.viewBox.baseVal;
+      let selectedRegion = null;
+      let selectedAt = 0;
+      let navigationLockedUntil = 0;
 
       function showCard(region) {
         const shape = region.querySelector(".world-map-region-shape");
@@ -182,11 +205,67 @@ function positionStyle(x, y) {
         card.classList.remove("is-visible");
       }
 
+      function clearMobileSelection() {
+        selectedRegion?.classList.remove("is-selected");
+        selectedRegion = null;
+        selectedAt = 0;
+        hideCard();
+      }
+
+      function selectMobileRegion(region) {
+        selectedRegion?.classList.remove("is-selected");
+        selectedRegion = region;
+        selectedAt = Date.now();
+        region.classList.add("is-selected");
+        showCard(region);
+      }
+
       stage.querySelectorAll(".world-map-region").forEach((region) => {
-        region.addEventListener("pointerenter", () => showCard(region));
-        region.addEventListener("pointerleave", hideCard);
-        region.addEventListener("focusin", () => showCard(region));
-        region.addEventListener("focusout", hideCard);
+        region.addEventListener("pointerenter", () => {
+          if (!isMobileWorldMap()) showCard(region);
+        });
+        region.addEventListener("pointerleave", () => {
+          if (!isMobileWorldMap()) hideCard();
+        });
+        region.addEventListener("focusin", () => {
+          if (!isMobileWorldMap()) showCard(region);
+        });
+        region.addEventListener("focusout", () => {
+          if (!isMobileWorldMap()) hideCard();
+        });
+        region.addEventListener("click", (event) => {
+          if (!isMobileWorldMap()) return;
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          const now = Date.now();
+          const href = region.getAttribute("href");
+
+          if (selectedRegion === region) {
+            if (
+              href &&
+              now - selectedAt >= MOBILE_REGION_NAVIGATION_MIN_DELAY_MS &&
+              now >= navigationLockedUntil
+            ) {
+              navigationLockedUntil = now + MOBILE_REGION_NAVIGATION_LOCK_MS;
+              window.location.assign(href);
+            }
+            return;
+          }
+
+          selectMobileRegion(region);
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!isMobileWorldMap()) return;
+        if (event.target instanceof Node && stage.contains(event.target)) return;
+        clearMobileSelection();
+      });
+
+      window.addEventListener("resize", () => {
+        if (!isMobileWorldMap()) clearMobileSelection();
       });
     });
   }
@@ -195,6 +274,8 @@ function positionStyle(x, y) {
   document.addEventListener("astro:page-load", setupWorldMapRegionCards);
 
   function setupWorldMapPager() {
+    if (isMobileWorldMap()) return;
+
     const page = document.querySelector(".world-map-page");
     const mapCover = document.querySelector(".world-map-cover");
     if (!page || !(mapCover instanceof HTMLElement)) return;
@@ -305,6 +386,7 @@ function positionStyle(x, y) {
     }
 
     function handleWheel(event) {
+      if (isMobileWorldMap()) return;
       if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
       event.preventDefault();
 
@@ -323,6 +405,7 @@ function positionStyle(x, y) {
     }
 
     function handleTouchStart(event) {
+      if (isMobileWorldMap()) return;
       const touch = event.touches[0];
       touchStartX = touch.clientX;
       touchStartY = touch.clientY;
@@ -330,6 +413,7 @@ function positionStyle(x, y) {
     }
 
     function handleTouchMove(event) {
+      if (isMobileWorldMap()) return;
       if (!touchStartedInPager) return;
 
       const touch = event.touches[0];
@@ -341,6 +425,7 @@ function positionStyle(x, y) {
     }
 
     function handleTouchEnd(event) {
+      if (isMobileWorldMap()) return;
       if (!touchStartedInPager || isPaging) return;
       touchStartedInPager = false;
 
@@ -362,6 +447,7 @@ function positionStyle(x, y) {
     }
 
     function handleKeyDown(event) {
+      if (isMobileWorldMap()) return;
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
 
       const downKeys = ["ArrowDown", "PageDown"];
@@ -380,6 +466,7 @@ function positionStyle(x, y) {
     }
 
     function handleResize() {
+      if (isMobileWorldMap()) return;
       window.cancelAnimationFrame(resizeFrame);
       resizeFrame = window.requestAnimationFrame(snapToNearestPage);
     }

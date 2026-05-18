@@ -38,11 +38,16 @@ const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` 
 ---
 
 <ContentFrameBox
+  class:list={[
+    showIconFrame && "has-icon-frame",
+    showIconFrame && `is-icon-${iconFrameVariant}`,
+  ]}
   minHeight={minHeight}
   measureHeight={iconMeasureHeight}
   decorVisualHeight={decorVisualHeight}
   showPaper={showPaper}
   showLines={showLines}
+  extraFrameVars={showIconFrame ? `--content-frame-icon-count: ${resolvedIconItems.length};` : undefined}
   nextPageLink={nextPageLink}
 >
   {showDecor && (

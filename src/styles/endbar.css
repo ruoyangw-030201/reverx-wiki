@@ -60,19 +60,43 @@
   white-space: nowrap;
 }
 
+.archive-endbar-meta-short {
+  display: none;
+}
+
 @media (max-width: 720px) {
   .archive-endbar {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 7px;
-    padding: 10px 12px 10px 32px;
-    line-height: 1.2;
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
+    min-height: 28px;
+    padding: 0 8px 0 28px;
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  .archive-endbar-brand {
+    font-size: 12px;
+  }
+
+  .archive-endbar-brand .archive-hourglass-marker {
+    left: -21px;
+    transform: translateY(-50%) scale(0.42);
   }
 
   .archive-endbar-meta {
+    flex: 1 1 auto;
     font-family: var(--font-sans);
     letter-spacing: 0;
-    text-align: left;
-    white-space: normal;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .archive-endbar-meta-full {
+    display: none;
+  }
+
+  .archive-endbar-meta-short {
+    display: block;
   }
 }

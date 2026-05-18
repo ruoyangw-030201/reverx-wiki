@@ -10,8 +10,16 @@
   pointer-events: none;
 }
 
-.archive-hourglass-marker::before,
-.archive-hourglass-marker::after {
+.archive-hourglass-body {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 50%;
+  animation: archive-hourglass-flip 2.8s ease-in-out infinite;
+}
+
+.archive-hourglass-body::before,
+.archive-hourglass-body::after {
   content: "";
   position: absolute;
   left: 1px;
@@ -21,11 +29,11 @@
   background: currentColor;
 }
 
-.archive-hourglass-marker::before {
+.archive-hourglass-body::before {
   top: 0;
 }
 
-.archive-hourglass-marker::after {
+.archive-hourglass-body::after {
   bottom: 0;
 }
 
@@ -74,6 +82,28 @@
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 11px solid currentColor;
+}
+
+@keyframes archive-hourglass-flip {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  16% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  66% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========== shared directional arrow marker ========== */
@@ -202,7 +232,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .archive-hourglass-body,
   .active-direction-marker {
     animation: none;
+  }
+
+  .archive-hourglass-body {
+    transform: rotate(0deg);
   }
 }

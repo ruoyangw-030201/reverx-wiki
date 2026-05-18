@@ -13,6 +13,7 @@ const {
   showPaper = true,
   showLines = true,
   nextPageLink,
+  extraFrameVars,
 } = Astro.props;
 
 const isSimple = variant === "simple";
@@ -42,6 +43,7 @@ const frameVars = [
   `--content-frame-glyph-y-2: ${glyphMiddle}px`,
   `--content-frame-glyph-y-3: ${glyphBottom}px`,
   `--content-frame-glyph-height: ${glyphHeight}px`,
+  extraFrameVars,
 ].filter(Boolean).join("; ");
 ---
 

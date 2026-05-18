@@ -5,6 +5,8 @@ const {
   variant = "default",
   class: className,
 } = Astro.props;
+
+const decorGroups = [0, 1, 2];
 ---
 
 <div
@@ -15,9 +17,13 @@ const {
   ]}
   aria-hidden="true"
 >
-  <img class="scroll-decor scroll-decor-big" src="/bg/bg-big-3.webp" alt="" />
-  <img class="scroll-decor scroll-decor-small" src="/bg/bg-small-1-blue.webp" alt="" />
-  <img class="scroll-decor scroll-decor-tri" src="/bg/bg-small-2.webp" alt="" />
-  <img class="scroll-decor scroll-decor-orb" src="/bg/bg-small-3.webp" alt="" />
-  <img class="scroll-decor scroll-decor-poly" src="/bg/bg-small-4.webp" alt="" />
+  {decorGroups.map((group) => (
+    <div class:list={["scroll-decor-group", group > 0 && "is-mobile-repeat"]}>
+      {group === 0 && <img class="scroll-decor scroll-decor-big" src="/bg/bg-big-3.webp" alt="" />}
+      <img class="scroll-decor scroll-decor-small" src="/bg/bg-small-1-blue.webp" alt="" />
+      <img class="scroll-decor scroll-decor-tri" src="/bg/bg-small-2.webp" alt="" />
+      <img class="scroll-decor scroll-decor-orb" src="/bg/bg-small-3.webp" alt="" />
+      <img class="scroll-decor scroll-decor-poly" src="/bg/bg-small-4.webp" alt="" />
+    </div>
+  ))}
 </div>

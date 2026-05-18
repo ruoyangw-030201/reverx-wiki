@@ -101,7 +101,7 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
       </section>
     </main>
 
-    {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} readyDelayMs={2020} />}
+    {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} readyDelayMs={2020} disableBelowWidth={980} />}
 
   </div>
 </BaseLayout>

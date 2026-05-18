@@ -628,25 +628,49 @@
 }
 
 @media (max-width: 980px) {
+  .archive-index-page {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .archive-index-shell,
+  .archive-index-page.is-characters .archive-index-shell {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    padding: 16px 18px 82px;
+  }
+
   .index-fixed-crosshair {
     display: none;
+  }
+
+  .archive-index-page .index-tab-arrow,
+  .archive-index-page .index-page-arrow {
+    display: none;
+    pointer-events: none;
   }
 
   .archive-index-content {
     width: 100%;
     margin-left: 0;
     min-height: 0;
+    padding-bottom: 0;
   }
 
   .archive-index-intro-box {
     width: 100%;
-    margin: 24px 0 0;
+    margin: 16px 0 0;
+    --content-frame-simple-padding: 18px 20px;
+    --content-frame-simple-line-height: 1.55;
   }
 
   .world-index-grid {
     grid-template-columns: 1fr;
     width: 100%;
-    margin: 42px 0 0;
+    margin: 30px 0 0;
   }
 
   .world-index-grid > .index-section {
@@ -654,8 +678,14 @@
     row-gap: 14px;
   }
 
+  .world-index-grid .index-section-content {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .world-index-section-flow {
     flex-direction: column;
+    width: 100%;
   }
 
   .world-index-section-flow > .index-map-card {
@@ -663,16 +693,20 @@
     width: 100%;
   }
 
+  .world-index-section-icons {
+    width: 100%;
+  }
+
   .characters-index-grid {
     grid-template-columns: 1fr;
     width: 100%;
-    margin: 42px 0 0;
+    margin: 30px 0 0;
   }
 
   .system-index-grid {
     grid-template-columns: 1fr;
     width: 100%;
-    margin: 42px 0 0;
+    margin: 30px 0 0;
   }
 
   .index-section-heading-row {

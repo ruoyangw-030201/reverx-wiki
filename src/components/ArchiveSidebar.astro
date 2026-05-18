@@ -10,7 +10,7 @@ import {
 } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-const { collapseInactiveGroups = false } = Astro.props;
+const { collapseInactiveGroups = false, idPrefix = "archive-sidebar-group" } = Astro.props;
 const currentSection = getSectionFromPath(currentPath);
 const items = getSidebarItemsForPath(currentPath);
 const sectionTab = topTabs.find((tab) => tab.key === currentSection);
@@ -64,7 +64,7 @@ function groupSidebarItems(sidebarItems) {
       currentCollapsibleGroup = {
         type: "collapsible-group",
         item,
-        id: `archive-sidebar-group-${item.entityKey ?? groupedItems.length}`,
+        id: `${idPrefix}-${item.entityKey ?? groupedItems.length}`,
         children: [],
       };
       groupedItems.push(currentCollapsibleGroup);
@@ -150,10 +150,12 @@ function isCollapsibleEntryExpanded(entry) {
                 >
                   {entry.item.label}
                   <span class="archive-hourglass-marker" aria-hidden="true">
-                    <span class="archive-hourglass-cap"></span>
-                    <span class="archive-hourglass-line"></span>
-                    <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-                    <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                    <span class="archive-hourglass-body">
+                      <span class="archive-hourglass-cap"></span>
+                      <span class="archive-hourglass-line"></span>
+                      <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                      <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                    </span>
                   </span>
                 </a>
               ) : (
@@ -192,9 +194,11 @@ function isCollapsibleEntryExpanded(entry) {
                   )}
                   <span class="archive-sidebar-label">{item.label}</span>
                   <span class="archive-hourglass-marker" aria-hidden="true">
-                    <span class="archive-hourglass-line"></span>
-                    <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-                    <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                    <span class="archive-hourglass-body">
+                      <span class="archive-hourglass-line"></span>
+                      <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                      <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                    </span>
                   </span>
                 </a>
               ))}
@@ -213,10 +217,12 @@ function isCollapsibleEntryExpanded(entry) {
               >
                 {entry.item.label}
                 <span class="archive-hourglass-marker" aria-hidden="true">
-                  <span class="archive-hourglass-cap"></span>
-                  <span class="archive-hourglass-line"></span>
-                  <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-                  <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                  <span class="archive-hourglass-body">
+                    <span class="archive-hourglass-cap"></span>
+                    <span class="archive-hourglass-line"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                    <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                  </span>
                 </span>
               </a>
             ) : (
@@ -247,9 +253,11 @@ function isCollapsibleEntryExpanded(entry) {
               )}
               <span class="archive-sidebar-label">{entry.item.label}</span>
               <span class="archive-hourglass-marker" aria-hidden="true">
-                <span class="archive-hourglass-line"></span>
-                <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-                <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                <span class="archive-hourglass-body">
+                  <span class="archive-hourglass-line"></span>
+                  <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+                  <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+                </span>
               </span>
             </a>
           )
@@ -263,10 +271,12 @@ function isCollapsibleEntryExpanded(entry) {
   (() => {
     const initSidebarCollapsibleGroups = () => {
       document.querySelectorAll("[data-sidebar-collapsible]").forEach((group) => {
+        if (group.dataset.sidebarCollapsibleReady === "true") return;
         const toggle = group.querySelector("[data-sidebar-toggle]");
         const children = group.querySelector("[data-sidebar-children]");
 
         if (!(toggle instanceof HTMLButtonElement) || !(children instanceof HTMLElement)) return;
+        group.dataset.sidebarCollapsibleReady = "true";
 
         toggle.addEventListener("click", () => {
           const isExpanded = toggle.getAttribute("aria-expanded") === "true";

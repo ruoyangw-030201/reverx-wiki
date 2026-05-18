@@ -3,9 +3,11 @@ const {
   nextHref,
   readyDelayMs = 0,
   skipReadyDelayWhenHtmlClass,
+  disableBelowWidth,
 } = Astro.props;
 
 const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
+const resolvedDisableBelowWidth = Number(disableBelowWidth) || 0;
 ---
 
 {
@@ -15,6 +17,7 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
       data-next-href={nextHref}
       data-ready-delay-ms={resolvedReadyDelayMs}
       data-skip-ready-delay-when-html-class={skipReadyDelayWhenHtmlClass}
+      data-disable-below-width={resolvedDisableBelowWidth}
       hidden
     ></span>
   )
@@ -35,6 +38,15 @@ const resolvedReadyDelayMs = Math.max(0, Number(readyDelayMs) || 0);
 
     const nextHref = trigger.dataset.nextHref;
     if (!nextHref) return;
+
+    const disableBelowWidth = Number(trigger.dataset.disableBelowWidth) || 0;
+    if (
+      disableBelowWidth > 0 &&
+      window.matchMedia(`(max-width: ${disableBelowWidth}px)`).matches
+    ) {
+      trigger.dataset.nextPageTriggerReady = "true";
+      return;
+    }
 
     trigger.dataset.nextPageTriggerReady = "true";
 
