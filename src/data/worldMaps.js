@@ -179,7 +179,7 @@ export const worldMaps = {
       { text: "特律庭", x: 2131, y: 1365, level: "country" },
     ],
     cities: withMapCities([
-      { text: "缇柏南城", x: 1110, y: 1132, markerX: 1107, markerY: 1164 },
+      { text: "缇柏南城", x: 1110, y: 1132, markerX: 1107, markerY: 1164, mobileLabelOffsetY: 2 },
     ]),
   }),
 };

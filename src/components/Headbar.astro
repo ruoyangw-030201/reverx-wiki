@@ -14,7 +14,7 @@ function normalizeHref(href) {
 
 function isTopActive(href) {
   const normalized = normalizeHref(href);
-  return currentPath === normalized || currentPath.startsWith(normalized + "/");
+  return currentPath === normalized || currentPath.startsWith(normalized + "/");;
 }
 ---
 

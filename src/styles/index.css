@@ -13,7 +13,6 @@
 .index-fixed-crosshair {
   position: fixed;
   inset: 0;
-  z-index: 15;
   pointer-events: none;
 }
 
@@ -629,6 +628,8 @@
 
 @media (max-width: 980px) {
   .archive-index-page {
+    --index-side-rail-width: clamp(42px, 12vw, 58px);
+    --index-bottom-rail-height: clamp(54px, 9svh, 78px);
     height: auto;
     min-height: 100svh;
     overflow-x: hidden;
@@ -644,6 +645,10 @@
   }
 
   .index-fixed-crosshair {
+    display: block;
+  }
+
+  .index-side-mark {
     display: none;
   }
 
