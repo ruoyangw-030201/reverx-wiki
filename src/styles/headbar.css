@@ -238,18 +238,17 @@
 
 @media (max-width: 980px) {
   .archive-headbar {
-    --archive-headbar-pad-x: 16px;
-    --archive-headbar-nav-gap: 6px;
-    --archive-headbar-item-min-width: clamp(66px, 18.5vw, 88px);
-    --archive-headbar-item-pad-x: clamp(5px, 1.55vw, 10px);
+    --archive-headbar-pad-x: 14px;
+    --archive-headbar-nav-gap: 8px;
+    --archive-headbar-item-pad-x: clamp(8px, 1.9vw, 12px);
     grid-template-columns: auto minmax(0, 1fr);
     height: 58px;
-    gap: clamp(6px, 2vw, 14px);
+    gap: clamp(7px, 1.7vw, 13px);
     padding: 0 var(--archive-headbar-pad-x);
   }
 
   .archive-brand {
-    --archive-brand-icon-width: clamp(90px, 22vw, 116px);
+    --archive-brand-icon-width: clamp(96px, 25vw, 120px);
     min-height: 0;
     transform: none;
   }
@@ -281,18 +280,18 @@
     display: block;
     flex: 0 0 auto;
     width: 1px;
-    height: 30px;
+    height: 34px;
     background: rgba(200, 155, 90, 0.62);
   }
 
   .archive-topnav-item {
     align-items: center;
-    height: 30px;
-    min-width: var(--archive-headbar-item-min-width);
+    height: 34px;
+    min-width: 0;
     gap: 0;
     padding: 0 var(--archive-headbar-item-pad-x);
-    border-color: transparent;
-    background: transparent;
+    border-color: rgba(45, 95, 150, 0.56);
+    background: rgba(255, 255, 255, 0.02);
   }
 
   .archive-topnav-item span {
@@ -306,19 +305,31 @@
   }
 
   .archive-topnav-item.is-active::before {
-    display: none;
+    display: block;
+    inset: -4px 4px 4px -4px;
+    border-color: rgba(200, 155, 90, 0.55);
   }
 
   .archive-topnav-item .archive-hourglass-marker {
-    bottom: -13px;
-    transform: translateX(-50%) scale(0.42);
+    bottom: -12px;
+    transform: translateX(-50%) scale(0.36);
+  }
+
+  .archive-topnav-item.is-active {
+    border-color: rgba(200, 155, 90, 0.82);
   }
 
   .archive-topnav-item:hover,
   .archive-topnav-item:focus-visible,
   .archive-topnav-item:active {
-    border-color: transparent;
-    background: transparent;
+    border-color: rgba(200, 155, 90, 0.8);
+    background: rgba(200, 155, 90, 0.06);
+  }
+
+  .archive-topnav-item.is-active:hover,
+  .archive-topnav-item.is-active:focus-visible,
+  .archive-topnav-item.is-active:active {
+    border-color: rgba(200, 155, 90, 0.82);
   }
 
   .archive-head-actions {
@@ -328,24 +339,23 @@
 
 @media (max-width: 620px) {
   .archive-headbar {
-    --archive-headbar-pad-x: 14px;
-    --archive-headbar-nav-gap: 3px;
-    --archive-headbar-item-min-width: clamp(58px, 17vw, 70px);
-    --archive-headbar-item-pad-x: 5px;
+    --archive-headbar-pad-x: 9px;
+    --archive-headbar-nav-gap: 5px;
+    --archive-headbar-item-pad-x: 7px;
     height: 52px;
-    gap: 7px;
+    gap: 5px;
   }
 
   .archive-brand {
-    --archive-brand-icon-width: clamp(78px, 22vw, 96px);
+    --archive-brand-icon-width: clamp(88px, 25vw, 104px);
   }
 
   .archive-topnav-divider {
-    height: 28px;
+    height: 32px;
   }
 
   .archive-topnav-item {
-    height: 28px;
+    height: 32px;
   }
 
   .archive-topnav-item span {
@@ -353,7 +363,7 @@
   }
 
   .archive-topnav-item .archive-hourglass-marker {
-    bottom: -12px;
-    transform: translateX(-50%) scale(0.38);
+    bottom: -11px;
+    transform: translateX(-50%) scale(0.34);
   }
 }

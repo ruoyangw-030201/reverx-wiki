@@ -459,6 +459,7 @@
     width: max-content;
     margin: 22px auto 14px;
     opacity: 0;
+    animation-delay: 0ms;
     transform: none;
   }
 
@@ -491,7 +492,7 @@
     width: calc(100vw * var(--map-ratio));
     max-width: none;
     margin: 0;
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(0.95);
     transform-origin: center center;
   }
 
@@ -518,6 +519,21 @@
     stroke-opacity: 0.95;
     stroke-width: 2.75;
     filter: var(--region-glow-filter);
+  }
+
+  .world-map-region-card {
+    width: max-content;
+    max-width: none;
+  }
+
+  .world-map-region-card-copy {
+    min-width: max-content;
+  }
+
+  .world-map-region-card-label,
+  .world-map-region-card-label-en {
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .world-map-cover > .archive-endbar {
