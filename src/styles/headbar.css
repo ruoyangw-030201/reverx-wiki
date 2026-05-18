@@ -236,12 +236,28 @@
   opacity: 0.45;
 }
 
+.archive-menu-toggle {
+  display: none;
+  appearance: none;
+  border: 1px solid rgba(45, 95, 150, 0.56);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-blue-light);
+  cursor: pointer;
+}
+
+.archive-menu-toggle-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+}
+
 @media (max-width: 980px) {
   .archive-headbar {
     --archive-headbar-pad-x: 14px;
     --archive-headbar-nav-gap: 8px;
-    --archive-headbar-item-pad-x: clamp(8px, 1.9vw, 12px);
-    grid-template-columns: auto minmax(0, 1fr);
+    --archive-headbar-item-pad-x: clamp(12px, 3.2vw, 18px);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     height: 58px;
     gap: clamp(7px, 1.7vw, 13px);
     padding: 0 var(--archive-headbar-pad-x);
@@ -261,14 +277,76 @@
     display: none;
   }
 
+  .archive-menu-toggle {
+    position: relative;
+    z-index: 30;
+    justify-self: end;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 38px;
+    height: 34px;
+    padding: 0;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .archive-menu-toggle:hover,
+  .archive-menu-toggle:focus-visible,
+  .archive-menu-toggle:active,
+  .archive-headbar.is-menu-open .archive-menu-toggle {
+    color: var(--color-gold-light);
+    border-color: rgba(200, 155, 90, 0.82);
+    background: rgba(200, 155, 90, 0.06);
+  }
+
+  .archive-menu-toggle:focus-visible {
+    outline: 1px solid rgba(224, 194, 143, 0.72);
+    outline-offset: 4px;
+  }
+
   .archive-topnav {
-    justify-content: flex-end;
-    overflow: visible;
-    height: 100%;
+    position: absolute;
+    top: calc(100% + 1px);
+    right: var(--archive-headbar-pad-x);
+    z-index: 25;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    width: min(132px, calc(100vw - (var(--archive-headbar-pad-x) * 2)));
+    height: auto;
     min-width: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
+    margin: 0;
+    padding: 12px 10px;
+    overflow: visible;
+    border: 1px solid rgba(200, 155, 90, 0.46);
+    background:
+      linear-gradient(rgba(2, 2, 2, 0.88), rgba(2, 2, 2, 0.88)),
+      url("/bg/bg-headbar-gold.webp") center / 100% 100% no-repeat,
+      rgba(2, 2, 2, 0.98);
+    box-shadow: 0 18px 28px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    visibility: hidden;
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease,
+      visibility 160ms ease;
+  }
+
+  .archive-headbar.is-menu-open .archive-topnav {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
   }
 
   .archive-topnav::before,
@@ -277,42 +355,52 @@
   }
 
   .archive-topnav-divider {
+    position: relative;
+    z-index: 4;
     display: block;
-    flex: 0 0 auto;
-    width: 1px;
-    height: 34px;
+    flex: 0 0 1px;
+    width: 100%;
+    height: 1px;
+    margin: 13px 0 12px;
     background: rgba(200, 155, 90, 0.62);
+    box-shadow: none;
   }
 
   .archive-topnav-item {
-    align-items: center;
-    height: 34px;
-    min-width: 0;
-    gap: 0;
-    padding: 0 var(--archive-headbar-item-pad-x);
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    min-width: var(--archive-headbar-item-min-width);
+    gap: 4px;
+    padding: 0 34px 0 14px;
     border-color: rgba(45, 95, 150, 0.56);
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .archive-topnav-item span {
-    font-size: clamp(12px, 3.35vw, 14px);
-    letter-spacing: 0;
+    font-size: 16px;
+    letter-spacing: 0.04em;
     white-space: nowrap;
   }
 
   .archive-topnav-item small {
-    display: none;
+    display: block;
+    font-size: 10px;
   }
 
   .archive-topnav-item.is-active::before {
     display: block;
-    inset: -4px 4px 4px -4px;
+    inset: -7px 8px 7px -8px;
     border-color: rgba(200, 155, 90, 0.55);
   }
 
   .archive-topnav-item .archive-hourglass-marker {
-    bottom: -12px;
-    transform: translateX(-50%) scale(0.36);
+    left: auto;
+    right: 8px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%) scale(0.42);
   }
 
   .archive-topnav-item.is-active {
@@ -341,7 +429,7 @@
   .archive-headbar {
     --archive-headbar-pad-x: 9px;
     --archive-headbar-nav-gap: 5px;
-    --archive-headbar-item-pad-x: 7px;
+    --archive-headbar-item-pad-x: 14px;
     height: 52px;
     gap: 5px;
   }
@@ -350,20 +438,24 @@
     --archive-brand-icon-width: clamp(88px, 25vw, 104px);
   }
 
-  .archive-topnav-divider {
+  .archive-menu-toggle {
+    width: 34px;
     height: 32px;
+  }
+
+  .archive-menu-toggle-bar {
+    width: 16px;
   }
 
   .archive-topnav-item {
-    height: 32px;
+    height: 48px;
   }
 
   .archive-topnav-item span {
-    font-size: clamp(11px, 3.25vw, 13px);
+    font-size: 15px;
   }
 
   .archive-topnav-item .archive-hourglass-marker {
-    bottom: -11px;
-    transform: translateX(-50%) scale(0.34);
+    transform: translateY(-50%) scale(0.4);
   }
 }

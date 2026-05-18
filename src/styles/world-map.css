@@ -358,11 +358,23 @@
 }
 
 .world-map-label.is-city {
+  left: calc(var(--map-x) + var(--map-label-offset-x, 0%));
+  top: calc(var(--map-y) + var(--map-label-offset-y, 0%));
   max-width: 18%;
   color: #315f9b;
   font-size: clamp(10px, 0.98vw, 26px);
   font-weight: 400;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.64);
+}
+
+.world-map-label.is-country {
+  max-width: 22%;
+  font-size: clamp(12px, 1vw, 30px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 10px rgba(255, 255, 255, 0.35);
 }
 
 .world-map-city-marker {
@@ -498,6 +510,21 @@
 
   .world-map-stage {
     min-width: 0;
+  }
+
+  .world-map-label,
+  .world-map-city-marker {
+    left: var(--map-mobile-x, var(--map-x));
+    top: var(--map-mobile-y, var(--map-y));
+  }
+
+  .world-map-label.is-city {
+    left: var(--map-x);
+    top: var(--map-y);
+    transform: translate(
+      calc(-50% + var(--map-mobile-label-offset-x, 0px)),
+      calc(-50% + var(--map-mobile-label-offset-y, 0px))
+    );
   }
 
   .world-map-region.is-clickable {

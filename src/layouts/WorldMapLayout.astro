@@ -17,9 +17,48 @@ const hasContent = Astro.slots.has("default");
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const nextPageLink = getArchivePageNextLinkForPath(currentPath);
 const WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS = 1500;
+const WORLD_MAP_LABEL_LEVELS = new Set(["state", "country"]);
 
-function positionStyle(x, y) {
-  return `--map-x: ${(x / width) * 100}%; --map-y: ${(y / height) * 100}%;`;
+function positionStyle(pointOrX, y) {
+  const point = typeof pointOrX === "object"
+    ? pointOrX
+    : { x: pointOrX, y };
+  const mobileX = point.mobileX ?? point.x;
+  const mobileY = point.mobileY ?? point.y;
+
+  return [
+    `--map-x: ${(point.x / width) * 100}%`,
+    `--map-y: ${(point.y / height) * 100}%`,
+    `--map-mobile-x: ${(mobileX / width) * 100}%`,
+    `--map-mobile-y: ${(mobileY / height) * 100}%`,
+  ].join("; ");
+}
+
+function cityMarkerStyle(city) {
+  return positionStyle({ x: city.markerX, y: city.markerY });
+}
+
+function cityLabelStyle(city) {
+  const desktopOffsetX = (city.x ?? city.markerX) - city.markerX;
+  const desktopOffsetY = (city.y ?? city.markerY) - city.markerY;
+  const mobileBaseOffsetX = Math.round(desktopOffsetX * 0.5);
+  const mobileBaseOffsetY = Math.round(desktopOffsetY * 0.5);
+  const mobileOffsetX = mobileBaseOffsetX + (city.mobileLabelOffsetX ?? 0);
+  const mobileOffsetY = mobileBaseOffsetY + (city.mobileLabelOffsetY ?? 0);
+
+  return [
+    `--map-x: ${(city.markerX / width) * 100}%`,
+    `--map-y: ${(city.markerY / height) * 100}%`,
+    `--map-label-offset-x: ${(desktopOffsetX / width) * 100}%`,
+    `--map-label-offset-y: ${(desktopOffsetY / height) * 100}%`,
+    `--map-mobile-label-offset-x: ${mobileOffsetX}px`,
+    `--map-mobile-label-offset-y: ${mobileOffsetY}px`,
+  ].join("; ");
+}
+
+function labelLevelClass(label) {
+  const level = WORLD_MAP_LABEL_LEVELS.has(label.level) ? label.level : "state";
+  return `world-map-label is-${level}`;
 }
 ---
 
@@ -28,6 +67,7 @@ function positionStyle(x, y) {
     class="archive-page world-map-page"
     style={`--world-map-scroll-marker-ready-delay: ${WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS}ms;`}
     data-world-map-ready-delay-ms={WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS}
+    data-world-map-key={mapConfig.key}
   >
     <ArchiveScrollDecor class="world-map-scroll-decor" />
 
@@ -53,7 +93,7 @@ function positionStyle(x, y) {
           </div>
         </section>
 
-        <ActiveDirectionMarker direction="down" label="继续下滑进入可交互地图" class="world-map-scroll-marker" />
+        <ActiveDirectionMarker direction="down" label="上滑进入横屏交互地图" class="world-map-scroll-marker" />
       </section>
 
       <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
@@ -108,15 +148,15 @@ function positionStyle(x, y) {
 
             <div class="world-map-label-layer" aria-hidden="true">
               {mapConfig.labels.map((label) => (
-                <span class="world-map-label is-state" style={positionStyle(label.x, label.y)}>
+                <span class={labelLevelClass(label)} style={positionStyle(label)}>
                   {label.text}
                 </span>
               ))}
 
               {mapConfig.cities.map((city) => (
                 <>
-                  <span class="world-map-city-marker" style={positionStyle(city.markerX, city.markerY)}></span>
-                  <span class="world-map-label is-city" style={positionStyle(city.x, city.y)}>
+                  <span class="world-map-city-marker" style={cityMarkerStyle(city)}></span>
+                  <span class="world-map-label is-city" style={cityLabelStyle(city)}>
                     {city.text}
                   </span>
                 </>

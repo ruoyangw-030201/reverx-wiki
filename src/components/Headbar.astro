@@ -4,6 +4,7 @@ import "../styles/active-marker.css";
 import { topTabs } from "../data/navigation.js";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const menuId = "archive-topnav-menu";
 
 function normalizeHref(href) {
   if (!href) return "";
@@ -25,7 +26,20 @@ function isTopActive(href) {
     </span>
   </a>
 
-  <nav class="archive-topnav" aria-label="主导航">
+  <button
+    class="archive-menu-toggle"
+    type="button"
+    aria-label="展开导航"
+    aria-expanded="false"
+    aria-controls={menuId}
+    data-headbar-menu-toggle
+  >
+    <span class="archive-menu-toggle-bar"></span>
+    <span class="archive-menu-toggle-bar"></span>
+    <span class="archive-menu-toggle-bar"></span>
+  </button>
+
+  <nav class="archive-topnav" id={menuId} aria-label="主导航" data-headbar-menu>
     {topTabs.map((tab, index) => (
       <>
         {index > 0 && <span class="archive-topnav-divider" aria-hidden="true"></span>}
@@ -55,3 +69,63 @@ function isTopActive(href) {
     <span class="archive-dot-grid"></span>
   </div>
 </header>
+
+<script>
+  const HEADBAR_MOBILE_QUERY = window.matchMedia("(max-width: 980px)");
+
+  function initArchiveHeadbarMenus() {
+    document.querySelectorAll(".archive-headbar").forEach((headbar) => {
+      if (!(headbar instanceof HTMLElement) || headbar.dataset.headbarMenuReady === "true") return;
+
+      const toggle = headbar.querySelector("[data-headbar-menu-toggle]");
+      const menu = headbar.querySelector("[data-headbar-menu]");
+      if (!(toggle instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+
+      headbar.dataset.headbarMenuReady = "true";
+
+      function closeMenu() {
+        headbar.classList.remove("is-menu-open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+
+      function openMenu() {
+        headbar.classList.add("is-menu-open");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+
+      toggle.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches) return;
+        event.stopPropagation();
+
+        if (headbar.classList.contains("is-menu-open")) {
+          closeMenu();
+          return;
+        }
+
+        openMenu();
+      });
+
+      menu.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches) return;
+        if (event.target instanceof Element && event.target.closest("a")) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches || !headbar.classList.contains("is-menu-open")) return;
+        if (event.target instanceof Node && headbar.contains(event.target)) return;
+        closeMenu();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+
+      HEADBAR_MOBILE_QUERY.addEventListener("change", closeMenu);
+    });
+  }
+
+  initArchiveHeadbarMenus();
+  document.addEventListener("astro:page-load", initArchiveHeadbarMenus);
+</script>

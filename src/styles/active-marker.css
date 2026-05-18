@@ -231,6 +231,23 @@
   }
 }
 
+@media (max-width: 980px) {
+  .active-direction-marker {
+    --active-direction-blade-left: calc(var(--active-direction-size) * 0.21);
+  }
+
+  .active-direction-marker--down {
+    flex-direction: column-reverse;
+    gap: 2px;
+    --active-direction-rotate: 270deg;
+    --active-direction-move-y: -12px;
+  }
+
+  .active-direction-marker--down::before {
+    text-align: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .archive-hourglass-body,
   .active-direction-marker {
