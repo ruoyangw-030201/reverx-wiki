@@ -244,7 +244,12 @@
   }
 
   .active-direction-marker--down::before {
+    content: attr(data-mobile-label);
     text-align: center;
+  }
+
+  .active-direction-marker--down:not([data-mobile-label])::before {
+    content: attr(data-label);
   }
 }
 

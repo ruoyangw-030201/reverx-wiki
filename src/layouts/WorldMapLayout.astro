@@ -93,7 +93,12 @@ function labelLevelClass(label) {
           </div>
         </section>
 
-        <ActiveDirectionMarker direction="down" label="上滑进入横屏交互地图" class="world-map-scroll-marker" />
+        <ActiveDirectionMarker
+          direction="down"
+          label="继续下滑进入可交互地图"
+          mobileLabel="上滑进入横屏交互地图"
+          class="world-map-scroll-marker"
+        />
       </section>
 
       <section class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
@@ -522,6 +527,7 @@ function labelLevelClass(label) {
     });
 
     if (isHistoryRestore({ persisted: false })) resetAfterHistoryRestore();
+    resizeFrame = window.requestAnimationFrame(snapToNearestPage);
   }
 
   setupWorldMapPager();
