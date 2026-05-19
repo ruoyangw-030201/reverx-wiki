@@ -5,20 +5,20 @@ import ContentFrameBox from "../../components/content-frame/ContentFrameBox.astr
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 import { getSidebarAnchorsForPath } from "../../data/navigation.js";
 
-const traceIcons = [
-  { icon: "/icon/trace.png", caption: "「痕迹」" },
-  { icon: "/icon/ling.png", caption: "「灵」" },
-  { icon: "/icon/chang.png", caption: "「场」" },
+const vestigeLumiraFieldIcons = [
+  { icon: "/icon/vestige.png", caption: "「痕迹」" },
+  { icon: "/icon/lumira.png", caption: "「灵」" },
+  { icon: "/icon/field.png", caption: "「场」" },
 ];
 
 const anchorsById = Object.fromEntries(
-  getSidebarAnchorsForPath("/system/trace").map((anchor) => [anchor.id, anchor])
+  getSidebarAnchorsForPath("/system/vestige-lumira-field").map((anchor) => [anchor.id, anchor])
 );
 const foundersPlan = anchorsById["founders-plan"];
 ---
 
 <ArchiveLayout contentMode="custom">
-  <ContentFrame iconItems={traceIcons} iconFrameVariant="extended">
+  <ContentFrame iconItems={vestigeLumiraFieldIcons} iconFrameVariant="extended">
     <p>
       每一个生命在次维度中都对应着一个“灵”，生命在次维度中的投影。一个人活着时，他在现实中的全部经历，都会不断在自己的灵上留下痕迹。痕迹积累得越多，灵承担的压力也越大；当这种积累超过极限，生命就会走向死亡。
     </p>

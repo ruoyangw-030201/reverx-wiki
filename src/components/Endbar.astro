@@ -1,19 +1,35 @@
 ---
 import "../styles/endbar.css";
 import "../styles/active-marker.css";
+
+const currentPathWithSearch = `${Astro.url.pathname}${Astro.url.search}`;
+const copyrightHref = `/copyright/?from=${encodeURIComponent(currentPathWithSearch)}`;
 ---
 
 <footer class="archive-endbar" aria-label="Archive information">
-  <span class="archive-endbar-brand">
-    <span class="archive-hourglass-marker" aria-hidden="true">
-      <span class="archive-hourglass-body">
-        <span class="archive-hourglass-line"></span>
-        <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
-        <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+  <span class="archive-endbar-row archive-endbar-row-main">
+    <span class="archive-endbar-brand">
+      <span class="archive-hourglass-marker" aria-hidden="true">
+        <span class="archive-hourglass-body">
+          <span class="archive-hourglass-line"></span>
+          <span class="archive-hourglass-fill archive-hourglass-fill-top"></span>
+          <span class="archive-hourglass-fill archive-hourglass-fill-bottom"></span>
+        </span>
       </span>
+      REVERX ARCHIVE
     </span>
-    REVERX ARCHIVE
+    <span class="archive-endbar-meta archive-endbar-meta-full">
+      Version 0.1 · Last Updated 05 2026 · 当前整理进度：快速入坑包
+    </span>
+    <span class="archive-endbar-meta archive-endbar-meta-short">
+      Version 0.1 · 05 2026
+    </span>
   </span>
-  <span class="archive-endbar-meta archive-endbar-meta-full">Version 0.1 · Last Updated 05 2026 · 当前整理进度：快速入坑包</span>
-  <span class="archive-endbar-meta archive-endbar-meta-short">Version 0.1 · Last Updated 05 2026</span>
+  <span class="archive-endbar-row archive-endbar-legal-row">
+    <span class="archive-endbar-copyright">
+      <span class="archive-endbar-copyright-full">Copyright © 2026 REVERX ARCHIVE. All rights reserved. 本站内容未经许可不得转载或商用。</span>
+      <span class="archive-endbar-copyright-short">© 2026 REVERX ARCHIVE. All rights reserved.</span>
+    </span>
+    <a class="archive-endbar-legal-link" href={copyrightHref}>版权声明</a>
+  </span>
 </footer>

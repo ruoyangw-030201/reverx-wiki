@@ -1,0 +1,171 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
+import ArchiveBackgroundLayer from "../../components/archive/ArchiveBackgroundLayer.astro";
+import ContentFrameNextLink from "../../components/content-frame/ContentFrameNextLink.astro";
+import "../../styles/archive/layout.css";
+import "../../styles/content/content.css";
+import "../../styles/copyright.css";
+
+const fallbackReturnHref = "/";
+---
+
+<BaseLayout description="REVERX ARCHIVE 版权声明">
+  <div class="archive-page copyright-page">
+    <ArchiveBackgroundLayer />
+
+    <main class="copyright-shell">
+      <ArchiveEntryHeading
+        kicker="NOTICE"
+        title="版权声明"
+        subtitle="COPYRIGHT NOTICE"
+      />
+
+      <article class="copyright-content" aria-label="版权声明正文">
+        <p>
+          欢迎访问 REVERX ARCHIVE / ReverX世界观快速入坑包（域名：reverx.online）。本网站目前为非商业性个人创作展示与世界观档案整理项目，由网站作者及运营者个人维护。
+        </p>
+
+        <p>
+          本声明适用于本网站及其相关页面、子域名、线上部署版本、预览版本，以及与本网站内容直接相关的文字、图像、设定、页面设计和其他表达形式。访问、浏览、引用或以其他方式使用本网站内容，即视为您已阅读并理解本声明。
+        </p>
+
+        <p>最后更新日期：2026年5月19日</p>
+
+        <h2>一、权利归属</h2>
+
+        <p>
+          除另有明确说明外，本网站上的全部原创内容，包括但不限于世界观设定、角色设定、组织设定、剧情文本、专有名词、说明文字、图片、图标、标识、页面视觉设计、排版结构、交互设计、图表、档案式页面内容及其他具有独创性的表达，均由本站作者创作，并由武汉耘电科技有限公司负责运营、管理、授权及维权事宜。
+        </p>
+
+        <p>
+          上述内容受《中华人民共和国著作权法》及相关法律法规保护。本站目前为非商业展示项目，但“非商业”并不表示相关内容进入公有领域，也不表示任何第三方可以自由复制、转载、搬运、改编、发布或用于其他项目。
+        </p>
+
+        <p>
+          未经本站作者及运营者事先明确书面许可，任何单位或个人不得以任何方式使用本网站内容，包括但不限于：
+        </p>
+
+        <p>
+          复制、转载、摘编、搬运、截图重发、修改、翻译、改编、汇编、镜像、二次发布、制作衍生作品、用于视频或图文内容、上传至社交媒体或内容平台、收录进素材库或数据库、用于商业展示、用于训练数据集、模型训练、模型微调、生成式人工智能素材收集，或以其他形式向公众传播。
+        </p>
+
+        <h2>二、不开放转载授权</h2>
+
+        <p>
+          本站原则上不开放任何形式的转载、搬运或整站镜像授权。无论是否注明出处，无论是否用于商业目的，未经书面许可，将本站内容复制到其他网站、社交媒体账号、公众号、视频平台、论坛、文档平台、资料库或其他公开渠道，均不属于本站授权范围。
+        </p>
+
+        <p>
+          仅注明“来源：reverx.online”或附带原文链接，不代表已经获得授权。任何“注明出处后转载”“非商业转载”“学习交流转载”等行为，仍须事先取得本站作者及运营者的书面许可。
+        </p>
+
+        <h2>三、允许的有限使用</h2>
+
+        <p>
+          在不影响本站内容正常使用、不损害本站作者及运营者合法权益的前提下，个人可以为学习、研究、评论或欣赏目的，对本站已经公开发布的少量内容进行必要引用。此类引用应当同时满足以下条件：
+        </p>
+
+        <ol>
+          <li>引用范围限于必要、少量片段，不得构成对完整页面、完整设定、完整章节、核心设定体系或主要视觉内容的替代性使用；</li>
+          <li>应清楚注明来源，包括网站名称“REVERX ARCHIVE / ReverX世界观快速入坑包”及对应页面链接；</li>
+          <li>不得对引用内容进行歪曲、篡改、断章取义或误导性使用；</li>
+          <li>不得用于商业宣传、流量经营、付费内容、广告推广、出版发行、课程材料、素材库、数据库、模型训练或其他超出个人学习、研究、评论、欣赏范围的用途；</li>
+          <li>不得以“整理”“合集”“搬运”“资料备份”“二创素材”“世界观资料包”等形式进行系统性收集、复制或传播。</li>
+        </ol>
+
+        <p>
+          除法律法规明确规定可以不经许可使用的情形外，任何超出上述范围的使用均须事先取得本站作者及运营者的书面许可。
+        </p>
+
+        <h2>四、禁止行为</h2>
+
+        <p>为避免歧义，本站明确禁止以下行为：</p>
+
+        <ol>
+          <li>未经许可转载、搬运、复制或重新发布本站任何页面内容；</li>
+          <li>未经许可将本站文字、设定、图片、图标、页面设计或世界观元素用于其他小说、漫画、游戏、视频、网站、设定集、商业方案或公开项目；</li>
+          <li>以“参考”“致敬”“整理”“二创”“资料汇总”等名义实质性复制本站原创表达；</li>
+          <li>删除、遮盖、修改本站署名、标识、版权信息或来源信息；</li>
+          <li>建立本站镜像、爬取本站内容、批量下载本站资源，或将本站内容收录进任何可检索数据库、素材库、训练集或资料库；</li>
+          <li>将本站内容用于生成式人工智能训练、模型微调、提示词素材、数据标注、自动化内容生成或类似用途；</li>
+          <li>其他侵犯本站作者及运营者著作权、署名权、保护作品完整权、信息网络传播权及其他合法权益的行为。</li>
+        </ol>
+
+        <h2>五、授权申请</h2>
+
+        <p>
+          如确有使用需求，请事先通过以下方式联系本站作者及运营者，并说明拟使用的具体内容、使用方式、使用范围、发布平台、是否涉及商业目的及预计发布时间：
+        </p>
+
+        <p>联系邮箱：<a href="mailto:contact@reverx.online">contact@reverx.online</a></p>
+
+        <p>
+          未经书面回复确认授权前，不得擅自使用。口头沟通、私信询问、留言、关注账号、标注来源、保留链接等行为，均不构成授权。
+        </p>
+
+        <p>
+          本站作者及运营者有权根据具体情况决定是否授权，并有权对授权范围、期限、署名方式、展示位置、是否可修改、是否可再次授权等事项作出限制。
+        </p>
+
+        <h2>六、第三方内容</h2>
+
+        <p>
+          本网站可能在部分页面中引用或展示少量第三方素材、字体、图像、工具、框架、开源代码或外部链接。相关内容的权利归原权利人所有，其使用应遵守对应权利人的授权条款或法律规定。
+        </p>
+
+        <p>
+          如第三方权利人认为本网站相关内容侵犯其合法权益，请通过本声明所列联系方式通知本站作者及运营者。本站将在核实后及时处理，包括但不限于更正、标注、删除或停止展示相关内容。
+        </p>
+
+        <h2>七、侵权处理</h2>
+
+        <p>
+          任何未经许可擅自使用本网站内容的行为，均可能构成对本站作者及运营者合法权益的侵犯。本站作者及运营者保留依法追究侵权责任的权利，包括但不限于要求停止侵权、删除相关内容、断开链接、消除影响、公开说明或赔礼道歉、赔偿损失，以及承担为制止侵权行为所支出的合理费用。
+        </p>
+
+        <p>
+          对于恶意搬运、批量复制、冒名发布、商业化使用、去除署名、伪称原创、用于训练数据集或经提醒后仍拒不删除的行为，本站作者及运营者将保留进一步采取投诉、平台举报、证据保全、律师函、行政投诉或民事诉讼等措施的权利。
+        </p>
+
+        <h2>八、声明更新</h2>
+
+        <p>
+          本站作者及运营者有权根据网站内容、运营情况及法律法规变化，对本版权声明进行修改、补充或更新。更新后的声明一经发布，即适用于本网站相关内容及后续访问、使用行为。
+        </p>
+
+        <p>
+          如您不同意本声明内容，请停止使用、复制、引用或传播本网站相关内容。
+        </p>
+      </article>
+
+      <ContentFrameNextLink
+        href={fallbackReturnHref}
+        action=""
+        label="回到页面"
+        class="copyright-return-link"
+        data-copyright-return-link
+      />
+    </main>
+
+    <script is:inline>
+      (() => {
+        const link = document.querySelector("[data-copyright-return-link]");
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        const from = new URLSearchParams(window.location.search).get("from");
+        if (!from || !from.startsWith("/") || from.startsWith("//")) return;
+
+        try {
+          const target = new URL(from, window.location.origin);
+          if (target.origin !== window.location.origin) return;
+
+          const href = `${target.pathname}${target.search}${target.hash}` || "/";
+          link.href = href;
+        } catch {
+          link.href = "/";
+        }
+      })();
+    </script>
+  </div>
+</BaseLayout>

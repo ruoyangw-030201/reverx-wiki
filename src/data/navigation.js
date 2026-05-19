@@ -76,8 +76,8 @@ export const sidebarBySection = {
     {
       label: "痕迹，“灵”与“场”",
       labelEn: "VESTIGE, LUMIRA, FIELD",
-      href: "/system/trace",
-      icon: "/icon/chang.png",
+      href: "/system/vestige-lumira-field",
+      icon: "/icon/field.png",
     },
     {
       label: "魔物",
@@ -89,19 +89,19 @@ export const sidebarBySection = {
       label: "恶能",
       labelEn: "MALICE",
       href: "/system/malice",
-      icon: "/icon/trace.png",
+      icon: "/icon/vestige.png",
     },
     {
       label: "恶能武器",
       labelEn: "MALICE WEAPONS",
       href: "/system/weapons",
-      icon: "/icon/mergeweapon.png",
+      icon: "/icon/fusion-weapon.png",
     },
     {
       label: "现实的本质——世界库",
       labelEn: "THE REVERX",
       href: "/system/innerworld",
-      icon: "/icon/ling.png",
+      icon: "/icon/lumira.png",
     },
   ],
 
@@ -111,14 +111,14 @@ export const sidebarBySection = {
       labelEn: "THEODORE VIJAY",
       href: "/characters/theo",
       icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/theo.webp",
+      frameIcon: "/figure/theodore.webp",
     },
     {
       label: "欧奈特·帕克",
       labelEn: "ORNETTE PARKER II",
       href: "/characters/ornette",
       icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/op.webp",
+      frameIcon: "/figure/ornette.webp",
     },
   ],
 };
@@ -164,7 +164,7 @@ export const sidebarAnchorsByPath = {
       entityKey: "qenevian",
     },
   ],
-  "/system/trace": [
+  "/system/vestige-lumira-field": [
     {
       id: "founders-plan",
       label: "“创立者们”与开洞计划",
@@ -205,13 +205,13 @@ export const sidebarAnchorsByPath = {
       id: "non-fusion-weapons",
       label: "非融合武器",
       labelEn: "Non-Fusion Weapons",
-      icon: "/icon/nonweapon.png",
+      icon: "/icon/non-fusion-weapon.png",
     },
     {
       id: "fusion-weapons",
       label: "融合武器",
       labelEn: "Fusion Weapons",
-      icon: "/icon/mergeweapon.png",
+      icon: "/icon/fusion-weapon.png",
     },
   ],
 };

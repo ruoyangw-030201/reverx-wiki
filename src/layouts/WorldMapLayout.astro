@@ -107,6 +107,7 @@ function labelLevelClass(label) {
         <div class="world-map-panel" style={`--map-aspect: ${width} / ${height}; --map-ratio: ${width / height};`}>
           <div class="world-map-stage">
             <img class="world-map-image" src={mapConfig.image} alt={`${mapConfig.title}地图`} />
+            <div class="world-map-interaction-hint" aria-hidden="true">点击地图白色区域可查看势力范围</div>
 
             <svg
               class="world-map-regions"

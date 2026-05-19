@@ -19,7 +19,7 @@ html:has(.world-map-page) {
 }
 
 .world-map-cover {
-  --world-map-endbar-height: 39px;
+  --world-map-endbar-height: 58px;
   position: relative;
   z-index: 2;
   display: flex;
@@ -212,6 +212,43 @@ html:has(.world-map-page) {
 
 .world-map-regions {
   z-index: 2;
+}
+
+.world-map-interaction-hint {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(18px, 3.4%, 34px);
+  z-index: 4;
+  max-width: min(86%, 560px);
+  color: var(--color-blue);
+  font-family: var(--font-latin);
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.95),
+    0 0 18px rgba(255, 255, 255, 0.86);
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  transform: translateX(-50%);
+  transition: opacity 220ms ease;
+  animation: world-map-interaction-hint-in 960ms ease forwards;
+  animation-delay: calc(var(--world-map-scroll-marker-ready-delay, 1500ms) + 360ms);
+}
+
+@keyframes world-map-interaction-hint-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .world-map-region {
@@ -422,7 +459,7 @@ html:has(.world-map-page) {
   }
 
   .world-map-cover {
-    --world-map-endbar-height: 28px;
+    --world-map-endbar-height: 58px;
     align-items: stretch;
     justify-content: flex-start;
     height: auto;
@@ -521,6 +558,13 @@ html:has(.world-map-page) {
     min-width: 0;
   }
 
+  .world-map-interaction-hint {
+    bottom: clamp(12px, 2.4%, 22px);
+    max-width: 72%;
+    font-size: clamp(11px, 2vw, 14px);
+    letter-spacing: 0.14em;
+  }
+
   .world-map-label,
   .world-map-city-marker {
     left: var(--map-mobile-x, var(--map-x));
@@ -575,7 +619,7 @@ html:has(.world-map-page) {
   .world-map-cover > .archive-endbar {
     flex: 0 0 auto;
     height: auto;
-    min-height: 28px;
+    min-height: 0;
   }
 }
 
@@ -601,9 +645,6 @@ html:has(.world-map-page) {
 
 .world-map-cover > .archive-endbar {
   box-sizing: border-box;
-  flex: 0 0 var(--world-map-endbar-height);
   width: 100%;
-  height: var(--world-map-endbar-height);
-  min-height: var(--world-map-endbar-height);
   margin-top: 0;
 }

@@ -7,25 +7,29 @@ const {
   href,
   label,
   action = "\u8fdb\u5165",
+  separator = "\uff1a",
   class: className,
   tone = "light",
+  "aria-label": ariaLabel,
+  ...rest
 } = Astro.props;
 
-const separator = "\uff1a";
+const displayText = action ? `${action}${separator}${label}` : label;
 ---
 
 {
   href && (
     <a
+      {...rest}
       class:list={[
         "content-frame-next-link",
         `is-${tone}`,
         className,
       ]}
       href={href}
-      aria-label={`${action}${separator}${label}`}
+      aria-label={ariaLabel ?? displayText}
     >
-      <span class="content-frame-next-link-label">{action}{separator}{label}</span>
+      <span class="content-frame-next-link-label">{displayText}</span>
       <ActiveDirectionMarker
         direction="right"
         class="content-frame-next-link-marker"
