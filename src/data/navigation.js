@@ -180,7 +180,7 @@ export const sidebarAnchorsByPath = {
       icon: "/icon/document.png",
     },
     {
-      id: "hybrid-malice-user",
+      id: "hybrid-malicer",
       label: "混血恶能者",
       labelEn: "Hybrid Malicer",
       icon: "/icon/document.png",
