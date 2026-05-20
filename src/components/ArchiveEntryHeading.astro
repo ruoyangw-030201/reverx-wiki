@@ -8,6 +8,7 @@ const {
   subtitle,
   variant = "primary",
   titleTag,
+  yearSwitchLabel,
 } = Astro.props;
 
 const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
@@ -16,6 +17,23 @@ const isPrimary = variant === "primary";
 
 <header id={id} class:list={["archive-entry-heading", `is-${variant}`]}>
   {isPrimary && <span class="archive-entry-heading-kicker">{kicker}</span>}
-  <HeadingTag class="archive-entry-heading-title">{title}</HeadingTag>
+  <div class="archive-entry-heading-title-row">
+    <HeadingTag class="archive-entry-heading-title">{title}</HeadingTag>
+    {yearSwitchLabel && (
+      <button class="archive-entry-year-switch" type="button" aria-label="切换设定年份">
+        <span class="archive-entry-year-switch-label">{yearSwitchLabel}</span>
+        <span class="archive-entry-year-switch-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M5.6 8.4a7.4 7.4 0 0 1 11.8-1.8" />
+            <path d="M17.4 6.6h-3.5" />
+            <path d="M17.4 6.6v-3.5" />
+            <path d="M18.4 15.6a7.4 7.4 0 0 1-11.8 1.8" />
+            <path d="M6.6 17.4h3.5" />
+            <path d="M6.6 17.4v3.5" />
+          </svg>
+        </span>
+      </button>
+    )}
+  </div>
   {subtitle && <p class="archive-entry-heading-subtitle">{subtitle}</p>}
 </header>

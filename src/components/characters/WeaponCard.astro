@@ -1,0 +1,42 @@
+---
+const {
+  typeLabel,
+  typeLabelEn,
+  name,
+  icon,
+  fields = [],
+  description,
+} = Astro.props;
+---
+
+<article class="character-weapon-card">
+  <div class="character-weapon-main">
+    <span class="character-weapon-banner" aria-hidden="true">
+      <img src={icon} alt="" />
+    </span>
+
+    <div class="character-weapon-content">
+      <div class="character-weapon-type-text">
+        <span>{typeLabel}<span class="character-title-separator" aria-hidden="true">/</span><span class="character-latin-text">{typeLabelEn}</span></span>
+      </div>
+
+      <div class="character-weapon-detail">
+        <strong class="character-weapon-name">「{name}」</strong>
+        <table class="character-weapon-fields">
+          <tbody>
+            {fields.map((field) => (
+              <tr>
+                <th scope="row">{field.label}</th>
+                <td>{field.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <p class="character-weapon-description">
+    {description}
+  </p>
+</article>

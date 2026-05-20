@@ -1,0 +1,69 @@
+---
+import AbilityCard from "./AbilityCard.astro";
+import WeaponCard from "./WeaponCard.astro";
+
+const {
+  abilities = [],
+  note = [],
+  fusionWeapons = [],
+  nonFusionWeapons = [],
+} = Astro.props;
+---
+
+<div class="character-profile-archive">
+  <section class="character-profile-section is-profile" aria-labelledby="character-profile-heading">
+    <div class="character-profile-window-layer" aria-hidden="true"></div>
+    <h2 class="character-profile-heading" id="character-profile-heading">
+      <span>基础设定</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">PROFILE</span>
+    </h2>
+    <div class="character-profile-body">
+      <div class="character-profile-ability-list">
+        {abilities.map((ability) => (
+          <AbilityCard {...ability} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="character-note-card" aria-labelledby="character-note-heading">
+    <div class="character-note-symbol" aria-hidden="true">
+      <img src="/icon-dark/lumira.png" alt="" />
+    </div>
+    <div class="character-note-content">
+      <h2 class="character-note-title" id="character-note-heading">
+        <span>人物概述</span>
+        <span class="character-title-separator" aria-hidden="true">/</span>
+        <span class="character-latin-text">CHARACTER NOTE</span>
+      </h2>
+      <div class="character-note-copy">
+        {note.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="character-weapons-section" aria-labelledby="character-weapons-heading">
+    <div class="character-weapons-divider" aria-hidden="true"></div>
+    <h2 class="character-weapons-heading" id="character-weapons-heading">
+      <span>武器设定</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">WEAPONS</span>
+    </h2>
+
+    <div class="character-weapons-grid">
+      <div class="character-weapon-column">
+        {fusionWeapons.map((weapon) => (
+          <WeaponCard {...weapon} />
+        ))}
+      </div>
+      <div class="character-weapon-column">
+        {nonFusionWeapons.map((weapon) => (
+          <WeaponCard {...weapon} />
+        ))}
+      </div>
+    </div>
+  </section>
+</div>

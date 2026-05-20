@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import Endbar from "../components/Endbar.astro";
 import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
+import ArchiveMobilePageNav from "../components/ArchiveMobilePageNav.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
@@ -74,6 +75,10 @@ function labelLevelClass(label) {
     <main class="archive-shell world-map-shell">
       <section class="world-map-archive" aria-labelledby="world-map-title">
         <Headbar />
+        <ArchiveMobilePageNav
+          collapseInactiveGroups
+          idPrefix="world-map-mobile-page-nav"
+        />
 
         <section class="world-map-lower">
           <div class="world-map-sidebar-desktop">
@@ -179,10 +184,6 @@ function labelLevelClass(label) {
           </div>
         </div>
           </div>
-        </div>
-
-        <div class="world-map-sidebar-mobile">
-          <ArchiveSidebar collapseInactiveGroups idPrefix="world-map-sidebar-mobile" />
         </div>
 
         <Endbar />

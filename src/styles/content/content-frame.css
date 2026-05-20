@@ -298,6 +298,7 @@
   width: var(--content-frame-icon-image-multiple-width);
 }
 
+/* 角色立绘背后的图标背景 */
 .content-frame-icon-media.is-figure {
   left: 40%;
   top: 0;
@@ -422,6 +423,14 @@
   min-height: var(--content-frame-visual-height);
   padding: var(--content-frame-body-visual-top) var(--content-frame-body-right) var(--content-frame-body-bottom) var(--content-frame-body-left);
   overflow-wrap: anywhere;
+}
+
+/* 角色档案页内容框的紧凑内边距 */
+.archive-page.is-characters .content-frame:has(.character-profile-archive) {
+  --content-frame-body-top: 194px;
+  --content-frame-body-bottom: 58px;
+  --content-frame-body-left: calc(15% + 22px - var(--content-frame-offset-x));
+  --content-frame-body-right: calc(21% + 22px + var(--content-frame-offset-x));
 }
 
 .content-frame-simple {

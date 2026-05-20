@@ -1,39 +1,73 @@
 ---
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const abilities = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/hq.webp",
+    title: "总部，塔兰基地",
+    description: "出生地：凡多纳，林恩州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "解构级",
+  },
+  {
+    heading: "能力谱系 / SPECTRUM",
+    icon: "/icon-dark/real.png",
+    title: "冻结操控",
+    description: "现实-冰",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D4",
+  },
+];
+
+const note = [
+  "主角。出身于凡多纳上层社会的帕克家族分支。拥有淡金的、打理整齐的短卷发和蓝色眼睛，佩戴白色发卡。身着剪裁严谨的西装服饰，手套的装饰为族徽石榴与棕榈叶。",
+  "天才少年，得益于家族的培养，性格早熟、礼貌、习惯性“优等生”做派，常会被误解为淡漠、不平易近人。底色是炽热的欲望。对于权力有着近乎天生的渴望，可以为达目标不择手段，表现得果断甚至冷酷。对亲近的人则会显露底色，有热情、主动、偶尔发小脾气的一面。",
+];
+
+const fusionWeapons = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    name: "欲望",
+    icon: "/icon-dark/fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "一把长刀" },
+      { label: "谱系", value: "现实-冰" },
+      { label: "核心品阶", value: "解构级核心" },
+    ],
+    description: "在未出鞘状态下，可作为法杖使用辅助施术；出鞘后则以近战形态作战，具备低温侵蚀特性。",
+  },
+];
+
+const nonFusionWeapons = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    name: "面纱",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "金色项链" },
+      { label: "谱系", value: "信息-削弱" },
+      { label: "核心品阶", value: "解构级核心" },
+    ],
+    description: "可让使用者进入完全隐匿状态，现实手段与恶能探测均难以察觉。在战斗中，可让使用者攻击附带使目标持续性受伤的效果。",
+  },
+];
 ---
 
 <ArchiveLayout>
-  <p>
-    主角。出身于凡多纳上层社会的帕克家族分支。拥有淡金的、打理整齐的短卷发和蓝色眼睛，佩戴白色发卡。身着剪裁严谨的西装服饰，手套的装饰为族徽石榴与棕榈叶。
-  </p>
-  <p>
-	  天才少年，得益于家族的培养，性格早熟、礼貌、习惯性“优等生”做派，常会被误解为淡漠、不平易近人。底色是炽热的欲望。对于权力有着近乎天生的渴望，可以为达目标不择手段，表现得果断甚至冷酷。对亲近的人则会显露底色，有热情、主动、偶尔发小脾气的一面。
-	</p>
-  <p>
-    【能力】冻结操控
-  </p>
-  <p>
-	  【能力谱系】现实-冰
-  </p>
-  <p>
-	  【品阶】解构级
-  </p>
-  <p>
-	  【危险等级】D4
-  </p>
-  <p>
-	  【融合武器】
-  </p>
-  <p>
-    &emsp;&emsp;1.“欲望”：现实-冰谱系，解构级核心，外形为一把长刀。在未出鞘状态下，可作为法杖使用辅助施术；出鞘后则以近战形态作战，具备低温侵蚀特性。
-  </p>
-  <p>
-	  【非融合武器】
-  </p>
-  <p>
-    &emsp;&emsp;1.“面纱”：信息-削弱谱系，解构级核心，外形为金色项链。可让使用者进入完全隐匿状态，现实手段与恶能探测均难以察觉。在战斗中，可让使用者攻击附带使目标持续性受伤的效果。
-	</p>
-  <p>
-    以上设定为截至2039年。
-  </p>
+  <CharacterArchiveProfile
+    abilities={abilities}
+    note={note}
+    fusionWeapons={fusionWeapons}
+    nonFusionWeapons={nonFusionWeapons}
+  />
 </ArchiveLayout>
