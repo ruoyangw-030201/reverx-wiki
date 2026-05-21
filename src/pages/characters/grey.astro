@@ -1,0 +1,144 @@
+---
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const note = [
+  "福尔瑙伊篇主角。金色中长发，常见造型是利落短马尾，橙色眼睛。身世复杂，最早的记忆是和双胞胎哥哥奥瑞斯一起流浪。在加入福尔瑙伊州恶能者体系后，因变故被迫和哥哥分离，又反复辗转各小队之间，命运坎坷。",
+  "性格开朗，善良而率真，富有共情力，却在人际关系中常显得跳脱，喜欢开没品玩笑，也习惯主动拉近距离。因为自身经历，内心缺乏安全感，情绪起伏明显，自我认同感较低，一直在不断想办法提升自己。有烟酒成瘾的坏习惯和活泼的福尔瑙伊州口音。",
+];
+
+const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：???",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "半解构级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "虚弱",
+    description: "信息",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "JR",
+  },
+];
+
+const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：???",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "半解构级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "虚弱",
+    description: "信息-削弱",
+    changed: true,
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D1",
+    changed: true,
+  },
+];
+
+const fusionWeapons2031 = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    emptyText: "未配置",
+  },
+];
+
+const fusionWeapons2039 = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    name: "无名手环",
+    fields: [
+      { label: "外形", value: "蓝色手环" },
+      { label: "谱系", value: "信息-增幅" },
+      { label: "核心品阶", value: "半解构级" },
+    ],
+    description: "玛蒂亚制作的融合增幅器，可以给使用目标提供力量增幅。",
+    changed: true,
+  },
+];
+
+const nonFusionWeapons = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "IDA通用型冲锋枪003",
+    fields: [
+      { label: "外形", value: "冲锋枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "解构协会制式武器-冲锋枪。",
+  },
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "IDA通用型狙击枪007",
+    fields: [
+      { label: "外形", value: "狙击枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "解构协会制式武器-狙击枪。",
+  },
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "IDA通用型手枪009",
+    fields: [
+      { label: "外形", value: "手枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "解构协会制式武器-手枪。",
+  },
+];
+
+const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons: fusionWeapons2031,
+  nonFusionWeapons,
+};
+
+const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons: fusionWeapons2039,
+  nonFusionWeapons,
+};
+---
+
+<ArchiveLayout>
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+</ArchiveLayout>
