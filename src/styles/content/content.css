@@ -764,7 +764,7 @@
   display: grid;
   grid-template-columns: minmax(84px, 0.72fr) minmax(150px, 1.28fr);
   gap: 8px;
-  align-items: stretch;
+  align-items: right;
   margin-top: 4px;
 }
 
@@ -840,9 +840,7 @@
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-note-card.is-changed,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-weapon-card.is-changed {
-  background:
-    linear-gradient(135deg, rgba(12, 12, 12, 0.84), rgba(5, 5, 5, 0.78)),
-    radial-gradient(circle at 80% 0%, rgba(45, 95, 150, 0.1), transparent 34%);
+  background: rgba(0, 0, 0);
 }
 
 /* 角色档案剧透模式的变更卡片正文 */
@@ -859,6 +857,11 @@
 /* 角色档案剧透模式的变更武器名称 */
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-name {
   color: rgba(199, 222, 247, 0.96);
+}
+
+/* 角色档案剧透模式的变更武器卡标题 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-type-text > span {
+  color: var(--color-gold-light);
 }
 
 /* 角色档案剧透模式的变更能力卡标题 */

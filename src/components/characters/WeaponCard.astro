@@ -11,9 +11,10 @@ const {
 } = Astro.props;
 
 const isEmpty = Boolean(emptyText);
+const hasName = Boolean(name);
 ---
 
-<article class:list={["character-weapon-card", isEmpty && "is-empty", changed && "is-changed"]}>
+<article class:list={["character-weapon-card", isEmpty && "is-empty", !hasName && !isEmpty && "has-no-name", changed && "is-changed"]}>
   <div class="character-weapon-main">
     <span class="character-weapon-banner" aria-hidden="true">
       <img src={icon} alt="" />
@@ -26,7 +27,7 @@ const isEmpty = Boolean(emptyText);
 
       {!isEmpty && (
         <div class="character-weapon-detail">
-          <strong class="character-weapon-name">「{name}」</strong>
+          {hasName && <strong class="character-weapon-name">{name}</strong>}
           <table class="character-weapon-fields">
             <tbody>
               {fields.map((field) => (

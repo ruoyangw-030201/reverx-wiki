@@ -238,6 +238,14 @@
   color: rgba(255, 255, 255, 0.84);
 }
 
+/* 角色档案剧透模式的年份下拉选项高亮 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option:hover,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option:focus-visible {
+  background:
+    linear-gradient(90deg, rgba(200, 155, 90, 0.34), rgba(200, 155, 90, 0.18));
+  color: var(--color-gold-light);
+}
+
 /* 角色档案剧透模式的年份刷新图标 */
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch-icon,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch:hover .archive-entry-year-switch-icon,

@@ -120,6 +120,13 @@ export const sidebarBySection = {
       icon: "/big-icon/hq.webp",
       frameIcon: "/figure/ornette.webp",
     },
+    {
+      label: "利亚德·帕克",
+      labelEn: "LIAT PARKER",
+      href: "/characters/liat",
+      icon: "/big-icon/triatine.webp",
+      frameIcon: "/figure/liat.webp",
+    },
   ],
 };
 
