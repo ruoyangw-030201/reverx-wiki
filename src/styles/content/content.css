@@ -774,10 +774,9 @@
   place-items: center;
   min-height: 100%;
   color: var(--character-profile-blue-deep);
-  font-size: 24px;
+  font-size: 22px;
   line-height: var(--content-prose-line-height, 1.6);
   text-align: center;
-  white-space: nowrap;
 }
 
 /* 武器资料表 */

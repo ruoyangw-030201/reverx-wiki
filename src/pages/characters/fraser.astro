@@ -1,0 +1,164 @@
+---
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const note = [
+  "有着金棕色短卷发和充满机械纹路的墨绿色双眼，在使用能力时会变成浅黄绿色。常见打扮是病号服或黑色特工服。出生自卡瑟州森林的凡洲狮魔物混血，为了拯救玩伴小女孩，在被希景公司发掘后，与公司签订了协议，自愿成为了Beta试验品。",
+  "表面上温和、平静、体贴、细致、善于照拂他人；与世无争，从不维护自身利益。实际上是Beta集会组织的发起人，以超凡的自我牺牲精神感染他人，维系希景赖以生存的秩序，在底层颇有声名和影响力。",
+];
+
+const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/prospect.webp",
+    title: "希景公司",
+    description: "出生地：凡多纳，卡瑟州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "能量级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/real.png",
+    title: "锯齿刃长刀",
+    description: "现实-电",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D1",
+  },
+];
+
+const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/triatine.webp",
+    title: "希景公司",
+    description: "出生地：凡多纳，卡瑟州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "半解构级",
+    changed: true,
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/real.png",
+    title: "锯齿刃长刀",
+    description: "现实-电",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D2",
+    changed: true,
+  },
+];
+
+const fusionWeapons = [
+ {
+    typeLabel: "自生武器",
+    typeLabelEn: "INNATE WEAPON",
+    name: "锯齿刃长刀",
+    icon: "/icon-dark/fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "一把锯齿刃长刀" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "/" },
+    ],
+    description: "恶能者自身能力生成的武器形态。",
+  }
+];
+
+const nonFusionWeapons2031 = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "希景超远程MK4",
+    fields: [
+      { label: "外形", value: "电磁狙击枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "希景制式武器-电磁狙击枪。",
+  },
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "希景远程MK2",
+    fields: [
+      { label: "外形", value: "电磁手枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "希景制式武器-电磁手枪。",
+  },
+];
+
+const nonFusionWeapons2039 = [
+{
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "鱼叉 III",
+    fields: [
+      { label: "外形", value: "一根三叉鱼叉" },
+      { label: "谱系", value: "现实-风" },
+      { label: "核心品阶", value: "超限级" },
+    ],
+    description: "可以在一个大规模区域内，任意操作其中物体受力的方向和强度。",
+    changed: true,
+  },  
+{
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "希景超远程MK6",
+    fields: [
+      { label: "外形", value: "电磁狙击枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "新一代希景制式武器-电磁狙击枪。",
+    changed: true,
+  },
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "希景远程MK6",
+    fields: [
+      { label: "外形", value: "电磁手枪" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "能量级" },
+    ],
+    description: "新一代希景制式武器-电磁手枪。",
+    changed: true,
+  },
+];
+
+const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons,
+  nonFusionWeapons: nonFusionWeapons2031,
+};
+
+const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons,
+  nonFusionWeapons: nonFusionWeapons2039,
+};
+---
+
+<ArchiveLayout>
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+</ArchiveLayout>

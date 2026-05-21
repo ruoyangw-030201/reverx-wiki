@@ -131,6 +131,29 @@ export const sidebarBySection = {
     },
     {
       type: "characterGroup",
+      key: "prospect",
+      label: "希景势力",
+      labelEn: "PROSPECT",
+      icon: "/big-icon/prospect.webp",
+      items: [
+        {
+          label: "桑蒂诺·埃梅特",
+          labelEn: "SANTINO EMMETT",
+          href: "/characters/santino",
+          icon: "/big-icon/prospect.webp",
+          frameIcon: "/figure/santino.webp",
+        },
+        {
+          label: "弗雷泽·B.",
+          labelEn: "Fraser B.",
+          href: "/characters/fraser",
+          icon: "/big-icon/prospect.webp",
+          frameIcon: "/figure/fraser.webp",
+        },
+      ],
+    },
+    {
+      type: "characterGroup",
       key: "triatine",
       label: "特律庭",
       labelEn: "TRIATINE",
