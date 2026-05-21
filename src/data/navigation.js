@@ -98,7 +98,24 @@ export const characterGroups = [
     key: "other-ferdona",
     label: "其他凡多纳势力",
     labelEn: "OTHERS IN FERDONA",
-    items: [],
+    items: [
+      {
+        label: "安多尔·帕沙其",
+        labelEn: "ANDOR PSAKI",
+        href: "/characters/andor",
+        icon: "/big-icon/andor.webp",
+        indexIcon: "/figure-icon/andor.png",
+        frameIcon: "/figure/andor.webp",
+      },
+      {
+        label: "阿什利·柯林",
+        labelEn: "ASHLEY COLLIN",
+        href: "/characters/ashley",
+        icon: "/big-icon/andor.webp",
+        indexIcon: "/figure-icon/ashley.png",
+        frameIcon: "/figure/ashley.webp",
+      },
+    ],
   },
   {
     key: "hespera",

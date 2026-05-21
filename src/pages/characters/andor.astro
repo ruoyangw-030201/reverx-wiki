@@ -1,0 +1,109 @@
+---
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const note = [
+  "红褐色中短发的中年男子，银色的双眼中有锐利的三角形瞳孔，英气逼人，面色冷峻。性格介于正直和偏激之间，可以说刚正不阿，也可以说睚眦必报，会为实现自身原则不惜一切代价。",
+  "为恶能者社会贡献颇多，是“创立者们”之一，同时是恶能科学家，有过诸多研究成果和发明。曾任总部主席，因故引咎辞职后隐居于国王领州。隐居后安心继续魔物研究，并建立了相关博物馆。因其强大的实力和野心，许多人猜测他日后会卷土重来、再握权势。",
+];
+
+const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/andor.webp",
+    title: "国王领博物馆",
+    description: "出生地：凡多纳，西门瑟姆",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "超限级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "???",
+    description: "信息",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D6",
+  },
+];
+
+const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/andor.webp",
+    title: "国王领博物馆",
+    description: "出生地：凡多纳，西门瑟姆州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "超限级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "存在削弱",
+    description: "信息-削弱",
+    changed: true,
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D6",
+  },
+];
+
+const fusionWeapons = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    name: "「缄默」",
+    fields: [
+      { label: "外形", value: "中有血槽的长剑" },
+      { label: "谱系", value: "信息-削弱" },
+      { label: "核心品阶", value: "超限级" },
+    ],
+    description: "可以制造大范围瘟疫，或对单个目标有极强的、近乎即时毁灭的创伤作用。",
+  },
+];
+
+const nonFusionWeapons = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    name: "帕沙其模组",
+    fields: [
+      { label: "外形", value: "胸针" },
+      { label: "谱系", value: "本源-暗" },
+      { label: "核心品阶", value: "解构级" },
+    ],
+    description: "本人制作的早期暗隧穿模组，无攻击性，可以让使用者短距离瞬移。",
+  },
+];
+
+const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+
+const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+---
+
+<ArchiveLayout>
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+</ArchiveLayout>
