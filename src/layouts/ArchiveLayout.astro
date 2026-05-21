@@ -33,8 +33,15 @@ const sectionKicker =
   currentSection === "characters" ? "FILES" : sectionTab?.labelEn ?? currentSection.toUpperCase();
 const frameTitle = title ?? navigationItem?.label ?? "世界简介";
 const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? "introduction";
-const characterYearSwitchLabel = currentSection === "characters" && currentPath !== "/characters"
-  ? "设定年份：2031年"
+const hasCharacterYearSwitch = currentSection === "characters" && currentPath !== "/characters";
+const characterYearSwitchCurrent = hasCharacterYearSwitch
+  ? { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" }
+  : undefined;
+const characterYearSwitchOptions = hasCharacterYearSwitch
+  ? [
+      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" },
+      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2039\u5e74", mode: "spoiler" },
+    ]
   : undefined;
 const contentFrameIcon =
   currentSection === "characters"
@@ -48,7 +55,10 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
 ---
 
 <BaseLayout>
-  <div class:list={["archive-page", `is-${currentSection}`]}>
+  <div
+    class:list={["archive-page", `is-${currentSection}`]}
+    data-character-archive-mode={hasCharacterYearSwitch ? "normal" : undefined}
+  >
     <Headbar />
 
     <ArchiveHero />
@@ -64,7 +74,8 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
           kicker={sectionKicker}
           title={frameTitle}
           subtitle={frameSubtitle}
-          yearSwitchLabel={characterYearSwitchLabel}
+          yearSwitchCurrent={characterYearSwitchCurrent}
+          yearSwitchOptions={characterYearSwitchOptions}
         />
 
         {contentMode === "custom" ? (

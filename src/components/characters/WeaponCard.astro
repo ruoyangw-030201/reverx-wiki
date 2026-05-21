@@ -6,10 +6,14 @@ const {
   icon,
   fields = [],
   description,
+  emptyText,
+  changed = false,
 } = Astro.props;
+
+const isEmpty = Boolean(emptyText);
 ---
 
-<article class="character-weapon-card">
+<article class:list={["character-weapon-card", isEmpty && "is-empty", changed && "is-changed"]}>
   <div class="character-weapon-main">
     <span class="character-weapon-banner" aria-hidden="true">
       <img src={icon} alt="" />
@@ -20,23 +24,29 @@ const {
         <span>{typeLabel}<span class="character-title-separator" aria-hidden="true">/</span><span class="character-latin-text">{typeLabelEn}</span></span>
       </div>
 
-      <div class="character-weapon-detail">
-        <strong class="character-weapon-name">「{name}」</strong>
-        <table class="character-weapon-fields">
-          <tbody>
-            {fields.map((field) => (
-              <tr>
-                <th scope="row">{field.label}</th>
-                <td>{field.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {!isEmpty && (
+        <div class="character-weapon-detail">
+          <strong class="character-weapon-name">「{name}」</strong>
+          <table class="character-weapon-fields">
+            <tbody>
+              {fields.map((field) => (
+                <tr>
+                  <th scope="row">{field.label}</th>
+                  <td>{field.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   </div>
 
-  <p class="character-weapon-description">
-    {description}
-  </p>
+  {isEmpty ? (
+    <p class="character-weapon-empty-text">{emptyText}</p>
+  ) : (
+    <p class="character-weapon-description">
+      {description}
+    </p>
+  )}
 </article>

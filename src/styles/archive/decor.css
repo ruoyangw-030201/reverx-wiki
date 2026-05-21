@@ -128,6 +128,12 @@
   overflow: hidden;
 }
 
+/* 角色档案剧透模式的页面最底层背景
+.archive-page.is-characters[data-character-archive-mode="spoiler"] {
+  background: #050505;
+}
+*/
+
 .scroll-decor {
   position: absolute;
   display: block;

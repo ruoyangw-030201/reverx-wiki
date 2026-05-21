@@ -109,7 +109,7 @@ export const sidebarBySection = {
     {
       label: "西奥多·维杰",
       labelEn: "THEODORE VIJAY",
-      href: "/characters/theo",
+      href: "/characters/theodore",
       icon: "/big-icon/hq.webp",
       frameIcon: "/figure/theodore.webp",
     },

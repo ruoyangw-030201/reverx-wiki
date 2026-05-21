@@ -148,15 +148,40 @@
   --character-profile-gold: rgba(200, 155, 90, 0.86);
   --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
   --character-profile-paper: rgba(251, 250, 246, 0.68);
+  --character-profile-text: var(--color-ink);
   display: grid;
   gap: clamp(12px, 1.4vw, 18px);
   width: 100%;
-  color: var(--color-ink);
+  color: var(--character-profile-text);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: var(--content-prose-line-height, 1.6);
   overflow-wrap: normal;
   word-break: normal;
+  transition: color 220ms ease;
+}
+
+/* 角色档案年份模式面板的默认隐藏状态 */
+.archive-page.is-characters .character-profile-archive[data-character-archive-panel] {
+  display: none;
+}
+
+/* 角色档案普通年份模式面板 */
+.archive-page.is-characters[data-character-archive-mode="normal"] .character-profile-archive[data-character-archive-panel="normal"],
+.archive-page.is-characters:not([data-character-archive-mode]) .character-profile-archive[data-character-archive-panel="normal"] {
+  display: grid;
+}
+
+/* 角色档案剧透年份模式面板 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive[data-character-archive-panel="spoiler"] {
+  display: grid;
+}
+
+/* 角色档案剧透模式的正文颜色变量 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive {
+  --character-profile-card-background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    var(--character-profile-paper);
 }
 
 /* 角色档案卡片组内普通段落的缩进重置 */
@@ -168,6 +193,66 @@
 /* 角色档案英文文本 */
 .character-latin-text {
   font-family: var(--font-latin);
+}
+
+/* 正文隐藏文本触发器 */
+.content-hidden-text {
+  position: relative;
+  display: inline-grid;
+  grid-template-areas: "text";
+  align-items: center;
+  justify-items: center;
+  margin: 0 0.08em;
+  padding: 0 0.28em;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(5, 5, 5, 0.88);
+  color: #fff;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+/* 正文隐藏文本的文字层 */
+.content-hidden-text-face {
+  grid-area: text;
+  min-width: 100%;
+  color: currentColor;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 160ms ease;
+}
+
+/* 正文隐藏文本的默认文字 */
+.content-hidden-text-face.is-visible {
+  opacity: 1;
+}
+
+/* 正文隐藏文本的隐藏内容 */
+.content-hidden-text-face.is-hidden {
+  opacity: 0;
+}
+
+/* 正文隐藏文本的显示状态 */
+.content-hidden-text:hover .content-hidden-text-face.is-visible,
+.content-hidden-text:focus-visible .content-hidden-text-face.is-visible,
+.content-hidden-text[aria-pressed="true"] .content-hidden-text-face.is-visible {
+  opacity: 0;
+}
+
+/* 正文隐藏文本的揭示状态 */
+.content-hidden-text:hover .content-hidden-text-face.is-hidden,
+.content-hidden-text:focus-visible .content-hidden-text-face.is-hidden,
+.content-hidden-text[aria-pressed="true"] .content-hidden-text-face.is-hidden {
+  opacity: 1;
+}
+
+/* 正文隐藏文本的键盘焦点 */
+.content-hidden-text:focus-visible {
+  outline: 1px solid var(--color-gold-light);
+  outline-offset: 2px;
 }
 
 /* 角色档案中英文标题分隔符 */
@@ -190,6 +275,7 @@
   border-radius: 7px;
   background: transparent;
   box-shadow: none;
+  transition: border-color 220ms ease;
 }
 
 /* 基础设定区块的间距 */
@@ -206,6 +292,7 @@
   z-index: 2;
   height: 1px;
   background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
+  transition: background 220ms ease;
 }
 
 /* 基础设定顶部横线的小方块 */
@@ -218,6 +305,9 @@
   height: 10px;
   background: var(--character-profile-gold);
   box-shadow: -16px 0 0 rgba(138, 169, 201, 0.46);
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease;
 }
 
 /* 深蓝色章节标题条 */
@@ -241,43 +331,12 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0;
+  transition: background 220ms ease;
 }
 
 /* 基础设定内容的两栏布局 */
 .character-profile-body {
   display: block;
-}
-
-/* 基础设定三行资料表 */
-.character-profile-facts {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  background: rgba(255, 255, 255, 0.22);
-  font-size: 17px;
-  line-height: var(--content-prose-line-height, 1.6);
-}
-
-/* 基础设定资料表单元格 */
-.character-profile-facts th,
-.character-profile-facts td {
-  border: 1px solid rgba(200, 155, 90, 0.58);
-  padding: 8px 10px;
-  text-align: left;
-  vertical-align: middle;
-}
-
-/* 基础设定资料表标签格 */
-.character-profile-facts th {
-  background: rgba(224, 194, 143, 0.2);
-  color: var(--color-ink);
-  font-weight: 400;
-  width: 38%;
-}
-
-/* 基础设定资料表内容格 */
-.character-profile-facts td {
-  font-weight: 400;
 }
 
 /* 能力卡片列表 */
@@ -298,12 +357,17 @@
   padding: 10px 12px;
   border: 1px solid var(--character-profile-gold);
   border-radius: 7px;
-  background:
+  background: var(--character-profile-card-background,
     linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
-    var(--character-profile-paper);
+    var(--character-profile-paper)
+  );
   overflow: hidden;
   font-size: 16px;
   line-height: var(--content-prose-line-height, 1.6);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
 }
 
 /* 能力卡片右下角的箭头装饰 */
@@ -332,8 +396,11 @@
   border: 1px solid rgba(45, 95, 150, 0.76);
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.76) 0 48%, rgba(224, 194, 143, 0.14) 49% 100%);
+    radial-gradient(circle, rgba(255, 255, 255, 0.96) 0 48%, rgba(255, 255, 255, 0.9) 49% 100%);
   overflow: visible;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease;
 }
 
 /* 能力卡片圆形徽章的双圈 */
@@ -445,7 +512,14 @@
   padding: clamp(12px, 1.4vw, 18px);
   border: 1px solid var(--character-profile-gold);
   border-radius: 7px;
-  background: transparent;
+  background: var(--character-profile-card-background,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    var(--character-profile-paper)
+  );
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
 }
 
 /* 人物概述右侧点状装饰 */
@@ -556,11 +630,12 @@
   z-index: 2;
   height: 1.5px;
   background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
+  transition: background 220ms ease;
 }  
  
 /* 武器档案标题条 */
 .character-weapons-heading {
-  min-width: clamp(190px, 22vw, 260px);
+  min-width: clamp(210px, 24vw, 288px);
 }
 
 /* 武器档案双列网格 */
@@ -584,12 +659,22 @@
   padding: 8px 12px 12px;
   border: 1px solid var(--character-profile-gold);
   border-radius: 7px;
-  background:
+  background: var(--character-profile-card-background,
     linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
-    var(--character-profile-paper);
+    var(--character-profile-paper)
+  );
   overflow: hidden;
   font-size: 16px;
   line-height: var(--content-prose-line-height, 1.6);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+/* 武器未配置卡片 */
+.character-weapon-card.is-empty {
+  min-height: 254px;
 }
 
 /* 武器卡片预留图案层 */
@@ -604,6 +689,11 @@
   border: 1px solid rgba(200, 155, 90, 0.34);
   border-radius: 50%;
   opacity: 0.42;
+}
+
+/* 武器未配置卡片的预留图案层 */
+.character-weapon-card.is-empty::after {
+  display: none;
 }
 
 /* 武器卡片顶部资料区 */
@@ -728,6 +818,57 @@
   font-size: 16px;
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
+}
+
+/* 武器未配置卡片的中心提示 */
+.character-weapon-empty-text {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 48px 16px 18px;
+  color: var(--color-ink);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: var(--content-prose-line-height, 1.6);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 角色档案剧透模式的变更卡片底色 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-note-card.is-changed,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-weapon-card.is-changed {
+  background:
+    linear-gradient(135deg, rgba(12, 12, 12, 0.84), rgba(5, 5, 5, 0.78)),
+    radial-gradient(circle at 80% 0%, rgba(45, 95, 150, 0.1), transparent 34%);
+}
+
+/* 角色档案剧透模式的变更卡片正文 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-title,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-description,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-note-copy,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-description,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-text,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields td,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields th {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* 角色档案剧透模式的变更武器名称 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-name {
+  color: rgba(199, 222, 247, 0.96);
+}
+
+/* 角色档案剧透模式的变更能力卡标题 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed .character-ability-heading {
+  color: var(--color-gold-light);
+}
+
+/* 角色档案剧透模式的变更能力卡箭头 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed::after {
+  color: var(--color-gold-light);
 }
 
 @container (max-width: 620px) {

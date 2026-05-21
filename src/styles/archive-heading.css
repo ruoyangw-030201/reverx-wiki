@@ -58,6 +58,14 @@
   max-width: 100%;
 }
 
+/* 角色档案设定年份菜单容器 */
+.archive-entry-year-menu {
+  position: relative;
+  z-index: 20;
+  display: inline-flex;
+  align-items: flex-end;
+}
+
 /* 角色档案设定年份切换按钮 */
 .archive-entry-year-switch {
   position: relative;
@@ -65,12 +73,12 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  margin: 0 0 0 2px;
   padding: 8px 9px 8px 12px;
   border: 1px solid rgba(200, 155, 90, 0.72);
-  background:
+  background: var(--archive-entry-year-paper,
     radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.96) 0, rgba(255, 255, 255, 0.92) 58%, rgba(251, 250, 246, 0.9) 100%),
-    linear-gradient(180deg, #fff, #fbfaf6);
+    linear-gradient(180deg, #fff, #fbfaf6)
+  );
   color: rgba(21, 21, 21, 0.76);
   font: inherit;
   font-family: var(--font-sans);
@@ -84,6 +92,7 @@
     inset 0 0 42px rgba(45, 95, 150, 0.045);
   transform: translateX(8px);
   transition:
+    background 180ms ease,
     border-color 180ms ease,
     color 180ms ease;
 }
@@ -115,6 +124,9 @@
   border-radius: 50%;
   color: var(--color-blue);
   animation: archive-year-refresh 2.4s linear infinite;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease;
 }
 
 /* 角色档案设定年份切换按钮刷新图标的矢量图 */
@@ -135,7 +147,16 @@
 
 /* 角色档案设定年份切换按钮的交互状态 */
 .archive-entry-year-switch:hover,
-.archive-entry-year-switch:focus-visible {
+.archive-entry-year-switch:focus-visible,
+.archive-entry-year-menu.is-open .archive-entry-year-switch {
+  border-color: rgba(200, 155, 90, 0.96);
+  color: var(--color-gold);
+}
+
+/* 角色档案设定年份切换按钮图标的交互状态 */
+.archive-entry-year-switch:hover .archive-entry-year-switch-icon,
+.archive-entry-year-switch:focus-visible .archive-entry-year-switch-icon,
+.archive-entry-year-menu.is-open .archive-entry-year-switch-icon {
   border-color: rgba(200, 155, 90, 0.96);
   color: var(--color-gold);
 }
@@ -144,6 +165,86 @@
 .archive-entry-year-switch:focus-visible {
   outline: 1px solid var(--color-gold-light);
   outline-offset: 6px;
+}
+
+/* 角色档案设定年份下拉菜单 */
+.archive-entry-year-dropdown {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: -8px;
+  z-index: 30;
+  display: grid;
+  min-width: 100%;
+  padding: 0;
+  border: 1px solid rgba(200, 155, 90, 0.74);
+  background: var(--archive-entry-year-paper,
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.98) 0, rgba(255, 255, 255, 0.94) 58%, rgba(251, 250, 246, 0.92) 100%),
+    linear-gradient(180deg, #fff, #fbfaf6)
+  );
+  box-shadow: 0 12px 32px rgba(21, 21, 21, 0.12);
+}
+
+/* 角色档案设定年份下拉菜单的隐藏状态 */
+.archive-entry-year-dropdown[hidden] {
+  display: none;
+}
+
+/* 角色档案设定年份下拉选项的隐藏状态 */
+.archive-entry-year-option[hidden] {
+  display: none;
+}
+
+/* 角色档案设定年份下拉选项 */
+.archive-entry-year-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: max-content;
+  min-height: 40px;
+  padding: 0 20px;
+  border: 0;
+  background: transparent;
+  color: rgba(21, 21, 21, 0.76);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+/* 角色档案设定年份下拉选项的交互状态 */
+.archive-entry-year-option:hover,
+.archive-entry-year-option:focus-visible {
+  background: rgba(200, 155, 90, 0.12);
+  color: var(--color-gold);
+  outline: none;
+}
+
+/* 角色档案剧透模式的年份按钮纸面 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-menu {
+  --archive-entry-year-paper:
+    linear-gradient(180deg, rgba(12, 12, 12, 0.96), rgba(5, 5, 5, 0.94)),
+    radial-gradient(circle at 80% 0%, rgba(142, 190, 242, 0.14), transparent 34%);
+}
+
+/* 角色档案剧透模式的年份按钮文字 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+/* 角色档案剧透模式的年份刷新图标 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch-icon,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch:hover .archive-entry-year-switch-icon,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch:focus-visible .archive-entry-year-switch-icon,
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-menu.is-open .archive-entry-year-switch-icon {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 
 /* 角色档案设定年份切换按钮刷新动画 */
