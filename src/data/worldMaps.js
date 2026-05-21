@@ -152,7 +152,7 @@ export const worldMaps = {
       { text: "戈赫州", x: 1170, y: 1123 },
       { text: "离海群岛", x: 2232, y: 790 },
       { text: "蓝萌岛", x: 2222, y: 976 },
-      { text: "凡多纳", x: 1436, y: 702, level: "country" },
+      { text: "凡多纳", x: 1436, y: 632, level: "country" },
     ],
     cities: withMapCities([
       { text: "小屋", markerX: 703, markerY: 883, x: 703, y: 858, mobileLabelOffsetY: 2 },

@@ -65,6 +65,7 @@ const frameVars = [
   >
     {isSimple ? (
       <div class="content-frame-body content-prose">
+        <slot name="before-body" />
         <slot />
       </div>
     ) : (
@@ -93,7 +94,12 @@ const frameVars = [
           <slot name="measure" />
         </div>
 
+        <div class="content-frame-mobile-before-body">
+          <slot name="mobile-before-body" />
+        </div>
+
         <div class="content-frame-body content-prose">
+          <slot name="before-body" />
           <slot />
         </div>
       </>

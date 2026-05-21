@@ -1,0 +1,31 @@
+---
+const {
+  heading,
+  icon,
+  title,
+  description,
+  changed = false,
+} = Astro.props;
+
+const [headingCn, headingEn] = String(heading).split("/").map((part) => part.trim());
+const isBigIcon = String(icon).includes("/big-icon");
+---
+
+<article class:list={["character-ability-card", changed && "is-changed"]}>
+  <div class="character-ability-emblem" aria-hidden="true">
+    <img class:list={[isBigIcon && "is-big-icon"]} src={icon} alt="" />
+  </div>
+  <div class="character-ability-copy">
+    <h3 class="character-ability-heading">
+      <span>{headingCn}</span>
+      {headingEn && (
+        <>
+          <span class="character-title-separator" aria-hidden="true">/</span>
+          <span class="character-latin-text">{headingEn}</span>
+        </>
+      )}
+    </h3>
+    <p class="character-ability-title">{title}</p>
+    <p class:list={["character-ability-description", !description && "is-empty"]}>{description}</p>
+  </div>
+</article>

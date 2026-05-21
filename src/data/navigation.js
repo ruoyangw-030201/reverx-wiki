@@ -24,6 +24,140 @@ export const topTabs = [
   },
 ];
 
+export const characterGroups = [
+  {
+    key: "hq",
+    label: "总部势力",
+    labelEn: "HQ",
+    items: [
+      {
+        label: "西奥多·维杰",
+        labelEn: "THEODORE VIJAY",
+        href: "/characters/theodore",
+        icon: "/big-icon/hq.webp",
+        indexIcon: "/figure-icon/theodore.png",
+        frameIcon: "/figure/theodore.webp",
+      },
+      {
+        label: "欧奈特·帕克",
+        labelEn: "ORNETTE PARKER II",
+        href: "/characters/ornette",
+        icon: "/big-icon/hq.webp",
+        indexIcon: "/figure-icon/ornette.png",
+        frameIcon: "/figure/ornette.webp",
+      },
+    ],
+  },
+  {
+    key: "prospect",
+    label: "希景势力",
+    labelEn: "PROSPECT",
+    items: [
+      {
+        label: "桑蒂诺·埃梅特",
+        labelEn: "SANTINO EMMETT",
+        href: "/characters/santino",
+        icon: "/big-icon/prospect.webp",
+        indexIcon: "/figure-icon/santino.png",
+        frameIcon: "/figure/santino.webp",
+      },
+      {
+        label: "弗雷泽·B.",
+        labelEn: "FRASER B.",
+        href: "/characters/fraser",
+        icon: "/big-icon/prospect.webp",
+        indexIcon: "/figure-icon/fraser.png",
+        frameIcon: "/figure/fraser.webp",
+      },
+      {
+        label: "奥瑞斯·阿卡纳",
+        labelEn: "AUROS ARCANA",
+        href: "/characters/auros",
+        icon: "/big-icon/prospect.webp",
+        indexIcon: "/figure-icon/auros.png",
+        frameIcon: "/figure/auros.webp",
+      },
+    ],
+  },
+  {
+    key: "cabin",
+    label: "小屋势力",
+    labelEn: "CABIN",
+    items: [
+      {
+        label: "格雷·阿卡纳",
+        labelEn: "GREY ARCANA",
+        href: "/characters/grey",
+        icon: "/big-icon/cabin.webp",
+        indexIcon: "/figure-icon/grey.png",
+        frameIcon: "/figure/grey.webp",
+      },
+    ],
+  },
+  {
+    key: "other-ferdona",
+    label: "其他凡多纳势力",
+    labelEn: "OTHERS IN FERDONA",
+    items: [
+      {
+        label: "安多尔·帕沙其",
+        labelEn: "ANDOR PSAKI",
+        href: "/characters/andor",
+        icon: "/big-icon/andor.webp",
+        indexIcon: "/figure-icon/andor.png",
+        frameIcon: "/figure/andor.webp",
+      },
+      {
+        label: "阿什利·柯林",
+        labelEn: "ASHLEY COLLIN",
+        href: "/characters/ashley",
+        icon: "/big-icon/andor.webp",
+        indexIcon: "/figure-icon/ashley.png",
+        frameIcon: "/figure/ashley.webp",
+      },
+    ],
+  },
+  {
+    key: "hespera",
+    label: "海西势力",
+    labelEn: "HESPERA",
+    items: [
+      {
+        label: "利亚德·帕克",
+        labelEn: "LIAT PARKER",
+        href: "/characters/liat",
+        icon: "/big-icon/triatine.webp",
+        indexIcon: "/figure-icon/liat.png",
+        frameIcon: "/figure/liat.webp",
+      },
+      {
+        label: "乔纳森·卡齐尔",
+        labelEn: "JONATHAN KATZIR",
+        href: "/characters/jonathan",
+        icon: "/big-icon/triatine.webp",
+        indexIcon: "/figure-icon/jonathan.png",
+        frameIcon: "/figure/jonathan.webp",
+      },
+    ],
+  },
+  {
+    key: "malit-other",
+    label: "魔物与其他",
+    labelEn: "MALIT & OTHERS",
+    items: [],
+  },
+];
+
+const characterSidebarItems = characterGroups.flatMap((group) => [
+  {
+    type: "group",
+    key: group.key,
+    label: group.label,
+    labelEn: group.labelEn,
+  },
+  ...group.items,
+]);
+
 export const sidebarBySection = {
   world: [
     {
@@ -105,22 +239,7 @@ export const sidebarBySection = {
     },
   ],
 
-  characters: [
-    {
-      label: "西奥多·维杰",
-      labelEn: "THEODORE VIJAY",
-      href: "/characters/theo",
-      icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/theodore.webp",
-    },
-    {
-      label: "欧奈特·帕克",
-      labelEn: "ORNETTE PARKER II",
-      href: "/characters/ornette",
-      icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/ornette.webp",
-    },
-  ],
+  characters: characterSidebarItems,
 };
 
 export const sidebarAnchorsByPath = {
@@ -224,6 +343,10 @@ function hydrateNavigationItem(item) {
   };
 }
 
+function expandNavigationItems(items) {
+  return items.map(hydrateNavigationItem);
+}
+
 export function normalizeNavigationHref(href) {
   if (!href) return "";
   const [path] = href.split("#");
@@ -244,7 +367,7 @@ export function getSectionFromPath(path) {
 
 export function getSidebarItemsForPath(path) {
   const section = getSectionFromPath(path);
-  return (sidebarBySection[section] ?? sidebarBySection.world).map(hydrateNavigationItem);
+  return expandNavigationItems(sidebarBySection[section] ?? sidebarBySection.world);
 }
 
 export function getSidebarAnchorsForPath(path) {
@@ -295,8 +418,8 @@ export function getArchivePageSequence() {
   topTabs.forEach((tab) => {
     addPage(tab);
 
-    (sidebarBySection[tab.key] ?? []).forEach((item) => {
-      addPage(hydrateNavigationItem(item));
+    expandNavigationItems(sidebarBySection[tab.key] ?? []).forEach((item) => {
+      addPage(item);
     });
   });
 

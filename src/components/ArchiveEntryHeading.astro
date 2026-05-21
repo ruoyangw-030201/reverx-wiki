@@ -16,6 +16,8 @@ const isPrimary = variant === "primary";
 
 <header id={id} class:list={["archive-entry-heading", `is-${variant}`]}>
   {isPrimary && <span class="archive-entry-heading-kicker">{kicker}</span>}
-  <HeadingTag class="archive-entry-heading-title">{title}</HeadingTag>
+  <div class="archive-entry-heading-title-row">
+    <HeadingTag class="archive-entry-heading-title">{title}</HeadingTag>
+  </div>
   {subtitle && <p class="archive-entry-heading-subtitle">{subtitle}</p>}
 </header>

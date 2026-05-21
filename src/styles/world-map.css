@@ -476,6 +476,10 @@ html:has(.world-map-page) {
     padding: 20px 18px 0;
   }
 
+  .world-map-archive > .archive-mobile-page-nav {
+    margin: 16px 18px 0;
+  }
+
   .world-map-sidebar-desktop {
     display: none;
   }

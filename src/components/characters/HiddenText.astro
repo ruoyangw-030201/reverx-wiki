@@ -1,0 +1,69 @@
+---
+const {
+  visible,
+  hidden,
+} = Astro.props;
+---
+
+<button
+  class="content-hidden-text"
+  type="button"
+  aria-pressed="false"
+  data-hidden-text
+>
+  <span class="content-hidden-text-face is-visible">{visible}</span>
+  <span class="content-hidden-text-face is-hidden">{hidden}</span>
+</button>
+
+<script>
+  const isTouchHiddenTextMode = () =>
+    window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+  const closeHiddenText = () => {
+    document.querySelectorAll("[data-hidden-text]").forEach((button) => {
+      button.setAttribute("aria-pressed", "false");
+    });
+  };
+
+  const bindHiddenText = () => {
+    document.querySelectorAll("[data-hidden-text]").forEach((button) => {
+      if (button.dataset.hiddenTextBound === "true") return;
+      button.dataset.hiddenTextBound = "true";
+      button.addEventListener("click", (event) => {
+        if (!isTouchHiddenTextMode()) {
+          button.setAttribute("aria-pressed", "false");
+          button.blur();
+          return;
+        }
+
+        event.stopPropagation();
+        const nextState = button.dataset.hiddenTextSuppressClick !== "true";
+        button.dataset.hiddenTextSuppressClick = "false";
+        closeHiddenText();
+        button.setAttribute("aria-pressed", String(nextState));
+      });
+    });
+  };
+
+  if (!window.__characterHiddenTextGlobalBound) {
+    window.__characterHiddenTextGlobalBound = true;
+
+    document.addEventListener("pointerdown", (event) => {
+      if (!isTouchHiddenTextMode()) return;
+
+      const button = event.target.closest?.("[data-hidden-text]");
+      if (button?.getAttribute("aria-pressed") === "true") {
+        button.dataset.hiddenTextSuppressClick = "true";
+      }
+
+      closeHiddenText();
+    }, true);
+
+    window.addEventListener("scroll", () => {
+      if (isTouchHiddenTextMode()) closeHiddenText();
+    }, { passive: true });
+  }
+
+  bindHiddenText();
+  document.addEventListener("astro:page-load", bindHiddenText);
+</script>

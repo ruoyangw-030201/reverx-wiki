@@ -141,39 +141,55 @@
 
 @media (max-width: 720px) {
   .archive-endbar {
-    display: grid;
-    grid-template-rows: auto auto;
-    align-content: center;
+    --archive-endbar-mobile-text-inset: 24px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    justify-content: center;
     gap: 4px;
     min-height: 58px;
-    padding: 7px 8px 8px 28px;
-    overflow: visible;
+    padding: 7px 8px 8px 10px;
+    overflow: hidden;
     font-size: 12px;
     line-height: 1.2;
   }
 
   .archive-endbar-row {
+    justify-content: flex-start;
+    justify-self: start;
+    box-sizing: border-box;
     width: 100%;
   }
 
   .archive-endbar-row-main {
-    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    overflow: hidden;
   }
 
   .archive-endbar-brand {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    flex: 0 0 auto;
+    padding-left: var(--archive-endbar-mobile-text-inset);
     font-size: 12px;
   }
 
   .archive-endbar-brand .archive-hourglass-marker {
-    left: -21px;
+    left: 0;
     transform: translateY(-50%) scale(0.42);
   }
 
   .archive-endbar-meta {
+    flex: 0 1 auto;
+    margin-left: auto;
+    overflow: hidden;
     font-size: 10px;
     font-family: var(--font-sans);
     letter-spacing: 0;
     text-align: right;
+    text-overflow: clip;
     white-space: nowrap;
   }
 
@@ -182,16 +198,18 @@
   }
 
   .archive-endbar-meta-short {
-    display: none;
+    display: inline;
   }
 
   .archive-endbar-legal-row {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 0 8px;
     width: 100%;
     overflow: visible;
+    padding-left: var(--archive-endbar-mobile-text-inset);
   }
 
   .archive-endbar-copyright {

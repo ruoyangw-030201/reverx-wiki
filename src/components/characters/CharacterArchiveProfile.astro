@@ -1,0 +1,101 @@
+---
+import AbilityCard from "./AbilityCard.astro";
+import HiddenText from "./HiddenText.astro";
+import WeaponCard from "./WeaponCard.astro";
+
+const {
+  mode = "normal",
+  abilities = [],
+  note = [],
+  noteChanged = false,
+  fusionWeapons = [],
+  nonFusionWeapons = [],
+} = Astro.props;
+
+const profileHeadingId = `character-profile-heading-${mode}`;
+const noteHeadingId = `character-note-heading-${mode}`;
+const weaponsHeadingId = `character-weapons-heading-${mode}`;
+
+const getParagraphParts = (paragraph) => {
+  if (Array.isArray(paragraph)) return paragraph;
+  if (Array.isArray(paragraph?.parts)) return paragraph.parts;
+  return [paragraph];
+};
+
+const isHiddenTextPart = (part) =>
+  part && typeof part === "object" && ("hidden" in part || "reveal" in part);
+---
+
+<div
+  class="character-profile-archive"
+  data-character-archive-panel={mode}
+  aria-hidden={mode === "normal" ? "false" : "true"}
+>
+
+  <section class="character-profile-section is-profile" aria-labelledby={profileHeadingId}>
+    <div class="character-profile-window-layer" aria-hidden="true"></div>
+    <h2 class="character-profile-heading" id={profileHeadingId}>
+      <span>基础设定</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">PROFILE</span>
+    </h2>
+    <div class="character-profile-body">
+      <div class="character-profile-ability-list">
+        {abilities.map((ability) => (
+          <AbilityCard {...ability} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class:list={["character-note-card", noteChanged && "is-changed"]} aria-labelledby={noteHeadingId}>
+    <div class="character-note-symbol" aria-hidden="true">
+      <img src="/icon-dark/lumira.png" alt="" />
+    </div>
+    <div class="character-note-content">
+      <h2 class="character-note-title" id={noteHeadingId}>
+        <span>人物概述</span>
+        <span class="character-title-separator" aria-hidden="true">/</span>
+        <span class="character-latin-text">CHARACTER NOTE</span>
+      </h2>
+      <div class="character-note-copy">
+        {note.map((paragraph) => (
+          <p>
+            {getParagraphParts(paragraph).map((part) => (
+              isHiddenTextPart(part) ? (
+                <HiddenText
+                  visible={part.visible ?? part.text}
+                  hidden={part.hidden ?? part.reveal}
+                />
+              ) : (
+                <Fragment>{part}</Fragment>
+              )
+            ))}
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="character-weapons-section" aria-labelledby={weaponsHeadingId}>
+    <div class="character-weapons-divider" aria-hidden="true"></div>
+    <h2 class="character-weapons-heading" id={weaponsHeadingId}>
+      <span>武器设定</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">WEAPONS</span>
+    </h2>
+
+    <div class="character-weapons-grid">
+      <div class="character-weapon-column">
+        {fusionWeapons.map((weapon) => (
+          <WeaponCard {...weapon} />
+        ))}
+      </div>
+      <div class="character-weapon-column">
+        {nonFusionWeapons.map((weapon) => (
+          <WeaponCard {...weapon} />
+        ))}
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,139 @@
+---
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const note = [
+  "主角。深色皮肤，黑色卷发及肩，拥有深色人种少见的浅蓝色眼睛。黑白混血，长相英俊，带点痞气的帅气。生于卢瑞菲尔德州，由母亲一个人拉扯长大。母亲在西奥多15岁时因一次水污染事件死亡。",
+  [
+    "性格沉稳、懒散、隐含强势，早年处在得过且过的阶段，但也有自己的坚持和内心的坚定想法，主观能动性很强，不喜欢被动。对过去有一种解离式的冷淡。不排斥和人交际，偶尔出言揶揄，但更喜欢独来独往。",
+  ],
+];
+
+const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/hq.webp",
+    title: "总部，塔兰基地",
+    description: "出生地：凡多纳，卢瑞菲尔德州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "能量级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/real.png",
+    title: "单开刃长剑",
+    description: "现实-风",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D1",
+  },
+];
+
+const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/hq.webp",
+    title: "总部，塔兰基地",
+    description: "出生地：凡多纳，卢瑞菲尔德州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "能量级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/real.png",
+    title: "单开刃长剑",
+    description: "现实-风",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "D3",
+    changed: true,
+  },
+];
+
+const fusionWeapons = [
+ {
+    typeLabel: "自生武器",
+    typeLabelEn: "INNATE WEAPON",
+    name: "单开刃长剑",
+    icon: "/icon-dark/fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "一把单开刃长剑" },
+      { label: "谱系", value: "/" },
+      { label: "核心品阶", value: "/" },
+    ],
+    description: "恶能者自身能力生成的武器形态。",
+  }
+];
+
+const nonFusionWeapons2031 = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    name: "「黑羽之眼」",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "戒指" },
+      { label: "谱系", value: "信息-混乱" },
+      { label: "核心品阶", value: "半解构级" },
+    ],
+    description: "可召唤出由痕迹凝聚而成的虚影，作为延伸感知存在，对周围环境进行监控并提供战斗支援。",
+  },
+];
+
+const nonFusionWeapons2039 = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    name: "「黑羽之眼」",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "戒指" },
+      { label: "谱系", value: "信息-混乱" },
+      { label: "核心品阶", value: "半解构级" },
+    ],
+    description: "可召唤出由痕迹凝聚而成的虚影，作为延伸感知存在，对周围环境进行监控并提供战斗支援。",
+  },
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    name: "「流金」",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    fields: [
+      { label: "外形", value: "戒指" },
+      { label: "谱系", value: "现实-水" },
+      { label: "核心品阶", value: "半解构级" },
+    ],
+    description: "具备高度可塑性，在战斗中可不断重组，转化、延伸为任意结构。",
+    changed: true,
+  },
+];
+
+const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons: fusionWeapons,
+  nonFusionWeapons: nonFusionWeapons2031,
+};
+
+const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons: fusionWeapons,
+  nonFusionWeapons: nonFusionWeapons2039,
+};
+---
+
+<ArchiveLayout>
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+</ArchiveLayout>
