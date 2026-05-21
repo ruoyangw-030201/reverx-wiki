@@ -205,7 +205,9 @@ function isCollapsibleEntryExpanded(entry) {
             </div>
           </div>
         ) : (
-          entry.item.type === "group" ? (
+          entry.item.type === "divider" ? (
+            <div class="archive-sidebar-divider" aria-hidden="true"></div>
+          ) : entry.item.type === "group" ? (
             entry.item.href ? (
               <a
                 class:list={[

@@ -301,9 +301,9 @@
   width: var(--content-frame-icon-image-multiple-width);
 }
 
-/* 角色立绘背后的图标背景 */
+/* 角色立绘的图片锚点 */
 .content-frame-icon-media.is-figure {
-  left: 40%;
+  left: 50%;
   top: 0;
   right: auto;
   bottom: auto;
@@ -797,7 +797,7 @@
 
   .content-frame-icon-media.is-figure {
     inset: 20px -10px -8px 24px;
-    left: 40%;
+    left: 50%;
     top: 0;
     right: auto;
     bottom: auto;

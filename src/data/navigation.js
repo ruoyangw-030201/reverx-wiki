@@ -107,25 +107,50 @@ export const sidebarBySection = {
 
   characters: [
     {
-      label: "西奥多·维杰",
-      labelEn: "THEODORE VIJAY",
-      href: "/characters/theodore",
+      type: "characterGroup",
+      key: "hq",
+      label: "总部势力",
+      labelEn: "HQ",
       icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/theodore.webp",
+      items: [
+        {
+          label: "西奥多·维杰",
+          labelEn: "THEODORE VIJAY",
+          href: "/characters/theodore",
+          icon: "/big-icon/hq.webp",
+          frameIcon: "/figure/theodore.webp",
+        },
+        {
+          label: "欧奈特·帕克",
+          labelEn: "ORNETTE PARKER II",
+          href: "/characters/ornette",
+          icon: "/big-icon/hq.webp",
+          frameIcon: "/figure/ornette.webp",
+        },
+      ],
     },
     {
-      label: "欧奈特·帕克",
-      labelEn: "ORNETTE PARKER II",
-      href: "/characters/ornette",
-      icon: "/big-icon/hq.webp",
-      frameIcon: "/figure/ornette.webp",
-    },
-    {
-      label: "利亚德·帕克",
-      labelEn: "LIAT PARKER",
-      href: "/characters/liat",
+      type: "characterGroup",
+      key: "triatine",
+      label: "特律庭",
+      labelEn: "TRIATINE",
       icon: "/big-icon/triatine.webp",
-      frameIcon: "/figure/liat.webp",
+      items: [
+        {
+          label: "利亚德·帕克",
+          labelEn: "LIAT PARKER",
+          href: "/characters/liat",
+          icon: "/big-icon/triatine.webp",
+          frameIcon: "/figure/liat.webp",
+        },
+        {
+          label: "乔纳森·卡齐尔",
+          labelEn: "JONATHAN KATZIR",
+          href: "/characters/jonathan",
+          icon: "/big-icon/triatine.webp",
+          frameIcon: "/figure/jonathan.webp",
+        },
+      ],
     },
   ],
 };
@@ -231,6 +256,37 @@ function hydrateNavigationItem(item) {
   };
 }
 
+function expandNavigationItems(items, { includeCharacterGroupDividers = false } = {}) {
+  const expandedItems = [];
+
+  items.forEach((item, index) => {
+    if (item?.type !== "characterGroup") {
+      expandedItems.push(hydrateNavigationItem(item));
+      return;
+    }
+
+    if (includeCharacterGroupDividers && expandedItems.length > 0) {
+      expandedItems.push({
+        type: "divider",
+        key: `character-group-divider-${item.key ?? index}`,
+        label: item.label,
+      });
+    }
+
+    (item.items ?? []).forEach((child) => {
+      expandedItems.push({
+        ...hydrateNavigationItem(child),
+        groupKey: item.key,
+        groupLabel: item.label,
+        groupLabelEn: item.labelEn,
+        groupIcon: item.icon,
+      });
+    });
+  });
+
+  return expandedItems;
+}
+
 export function normalizeNavigationHref(href) {
   if (!href) return "";
   const [path] = href.split("#");
@@ -251,7 +307,9 @@ export function getSectionFromPath(path) {
 
 export function getSidebarItemsForPath(path) {
   const section = getSectionFromPath(path);
-  return (sidebarBySection[section] ?? sidebarBySection.world).map(hydrateNavigationItem);
+  return expandNavigationItems(sidebarBySection[section] ?? sidebarBySection.world, {
+    includeCharacterGroupDividers: section === "characters",
+  });
 }
 
 export function getSidebarAnchorsForPath(path) {
@@ -302,8 +360,8 @@ export function getArchivePageSequence() {
   topTabs.forEach((tab) => {
     addPage(tab);
 
-    (sidebarBySection[tab.key] ?? []).forEach((item) => {
-      addPage(hydrateNavigationItem(item));
+    expandNavigationItems(sidebarBySection[tab.key] ?? []).forEach((item) => {
+      addPage(item);
     });
   });
 
