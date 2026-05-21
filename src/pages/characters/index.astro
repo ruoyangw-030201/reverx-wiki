@@ -2,6 +2,7 @@
 import IndexIconCard from "../../components/index/IndexIconCard.astro";
 import IndexSection from "../../components/index/IndexSection.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
+import { characterGroups } from "../../data/navigation.js";
 ---
 
 <IndexLayout>
@@ -15,36 +16,21 @@ import IndexLayout from "../../layouts/IndexLayout.astro";
   </div>
 
   <section class="characters-index-grid" aria-label="角色档案分区">
-    <IndexSection title="总部势力" subtitle="HQ">
-      <div class="index-icon-list">
-        <IndexIconCard href="/characters/theodore" icon="/figure-icon/theodore.png" caption="西奥多·维杰" alt="西奥多·维杰人物图标" />
-        <IndexIconCard href="/characters/ornette" icon="/figure-icon/ornette.png" caption="欧奈特·帕克" alt="欧奈特·帕克人物图标" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="希景势力" subtitle="Prospect">
-      <div class="index-icon-list">
-        <IndexIconCard href="/characters/santino" icon="/figure-icon/santino.png" caption="桑蒂诺·埃梅特" alt="桑蒂诺·埃梅特人物图标" />
-        <IndexIconCard href="/characters/fraser" icon="/figure-icon/fraser.png" caption="弗雷泽·B." alt="弗雷泽·B.人物图标" />
-        <IndexIconCard href="/characters/auros" icon="/figure-icon/auros.png" caption="奥瑞斯·阿卡纳" alt="奥瑞斯·阿卡纳人物图标" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="小屋势力" subtitle="Cabin">
-      <div class="index-icon-list">
-        <IndexIconCard href="/characters/grey" icon="/figure-icon/grey.png" caption="格雷·阿卡纳" alt="格雷·阿卡纳人物图标" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="其他凡多纳势力" subtitle="Others in Ferdona" />
-
-    <IndexSection title="海西势力" subtitle="Hespera">
-      <div class="index-icon-list">
-        <IndexIconCard href="/characters/liat" icon="/figure-icon/liat.png" caption="利亚德·帕克" alt="利亚德·帕克人物图标" />
-        <IndexIconCard href="/characters/jonathan" icon="/figure-icon/jonathan.png" caption="乔纳森·卡齐尔" alt="乔纳森·卡齐尔人物图标" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="魔物与其他" subtitle="Malit & Others" />
+    {characterGroups.map((group) => (
+      <IndexSection title={group.label} subtitle={group.labelEn}>
+        {group.items.length > 0 && (
+          <div class="index-icon-list">
+            {group.items.map((character) => (
+              <IndexIconCard
+                href={character.href}
+                icon={character.indexIcon}
+                caption={character.label}
+                alt={`${character.label}人物图标`}
+              />
+            ))}
+          </div>
+        )}
+      </IndexSection>
+    ))}
   </section>
 </IndexLayout>

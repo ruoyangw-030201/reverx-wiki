@@ -1,0 +1,160 @@
+---
+import "../styles/archive-heading.css";
+
+const {
+  current,
+  options = [],
+  placement = "desktop",
+} = Astro.props;
+
+const rawOptions = Array.isArray(options) ? options : [];
+const resolvedOptions = current
+  ? [
+      ...(
+        rawOptions.some((option) => option?.label === current.label)
+          ? []
+          : [current]
+      ),
+      ...rawOptions,
+    ]
+  : rawOptions;
+---
+
+{current && (
+  <>
+    <div class:list={["archive-entry-year-menu", `is-${placement}`]} data-year-switch>
+      <button
+        class="archive-entry-year-switch"
+        type="button"
+        aria-label="切换设定年份"
+        aria-haspopup="menu"
+        aria-expanded="false"
+        data-year-switch-trigger
+        data-year-switch-default-label={current.label}
+        data-character-archive-target-mode={current.mode ?? "normal"}
+      >
+        <span class="archive-entry-year-switch-label" data-year-switch-label>
+          {current.label}
+        </span>
+        <span class="archive-entry-year-switch-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M5.6 8.4a7.4 7.4 0 0 1 11.8-1.8" />
+            <path d="M17.4 6.6h-3.5" />
+            <path d="M17.4 6.6v-3.5" />
+            <path d="M18.4 15.6a7.4 7.4 0 0 1-11.8 1.8" />
+            <path d="M6.6 17.4h3.5" />
+            <path d="M6.6 17.4v3.5" />
+          </svg>
+        </span>
+      </button>
+
+      {resolvedOptions.length > 0 && (
+        <div class="archive-entry-year-dropdown" role="menu" hidden data-year-switch-menu>
+          {resolvedOptions.map((option) => (
+            <button
+              class="archive-entry-year-option"
+              type="button"
+              role="menuitem"
+              data-year-switch-option
+              data-year-switch-option-label={option.label}
+              data-character-archive-target-mode={option.mode ?? "normal"}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <script>
+      const getCharacterArchivePage = () => document.querySelector(".archive-page.is-characters");
+
+      const setCharacterArchiveMode = (mode = "normal") => {
+        const page = getCharacterArchivePage();
+        if (!page) return;
+
+        page.setAttribute("data-character-archive-mode", mode);
+        document.querySelectorAll("[data-character-archive-panel]").forEach((panel) => {
+          const isActive = panel.getAttribute("data-character-archive-panel") === mode;
+          panel.setAttribute("aria-hidden", String(!isActive));
+        });
+      };
+
+      const closeYearMenu = (menuRoot) => {
+        const trigger = menuRoot.querySelector("[data-year-switch-trigger]");
+        const menu = menuRoot.querySelector("[data-year-switch-menu]");
+        trigger?.setAttribute("aria-expanded", "false");
+        menuRoot.classList.remove("is-open");
+        if (menu) menu.hidden = true;
+      };
+
+      const closeAllYearMenus = () => {
+        document.querySelectorAll("[data-year-switch]").forEach(closeYearMenu);
+      };
+
+      const updateYearMenuOptions = (menuRoot, currentLabel) => {
+        menuRoot.querySelectorAll("[data-year-switch-option]").forEach((option) => {
+          option.hidden = option.dataset.yearSwitchOptionLabel === currentLabel;
+        });
+      };
+
+      const syncYearSwitchLabels = (nextLabel) => {
+        document.querySelectorAll("[data-year-switch]").forEach((menuRoot) => {
+          const label = menuRoot.querySelector("[data-year-switch-label]");
+          if (label && nextLabel) label.textContent = nextLabel;
+          updateYearMenuOptions(menuRoot, nextLabel);
+        });
+      };
+
+      const bindYearSwitches = () => {
+        setCharacterArchiveMode("normal");
+        closeAllYearMenus();
+
+        document.querySelectorAll("[data-year-switch]").forEach((menuRoot) => {
+          const trigger = menuRoot.querySelector("[data-year-switch-trigger]");
+          const label = menuRoot.querySelector("[data-year-switch-label]");
+          const menu = menuRoot.querySelector("[data-year-switch-menu]");
+
+          if (label && trigger?.dataset.yearSwitchDefaultLabel) {
+            label.textContent = trigger.dataset.yearSwitchDefaultLabel;
+          }
+          updateYearMenuOptions(menuRoot, label?.textContent?.trim());
+
+          if (menuRoot.dataset.yearSwitchBound === "true") return;
+          menuRoot.dataset.yearSwitchBound = "true";
+
+          trigger?.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const willOpen = trigger.getAttribute("aria-expanded") !== "true";
+            closeAllYearMenus();
+            trigger.setAttribute("aria-expanded", String(willOpen));
+            menuRoot.classList.toggle("is-open", willOpen);
+            if (menu) menu.hidden = !willOpen;
+          });
+
+          menuRoot.querySelectorAll("[data-year-switch-option]").forEach((option) => {
+            option.addEventListener("click", (event) => {
+              event.stopPropagation();
+              const nextLabel = option.dataset.yearSwitchOptionLabel;
+              const nextMode = option.dataset.characterArchiveTargetMode || "normal";
+              setCharacterArchiveMode(nextMode);
+              syncYearSwitchLabels(nextLabel);
+              closeYearMenu(menuRoot);
+            });
+          });
+        });
+      };
+
+      if (!window.__archiveEntryYearSwitchBound) {
+        window.__archiveEntryYearSwitchBound = true;
+        document.addEventListener("click", closeAllYearMenus);
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeAllYearMenus();
+        });
+      }
+
+      bindYearSwitches();
+      document.addEventListener("astro:page-load", bindYearSwitches);
+    </script>
+  </>
+)}

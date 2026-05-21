@@ -70,5 +70,9 @@ const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` 
     </Fragment>
   )}
 
+  <Fragment slot="mobile-before-body">
+    <slot name="mobile-before-body" />
+  </Fragment>
+
   <slot />
 </ContentFrameBox>

@@ -5,6 +5,7 @@ import Endbar from "../components/Endbar.astro";
 import ArchiveMobilePageNav from "../components/ArchiveMobilePageNav.astro";
 import ArchiveSidebar from "../components/ArchiveSidebar.astro";
 import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
+import ArchiveYearSwitch from "../components/ArchiveYearSwitch.astro";
 import ArchiveHero from "../components/archive/ArchiveHero.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
@@ -70,13 +71,21 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
       <ArchiveMobilePageNav idPrefix="archive-mobile-page-nav" />
 
       <section class="archive-content-area">
-        <ArchiveEntryHeading
-          kicker={sectionKicker}
-          title={frameTitle}
-          subtitle={frameSubtitle}
-          yearSwitchCurrent={characterYearSwitchCurrent}
-          yearSwitchOptions={characterYearSwitchOptions}
-        />
+        <div class="archive-entry-heading-cluster">
+          <ArchiveEntryHeading
+            kicker={sectionKicker}
+            title={frameTitle}
+            subtitle={frameSubtitle}
+          />
+
+          {hasCharacterYearSwitch && (
+            <ArchiveYearSwitch
+              current={characterYearSwitchCurrent}
+              options={characterYearSwitchOptions}
+              placement="desktop"
+            />
+          )}
+        </div>
 
         {contentMode === "custom" ? (
           <>
@@ -96,6 +105,15 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
             iconFrameVariant={contentFrameIconVariant}
             nextPageLink={nextPageLink}
           >
+            {hasCharacterYearSwitch && (
+              <Fragment slot="mobile-before-body">
+                <ArchiveYearSwitch
+                  current={characterYearSwitchCurrent}
+                  options={characterYearSwitchOptions}
+                  placement="mobile"
+                />
+              </Fragment>
+            )}
             <slot />
           </ContentFrame>
         )}

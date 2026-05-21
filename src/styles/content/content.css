@@ -269,6 +269,10 @@
   --character-section-heading-top: -18px;
   --character-section-heading-height: 34px;
   --character-section-line-top: calc(var(--character-section-heading-top) + var(--character-section-heading-height));
+  --character-ability-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
+  --character-ability-title-font: clamp(16px, calc(15px + 0.25cqw), 17px);
+  --character-ability-emblem-size: clamp(58px, 8.8cqw, 64px);
+  --character-ability-icon-track: clamp(66px, 10.2cqw, 74px);
   position: relative;
   container-type: inline-size;
   border: 1px solid var(--character-profile-gold);
@@ -343,18 +347,18 @@
 .character-profile-ability-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(8px, 1vw, 12px);
+  gap: clamp(7px, 1cqw, 12px);
 }
 
 /* 能力卡片 */
 .character-ability-card {
   position: relative;
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: var(--character-ability-icon-track) minmax(0, 1fr);
+  gap: clamp(6px, 0.9cqw, 8px);
   align-items: center;
   min-height: 96px;
-  padding: 10px 12px;
+  padding: clamp(8px, 1.2cqw, 10px) clamp(9px, 1.45cqw, 12px);
   border: 1px solid var(--character-profile-gold);
   border-radius: 7px;
   background: var(--character-profile-card-background,
@@ -362,7 +366,7 @@
     var(--character-profile-paper)
   );
   overflow: hidden;
-  font-size: 16px;
+  font-size: var(--character-ability-card-font);
   line-height: var(--content-prose-line-height, 1.6);
   transition:
     background 220ms ease,
@@ -388,10 +392,10 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: var(--character-ability-emblem-size);
+  height: var(--character-ability-emblem-size);
   aspect-ratio: auto;
-  flex: 0 0 64px;
+  flex: 0 0 var(--character-ability-emblem-size);
   margin-inline: auto;
   border: 1px solid rgba(45, 95, 150, 0.76);
   border-radius: 50%;
@@ -429,8 +433,8 @@
   left: 50%;
   top: 50%;
   z-index: 1;
-  width: 64px;
-  height: 64px;
+  width: var(--character-ability-emblem-size);
+  height: var(--character-ability-emblem-size);
   max-width: none;
   max-height: none;
   object-fit: contain;
@@ -472,7 +476,7 @@
   column-gap: 0;
   margin: 0 0 4px;
   color: rgba(143, 93, 53, 0.86);
-  font-size: 16px;
+  font-size: var(--character-ability-card-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
   overflow-wrap: normal;
@@ -482,7 +486,7 @@
 /* 能力卡片能力名称 */
 .character-ability-title {
   color: var(--color-ink);
-  font-size: 17px;
+  font-size: var(--character-ability-title-font);
   font-weight: 900;
   line-height: var(--content-prose-line-height, 1.6);
 }
@@ -491,7 +495,7 @@
 .character-ability-description {
   margin-top: 2px;
   color: var(--color-ink);
-  font-size: 16px;
+  font-size: var(--character-ability-card-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
   min-height: 24px;
@@ -615,6 +619,11 @@
   --character-section-heading-top: 0px;
   --character-section-heading-height: 34px;
   --character-section-line-top: calc(var(--character-section-heading-top) + var(--character-section-heading-height));
+  --character-weapon-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
+  --character-weapon-small-font: clamp(14px, calc(13px + 0.25cqw), 15px);
+  --character-weapon-name-font: clamp(20px, calc(18px + 0.5cqw), 22px);
+  --character-weapon-banner-width: clamp(48px, 6.9cqw, 54px);
+  --character-weapon-banner-height: clamp(84px, 12.1cqw, 94px);
   position: relative;
   container-type: inline-size;
   padding-top: 46px;
@@ -642,7 +651,7 @@
 .character-weapons-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(10px, 1.4vw, 16px);
+  gap: clamp(8px, 1.25cqw, 16px);
 }
 
 /* 武器档案单类武器列 */
@@ -656,7 +665,7 @@
 .character-weapon-card {
   position: relative;
   min-height: 254px;
-  padding: 8px 12px 12px;
+  padding: clamp(7px, 1cqw, 8px) clamp(9px, 1.4cqw, 12px) clamp(10px, 1.45cqw, 12px);
   border: 1px solid var(--character-profile-gold);
   border-radius: 7px;
   background: var(--character-profile-card-background,
@@ -664,7 +673,7 @@
     var(--character-profile-paper)
   );
   overflow: hidden;
-  font-size: 16px;
+  font-size: var(--character-weapon-card-font);
   line-height: var(--content-prose-line-height, 1.6);
   transition:
     background 220ms ease,
@@ -701,8 +710,8 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  gap: 8px;
+  grid-template-columns: var(--character-weapon-banner-width) minmax(0, 1fr);
+  gap: clamp(6px, 0.95cqw, 8px);
   align-items: stretch;
 }
 
@@ -710,9 +719,9 @@
 .character-weapon-banner {
   position: relative;
   display: block;
-  width: 54px;
-  height: 94px;
-  flex: 0 0 54px;
+  width: var(--character-weapon-banner-width);
+  height: var(--character-weapon-banner-height);
+  flex: 0 0 var(--character-weapon-banner-width);
   padding: 0;
   background: linear-gradient(180deg, var(--character-profile-blue), var(--character-profile-blue-deep));
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
@@ -724,8 +733,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 54px;
-  height: 54px;
+  width: var(--character-weapon-banner-width);
+  height: var(--character-weapon-banner-width);
   max-width: none;
   max-height: none;
   object-fit: contain;
@@ -754,7 +763,7 @@
   align-items: baseline;
   column-gap: 0;
   color: rgba(21, 21, 21, 0.68);
-  font-size: 15px;
+  font-size: var(--character-weapon-small-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
 }
@@ -762,8 +771,8 @@
 /* 武器名称和表格区 */
 .character-weapon-detail {
   display: grid;
-  grid-template-columns: minmax(84px, 0.72fr) minmax(150px, 1.28fr);
-  gap: 8px;
+  grid-template-columns: minmax(76px, 0.72fr) minmax(132px, 1.28fr);
+  gap: clamp(6px, 0.95cqw, 8px);
   align-items: right;
   margin-top: 4px;
 }
@@ -774,7 +783,7 @@
   place-items: center;
   min-height: 100%;
   color: var(--character-profile-blue-deep);
-  font-size: 22px;
+  font-size: var(--character-weapon-name-font);
   line-height: var(--content-prose-line-height, 1.6);
   text-align: center;
 }
@@ -785,7 +794,7 @@
   border-collapse: collapse;
   table-layout: fixed;
   background: rgba(255, 255, 255, 0.3);
-  font-size: 15px;
+  font-size: var(--character-weapon-small-font);
   line-height: var(--content-prose-line-height, 1.6);
 }
 
@@ -793,7 +802,7 @@
 .character-weapon-fields th,
 .character-weapon-fields td {
   border: 1px solid rgba(200, 155, 90, 0.42);
-  padding: 4px 6px;
+  padding: clamp(3px, 0.6cqw, 4px) clamp(4px, 0.75cqw, 6px);
   text-align: center;
   vertical-align: top;
 }
@@ -814,7 +823,7 @@
   padding-top: 8px;
   border-top: 1px solid var(--character-profile-gold);
   color: var(--color-ink);
-  font-size: 16px;
+  font-size: var(--character-weapon-card-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
 }
@@ -828,7 +837,7 @@
   place-items: center;
   padding: 48px 16px 18px;
   color: var(--color-ink);
-  font-size: 16px;
+  font-size: var(--character-weapon-card-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
   text-align: center;
@@ -873,7 +882,7 @@
   color: var(--color-gold-light);
 }
 
-@container (max-width: 620px) {
+@container (max-width: 560px) {
   /* 窄容器基础设定卡片列表 */
   .character-profile-ability-list {
     grid-template-columns: 1fr;
@@ -900,7 +909,7 @@
   }
 }
 
-@container (max-width: 720px) {
+@container (max-width: 560px) {
   /* 窄容器武器档案网格 */
   .character-weapons-grid {
     grid-template-columns: 1fr;
@@ -956,7 +965,51 @@
 
   /* 移动端武器卡片顶部资料区 */
   .character-weapon-main {
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--character-weapon-banner-width) minmax(0, 1fr);
+    grid-template-areas:
+      "banner type"
+      "banner name"
+      "fields fields";
+    align-items: start;
+  }
+
+  /* 移动端武器锦旗图标框 */
+  .character-weapon-banner {
+    grid-area: banner;
+  }
+
+  /* 移动端武器卡片信息区 */
+  .character-weapon-content {
+    display: contents;
+  }
+
+  /* 移动端武器类型文字块 */
+  .character-weapon-type-text {
+    grid-area: type;
+    align-self: start;
+    padding-top: 0;
+  }
+
+  /* 移动端武器名称和表格区 */
+  .character-weapon-detail {
+    display: contents;
+  }
+
+  /* 移动端武器名称 */
+  .character-weapon-name {
+    grid-area: name;
+    justify-self: stretch;
+    align-self: center;
+    min-height: 0;
+    margin-top: 0;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  /* 移动端武器资料表 */
+  .character-weapon-fields {
+    grid-area: fields;
+    margin-top: 8px;
   }
 
   /* 窄容器基础设定卡片的单列阅读顺序 */

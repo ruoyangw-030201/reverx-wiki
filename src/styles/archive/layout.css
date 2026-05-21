@@ -50,6 +50,11 @@
   margin-top: var(--archive-heading-frame-offset);
 }
 
+/* 档案标题组合后内容框间距 */
+.archive-content-area > .archive-entry-heading-cluster + .content-frame-unit {
+  margin-top: var(--archive-heading-frame-offset);
+}
+
 /* 带客户端脚本的档案标题后内容框间距 */
 .archive-content-area > .archive-entry-heading + script + .content-frame-unit {
   margin-top: var(--archive-heading-frame-offset);
@@ -77,6 +82,11 @@
   }
 
   .archive-content-area > .archive-entry-heading + .content-frame-unit {
+    margin-top: 18px;
+  }
+
+  /* 移动端档案标题组合后内容框间距 */
+  .archive-content-area > .archive-entry-heading-cluster + .content-frame-unit {
     margin-top: 18px;
   }
 
