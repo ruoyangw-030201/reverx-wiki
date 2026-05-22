@@ -1,0 +1,97 @@
+---
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+
+const note = [
+  "出身于凡多纳佩特拉州的帕克家族分支。浅金色鬓发，脑后留了一缕长发，棕色双眸慵懒而精明。天性散漫、不服管束，人际关系十分随缘，却兼具慈悲心与开创精神，热衷于搞不靠谱的发明。平日里不修边幅，只有在正式场合才会短暂装出一点正经模样。",
+  "年少时在无人管理、资源匮乏的佩特拉州独自收留恶能者，并主动与边缘计划公司谈妥合作，逐渐建立起当地的恶能者基地；后找准时机依附于小屋，于是心安理得地退居二线享受生活。",
+];
+
+const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，佩特拉州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "半解构级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "指挥",
+    description: "信息",
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "SR",
+  },
+];
+
+const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，佩特拉州",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon-dark/vestige.png",
+    title: "半解构级",
+  },
+  {
+    heading: "能力谱系 / ABILITY SPECTRUM",
+    icon: "/icon-dark/informational.png",
+    title: "指挥",
+    description: "信息-增幅",
+    changed: true,
+  },
+  {
+    heading: "危险等级 / DANGER COEFFICIENT",
+    icon: "/icon-dark/danger.png",
+    title: "SR",
+  },
+];
+
+const fusionWeapons = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    emptyText: "信息不完全",
+  },
+];
+
+const nonFusionWeapons = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    emptyText: "信息不完全",
+  },
+];
+
+const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+
+const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+---
+
+<ArchiveLayout>
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+</ArchiveLayout>
