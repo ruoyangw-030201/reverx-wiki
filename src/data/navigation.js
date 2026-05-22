@@ -76,6 +76,12 @@ export const characterGroups = [
         icon: "/big-icon/prospect.webp",
         indexIcon: "/figure-icon/auros.png",
         frameIcon: "/figure/auros.webp",
+        modeSidebarOverrides: {
+          spoiler: {
+            groupKey: "cabin",
+            icon: "/big-icon/cabin.webp",
+          },
+        },
       },
     ],
   },

@@ -264,9 +264,9 @@
   letter-spacing: 0;
 }
 
-/* 基础设定区块的外框 */
+/* 基础设定区块 */
 .character-profile-section {
-  --character-section-heading-top: -18px;
+  --character-section-heading-top: 0px;
   --character-section-heading-height: 34px;
   --character-section-line-top: calc(var(--character-section-heading-top) + var(--character-section-heading-height));
   --character-ability-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
@@ -275,43 +275,25 @@
   --character-ability-icon-track: clamp(66px, 10.2cqw, 74px);
   position: relative;
   container-type: inline-size;
-  border: 1px solid var(--character-profile-gold);
-  border-radius: 7px;
   background: transparent;
-  box-shadow: none;
-  transition: border-color 220ms ease;
 }
 
 /* 基础设定区块的间距 */
 .character-profile-section.is-profile {
-  padding: 34px clamp(12px, 1.5vw, 18px) clamp(12px, 1.5vw, 18px);
+  padding-top: 46px;
 }
 
-/* 基础设定顶部的横线 */
-.character-profile-window-layer {
+/* 基础设定和武器设定顶部横线 */
+.character-profile-divider,
+.character-weapons-divider {
   position: absolute;
   left: 0;
   right: 0;
   top: var(--character-section-line-top);
   z-index: 2;
-  height: 1px;
+  height: 1.5px;
   background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
   transition: background 220ms ease;
-}
-
-/* 基础设定顶部横线的小方块 */
-.character-profile-window-layer::before {
-  content: "";
-  position: absolute;
-  right: clamp(34px, 3vw, 48px);
-  top: -12px;
-  width: 10px;
-  height: 10px;
-  background: var(--character-profile-gold);
-  box-shadow: -16px 0 0 rgba(138, 169, 201, 0.46);
-  transition:
-    background-color 220ms ease,
-    box-shadow 220ms ease;
 }
 
 /* 深蓝色章节标题条 */
@@ -630,18 +612,6 @@
   background: transparent;
 }
 
-/* 武器档案顶部金色分隔线 */
-.character-weapons-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: var(--character-section-line-top);
-  z-index: 2;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
-  transition: background 220ms ease;
-}  
- 
 /* 武器档案标题条 */
 .character-weapons-heading {
   min-width: clamp(210px, 24vw, 288px);

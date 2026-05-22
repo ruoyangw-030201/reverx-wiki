@@ -127,6 +127,7 @@ function isCollapsibleEntryExpanded(entry) {
               "archive-sidebar-collapsible-group",
               !isCollapsibleEntryExpanded(entry) && "is-collapsed",
             ]}
+            data-sidebar-group-key={entry.item.key ?? entry.item.entityKey}
             data-sidebar-collapsible
           >
             <div class="archive-sidebar-group-row">
@@ -168,6 +169,8 @@ function isCollapsibleEntryExpanded(entry) {
             <div
               class="archive-sidebar-group-children"
               id={entry.id}
+              data-sidebar-group-children
+              data-sidebar-group-key={entry.item.key ?? entry.item.entityKey}
               data-sidebar-children
               hidden={!isCollapsibleEntryExpanded(entry)}
             >
@@ -180,6 +183,10 @@ function isCollapsibleEntryExpanded(entry) {
                     isSideActive(item.href) && "is-active",
                   ]}
                   href={item.href}
+                  data-sidebar-link-path={normalizeNavigationHref(item.href)}
+                  data-sidebar-original-group-key={entry.item.key ?? entry.item.entityKey}
+                  data-sidebar-original-icon={item.icon}
+                  data-sidebar-mode-overrides={item.modeSidebarOverrides ? JSON.stringify(item.modeSidebarOverrides) : undefined}
                   data-sidebar-anchor={item.isAnchor ? item.href : undefined}
                 >
                   {item.icon && (
@@ -189,6 +196,7 @@ function isCollapsibleEntryExpanded(entry) {
                         item.icon.startsWith("/icon/") && "is-small-source",
                       ]}
                       src={item.icon}
+                      data-sidebar-icon
                       alt=""
                     />
                   )}
@@ -239,6 +247,9 @@ function isCollapsibleEntryExpanded(entry) {
                 isSideActive(entry.item.href) && "is-active",
               ]}
               href={entry.item.href}
+              data-sidebar-link-path={normalizeNavigationHref(entry.item.href)}
+              data-sidebar-original-icon={entry.item.icon}
+              data-sidebar-mode-overrides={entry.item.modeSidebarOverrides ? JSON.stringify(entry.item.modeSidebarOverrides) : undefined}
               data-sidebar-anchor={entry.item.isAnchor ? entry.item.href : undefined}
             >
               {entry.item.icon && (
@@ -248,6 +259,7 @@ function isCollapsibleEntryExpanded(entry) {
                     entry.item.icon.startsWith("/icon/") && "is-small-source",
                   ]}
                   src={entry.item.icon}
+                  data-sidebar-icon
                   alt=""
                 />
               )}
@@ -269,6 +281,8 @@ function isCollapsibleEntryExpanded(entry) {
 
 <script is:inline>
   (() => {
+    const normalizePath = (path) => path.replace(/\/$/, "") || "/";
+
     const initSidebarCollapsibleGroups = () => {
       document.querySelectorAll("[data-sidebar-collapsible]").forEach((group) => {
         if (group.dataset.sidebarCollapsibleReady === "true") return;
@@ -289,7 +303,6 @@ function isCollapsibleEntryExpanded(entry) {
     };
 
     const initSidebarAnchorState = () => {
-      const normalizePath = (path) => path.replace(/\/$/, "") || "/";
       const currentPath = normalizePath(window.location.pathname);
       const anchorLinks = Array.from(document.querySelectorAll("[data-sidebar-anchor]"))
         .filter((link) => {
@@ -364,14 +377,84 @@ function isCollapsibleEntryExpanded(entry) {
       updateActiveAnchor();
     };
 
+    const parseSidebarOverrides = (value) => {
+      if (!value) return null;
+
+      try {
+        return JSON.parse(value);
+      } catch {
+        return null;
+      }
+    };
+
+    const findSidebarGroupChildren = (sidebar, groupKey) => {
+      if (!sidebar || !groupKey) return null;
+
+      return Array.from(sidebar.querySelectorAll("[data-sidebar-group-children]"))
+        .find((children) => children.dataset.sidebarGroupKey === groupKey) ?? null;
+    };
+
+    const expandSidebarGroupForChildren = (children) => {
+      const group = children?.closest("[data-sidebar-collapsible]");
+      if (!group) return;
+
+      const toggle = group.querySelector("[data-sidebar-toggle]");
+      group.classList.remove("is-collapsed");
+      children.hidden = false;
+      toggle?.setAttribute("aria-expanded", "true");
+    };
+
+    const applyCharacterSidebarMode = (mode = "normal") => {
+      const currentPath = normalizePath(window.location.pathname);
+      if (!currentPath.startsWith("/characters/")) return;
+
+      document.querySelectorAll("[data-sidebar-link-path]").forEach((link) => {
+        if (link.dataset.sidebarLinkPath !== currentPath) return;
+
+        const overrides = parseSidebarOverrides(link.dataset.sidebarModeOverrides);
+        if (!overrides) return;
+
+        const modeOverride = overrides[mode] ?? {};
+        const targetGroupKey = modeOverride.groupKey ?? link.dataset.sidebarOriginalGroupKey;
+        const targetIcon = modeOverride.icon ?? link.dataset.sidebarOriginalIcon;
+        const sidebar = link.closest(".archive-sidebar");
+        const targetChildren = findSidebarGroupChildren(sidebar, targetGroupKey);
+
+        if (targetChildren && link.parentElement !== targetChildren) {
+          targetChildren.appendChild(link);
+        }
+
+        const icon = link.querySelector("[data-sidebar-icon]");
+        if (icon && targetIcon) {
+          icon.setAttribute("src", targetIcon);
+        }
+
+        expandSidebarGroupForChildren(targetChildren);
+      });
+    };
+
+    const initCharacterSidebarModeOverrides = () => {
+      applyCharacterSidebarMode(
+        document.querySelector(".archive-page.is-characters")?.getAttribute("data-character-archive-mode") ?? "normal"
+      );
+
+      if (window.__archiveSidebarModeOverrideBound) return;
+      window.__archiveSidebarModeOverrideBound = true;
+      window.addEventListener("character-archive-mode-change", (event) => {
+        applyCharacterSidebarMode(event.detail?.mode ?? "normal");
+      });
+    };
+
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () => {
         initSidebarCollapsibleGroups();
         initSidebarAnchorState();
+        initCharacterSidebarModeOverrides();
       }, { once: true });
     } else {
       initSidebarCollapsibleGroups();
       initSidebarAnchorState();
+      initCharacterSidebarModeOverrides();
     }
   })();
 </script>
