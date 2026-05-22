@@ -3,33 +3,32 @@ import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
 
 const note = [
-  "高大的北国青年，红棕色卷发蓬松凌乱，黄绿色竖瞳阴沉狡黠。性情直率、自视甚高、爱摆架子、喜怒形于色。自认为冷酷不近人情，内心却始终渴望真诚的情感链接。",
-  "母亲曾位列“创立者们”，却在政敌清洗中被暗杀，使其从权贵继承人一夕沦为流亡者，只得一边寻找靠山，一边积蓄复仇。由于缺乏足够个人实力而选择退入暗处，以棋手般的方式操纵局势、布置他人、攫取影响力。因隐匿身份的需求压抑自我，逐渐发展出暴力倾向。",
+  "出身于凡多纳佩特拉州的帕克家族分支。浅金色鬓发，脑后留了一缕长发，棕色双眸慵懒而精明。天性散漫、不服管束，人际关系十分随缘，却兼具慈悲心与开创精神，热衷于搞不靠谱的发明。平日里不修边幅，只有在正式场合才会短暂装出一点正经模样。",
+  "年少时在无人管理、资源匮乏的佩特拉州独自收留恶能者，并主动与边缘计划公司谈妥合作，逐渐建立起当地的恶能者基地；后找准时机依附于小屋，于是心安理得地退居二线享受生活。",
 ];
 
 const abilities2031 = [
   {
     heading: "所属势力 / ENTITIES",
-    icon: "/big-icon-dark/andor.webp",
-    title: "国王领博物馆",
-    description: "出生地：凡多纳，林恩州",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，佩特拉州",
   },
   {
     heading: "年龄 / AGE",
     icon: "/icon-dark/record.png",
     title: "20岁",
-    description: "生日：2011年5月21日",
+    description: "生日：2011年3月30日",
   },
   {
     heading: "物种 / SPECIES",
     icon: "/icon-dark/document.png",
-    title: "混血人类",
-    description: "1/2圆斑蜥蜴魔物血统",
+    title: "人类",
   },
   {
     heading: "能力谱系 / SPECTRUM",
     icon: "/icon-dark/informational.png",
-    title: "???",
+    title: "指挥",
     description: "信息",
   },
   {
@@ -47,27 +46,26 @@ const abilities2031 = [
 const abilities2039 = [
   {
     heading: "所属势力 / ENTITIES",
-    icon: "/big-icon-dark/andor.webp",
-    title: "国王领博物馆",
-    description: "出生地：凡多纳，林恩州",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，佩特拉州",
   },
   {
     heading: "年龄 / AGE",
     icon: "/icon-dark/record.png",
     title: "28岁",
-    description: "生日：2011年5月21日",
+    description: "生日：2011年3月30日",
   },
   {
     heading: "物种 / SPECIES",
     icon: "/icon-dark/document.png",
-    title: "混血人类",
-    description: "1/2圆斑蜥蜴魔物血统",
+    title: "人类",
   },
   {
     heading: "能力谱系 / SPECTRUM",
     icon: "/icon-dark/informational.png",
-    title: "认知替换",
-    description: "信息-混乱",
+    title: "指挥",
+    description: "信息-增幅",
     changed: true,
   },
   {
@@ -78,33 +76,16 @@ const abilities2039 = [
   {
     heading: "危险等级 / D-RANK",
     icon: "/icon-dark/danger.png",
-    title: "D1",
-    changed: true,
+    title: "SR",
   },
 ];
 
-const fusionWeapons2031 = [
+const fusionWeapons = [
   {
     typeLabel: "融合武器",
     typeLabelEn: "FUSION WEAPON",
     icon: "/icon-dark/fusion-weapon.png",
-    emptyText: "未配置",
-  },
-];
-
-const fusionWeapons2039 = [
-  {
-    typeLabel: "融合武器",
-    typeLabelEn: "FUSION WEAPON",
-    icon: "/icon-dark/fusion-weapon.png",
-    name: "「棋局」",
-    fields: [
-      { label: "外形", value: "一套国际象棋" },
-      { label: "谱系", value: "信息-混乱" },
-      { label: "核心品阶", value: "解构级" },
-    ],
-    description: "可以将特定对象投射在某个棋子上，影响其决策和行为。",
-    changed: true,
+    emptyText: "信息不完全",
   },
 ];
 
@@ -120,14 +101,14 @@ const nonFusionWeapons = [
 const normalProfile = {
   abilities: abilities2031,
   note,
-  fusionWeapons: fusionWeapons2031,
+  fusionWeapons,
   nonFusionWeapons,
 };
 
 const spoilerProfile = {
   abilities: abilities2039,
   note,
-  fusionWeapons: fusionWeapons2039,
+  fusionWeapons,
   nonFusionWeapons,
 };
 ---

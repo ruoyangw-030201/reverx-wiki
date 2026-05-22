@@ -78,6 +78,9 @@ const resolvedOptions = current
           const isActive = panel.getAttribute("data-character-archive-panel") === mode;
           panel.setAttribute("aria-hidden", String(!isActive));
         });
+        window.dispatchEvent(new CustomEvent("character-archive-mode-change", {
+          detail: { mode },
+        }));
       };
 
       const closeYearMenu = (menuRoot) => {

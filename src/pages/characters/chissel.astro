@@ -3,108 +3,96 @@ import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
 
 const note = [
-  "高大的北国青年，红棕色卷发蓬松凌乱，黄绿色竖瞳阴沉狡黠。性情直率、自视甚高、爱摆架子、喜怒形于色。自认为冷酷不近人情，内心却始终渴望真诚的情感链接。",
-  "母亲曾位列“创立者们”，却在政敌清洗中被暗杀，使其从权贵继承人一夕沦为流亡者，只得一边寻找靠山，一边积蓄复仇。由于缺乏足够个人实力而选择退入暗处，以棋手般的方式操纵局势、布置他人、攫取影响力。因隐匿身份的需求压抑自我，逐渐发展出暴力倾向。",
+  "有着天蓝色短发的青年，右眼为蓝色，左眼瞳孔为月亮型，是金色的改造义眼。小屋的领导者，毫不掩饰地展现自信、甚至自恋，以“余”自称，初见会让人觉得难以接近。",
+  "幼年时曾被掳至希景公司，成为希景的早期改造成品；后出逃回乡，与科威尔·罗共谋，建立独立政权“小屋”与希景斗争，为大部分福尔瑙伊的恶能者赢得了自由。坚定果敢、勇于斗争、博爱众人。领导力超群，对身边人懂得赏识、信任与包容。",
 ];
 
 const abilities2031 = [
   {
     heading: "所属势力 / ENTITIES",
-    icon: "/big-icon-dark/andor.webp",
-    title: "国王领博物馆",
-    description: "出生地：凡多纳，林恩州",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，北福尔瑙伊州",
   },
   {
     heading: "年龄 / AGE",
     icon: "/icon-dark/record.png",
-    title: "20岁",
-    description: "生日：2011年5月21日",
+    title: "21岁",
+    description: "生日：2010年8月6日",
   },
   {
     heading: "物种 / SPECIES",
     icon: "/icon-dark/document.png",
-    title: "混血人类",
-    description: "1/2圆斑蜥蜴魔物血统",
+    title: "人类",
   },
   {
     heading: "能力谱系 / SPECTRUM",
     icon: "/icon-dark/informational.png",
-    title: "???",
+    title: "粒子???",
     description: "信息",
   },
   {
     heading: "品阶 / LEVEL",
     icon: "/icon-dark/vestige.png",
-    title: "半解构级",
+    title: "解构级",
   },
   {
     heading: "危险等级 / D-RANK",
     icon: "/icon-dark/danger.png",
-    title: "SR",
+    title: "D4",
   },
 ];
 
 const abilities2039 = [
   {
     heading: "所属势力 / ENTITIES",
-    icon: "/big-icon-dark/andor.webp",
-    title: "国王领博物馆",
-    description: "出生地：凡多纳，林恩州",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，北福尔瑙伊州",
   },
   {
     heading: "年龄 / AGE",
     icon: "/icon-dark/record.png",
-    title: "28岁",
-    description: "生日：2011年5月21日",
+    title: "29岁",
+    description: "生日：2010年8月6日",
   },
   {
     heading: "物种 / SPECIES",
     icon: "/icon-dark/document.png",
-    title: "混血人类",
-    description: "1/2圆斑蜥蜴魔物血统",
+    title: "人类",
   },
   {
     heading: "能力谱系 / SPECTRUM",
     icon: "/icon-dark/informational.png",
-    title: "认知替换",
+    title: "信息流",
     description: "信息-混乱",
     changed: true,
   },
   {
     heading: "品阶 / LEVEL",
     icon: "/icon-dark/vestige.png",
-    title: "半解构级",
+    title: "解构级",
   },
   {
     heading: "危险等级 / D-RANK",
     icon: "/icon-dark/danger.png",
-    title: "D1",
+    title: "D5",
     changed: true,
   },
 ];
 
-const fusionWeapons2031 = [
+const fusionWeapons = [
   {
     typeLabel: "融合武器",
     typeLabelEn: "FUSION WEAPON",
     icon: "/icon-dark/fusion-weapon.png",
-    emptyText: "未配置",
-  },
-];
-
-const fusionWeapons2039 = [
-  {
-    typeLabel: "融合武器",
-    typeLabelEn: "FUSION WEAPON",
-    icon: "/icon-dark/fusion-weapon.png",
-    name: "「棋局」",
+    name: "「弦歌」",
     fields: [
-      { label: "外形", value: "一套国际象棋" },
+      { label: "外形", value: "亮蓝色的新月" },
       { label: "谱系", value: "信息-混乱" },
       { label: "核心品阶", value: "解构级" },
     ],
-    description: "可以将特定对象投射在某个棋子上，影响其决策和行为。",
-    changed: true,
+    description: "一柄亮蓝色新月，模式一为弓箭，可以辅助进行信息流远程攻击；模式二为长柄镰刀，可以作为近战武器使用。",
   },
 ];
 
@@ -120,14 +108,14 @@ const nonFusionWeapons = [
 const normalProfile = {
   abilities: abilities2031,
   note,
-  fusionWeapons: fusionWeapons2031,
+  fusionWeapons,
   nonFusionWeapons,
 };
 
 const spoilerProfile = {
   abilities: abilities2039,
   note,
-  fusionWeapons: fusionWeapons2039,
+  fusionWeapons,
   nonFusionWeapons,
 };
 ---

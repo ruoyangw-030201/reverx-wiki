@@ -264,9 +264,9 @@
   letter-spacing: 0;
 }
 
-/* 基础设定区块的外框 */
+/* 基础设定区块 */
 .character-profile-section {
-  --character-section-heading-top: -18px;
+  --character-section-heading-top: 0px;
   --character-section-heading-height: 34px;
   --character-section-line-top: calc(var(--character-section-heading-top) + var(--character-section-heading-height));
   --character-ability-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
@@ -275,43 +275,25 @@
   --character-ability-icon-track: clamp(66px, 10.2cqw, 74px);
   position: relative;
   container-type: inline-size;
-  border: 1px solid var(--character-profile-gold);
-  border-radius: 7px;
   background: transparent;
-  box-shadow: none;
-  transition: border-color 220ms ease;
 }
 
 /* 基础设定区块的间距 */
 .character-profile-section.is-profile {
-  padding: 34px clamp(12px, 1.5vw, 18px) clamp(12px, 1.5vw, 18px);
+  padding-top: 46px;
 }
 
-/* 基础设定顶部的横线 */
-.character-profile-window-layer {
+/* 基础设定和武器设定顶部横线 */
+.character-profile-divider,
+.character-weapons-divider {
   position: absolute;
   left: 0;
   right: 0;
   top: var(--character-section-line-top);
   z-index: 2;
-  height: 1px;
+  height: 1.5px;
   background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
   transition: background 220ms ease;
-}
-
-/* 基础设定顶部横线的小方块 */
-.character-profile-window-layer::before {
-  content: "";
-  position: absolute;
-  right: clamp(34px, 3vw, 48px);
-  top: -12px;
-  width: 10px;
-  height: 10px;
-  background: var(--character-profile-gold);
-  box-shadow: -16px 0 0 rgba(138, 169, 201, 0.46);
-  transition:
-    background-color 220ms ease,
-    box-shadow 220ms ease;
 }
 
 /* 深蓝色章节标题条 */
@@ -346,7 +328,7 @@
 /* 能力卡片列表 */
 .character-profile-ability-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(7px, 1cqw, 12px);
 }
 
@@ -465,20 +447,28 @@
   grid-column: 2;
   grid-row: 1;
   min-width: 0;
+  padding-top: calc(var(--character-ability-card-font) * 1.6 + 4px);
   padding-bottom: 4px;
 }
 
 /* 能力卡片标题 */
 .character-ability-heading {
+  position: absolute;
+  left: clamp(9px, 1.45cqw, 12px);
+  top: 0px;
+  right: clamp(9px, 1.45cqw, 12px);
+  z-index: 2;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
+  justify-content: flex-end;
   column-gap: 0;
-  margin: 0 0 4px;
+  margin: 0;
   color: rgba(143, 93, 53, 0.86);
   font-size: var(--character-ability-card-font);
   font-weight: 400;
   line-height: var(--content-prose-line-height, 1.6);
+  white-space: nowrap;
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -630,18 +620,6 @@
   background: transparent;
 }
 
-/* 武器档案顶部金色分隔线 */
-.character-weapons-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: var(--character-section-line-top);
-  z-index: 2;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
-  transition: background 220ms ease;
-}  
- 
 /* 武器档案标题条 */
 .character-weapons-heading {
   min-width: clamp(210px, 24vw, 288px);
@@ -834,7 +812,8 @@
   inset: 0;
   z-index: 1;
   display: grid;
-  place-items: center;
+  place-content: center;
+  justify-items: center;
   padding: 48px 16px 18px;
   color: var(--color-ink);
   font-size: var(--character-weapon-card-font);
@@ -842,6 +821,37 @@
   line-height: var(--content-prose-line-height, 1.6);
   text-align: center;
   pointer-events: none;
+}
+
+/* 武器信息不完全卡片的提示图标 */
+.character-weapon-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+}
+
+/* 武器信息不完全卡片的提示图标图片 */
+.character-weapon-empty-icon img {
+  grid-area: 1 / 1;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+}
+
+/* 武器信息不完全卡片剧透图标默认隐藏 */
+.character-weapon-empty-icon .is-spoiler {
+  display: none;
+}
+
+/* 剧透模式的武器信息不完全普通图标 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-normal {
+  display: none;
+}
+
+/* 剧透模式的武器信息不完全浅色图标 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-spoiler {
+  display: block;
 }
 
 /* 角色档案剧透模式的变更卡片底色 */
@@ -882,30 +892,52 @@
   color: var(--color-gold-light);
 }
 
+@container (max-width: 980px) {
+  /* 窄桌面基础设定卡片列表 */
+  .character-profile-ability-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 窄桌面基础设定所属势力卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(1) {
+    order: 1;
+  }
+
+  /* 窄桌面基础设定能力谱系卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(4) {
+    order: 2;
+  }
+
+  /* 窄桌面基础设定年龄卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(2) {
+    order: 3;
+  }
+
+  /* 窄桌面基础设定品阶卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(5) {
+    order: 4;
+  }
+
+  /* 窄桌面基础设定物种卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(3) {
+    order: 5;
+  }
+
+  /* 窄桌面基础设定危险等级卡片顺序 */
+  .character-profile-ability-list > .character-ability-card:nth-child(6) {
+    order: 6;
+  }
+}
+
 @container (max-width: 560px) {
   /* 窄容器基础设定卡片列表 */
   .character-profile-ability-list {
     grid-template-columns: 1fr;
   }
 
-  /* 窄容器基础设定卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:first-child {
-    order: 1;
-  }
-
-  /* 窄容器基础设定出生地卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(3) {
-    order: 2;
-  }
-
-  /* 窄容器基础设定能力卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(2) {
-    order: 3;
-  }
-
-  /* 窄容器基础设定危险等级卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(4) {
-    order: 4;
+  /* 窄容器基础设定卡片顺序 */
+  .character-profile-ability-list > .character-ability-card {
+    order: initial;
   }
 }
 
@@ -956,6 +988,7 @@
   .character-profile-ability-list > .character-ability-card:first-child,
   .character-profile-ability-list > .character-ability-card:nth-child(2) {
     grid-column: auto;
+    order: initial;
   }
 
   /* 移动端武器档案网格 */
@@ -1012,25 +1045,6 @@
     margin-top: 8px;
   }
 
-  /* 窄容器基础设定卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:first-child {
-    order: 1;
-  }
-
-  /* 窄容器基础设定出生地卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(3) {
-    order: 2;
-  }
-
-  /* 窄容器基础设定能力卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(2) {
-    order: 3;
-  }
-
-  /* 窄容器基础设定危险等级卡片的单列阅读顺序 */
-  .character-profile-ability-list > .character-ability-card:nth-child(4) {
-    order: 4;
-  }
 }
 
 @media (max-width: 620px) {
