@@ -12,6 +12,7 @@ const {
 
 const isEmpty = Boolean(emptyText);
 const hasName = Boolean(name);
+const isIncomplete = emptyText === "信息不完全";
 ---
 
 <article class:list={["character-weapon-card", isEmpty && "is-empty", !hasName && !isEmpty && "has-no-name", changed && "is-changed"]}>
@@ -44,7 +45,15 @@ const hasName = Boolean(name);
   </div>
 
   {isEmpty ? (
-    <p class="character-weapon-empty-text">{emptyText}</p>
+    <p class:list={["character-weapon-empty-text", isIncomplete && "is-incomplete"]}>
+      {isIncomplete && (
+        <span class="character-weapon-empty-icon" aria-hidden="true">
+          <img class="is-normal" src="/icon-dark/danger.png" alt="" />
+          <img class="is-spoiler" src="/icon/danger.png" alt="" />
+        </span>
+      )}
+      <span>{emptyText}</span>
+    </p>
   ) : (
     <p class="character-weapon-description">
       {description}

@@ -804,7 +804,8 @@
   inset: 0;
   z-index: 1;
   display: grid;
-  place-items: center;
+  place-content: center;
+  justify-items: center;
   padding: 48px 16px 18px;
   color: var(--color-ink);
   font-size: var(--character-weapon-card-font);
@@ -812,6 +813,37 @@
   line-height: var(--content-prose-line-height, 1.6);
   text-align: center;
   pointer-events: none;
+}
+
+/* 武器信息不完全卡片的提示图标 */
+.character-weapon-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+}
+
+/* 武器信息不完全卡片的提示图标图片 */
+.character-weapon-empty-icon img {
+  grid-area: 1 / 1;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+}
+
+/* 武器信息不完全卡片剧透图标默认隐藏 */
+.character-weapon-empty-icon .is-spoiler {
+  display: none;
+}
+
+/* 剧透模式的武器信息不完全普通图标 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-normal {
+  display: none;
+}
+
+/* 剧透模式的武器信息不完全浅色图标 */
+.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-spoiler {
+  display: block;
 }
 
 /* 角色档案剧透模式的变更卡片底色 */
