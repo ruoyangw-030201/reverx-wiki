@@ -22,6 +22,18 @@ export const worldEntities = {
     href: "/world/ferdona/cabin",
     icon: "/big-icon/cabin.webp",
   },
+  "5thstreet": {
+    label: "第五街基地",
+    labelEn: "FIFTH STREET",
+    href: "/world/ferdona/cabin#5thstreet",
+    icon: "/big-icon/5thstreet.webp",
+  },
+  museum: {
+    label: "国王领博物馆",
+    labelEn: "KINGENLAND MUSEUM",
+    href: "/world/ferdona/museum",
+    icon: "/big-icon/museum.webp",
+  },
   blueprint: {
     label: "蓝图",
     labelEn: "THE BLUEPRINT",
@@ -38,19 +50,25 @@ export const worldEntities = {
     label: "莱城基地",
     labelEn: "Rattown",
     href: "/world/ferdona/hq#rattown-base",
-    icon: "/big-icon/hq.webp",
+    icon: "/big-icon/rattown-base.webp",
   },
   shalom: {
     label: "舍拉姆基地",
     labelEn: "Shalom",
     href: "/world/ferdona/hq#shalom-base",
-    icon: "/big-icon/hq.webp",
+    icon: "/big-icon/shalom-base.webp",
   },
   taran: {
     label: "塔兰基地",
     labelEn: "Taran",
     href: "/world/ferdona/hq#taran-base",
-    icon: "/big-icon/hq.webp",
+    icon: "/big-icon/taran-base.webp",
+  },
+  sarra: {
+    label: "萨拉基地",
+    labelEn: "Sarra",
+    href: "/world/ferdona/hq#sarra-base",
+    icon: "/big-icon/sarra-base.webp",
   },
   contech: {
     label: "守恒科技",
@@ -61,11 +79,6 @@ export const worldEntities = {
     label: "IDA/解构协会",
     labelEn: "International Deconstruct Association",
     icon: "/big-icon/ida.webp",
-  },
-  pathera: {
-    label: "佩特拉州",
-    labelEn: "Pathera",
-    icon: "/big-icon/cabin.webp",
   },
   hespera: {
     label: "海西",

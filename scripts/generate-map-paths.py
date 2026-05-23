@@ -284,6 +284,10 @@ def polygon_to_path(points):
     return " ".join(commands) + " Z"
 
 
+def format_object_key(key):
+    return key if key.isidentifier() else repr(key)
+
+
 def collect_paths():
     data = {}
 
@@ -307,9 +311,9 @@ def write_output(data):
     ]
 
     for map_key, regions in data.items():
-        lines.append(f"  {map_key}: {{")
+        lines.append(f"  {format_object_key(map_key)}: {{")
         for region_key, paths in regions.items():
-            lines.append(f"    {region_key}: [")
+            lines.append(f"    {format_object_key(region_key)}: [")
             for path in paths:
                 lines.append(f"      {path!r},")
             lines.append("    ],")

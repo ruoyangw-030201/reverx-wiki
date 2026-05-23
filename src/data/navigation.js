@@ -34,7 +34,7 @@ export const characterGroups = [
         label: "西奥多·维杰",
         labelEn: "THEODORE VIJAY",
         href: "/characters/theodore",
-        icon: "/big-icon/hq.webp",
+        icon: "/big-icon/taran-base.webp",
         indexIcon: "/figure-icon/theodore.png",
         frameIcon: "/figure/theodore.webp",
       },
@@ -42,7 +42,7 @@ export const characterGroups = [
         label: "欧奈特·帕克",
         labelEn: "ORNETTE PARKER II",
         href: "/characters/ornette",
-        icon: "/big-icon/hq.webp",
+        icon: "/big-icon/taran-base.webp",
         indexIcon: "/figure-icon/ornette.png",
         frameIcon: "/figure/ornette.webp",
       },
@@ -133,7 +133,7 @@ export const characterGroups = [
         label: "安多尔·帕沙其",
         labelEn: "ANDOR PSAKI",
         href: "/characters/andor",
-        icon: "/big-icon/andor.webp",
+        icon: "/big-icon/museum.webp",
         indexIcon: "/figure-icon/andor.png",
         frameIcon: "/figure/andor.webp",
       },
@@ -141,7 +141,7 @@ export const characterGroups = [
         label: "阿什利·柯林",
         labelEn: "ASHLEY COLLIN",
         href: "/characters/ashley",
-        icon: "/big-icon/andor.webp",
+        icon: "/big-icon/museum.webp",
         indexIcon: "/figure-icon/ashley.png",
         frameIcon: "/figure/ashley.webp",
       },
@@ -202,6 +202,9 @@ export const sidebarBySection = {
     },
     {
       entityKey: "cabin",
+    },
+    {
+      entityKey: "museum",
     },
     {
       entityKey: "blueprint",
@@ -287,6 +290,10 @@ export const sidebarAnchorsByPath = {
       entityKey: "taran",
     },
     {
+      id: "sarra-base",
+      entityKey: "sarra",
+    },
+    {
       id: "contech",
       entityKey: "contech",
     },
@@ -297,8 +304,8 @@ export const sidebarAnchorsByPath = {
   ],
   "/world/ferdona/cabin": [
     {
-      id: "pathera",
-      entityKey: "pathera",
+      id: "5thstreet",
+      entityKey: "5thstreet",
     },
   ],
   "/world/hespera/tibernan": [

@@ -76,6 +76,12 @@ const ferdonaRegions = [
     key: "cabin",
   },
   {
+    key: "5thstreet",
+  },
+  {
+    key: "museum",
+  },
+  {
     key: "blueprint",
   },
   {
@@ -89,6 +95,9 @@ const ferdonaRegions = [
   },
   {
     key: "taran",
+  },
+  {
+    key: "sarra",
   },
 ];
 
@@ -146,6 +155,7 @@ export const worldMaps = {
       { text: "西门瑟姆州", x: 1761, y: 575 },
       { text: "图特布梅州", x: 1172, y: 718 },
       { text: "忒卡西诺州", x: 1272, y: 844, mobileX: 1272, mobileY: 824 },
+      { text: "总部管理区", x: 1894, y: 705 },
       { text: "卡瑟州", x: 1694, y: 885 },
       { text: "北福尔瑙伊州", x: 837, y: 898 },
       { text: "南福尔瑙伊州", x: 952, y: 1124 },
@@ -155,6 +165,8 @@ export const worldMaps = {
       { text: "凡多纳", x: 1436, y: 632, level: "country" },
     ],
     cities: withMapCities([
+      { entityKey: "museum", interactiveRegionKey: "museum", markerX: 147, markerY: 108, x: 147, y: 80, mobileLabelOffsetY: 2 },
+      { entityKey: "5thstreet", markerX: 557, markerY: 677, x: 557, y: 649, mobileLabelOffsetY: 2 },
       { text: "小屋", markerX: 703, markerY: 883, x: 703, y: 858, mobileLabelOffsetY: 2 },
       { text: "忒卡西诺城", markerX: 1292, markerY: 906, x: 1292, y: 884, mobileLabelOffsetY: 2 },
       { text: "芝士牛排城", markerX: 1472, markerY: 833, x: 1554, y: 833, mobileLabelOffsetX: -8 },
@@ -164,6 +176,7 @@ export const worldMaps = {
       { entityKey: "rattown", markerX: 1512, markerY: 454, x: 1512, y: 427, mobileLabelOffsetY: 2 },
       { text: "蓝图", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: -5 },
       { entityKey: "shalom", markerX: 2337, markerY: 543, x: 2337, y: 515, mobileLabelOffsetY: 2 },
+      { entityKey: "sarra", markerX: 1752, markerY: 767, x: 1752, y: 739, mobileLabelOffsetY: 2 },
     ]),
   }),
   hespera: withMapEntity({
@@ -179,7 +192,7 @@ export const worldMaps = {
       { text: "特律庭", x: 2131, y: 1365, level: "country" },
     ],
     cities: withMapCities([
-      { text: "缇柏南城", x: 1110, y: 1132, markerX: 1107, markerY: 1164, mobileLabelOffsetY: 2 },
+      { entityKey: "tibernan", text: "缇柏南城", interactiveRegionKey: "tibernan_small", x: 1110, y: 1132, markerX: 1107, markerY: 1164, mobileLabelOffsetY: 2 },
     ]),
   }),
 };

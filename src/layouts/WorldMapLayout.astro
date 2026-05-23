@@ -61,6 +61,10 @@ function labelLevelClass(label) {
   const level = WORLD_MAP_LABEL_LEVELS.has(label.level) ? label.level : "state";
   return `world-map-label is-${level}`;
 }
+
+function hasClickableCityLabel(city) {
+  return city.interactiveRegionKey && city.href;
+}
 ---
 
 <BaseLayout>
@@ -134,6 +138,7 @@ function labelLevelClass(label) {
                     href={region.href}
                     style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
                     aria-label={region.label}
+                    data-region-key={region.key}
                     data-region-label={region.label}
                     data-region-label-en={region.labelEn}
                     data-region-icon={region.icon ?? "/icon/document.png"}
@@ -146,6 +151,7 @@ function labelLevelClass(label) {
                     class="world-map-region"
                     style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
                     aria-label={region.label}
+                    data-region-key={region.key}
                     data-region-label={region.label}
                     data-region-label-en={region.labelEn}
                     data-region-icon={region.icon ?? "/icon/document.png"}
@@ -157,19 +163,31 @@ function labelLevelClass(label) {
               ))}
             </svg>
 
-            <div class="world-map-label-layer" aria-hidden="true">
+            <div class="world-map-label-layer">
               {mapConfig.labels.map((label) => (
-                <span class={labelLevelClass(label)} style={positionStyle(label)}>
+                <span class={labelLevelClass(label)} style={positionStyle(label)} aria-hidden="true">
                   {label.text}
                 </span>
               ))}
 
               {mapConfig.cities.map((city) => (
                 <>
-                  <span class="world-map-city-marker" style={cityMarkerStyle(city)}></span>
-                  <span class="world-map-label is-city" style={cityLabelStyle(city)}>
-                    {city.text}
-                  </span>
+                  <span class="world-map-city-marker" style={cityMarkerStyle(city)} aria-hidden="true"></span>
+                  {hasClickableCityLabel(city) ? (
+                    <a
+                      class="world-map-label is-city is-clickable"
+                      style={cityLabelStyle(city)}
+                      href={city.href}
+                      aria-label={`查看${city.text}`}
+                      data-region-key={city.interactiveRegionKey}
+                    >
+                      {city.text}
+                    </a>
+                  ) : (
+                    <span class="world-map-label is-city" style={cityLabelStyle(city)} aria-hidden="true">
+                      {city.text}
+                    </span>
+                  )}
                 </>
               ))}
             </div>
@@ -226,6 +244,22 @@ function labelLevelClass(label) {
       let selectedRegion = null;
       let selectedAt = 0;
       let navigationLockedUntil = 0;
+      const regions = Array.from(stage.querySelectorAll(".world-map-region"));
+      const regionByKey = new Map(
+        regions
+          .filter((region) => region.dataset.regionKey)
+          .map((region) => [region.dataset.regionKey, region])
+      );
+      const labelLinks = Array.from(stage.querySelectorAll(".world-map-label.is-city.is-clickable[data-region-key]"));
+
+      function linkedLabels(region) {
+        return labelLinks.filter((label) => label.dataset.regionKey === region.dataset.regionKey);
+      }
+
+      function setInteractionActive(region, isActive) {
+        region.classList.toggle("is-related-active", isActive);
+        linkedLabels(region).forEach((label) => label.classList.toggle("is-region-active", isActive));
+      }
 
       function showCard(region) {
         const shape = region.querySelector(".world-map-region-shape");
@@ -253,34 +287,53 @@ function labelLevelClass(label) {
       }
 
       function clearMobileSelection() {
-        selectedRegion?.classList.remove("is-selected");
+        if (selectedRegion) {
+          selectedRegion.classList.remove("is-selected");
+          setInteractionActive(selectedRegion, false);
+        }
         selectedRegion = null;
         selectedAt = 0;
         hideCard();
       }
 
       function selectMobileRegion(region) {
-        selectedRegion?.classList.remove("is-selected");
+        if (selectedRegion) {
+          selectedRegion.classList.remove("is-selected");
+          setInteractionActive(selectedRegion, false);
+        }
         selectedRegion = region;
         selectedAt = Date.now();
         region.classList.add("is-selected");
+        setInteractionActive(region, true);
         showCard(region);
       }
 
-      stage.querySelectorAll(".world-map-region").forEach((region) => {
-        region.addEventListener("pointerenter", () => {
-          if (!isMobileWorldMap()) showCard(region);
+      function bindRegionInteraction(target, region) {
+        target.addEventListener("pointerenter", () => {
+          if (!isMobileWorldMap()) {
+            setInteractionActive(region, true);
+            showCard(region);
+          }
         });
-        region.addEventListener("pointerleave", () => {
-          if (!isMobileWorldMap()) hideCard();
+        target.addEventListener("pointerleave", () => {
+          if (!isMobileWorldMap()) {
+            setInteractionActive(region, false);
+            hideCard();
+          }
         });
-        region.addEventListener("focusin", () => {
-          if (!isMobileWorldMap()) showCard(region);
+        target.addEventListener("focusin", () => {
+          if (!isMobileWorldMap()) {
+            setInteractionActive(region, true);
+            showCard(region);
+          }
         });
-        region.addEventListener("focusout", () => {
-          if (!isMobileWorldMap()) hideCard();
+        target.addEventListener("focusout", () => {
+          if (!isMobileWorldMap()) {
+            setInteractionActive(region, false);
+            hideCard();
+          }
         });
-        region.addEventListener("click", (event) => {
+        target.addEventListener("click", (event) => {
           if (!isMobileWorldMap()) return;
 
           event.preventDefault();
@@ -303,6 +356,15 @@ function labelLevelClass(label) {
 
           selectMobileRegion(region);
         });
+      }
+
+      regions.forEach((region) => {
+        bindRegionInteraction(region, region);
+      });
+
+      labelLinks.forEach((label) => {
+        const region = regionByKey.get(label.dataset.regionKey);
+        if (region) bindRegionInteraction(label, region);
       });
 
       document.addEventListener("click", (event) => {

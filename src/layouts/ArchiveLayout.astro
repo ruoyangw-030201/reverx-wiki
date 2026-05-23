@@ -71,21 +71,26 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
       <ArchiveMobilePageNav idPrefix="archive-mobile-page-nav" />
 
       <section class="archive-content-area">
-        <div class="archive-entry-heading-cluster">
-          <ArchiveEntryHeading
-            kicker={sectionKicker}
-            title={frameTitle}
-            subtitle={frameSubtitle}
-          />
-
-          {hasCharacterYearSwitch && (
+        {hasCharacterYearSwitch ? (
+          <div class="archive-entry-heading-cluster">
+            <ArchiveEntryHeading
+              kicker={sectionKicker}
+              title={frameTitle}
+              subtitle={frameSubtitle}
+            />
             <ArchiveYearSwitch
               current={characterYearSwitchCurrent}
               options={characterYearSwitchOptions}
               placement="desktop"
             />
-          )}
-        </div>
+          </div>
+        ) : (
+          <ArchiveEntryHeading
+            kicker={sectionKicker}
+            title={frameTitle}
+            subtitle={frameSubtitle}
+          />
+        )}
 
         {contentMode === "custom" ? (
           <>

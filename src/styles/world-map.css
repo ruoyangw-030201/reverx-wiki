@@ -278,6 +278,7 @@ html:has(.world-map-page) {
 .world-map-region:hover .world-map-region-shape,
 .world-map-region:focus .world-map-region-shape,
 .world-map-region:focus-visible .world-map-region-shape,
+.world-map-region.is-related-active .world-map-region-shape,
 .world-map-region.is-selected .world-map-region-shape {
   fill-opacity: 0.16;
   stroke-opacity: 0.95;
@@ -407,6 +408,24 @@ html:has(.world-map-page) {
   font-size: clamp(10px, 0.98vw, 26px);
   font-weight: 400;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.64);
+}
+
+.world-map-label.is-city.is-clickable {
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    text-shadow 160ms ease;
+}
+
+.world-map-label.is-city.is-clickable:hover,
+.world-map-label.is-city.is-clickable:focus-visible,
+.world-map-label.is-city.is-clickable.is-region-active {
+  color: var(--color-gold-light);
+  text-shadow:
+    0 1px 0 rgba(16, 12, 8, 0.62),
+    0 0 8px rgba(200, 155, 90, 0.52);
 }
 
 .world-map-label.is-country {
