@@ -80,6 +80,8 @@ const ferdonaRegions = [
   },
   {
     key: "museum",
+    mobileCardX: 520,
+    mobileCardY: 450,
   },
   {
     key: "blueprint",
@@ -155,7 +157,7 @@ export const worldMaps = {
       { text: "西门瑟姆州", x: 1761, y: 575 },
       { text: "图特布梅州", x: 1172, y: 718 },
       { text: "忒卡西诺州", x: 1272, y: 844, mobileX: 1272, mobileY: 824 },
-      { text: "总部管理区", x: 1894, y: 705 },
+      { text: "总部管理区", x: 1894, y: 705, mobileX: 1884, mobileY: 769 },
       { text: "卡瑟州", x: 1694, y: 885 },
       { text: "北福尔瑙伊州", x: 837, y: 898 },
       { text: "南福尔瑙伊州", x: 952, y: 1124 },
@@ -171,7 +173,7 @@ export const worldMaps = {
       { text: "忒卡西诺城", markerX: 1292, markerY: 906, x: 1292, y: 884, mobileLabelOffsetY: 2 },
       { text: "芝士牛排城", markerX: 1472, markerY: 833, x: 1554, y: 833, mobileLabelOffsetX: -8 },
       { text: "汽车城", markerX: 1370, markerY: 972, x: 1427, y: 972, mobileLabelOffsetX: -5 },
-      { text: "酒城", markerX: 1920, markerY: 1157, x: 1964, y: 1157, mobileLabelOffsetX: -5 },
+      { text: "酒城", markerX: 1750, markerY: 1010, x: 1794, y: 1010, mobileLabelOffsetX: -5 },
       { entityKey: "taran", markerX: 2011, markerY: 226, x: 2011, y: 198, mobileLabelOffsetY: 2 },
       { entityKey: "rattown", markerX: 1512, markerY: 454, x: 1512, y: 427, mobileLabelOffsetY: 2 },
       { text: "蓝图", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: -5 },

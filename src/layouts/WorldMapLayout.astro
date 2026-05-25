@@ -142,6 +142,8 @@ function hasClickableCityLabel(city) {
                     data-region-label={region.label}
                     data-region-label-en={region.labelEn}
                     data-region-icon={region.icon ?? "/icon/document.png"}
+                    data-mobile-card-x={region.mobileCardX}
+                    data-mobile-card-y={region.mobileCardY}
                   >
                     <title>{region.label}</title>
                     <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
@@ -155,6 +157,8 @@ function hasClickableCityLabel(city) {
                     data-region-label={region.label}
                     data-region-label-en={region.labelEn}
                     data-region-icon={region.icon ?? "/icon/document.png"}
+                    data-mobile-card-x={region.mobileCardX}
+                    data-mobile-card-y={region.mobileCardY}
                   >
                     <title>{region.label}</title>
                     <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
@@ -270,8 +274,15 @@ function hasClickableCityLabel(city) {
         if (!(shape instanceof SVGGraphicsElement) || !label) return;
 
         const box = shape.getBBox();
-        const centerX = ((box.x + box.width / 2) / viewBox.width) * 100;
-        const centerY = ((box.y + box.height / 2) / viewBox.height) * 100;
+        const mobileCardX = Number(region.dataset.mobileCardX);
+        const mobileCardY = Number(region.dataset.mobileCardY);
+        const hasMobileCardPosition = isMobileWorldMap()
+          && region.dataset.mobileCardX !== undefined
+          && region.dataset.mobileCardY !== undefined
+          && Number.isFinite(mobileCardX)
+          && Number.isFinite(mobileCardY);
+        const centerX = ((hasMobileCardPosition ? mobileCardX : box.x + box.width / 2) / viewBox.width) * 100;
+        const centerY = ((hasMobileCardPosition ? mobileCardY : box.y + box.height / 2) / viewBox.height) * 100;
 
         card.style.setProperty("--card-x", `${centerX}%`);
         card.style.setProperty("--card-y", `${centerY}%`);

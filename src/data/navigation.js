@@ -118,7 +118,7 @@ export const characterGroups = [
         label: "伊莱贾·帕克",
         labelEn: "ELIJAH PARKER",
         href: "/characters/elijah",
-        icon: "/big-icon/cabin.webp",
+        icon: "/big-icon/5thstreet.webp",
         indexIcon: "/figure-icon/elijah.png",
         frameIcon: "/figure/elijah.webp",
       },

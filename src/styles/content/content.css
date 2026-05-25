@@ -410,7 +410,7 @@
 
 /* 能力卡片圆形徽章图标 */
 .character-ability-emblem img {
-  --character-ability-icon-scale: 1.55;
+  --character-ability-icon-scale: 1.9;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -426,7 +426,7 @@
 
 /* 能力卡片大图标的统一缩放限制 */
 .character-ability-emblem img.is-big-icon {
-  --character-ability-icon-scale: 0.92;
+  --character-ability-icon-scale: 1.2;
 }
 
 /* 能力谱系徽章下方文字 */
