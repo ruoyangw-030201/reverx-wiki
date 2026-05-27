@@ -3,11 +3,27 @@ import IndexIconCard from "../../components/index/IndexIconCard.astro";
 import IndexMapCard from "../../components/index/IndexMapCard.astro";
 import IndexSection from "../../components/index/IndexSection.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
-import { worldEntities } from "../../data/worldEntities.js";
+import { getSidebarItemsForPath } from "../../data/navigation.js";
 
-const ferdonaEntities = ["hq", "prospect", "cabin", "museum", "blueprint", "teccasino"].map((key) => worldEntities[key]);
-const hesperaEntities = ["tibernan", "triatine"].map((key) => worldEntities[key]);
-const otherEntities = [worldEntities.umbral];
+const worldSidebarGroups = [];
+
+for (const item of getSidebarItemsForPath("/world")) {
+  if (item.type === "group") {
+    worldSidebarGroups.push({ heading: item, items: [] });
+    continue;
+  }
+
+  worldSidebarGroups.at(-1)?.items.push(item);
+}
+
+const findEntityGroupItems = (entityKey) =>
+  worldSidebarGroups.find((group) => group.heading.entityKey === entityKey)?.items ?? [];
+const findKeyGroupItems = (key) =>
+  worldSidebarGroups.find((group) => group.heading.key === key)?.items ?? [];
+
+const ferdonaEntities = findEntityGroupItems("ferdona");
+const hesperaEntities = findEntityGroupItems("hespera");
+const otherEntities = findKeyGroupItems("other");
 ---
 
 <IndexLayout>

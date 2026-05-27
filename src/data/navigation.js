@@ -229,6 +229,7 @@ export const sidebarBySection = {
 
     {
       type: "group",
+      key: "other",
       label: "其他势力",
     },
     {
