@@ -1,6 +1,7 @@
 ---
 import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
 import ArchiveHeadingSideIcon from "../../../components/ArchiveHeadingSideIcon.astro";
+import ArchiveInfoCardList from "../../../components/content/ArchiveInfoCardList.astro";
 import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
 import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
@@ -14,10 +15,47 @@ const taran = resolveWorldEntity("taran");
 const sarra = resolveWorldEntity("sarra");
 const contech = resolveWorldEntity("contech");
 const ida = resolveWorldEntity("ida");
+
+const hqInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2010年", },
+  { heading: "组织性质", icon: "/big-icon-dark/hq.webp", title: "恶能者收容机构", description: "官方组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "“创立者们”", },
+];
+const shalomInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2010年", },
+  { heading: "组织性质", icon: "/big-icon-dark/shalom-base.webp", title: "恶能者收容机构", description: "官方组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "“创立者们”", },
+];
+const rattownInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2010年", },
+  { heading: "组织性质", icon: "/big-icon-dark/rattown-base.webp", title: "恶能者收容机构", description: "官方组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "“创立者们”", },
+];
+const taranInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2022年", },
+  { heading: "组织性质", icon: "/big-icon-dark/taran-base.webp", title: "恶能者收容机构", description: "官方组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "托万·汉密尔顿", },
+];
+const sarraInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2011年", },
+  { heading: "组织性质", icon: "/big-icon-dark/taran-base.webp", title: "恶能者收容机构", description: "官方组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "安·格林薇尔", },
+];
+const contechInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2012年", },
+  { heading: "组织性质", icon: "/big-icon-dark/contech.webp", title: "公司", description: "官方合作组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "赫斯提亚·芬尼克", },
+];
+const idaInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2028年", },
+  { heading: "组织性质", icon: "/big-icon-dark/ida.webp", title: "公司，协会", description: "官方合作组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "利亚德·帕克", },
+];
 ---
 
 <ArchiveLayout contentMode="custom">
   <ContentFrame icon={hq.icon} iconAlt={hq.label}>
+    <ArchiveInfoCardList items={hqInfoCards} />
     <p>
       由「开洞计划」的“创立者们”建设的、政府承认的官方恶能者社会，不为普通人所知，仅收容恶能者们于基地中生活，登记在册的总恶能者约26万人。主要有舍拉姆、莱城、塔兰三大基地和数个小基地，隐秘分布于各个州中。上设主席，上议会（又称创立者议会），下议会。主要辖地为凡多纳东、北部。
     </p>
@@ -33,6 +71,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon="/big-icon/shalom.webp" />
     </Fragment>
 
+    <ArchiveInfoCardList items={shalomInfoCards} />
     <p>
       管理东北部比乐吉等五州的恶能者基地，位置处于比乐吉州。
     </p>
@@ -48,6 +87,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon="/big-icon/rattown.webp" />
     </Fragment>
 
+    <ArchiveInfoCardList items={rattownInfoCards} />
     <p>
       管理华斯特兰等中部四州的恶能者基地，位置处于华斯特兰州，即平行世界的密歇根州。
     </p>
@@ -63,6 +103,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon="/big-icon/taran.webp" />
     </Fragment>
 
+    <ArchiveInfoCardList items={taranInfoCards} />
     <p>
       管理北部林恩和卢瑞菲尔德二州的恶能者基地，位置处于林恩州，即平行世界的加拿大安大略省（在此并入凡多纳）。人口约3万人。主角西奥多·维杰所属组织。
     </p>
@@ -78,6 +119,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon="/big-icon/sarra.webp" />
     </Fragment>
 
+    <ArchiveInfoCardList items={sarraInfoCards} />
     <p>
       位于卡瑟州并管理该州官方恶能者的基地，人口不超过1万人。由于卡瑟州大部分恶能者都由希景公司控制，是总部面对希景公司的前哨阵地。
     </p>
@@ -89,6 +131,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon={contech.icon} />
     </Fragment>
 
+    <ArchiveInfoCardList items={contechInfoCards} />
     <p>
       总部为对抗希景成立的科技公司，主要发展与恶能能量相关的前沿技术。总部官方武器供应。位于莱城基地，在塔兰基地有守恒-塔兰分部。
     </p>
@@ -100,6 +143,7 @@ const ida = resolveWorldEntity("ida");
       <ContentFrameIconFrame icon={ida.icon} />
     </Fragment>
 
+    <ArchiveInfoCardList items={idaInfoCards} />
     <p>
       致力于寻找拥有「解构级」能力的恶能者的协会。主办IDA峰会，是总部和其他势力交流的平台。同样发行军火武器，与守恒科技一起构成总部的武器部。
     </p>

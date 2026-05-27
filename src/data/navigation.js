@@ -3,7 +3,7 @@ import { resolveWorldEntity } from "./worldEntities.js";
 export const topTabs = [
   {
     key: "world",
-    label: "世界观",
+    label: "世界概览",
     labelEn: "WORLD",
     href: "/world",
     number: "01",
@@ -204,13 +204,16 @@ export const sidebarBySection = {
       entityKey: "cabin",
     },
     {
-      entityKey: "museum",
+      entityKey: "teccasino",
     },
     {
       entityKey: "blueprint",
     },
     {
-      entityKey: "teccasino",
+      entityKey: "museum",
+    },
+    {
+      entityKey: "convention",
     },
 
     {
@@ -253,10 +256,16 @@ export const sidebarBySection = {
       icon: "/icon/malit.png",
     },
     {
-      label: "恶能",
-      labelEn: "MALICE",
-      href: "/system/malice",
-      icon: "/icon/vestige.png",
+      label: "现代谱系分类法",
+      labelEn: "Modern Spectrum Classification",
+      href: "/system/classification",
+      icon: "/icon/indigenous.png",
+    },
+    {
+      label: "强度",
+      labelEn: "Intensity",
+      href: "/system/intensity",
+      icon: "/icon/danger.png",
     },
     {
       label: "恶能武器",
@@ -340,20 +349,6 @@ export const sidebarAnchorsByPath = {
       label: "混血恶能者",
       labelEn: "Hybrid Malicer",
       icon: "/icon/hybrid.png",
-    },
-  ],
-  "/system/malice": [
-    {
-      id: "modern-lineage-classification",
-      label: "现代谱系分类法",
-      labelEn: "Modern Spectrum Classification",
-      icon: "/icon/indigenous.png",
-    },
-    {
-      id: "intensity",
-      label: "强度",
-      labelEn: "Intensity",
-      icon: "/icon/danger.png",
     },
   ],
   "/system/weapons": [

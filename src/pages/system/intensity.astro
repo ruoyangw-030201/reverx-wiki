@@ -1,129 +1,10 @@
 ---
-import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
 import ContentFrame from "../../components/content-frame/ContentFrame.astro";
-import ContentFrameBox from "../../components/content-frame/ContentFrameBox.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
-import { getSidebarAnchorsForPath } from "../../data/navigation.js";
-
-const maliceIcons = [
-  { icon: "/icon/indigenous.png", caption: "本源类" },
-  { icon: "/icon/real.png", caption: "现实类" },
-  { icon: "/icon/informational.png", caption: "信息类" },
-];
-
-const anchorsById = Object.fromEntries(
-  getSidebarAnchorsForPath("/system/malice").map((anchor) => [anchor.id, anchor])
-);
-const lineageClassification = anchorsById["modern-lineage-classification"];
-const intensity = anchorsById["intensity"];
 ---
 
 <ArchiveLayout contentMode="custom">
-  <ContentFrame iconItems={maliceIcons} iconFrameVariant="extended">
-    <p>
-      恶能，即通常意义上的超能力。尽管恶能很早便出现在人类历史之中，但人类对这种力量的认知长期十分有限。历史上，不同文明都曾尝试以各自的神秘学、宗教、经验等对恶能进行解释和分类，并由此诞生过多种体系化的分类法。
-    </p>
-    <p>
-      直到现代，随着次维度、痕迹、粒子等概念相继被发现，并逐渐为猎魔者社会所熟知，才形成了如今普遍认可的现代谱系分类法与现代强度体系。
-    </p>
-  </ContentFrame>
-
-  <ArchiveEntryHeading
-    id={lineageClassification.id}
-    variant="secondary"
-    title={lineageClassification.label}
-    subtitle={lineageClassification.labelEn}
-  />
-  <ContentFrameBox>
-    <p>
-      恶能的能力表现多种多样，不过依据科学，现代分类法通常将恶能分为三大类：本源类、现实类和信息类，各自有数个谱系，总共有10个谱系。
-    </p>
-
-    <p>
-      <strong>【本源类】</strong>
-    </p>
-    <p>
-      使用痕迹本身。暗就是痕迹本身，是痕迹最本质的形态。可以说暗=恶意=痕迹。
-    </p>
-    <div class="archive-table-wrap">
-      <table class="archive-table is-lineage">
-        <tbody>
-          <tr>
-            <th class="archive-table-row-label" scope="row">谱系本质</th>
-            <td class="is-lineage-origin">痕迹</td>
-            <td class="is-lineage-origin">翻转</td>
-          </tr>
-          <tr>
-            <th class="archive-table-row-label" scope="row">通用称呼</th>
-            <td class="is-lineage-origin">暗</td>
-            <td class="is-lineage-origin">光</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      <strong>【现实类】</strong>
-    </p>
-    <p>
-      使用痕迹的能量，作用于物理世界。
-    </p>
-    <div class="archive-table-wrap">
-      <table class="archive-table is-lineage">
-        <tbody>
-          <tr>
-            <th class="archive-table-row-label" scope="row">谱系本质</th>
-            <td class="is-lineage-reality">物质</td>
-            <td class="is-lineage-reality">热能</td>
-            <td class="is-lineage-reality">反应</td>
-            <td class="is-lineage-reality">微场</td>
-            <td class="is-lineage-reality">力势</td>
-          </tr>
-          <tr>
-            <th class="archive-table-row-label" scope="row">通用称呼</th>
-            <td class="is-lineage-reality">水</td>
-            <td class="is-lineage-reality">冰</td>
-            <td class="is-lineage-reality">火</td>
-            <td class="is-lineage-reality">电</td>
-            <td class="is-lineage-reality">风</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      <strong>【信息类】</strong>
-    </p>
-    <p>
-      使用痕迹的信息。
-    </p>
-    <div class="archive-table-wrap">
-      <table class="archive-table is-lineage">
-        <tbody>
-          <tr>
-            <th class="archive-table-row-label" scope="row">谱系本质</th>
-            <td class="is-lineage-info">正信息</td>
-            <td class="is-lineage-info">负信息</td>
-            <td class="is-lineage-info">中信息</td>
-          </tr>
-          <tr>
-            <th class="archive-table-row-label" scope="row">通用称呼</th>
-            <td class="is-lineage-info">增幅</td>
-            <td class="is-lineage-info">削弱</td>
-            <td class="is-lineage-info">混乱</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </ContentFrameBox>
-
-  <ArchiveEntryHeading
-    id={intensity.id}
-    variant="secondary"
-    title={intensity.label}
-    subtitle={intensity.labelEn}
-  />
-  <ContentFrameBox>
+  <ContentFrame icon="/icon/danger.png" iconAlt="强度">
     <p>
       现代分类法中，强度用危险等级来表示。这是一套人类和魔物通用的强度评判系统。D即为危险系数，级别上不封顶；目前发现的最危险魔物为D6级。由低到高显示，如下表。
     </p>
@@ -240,5 +121,5 @@ const intensity = anchorsById["intensity"];
     <p>
       因此，强度虽然和品阶正相关，但并不完全等同于品阶。低品阶但高容积的恶能者，仍可能在实际战斗中压制高品阶但容积较小的对手。
     </p>
-  </ContentFrameBox>
+  </ContentFrame>
 </ArchiveLayout>

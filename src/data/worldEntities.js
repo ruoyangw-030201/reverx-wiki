@@ -28,11 +28,11 @@ export const worldEntities = {
     href: "/world/ferdona/cabin#5thstreet",
     icon: "/big-icon/5thstreet.webp",
   },
-  museum: {
-    label: "国王领博物馆",
-    labelEn: "KINGENLAND MUSEUM",
-    href: "/world/ferdona/museum",
-    icon: "/big-icon/museum.webp",
+  teccasino: {
+    label: "忒卡西诺安全屋",
+    labelEn: "TECCASINO SAFEHOUSE",
+    href: "/world/ferdona/teccasino",
+    icon: "/big-icon/teccasino.webp",
   },
   blueprint: {
     label: "蓝图",
@@ -40,11 +40,17 @@ export const worldEntities = {
     href: "/world/ferdona/blueprint",
     icon: "/big-icon/blueprint.webp",
   },
-  teccasino: {
-    label: "忒卡西诺城",
-    labelEn: "TECCASINO CITY",
-    href: "/world/ferdona/teccasino",
-    icon: "/big-icon/teccasino.webp",
+  museum: {
+    label: "国王领博物馆",
+    labelEn: "KINGENLAND MUSEUM",
+    href: "/world/ferdona/museum",
+    icon: "/big-icon/museum.webp",
+  },
+  convention: {
+    label: "联合展会",
+    labelEn: "THE CONVENTION",
+    href: "/world/ferdona/convention",
+    icon: "/big-icon/hq.webp",
   },
   rattown: {
     label: "莱城基地",

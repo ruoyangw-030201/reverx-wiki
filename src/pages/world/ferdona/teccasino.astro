@@ -1,9 +1,20 @@
 ---
+import ArchiveInfoCardList from "../../../components/content/ArchiveInfoCardList.astro";
 import ArchiveLayout from "../../../layouts/ArchiveLayout.astro";
+
+const teccasinoInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2023年", },
+  { heading: "组织性质", icon: "/big-icon-dark/teccasino.webp", title: "恶能者收容机构", description: "官方合作组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "希梅伦·忒卡西诺", },
+];
 ---
 
 <ArchiveLayout>
+  <ArchiveInfoCardList items={teccasinoInfoCards} />
   <p>
-    平行世界的拉斯维加斯。赌城，“地上天堂”。由忒卡西诺家族为首的黑帮掌控，主要猎魔者社会活跃在忒卡西诺安全屋。是凡多纳总部、希景、福州三方的中立者，IDA峰会每年便在此召开。常驻于此的恶能者约3千人。
+    位于忒卡西诺城，赌城，“地上天堂”，即平行世界的拉斯维加斯。该城市由以忒卡西诺家族为首的黑帮掌控，安全屋位于家族产业的市中心双子塔中。
+  </p>
+  <p>
+    是凡多纳总部、希景、福州三方的中立者，IDA峰会每年在此召开。常驻于此的恶能者约3千人。
   </p>
 </ArchiveLayout>

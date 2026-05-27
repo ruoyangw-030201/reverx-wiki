@@ -141,6 +141,39 @@
   color: #fff;
 }
 
+/* 正文内通用资料卡模块 */
+.archive-info-card-module {
+  --character-profile-blue: #234d7b;
+  --character-profile-blue-deep: #17395f;
+  --character-profile-gold: rgba(200, 155, 90, 0.86);
+  --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
+  --character-profile-paper: rgba(251, 250, 246, 0.68);
+  --character-ability-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
+  --character-ability-title-font: clamp(16px, calc(15px + 0.25cqw), 17px);
+  --character-ability-emblem-size: clamp(58px, 8.8cqw, 64px);
+  --character-ability-icon-track: clamp(66px, 10.2cqw, 74px);
+  width: 100%;
+  margin: 0 0 clamp(18px, 2vw, 24px);
+  container-type: inline-size;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--content-prose-line-height, 1.6);
+}
+
+/* 正文内通用资料卡列表 */
+.archive-info-card-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(7px, 1cqw, 12px);
+}
+
+/* 正文内通用资料卡段落的缩进重置 */
+.content-prose .archive-info-card-module p {
+  margin: 0;
+  text-indent: 0;
+}
+
 /* 角色档案卡片组的整体容器 */
 .character-profile-archive {
   --character-profile-blue: #234d7b;
@@ -381,31 +414,8 @@
   margin-inline: auto;
   border: 1px solid rgba(45, 95, 150, 0.76);
   border-radius: 50%;
-  background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.96) 0 48%, rgba(255, 255, 255, 0.9) 49% 100%);
   overflow: visible;
-  transition:
-    background 220ms ease,
-    border-color 220ms ease;
-}
-
-/* 能力卡片圆形徽章的双圈 */
-.character-ability-emblem::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border: 1px solid rgba(200, 155, 90, 0.64);
-  border-radius: 50%;
-}
-
-/* 能力卡片圆形徽章的中心装饰线 */
-.character-ability-emblem::after {
-  content: "";
-  position: absolute;
-  inset: 15px;
-  border-left: 1px solid rgba(45, 95, 150, 0.34);
-  border-right: 1px solid rgba(45, 95, 150, 0.34);
-  transform: rotate(45deg);
+  transition: border-color 220ms ease;
 }
 
 /* 能力卡片圆形徽章图标 */
@@ -885,6 +895,11 @@
 }
 
 @container (max-width: 720px) {
+  /* 窄桌面正文内通用资料卡列表 */
+  .archive-info-card-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   /* 窄桌面基础设定卡片列表 */
   .character-profile-ability-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -922,6 +937,11 @@
 }
 
 @container (max-width: 560px) {
+  /* 窄容器正文内通用资料卡列表 */
+  .archive-info-card-list {
+    grid-template-columns: 1fr;
+  }
+
   /* 窄容器基础设定卡片列表 */
   .character-profile-ability-list {
     grid-template-columns: 1fr;
@@ -972,6 +992,11 @@
   /* 移动端能力卡片列表 */
   .character-profile-ability-list {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  /* 移动端正文内通用资料卡列表 */
+  .archive-info-card-list {
     grid-template-columns: 1fr;
   }
 

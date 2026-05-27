@@ -1,0 +1,13 @@
+---
+import AbilityCard from "../characters/AbilityCard.astro";
+
+const { items = [] } = Astro.props;
+---
+
+<div class="archive-info-card-module">
+  <div class="archive-info-card-list">
+    {items.map((item) => (
+      <AbilityCard {...item} />
+    ))}
+  </div>
+</div>
