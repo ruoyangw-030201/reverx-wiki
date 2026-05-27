@@ -23,8 +23,8 @@ export const worldEntities = {
     icon: "/big-icon/cabin.webp",
   },
   "5thstreet": {
-    label: "第五街基地",
-    labelEn: "FIFTH STREET",
+    label: "五号街基地",
+    labelEn: "FIFTH STREET BASE",
     href: "/world/ferdona/cabin#5thstreet",
     icon: "/big-icon/5thstreet.webp",
   },
