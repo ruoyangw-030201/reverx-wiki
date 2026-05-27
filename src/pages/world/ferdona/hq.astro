@@ -1,5 +1,6 @@
 ---
 import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import ArchiveHeadingSideIcon from "../../../components/ArchiveHeadingSideIcon.astro";
 import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
 import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
@@ -25,7 +26,8 @@ const ida = resolveWorldEntity("ida");
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading id="shalom-base" variant="secondary" title={shalom.label} subtitle={shalom.labelEn} />
+  <ArchiveEntryHeading id="shalom-base" variant="secondary" title={shalom.label} subtitle={shalom.labelEn} anchorName="--shalom-base-heading" />
+  <ArchiveHeadingSideIcon icon="/big-icon-dark/shalom-base.webp" anchorName="--shalom-base-heading" />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/shalom.webp" />
@@ -39,7 +41,8 @@ const ida = resolveWorldEntity("ida");
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="rattown-base" variant="secondary" title={rattown.label} subtitle={rattown.labelEn} />
+  <ArchiveEntryHeading id="rattown-base" variant="secondary" title={rattown.label} subtitle={rattown.labelEn} anchorName="--rattown-base-heading" />
+  <ArchiveHeadingSideIcon icon="/big-icon-dark/rattown-base.webp" anchorName="--rattown-base-heading" />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/rattown.webp" />
@@ -53,7 +56,8 @@ const ida = resolveWorldEntity("ida");
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="taran-base" variant="secondary" title={taran.label} subtitle={taran.labelEn} />
+  <ArchiveEntryHeading id="taran-base" variant="secondary" title={taran.label} subtitle={taran.labelEn} anchorName="--taran-base-heading" />
+  <ArchiveHeadingSideIcon icon="/big-icon-dark/taran-base.webp" anchorName="--taran-base-heading" />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/taran.webp" />
@@ -67,7 +71,8 @@ const ida = resolveWorldEntity("ida");
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="sarra-base" variant="secondary" title={sarra.label} subtitle={sarra.labelEn} />
+  <ArchiveEntryHeading id="sarra-base" variant="secondary" title={sarra.label} subtitle={sarra.labelEn} anchorName="--sarra-base-heading" />
+  <ArchiveHeadingSideIcon icon="/big-icon-dark/sarra-base.webp" anchorName="--sarra-base-heading" />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/sarra.webp" />

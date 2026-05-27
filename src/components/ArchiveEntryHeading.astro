@@ -8,13 +8,18 @@ const {
   subtitle,
   variant = "primary",
   titleTag,
+  anchorName,
 } = Astro.props;
 
 const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
 const isPrimary = variant === "primary";
 ---
 
-<header id={id} class:list={["archive-entry-heading", `is-${variant}`]}>
+<header
+  id={id}
+  class:list={["archive-entry-heading", `is-${variant}`]}
+  style={anchorName ? `anchor-name: ${anchorName};` : undefined}
+>
   {isPrimary && <span class="archive-entry-heading-kicker">{kicker}</span>}
   <div class="archive-entry-heading-title-row">
     <HeadingTag class="archive-entry-heading-title">{title}</HeadingTag>

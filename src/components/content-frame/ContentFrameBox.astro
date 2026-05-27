@@ -6,7 +6,6 @@ import "../../styles/content/content.css";
 const {
   class: className,
   minHeight = "250px",
-  measureHeight,
   decorVisualHeight,
   variant = "ornate",
   tone = "light",
@@ -17,7 +16,6 @@ const {
 } = Astro.props;
 
 const isSimple = variant === "simple";
-const measureHeightValue = measureHeight ? String(measureHeight) : undefined;
 const decorVisualHeightValue = decorVisualHeight ? String(decorVisualHeight) : undefined;
 
 const minHeightValue = String(minHeight);
@@ -37,7 +35,6 @@ const frameVars = [
   `--content-frame-box-height: ${minHeightValue}`,
   `--content-frame-simple-min-height: ${minHeightValue}`,
   `--content-frame-visual-height: ${visualHeight}px`,
-  measureHeightValue && `--content-frame-measure-height: ${measureHeightValue}`,
   decorVisualHeightValue && `--content-frame-decor-visual-height: ${decorVisualHeightValue}`,
   `--content-frame-glyph-y-1: ${glyphTop}px`,
   `--content-frame-glyph-y-2: ${glyphMiddle}px`,

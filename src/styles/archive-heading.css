@@ -342,6 +342,28 @@
   grid-column: 2;
 }
 
+/* 次级档案标题右侧的独立图标组件 */
+.archive-heading-side-icon {
+  position: absolute;
+  z-index: 10;
+  left: calc(anchor(right) + clamp(14px, 1.27vw, 20px));
+  top: anchor(center);
+  display: grid;
+  place-items: center;
+  width: clamp(58px, 5vw, 79px);
+  height: clamp(58px, 5vw, 79px);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* 次级档案标题右侧独立图标的图片 */
+.archive-heading-side-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @media (max-width: 980px) {
   /* 移动端标题与年份切换组合 */
   .archive-entry-heading-cluster {
@@ -418,4 +440,5 @@
   .archive-entry-heading.is-secondary .archive-entry-heading-title {
     font-size: 23px;
   }
+
 }

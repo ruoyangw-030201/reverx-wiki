@@ -191,10 +191,7 @@ function isCollapsibleEntryExpanded(entry) {
                 >
                   {item.icon && (
                     <img
-                      class:list={[
-                        "archive-sidebar-icon",
-                        item.icon.startsWith("/icon/") && "is-small-source",
-                      ]}
+                      class="archive-sidebar-icon"
                       src={item.icon}
                       data-sidebar-icon
                       alt=""
@@ -254,10 +251,7 @@ function isCollapsibleEntryExpanded(entry) {
             >
               {entry.item.icon && (
                 <img
-                  class:list={[
-                    "archive-sidebar-icon",
-                    entry.item.icon.startsWith("/icon/") && "is-small-source",
-                  ]}
+                  class="archive-sidebar-icon"
                   src={entry.item.icon}
                   data-sidebar-icon
                   alt=""

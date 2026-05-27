@@ -18,7 +18,6 @@
   --content-frame-body-top: 222px;
   --content-frame-body-bottom: 70px;
   --content-frame-visual-height: calc(var(--content-frame-frame-top) + var(--content-frame-box-height));
-  --content-frame-measure-height: 0px;
   --content-frame-decor-visual-height: 100%;
   --content-frame-main-left: calc(12.2% - var(--content-frame-offset-x) - var(--content-frame-left-expand));
   --content-frame-main-right: calc(19.5% + var(--content-frame-offset-x));
@@ -42,7 +41,7 @@
   --content-frame-figure-height: clamp(650px, 63.694vw, 1000px);
   position: relative;
   width: 100%;
-  min-height: max(var(--content-frame-visual-height), var(--content-frame-measure-height));
+  min-height: var(--content-frame-visual-height);
   color: var(--color-ink);
 }
 
@@ -55,10 +54,6 @@
 .content-frame-icon-junction {
   position: absolute;
   pointer-events: none;
-}
-
-.content-frame:has(.content-frame-measure-layer .content-frame-icon-stack) {
-  --content-frame-measure-height: calc(var(--content-frame-icon-top) + var(--content-frame-icon-stack-height));
 }
 
 .content-frame:has(.content-frame-icon-stack.is-figure) {
@@ -305,6 +300,23 @@
 
 .content-frame-icon-media.is-multiple .content-frame-icon-image {
   width: var(--content-frame-icon-image-multiple-width);
+}
+
+/* 能力体系档案内容框的图标尺寸 */
+.archive-page.is-system .content-frame {
+  --content-frame-icon-image-width: clamp(124px, 10.2vw, 160px);
+  --content-frame-icon-image-multiple-width: clamp(76px, 6.8vw, 100px);
+}
+
+/* 能力体系档案图标与说明文字的间距 */
+.archive-page.is-system .content-frame-icon-media .content-frame-icon-caption {
+  margin-top: 4px;
+}
+
+/* 能力体系档案多图项目的行间距 */
+.archive-page.is-system .content-frame-icon-media.is-multiple {
+  align-content: center;
+  gap: clamp(8px, 0.75vw, 12px);
 }
 
 /* 角色立绘的图片锚点 */
@@ -800,6 +812,21 @@
 
   .content-frame-icon-media.is-multiple .content-frame-icon-image {
     width: clamp(84px, 24vw, 122px);
+  }
+
+  /* 移动端能力体系档案内容框的单图尺寸 */
+  .archive-page.is-system .content-frame-icon-image {
+    width: clamp(72px, 21vw, 100px);
+  }
+
+  /* 移动端能力体系档案内容框的多图尺寸 */
+  .archive-page.is-system .content-frame-icon-media.is-multiple .content-frame-icon-image {
+    width: clamp(56px, 17vw, 76px);
+  }
+
+  /* 移动端能力体系档案多图项目的行间距 */
+  .archive-page.is-system .content-frame-icon-media.is-multiple {
+    gap: 6px;
   }
 
   .content-frame-icon-stack.is-extended .content-frame-icon-media.is-multiple {

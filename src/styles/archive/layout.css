@@ -50,6 +50,11 @@
   margin-top: var(--archive-heading-frame-offset);
 }
 
+/* 带独立右侧图标的小标题后方正文框间距 */
+.archive-content-area > .archive-entry-heading + .archive-heading-side-icon + .content-frame-unit {
+  margin-top: var(--archive-heading-frame-offset);
+}
+
 /* 档案标题组合后内容框间距 */
 .archive-content-area > .archive-entry-heading-cluster + .content-frame-unit {
   margin-top: var(--archive-heading-frame-offset);
@@ -82,6 +87,11 @@
   }
 
   .archive-content-area > .archive-entry-heading + .content-frame-unit {
+    margin-top: 18px;
+  }
+
+  /* 移动端带独立右侧图标的小标题后方正文框间距 */
+  .archive-content-area > .archive-entry-heading + .archive-heading-side-icon + .content-frame-unit {
     margin-top: 18px;
   }
 

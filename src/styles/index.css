@@ -516,13 +516,6 @@
   inset: -5px 6px 5px -6px;
 }
 
-.system-index-grid .index-icon-card-frame img {
-  width: 92%;
-  height: 92%;
-  transform: scale(1.45);
-  transform-origin: center;
-}
-
 @media (max-width: 1360px) {
   .archive-index-content .index-icon-list {
     --index-icon-card-size: clamp(74px, 7vw, 96px);

@@ -333,13 +333,13 @@ export const sidebarAnchorsByPath = {
       id: "malit-possession",
       label: "魔物附着",
       labelEn: "Malit Possession",
-      icon: "/icon/document.png",
+      icon: "/icon/malit.png",
     },
     {
       id: "hybrid-malicer",
       label: "混血恶能者",
       labelEn: "Hybrid Malicer",
-      icon: "/icon/document.png",
+      icon: "/icon/hybrid.png",
     },
   ],
   "/system/malice": [

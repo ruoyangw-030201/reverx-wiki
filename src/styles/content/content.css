@@ -361,7 +361,7 @@
   content: ">>>";
   position: absolute;
   right: 13px;
-  bottom: 8px;
+  bottom: 0px;
   color: rgba(143, 93, 53, 0.72);
   font-size: 12px;
   font-family: var(--font-latin);
@@ -410,7 +410,6 @@
 
 /* 能力卡片圆形徽章图标 */
 .character-ability-emblem img {
-  --character-ability-icon-scale: 1.9;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -420,13 +419,8 @@
   max-width: none;
   max-height: none;
   object-fit: contain;
-  transform: translate(-50%, -50%) scale(var(--character-ability-icon-scale));
+  transform: translate(-50%, -50%) scale(1.1);
   transform-origin: center;
-}
-
-/* 能力卡片大图标的统一缩放限制 */
-.character-ability-emblem img.is-big-icon {
-  --character-ability-icon-scale: 1.2;
 }
 
 /* 能力谱系徽章下方文字 */
@@ -560,8 +554,7 @@
   max-width: none;
   max-height: none;
   object-fit: contain;
-  transform: translate(-50%, -50%) scale(1.55);
-  transform-origin: center;
+  transform: translate(-50%, -50%);
 }
 
 /* 人物概述文字容器 */
@@ -717,8 +710,7 @@
   max-height: none;
   object-fit: contain;
   filter: brightness(0) invert(1);
-  transform: translate(-50%, -50%) scale(1.9);
-  transform-origin: center;
+  transform: translate(-50%, -50%);
 }
 
 /* 武器卡片信息区 */

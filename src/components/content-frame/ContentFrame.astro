@@ -27,14 +27,6 @@ const resolvedIconItems = Array.isArray(iconItems)
   : icon
     ? [{ icon, iconAlt, caption: iconCaption }]
     : [];
-const iconFrameTop = 34;
-const iconFrameHeight =
-  iconFrameVariant === "figure"
-    ? 1000
-    : iconFrameVariant === "extended"
-      ? Math.max(352, 120 + resolvedIconItems.length * 132)
-      : 352;
-const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` : undefined;
 ---
 
 <ContentFrameBox
@@ -43,7 +35,6 @@ const iconMeasureHeight = showIconFrame ? `${iconFrameTop + iconFrameHeight}px` 
     showIconFrame && `is-icon-${iconFrameVariant}`,
   ]}
   minHeight={minHeight}
-  measureHeight={iconMeasureHeight}
   decorVisualHeight={decorVisualHeight}
   showPaper={showPaper}
   showLines={showLines}
