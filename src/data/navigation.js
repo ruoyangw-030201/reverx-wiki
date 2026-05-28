@@ -22,6 +22,13 @@ export const topTabs = [
     href: "/characters",
     number: "03",
   },
+  {
+    key: "history",
+    label: "历史纪事",
+    labelEn: "HISTORY",
+    href: "/history",
+    number: "04",
+  },
 ];
 
 export const characterGroups = [
@@ -188,6 +195,19 @@ const characterSidebarItems = characterGroups.flatMap((group) => [
   ...group.items,
 ]);
 
+export const historyGroups = [];
+
+const historySidebarItems = historyGroups.flatMap((group) => [
+  {
+    type: "group",
+    key: group.key,
+    label: group.label,
+    labelEn: group.labelEn,
+    href: group.href,
+  },
+  ...(group.items ?? []),
+]);
+
 export const sidebarBySection = {
   world: [
     {
@@ -283,6 +303,8 @@ export const sidebarBySection = {
   ],
 
   characters: characterSidebarItems,
+
+  history: historySidebarItems,
 };
 
 export const sidebarAnchorsByPath = {
@@ -393,6 +415,10 @@ export function getSectionFromPath(path) {
 
   if (path === "/characters" || path.startsWith("/characters/")) {
     return "characters";
+  }
+
+  if (path === "/history" || path.startsWith("/history/")) {
+    return "history";
   }
 
   return "world";

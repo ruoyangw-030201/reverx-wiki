@@ -3,8 +3,9 @@ import BaseLayout from "./BaseLayout.astro";
 import Headbar from "../components/Headbar.astro";
 import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
-import NextPageTrigger from "../components/NextPageTrigger.astro";
-import { getNextArchivePageForPath } from "../data/navigation.js";
+import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
+import MasterIndexCluster from "../components/home/MasterIndexCluster.astro";
+import { topTabs } from "../data/navigation.js";
 import "../styles/home/home.css";
 
 const {
@@ -24,7 +25,36 @@ const homeParagraphs = introParagraphs
 const lastParagraphDelay = PARAGRAPH_START_DELAY + Math.max(0, homeParagraphs.length - 1) * PARAGRAPH_STEP;
 const headbarDelay = lastParagraphDelay + PARAGRAPH_FADE_DURATION;
 const arrowDelay = headbarDelay + PARAGRAPH_FADE_DURATION;
-const homeNextPage = getNextArchivePageForPath("/");
+
+const masterIndexCopyByKey = {
+  world: {
+    title: "世界概览",
+    description: "探索大陆、区域与势力，理解这个世界的全貌与动态。",
+    clusterKey: "world",
+  },
+  system: {
+    title: "能力体系",
+    description: "整理恶能原理、谱系与武器，揭示力量运行的底层逻辑。",
+    clusterKey: "system",
+  },
+  characters: {
+    title: "角色档案",
+    description: "记录人物、能力设定与阵营档案，呈现他们的故事与立场。",
+    clusterKey: "character",
+  },
+  history: {
+    title: "历史纪事",
+    description: "追溯远古文明、战争与神话，拼合被时间掩埋的真相。",
+    clusterKey: "history",
+  },
+};
+
+const masterIndexItems = topTabs
+  .map((tab) => ({
+    ...tab,
+    ...masterIndexCopyByKey[tab.key],
+  }))
+  .filter((item) => item.clusterKey);
 ---
 
 <BaseLayout>
@@ -47,22 +77,21 @@ const homeNextPage = getNextArchivePageForPath("/");
 
   <div
     class="home-page"
+    data-home-pager
+    data-home-panel="intro"
+    data-home-ready-delay-ms={arrowDelay}
     style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms;`}
   >
-    {
-      homeNextPage && (
-        <ActiveDirectionMarker
-          direction="down"
-          label="SCROLL"
-          class="home-next-page-arrow"
-          href={homeNextPage.href}
-          ariaLabel={`进入${homeNextPage.label ?? homeNextPage.labelEn ?? "下一页"}`}
-        />
-      )
-    }
+    <ActiveDirectionMarker
+      direction="down"
+      label="SCROLL"
+      class="home-next-page-arrow home-intro-next-arrow"
+      href="#home-master-index"
+      ariaLabel="Enter MASTER INDEX"
+    />
 
-    <main class="home-main" aria-label="首页介绍">
-      <section class="home-panel home-intro-panel" aria-label="ReverX 首页视觉开场">
+    <main class="home-main" aria-label="Home">
+      <section class="home-panel home-intro-panel" aria-label="ReverX home cover">
         <div class="home-headbar-layer">
           <Headbar />
         </div>
@@ -81,16 +110,378 @@ const homeNextPage = getNextArchivePageForPath("/");
           </div>
         </div>
       </section>
-    </main>
 
-    {
-      homeNextPage && (
-        <NextPageTrigger
-          nextHref={homeNextPage.href}
-          readyDelayMs={arrowDelay}
-          skipReadyDelayWhenHtmlClass="home-intro-is-skipped"
-        />
-      )
-    }
+      <section class="home-panel home-master-panel" id="home-master-index" aria-label="MASTER INDEX">
+        <ArchiveBackgroundLayer />
+
+        <div class="home-master-headbar">
+          <Headbar />
+        </div>
+
+        <div class="home-master-crosshair" aria-hidden="true">
+          <span class="home-master-line home-master-line-vertical"></span>
+          <span class="home-master-line home-master-line-horizontal"></span>
+
+          <div class="home-master-side-mark">
+            <span class="home-master-side-mark-number-box">
+              <span class="home-master-side-mark-number">00</span>
+            </span>
+            <span class="home-master-side-mark-slash"></span>
+            <span class="home-master-side-mark-label">MASTER INDEX</span>
+          </div>
+        </div>
+
+        <aside class="home-master-left-rail" aria-hidden="true">
+          <span class="home-master-rail-label-en">MASTER INDEX</span>
+          <span class="home-master-rail-line is-top"></span>
+          <span class="home-master-rail-diamond"></span>
+          <span class="home-master-rail-line is-bottom"></span>
+          <span class="home-master-rail-label-cn">点击进入条目</span>
+
+          <span class="home-master-rail-emblem">
+            <img class="home-master-rail-malice" src="/cluster/malice-ball.png" alt="" />
+            <img class="home-master-rail-vestige" src="/icon/vestige.png" alt="" />
+          </span>
+
+          <span class="home-master-rail-title">REVERX ARCHIVE</span>
+          <span class="home-master-rail-motto">KNOWLEDGE IS<br />STRUCTURE.<br />STORY IS<br />CONTINUITY.</span>
+          <span class="home-master-rail-dots">
+            {Array.from({ length: 7 }).map(() => <span></span>)}
+          </span>
+        </aside>
+
+        <div class="home-master-mobile-hint">点击进入条目</div>
+
+        <div class="home-master-index-stage">
+          <div class="home-master-cluster-list">
+            {masterIndexItems.map((item, index) => (
+              <MasterIndexCluster item={item} index={index} total={masterIndexItems.length} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
+
+  <script>
+    import {
+      SCROLL_NAVIGATION_LOCK_MS,
+      SCROLL_NAVIGATION_QUIET_MS,
+      isScrollNavigationLocked,
+    } from "../scripts/scrollNavigationGuard.js";
+
+    function setupHomePager() {
+      const page = document.querySelector("[data-home-pager]");
+      const masterPanel = document.getElementById("home-master-index");
+      if (!(page instanceof HTMLElement) || !(masterPanel instanceof HTMLElement)) return;
+      if (page.dataset.homePagerReady === "true") return;
+
+      page.dataset.homePagerReady = "true";
+
+      const introReadyDelayMs = Number(page.dataset.homeReadyDelayMs) || 0;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const skipReadyDelayClass = "home-intro-is-skipped";
+      const masterIntroDurationMs = 3200;
+
+      let isPaging = false;
+      let hasPlayedMasterIntro = false;
+      let masterIntroTimer = 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStarted = false;
+      let blockedInputUntil = 0;
+      let introReadyAt = Date.now() + getIntroReadyDelayMs();
+      let resizeFrame = 0;
+
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      page.classList.add("is-master-index-pending");
+
+      function getIntroReadyDelayMs() {
+        return document.documentElement.classList.contains(skipReadyDelayClass)
+          ? 0
+          : introReadyDelayMs;
+      }
+
+      function masterTop() {
+        return masterPanel.offsetTop;
+      }
+
+      function currentPanel() {
+        return window.scrollY >= masterTop() / 2 ? "master" : "intro";
+      }
+
+      function isHistoryRestore(event) {
+        if (event.persisted) return true;
+        const navigation = performance.getEntriesByType?.("navigation")?.[0];
+        return navigation?.type === "back_forward";
+      }
+
+      function syncPanelState() {
+        const panel = currentPanel();
+        page.dataset.homePanel = panel;
+        if (panel === "master") {
+          playMasterIndexIntro();
+        }
+      }
+
+      function updateMasterIndexConnectors() {
+        const clusters = Array.from(page.querySelectorAll("[data-master-index-cluster]"));
+        clusters.forEach((cluster, index) => {
+          if (!(cluster instanceof HTMLElement)) return;
+
+          const connector = cluster.querySelector("[data-master-index-connector]");
+          const path = cluster.querySelector("[data-master-index-connector-path]");
+          const currentNode = cluster.querySelector(".master-index-node");
+          const nextNode = clusters[index + 1]?.querySelector(".master-index-node");
+          if (!(connector instanceof SVGSVGElement) || !(path instanceof SVGPathElement) || !(currentNode instanceof HTMLElement) || !(nextNode instanceof HTMLElement)) return;
+
+          const clusterRect = cluster.getBoundingClientRect();
+          const currentRect = currentNode.getBoundingClientRect();
+          const nextRect = nextNode.getBoundingClientRect();
+          const startX = currentRect.left + currentRect.width / 2 - clusterRect.left;
+          const startY = currentRect.top + currentRect.height / 2 - clusterRect.top;
+          const endX = nextRect.left + nextRect.width / 2 - clusterRect.left;
+          const endY = nextRect.top + nextRect.height / 2 - clusterRect.top;
+          const arcDepth = Math.max(40, Math.min(82, Math.abs(endY - startY) * 0.46));
+          const left = Math.min(startX, endX) - arcDepth;
+          const top = Math.min(startY, endY);
+          const width = Math.max(1, Math.max(startX, endX) - left + 8);
+          const height = Math.max(1, Math.abs(endY - startY));
+          const localStartX = startX - left;
+          const localEndX = endX - left;
+          const controlX = Math.max(4, Math.min(localStartX, localEndX) - arcDepth * 0.82);
+
+          connector.setAttribute("viewBox", `0 0 ${width} ${height}`);
+          connector.style.left = `${left}px`;
+          connector.style.top = `${top}px`;
+          connector.style.width = `${width}px`;
+          connector.style.height = `${height}px`;
+          path.setAttribute("d", `M ${localStartX} 0 C ${controlX} ${height * 0.32}, ${controlX} ${height * 0.68}, ${localEndX} ${height}`);
+        });
+      }
+
+      function requestMasterIndexConnectorUpdate() {
+        window.requestAnimationFrame(updateMasterIndexConnectors);
+      }
+
+      function finishMasterIndexIntro() {
+        window.clearTimeout(masterIntroTimer);
+        page.classList.remove("is-master-index-pending", "is-master-index-entering");
+        page.classList.add("is-master-index-entered");
+        updateMasterIndexConnectors();
+      }
+
+      function playMasterIndexIntro() {
+        if (hasPlayedMasterIntro) return;
+        hasPlayedMasterIntro = true;
+        updateMasterIndexConnectors();
+
+        if (prefersReducedMotion.matches) {
+          finishMasterIndexIntro();
+          return;
+        }
+
+        page.classList.add("is-master-index-entering");
+        masterIntroTimer = window.setTimeout(finishMasterIndexIntro, masterIntroDurationMs);
+      }
+
+      function resetAfterHistoryRestore() {
+        isPaging = false;
+        touchStarted = false;
+        blockedInputUntil = Date.now() + SCROLL_NAVIGATION_LOCK_MS;
+        introReadyAt = Date.now() + getIntroReadyDelayMs();
+        page.dataset.homePanel = "intro";
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
+
+      function pageTo(top) {
+        const target = Math.max(0, Math.round(top));
+        if (Math.abs(window.scrollY - target) < 2) {
+          syncPanelState();
+          return;
+        }
+
+        isPaging = true;
+        window.scrollTo({
+          top: target,
+          left: 0,
+          behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+        });
+
+        window.setTimeout(() => {
+          isPaging = false;
+          syncPanelState();
+        }, prefersReducedMotion.matches ? 120 : 720);
+      }
+
+      function isQuietBlocked() {
+        return Date.now() < blockedInputUntil;
+      }
+
+      function extendQuietWindow() {
+        blockedInputUntil = Date.now() + SCROLL_NAVIGATION_QUIET_MS;
+      }
+
+      function shouldConsumeIntroInput() {
+        if (isScrollNavigationLocked() || Date.now() < introReadyAt) {
+          extendQuietWindow();
+          return true;
+        }
+
+        return isQuietBlocked();
+      }
+
+      function pageDown() {
+        if (currentPanel() === "intro") {
+          if (shouldConsumeIntroInput()) return;
+          pageTo(masterTop());
+        }
+      }
+
+      function pageUp() {
+        if (currentPanel() === "master") {
+          pageTo(0);
+        }
+      }
+
+      function handleWheel(event) {
+        if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+        event.preventDefault();
+        if (isPaging) return;
+
+        if (event.deltaY > 0) {
+          pageDown();
+          return;
+        }
+
+        if (event.deltaY < 0) {
+          pageUp();
+        }
+      }
+
+      function handleTouchStart(event) {
+        const touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchStarted = true;
+      }
+
+      function handleTouchMove(event) {
+        if (!touchStarted) return;
+
+        const touch = event.touches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        if (Math.abs(deltaY) <= Math.abs(deltaX) || Math.abs(deltaY) < 4) return;
+
+        event.preventDefault();
+      }
+
+      function handleTouchEnd(event) {
+        if (!touchStarted || isPaging) return;
+        touchStarted = false;
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        if (Math.abs(deltaX) > Math.abs(deltaY) || Math.abs(deltaY) < 36) return;
+
+        event.preventDefault();
+
+        if (deltaY < 0) {
+          pageDown();
+          return;
+        }
+
+        if (deltaY > 0) {
+          pageUp();
+        }
+      }
+
+      function handleKeyDown(event) {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+        if (event.key === "ArrowDown" || event.key === "PageDown") {
+          event.preventDefault();
+          if (!isPaging) pageDown();
+          return;
+        }
+
+        if (event.key === "ArrowUp" || event.key === "PageUp") {
+          event.preventDefault();
+          if (!isPaging) pageUp();
+        }
+      }
+
+      function handleIntroArrowClick(event) {
+        event.preventDefault();
+        if (!isPaging) pageDown();
+      }
+
+      function handleClusterPreviewClick(event) {
+        const shouldUseTouchPreview =
+          window.matchMedia("(max-width: 980px)").matches ||
+          window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        if (!shouldUseTouchPreview) return;
+
+        const cluster = event.currentTarget;
+        if (!(cluster instanceof HTMLElement)) return;
+        if (cluster.classList.contains("is-touch-preview")) return;
+
+        event.preventDefault();
+        page.querySelectorAll("[data-master-index-cluster].is-touch-preview").forEach((item) => {
+          if (item !== cluster) item.classList.remove("is-touch-preview");
+        });
+        cluster.classList.add("is-touch-preview");
+      }
+
+      function handleResize() {
+        window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          pageTo(currentPanel() === "master" ? masterTop() : 0);
+          updateMasterIndexConnectors();
+          if (currentPanel() === "master") playMasterIndexIntro();
+        });
+      }
+
+      window.addEventListener("wheel", handleWheel, { passive: false });
+      window.addEventListener("touchstart", handleTouchStart, { passive: true });
+      window.addEventListener("touchmove", handleTouchMove, { passive: false });
+      window.addEventListener("touchend", handleTouchEnd, { passive: false });
+      window.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("resize", handleResize);
+      window.addEventListener("scroll", syncPanelState, { passive: true });
+      window.addEventListener("pageshow", (event) => {
+        if (isHistoryRestore(event)) resetAfterHistoryRestore();
+      });
+
+      page.querySelector(".home-intro-next-arrow")?.addEventListener("click", handleIntroArrowClick);
+      page.querySelectorAll("[data-master-index-cluster]").forEach((cluster) => {
+        cluster.addEventListener("click", handleClusterPreviewClick);
+      });
+
+      if ("ResizeObserver" in window) {
+        const connectorObserver = new ResizeObserver(requestMasterIndexConnectorUpdate);
+        connectorObserver.observe(masterPanel);
+        page.querySelectorAll("[data-master-index-cluster]").forEach((cluster) => {
+          connectorObserver.observe(cluster);
+        });
+      }
+
+      window.addEventListener("load", requestMasterIndexConnectorUpdate, { once: true });
+
+      if (isHistoryRestore({ persisted: false })) resetAfterHistoryRestore();
+      resizeFrame = window.requestAnimationFrame(() => {
+        pageTo(0);
+        syncPanelState();
+        updateMasterIndexConnectors();
+      });
+    }
+
+    setupHomePager();
+    document.addEventListener("astro:page-load", setupHomePager);
+  </script>
 </BaseLayout>

@@ -1,0 +1,20 @@
+---
+const {
+  clusterKey,
+  alt = "",
+} = Astro.props;
+
+const layers = ["decor", "net", "pattern", "icon", "upper"];
+---
+
+<span class="master-cluster-image" aria-hidden={alt ? "false" : "true"}>
+  {layers.map((layer) => (
+    <img
+      class={`master-cluster-image-layer is-${layer}`}
+      src={`/cluster/${clusterKey}/${clusterKey}_${layer}.png`}
+      alt={layer === "upper" ? alt : ""}
+      loading="eager"
+      decoding="async"
+    />
+  ))}
+</span>

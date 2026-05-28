@@ -1,0 +1,50 @@
+---
+import ClusterImage from "./ClusterImage.astro";
+
+const {
+  item,
+  index = 0,
+  total = 0,
+} = Astro.props;
+
+const offsetClass = index % 2 === 0 ? "is-offset-left" : "is-offset-right";
+const nextOffsetClass = (index + 1) % 2 === 0 ? "var(--cluster-shift-left)" : "var(--cluster-shift-right)";
+const hasConnector = index < total - 1;
+---
+
+<a
+  class:list={["master-index-cluster", offsetClass]}
+  href={item.href}
+  data-master-index-cluster
+  style={`--cluster-index: ${index}; --next-cluster-shift-x: ${nextOffsetClass};`}
+>
+  {hasConnector && (
+    <svg class="master-index-node-connector" data-master-index-connector aria-hidden="true">
+      <path class="master-index-node-connector-path" data-master-index-connector-path></path>
+    </svg>
+  )}
+
+  <span class="master-index-node-group" aria-hidden="true">
+    <span class="master-index-node-number">{item.number}</span>
+    <span class="master-index-node">
+      <span class="master-index-node-core"></span>
+    </span>
+  </span>
+
+  <span class="master-index-cluster-copy">
+    <span class="master-index-cluster-frame" aria-hidden="true">
+      <span class="master-index-cluster-frame-glow"></span>
+    </span>
+    <span class="master-index-cluster-text">
+      <span class="master-index-cluster-title">{item.title}</span>
+      <span class="master-index-cluster-subtitle">{item.labelEn}</span>
+      <span class="master-index-cluster-description">{item.description}</span>
+      <span class="master-index-cluster-arrow" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </span>
+  </span>
+
+  <ClusterImage clusterKey={item.clusterKey} alt={`${item.title} cluster`} />
+</a>
