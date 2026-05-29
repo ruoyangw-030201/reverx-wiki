@@ -104,8 +104,8 @@ body:has(.home-page) {
   --cluster-copy-width: clamp(180px, 15vw, 250px);
   --cluster-art-left: var(--cluster-copy-width);
   /* Keep art height tied to the row height; width follows the source 1500:550 ratio. */
-  --cluster-art-height: clamp(160px, 25.04vh, 216px);
-  --cluster-art-width: clamp(461px, 68.3vh, 590px);
+  --cluster-art-height: clamp(169px, 14.08vw, 216px);
+  --cluster-art-width: clamp(461px, 38.4vw, 590px);
   --home-master-stage-left: clamp(190px, 18vw, 276px);
   --home-master-stage-width: min(1040px, calc(100vw - var(--home-master-stage-left) - 118px));
   /* Cluster 文本里内容起始点设置 */
@@ -388,6 +388,7 @@ body:has(.home-page) {
 /* Master index cluster card: clickable section row with white backing and gold frame. */
 .master-index-cluster {
   --cluster-title-color: #171717;
+  --cluster-accent-color: var(--home-master-blue);
   --cluster-shift-x: 0px;
   position: relative;
   display: block;
@@ -451,13 +452,14 @@ body:has(.home-page) {
   position: absolute;
   left: 50%;
   bottom: calc(100% + 5px);
-  color: var(--home-master-gold);
+  color: var(--cluster-accent-color);
   font-family: var(--font-en-condensed);
   font-size: clamp(17px, 1.2vw, 24px);
   line-height: 1;
   letter-spacing: 0;
   font-weight: 500;
   transform: translateX(-50%);
+  transition: color 180ms ease;
 }
 
 .master-index-node {
@@ -605,9 +607,10 @@ body:has(.home-page) {
   gap: 0px;
   width: clamp(72px, 6vw, 100px);
   height: clamp(12px, 1.2vw, 20px);
-  color: var(--home-master-blue);
+  color: var(--cluster-accent-color);
   mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.72) 42%, #000 100%);
   -webkit-mask-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.72) 42%, #000 100%);
+  transition: color 180ms ease;
 }
 
 .master-index-cluster-arrow span {
@@ -651,6 +654,7 @@ body:has(.home-page) {
 .master-index-cluster:focus-visible,
 .master-index-cluster.is-touch-preview {
   --cluster-title-color: var(--home-master-gold);
+  --cluster-accent-color: var(--home-master-gold);
 }
 
 .master-index-cluster:hover .master-cluster-image-layer,
@@ -662,31 +666,31 @@ body:has(.home-page) {
 .master-index-cluster:hover .master-cluster-image-layer.is-decor,
 .master-index-cluster:focus-visible .master-cluster-image-layer.is-decor,
 .master-index-cluster.is-touch-preview .master-cluster-image-layer.is-decor {
-  transform: translate(-1.4%, -1%) scale(1.01);
+  transform: translate(-2.1%, -1.6%) scale(1.018);
 }
 
 .master-index-cluster:hover .master-cluster-image-layer.is-net,
 .master-index-cluster:focus-visible .master-cluster-image-layer.is-net,
 .master-index-cluster.is-touch-preview .master-cluster-image-layer.is-net {
-  transform: translate(1%, -0.7%) scale(1.014);
+  transform: translate(1.7%, -1.2%) scale(1.024);
 }
 
 .master-index-cluster:hover .master-cluster-image-layer.is-pattern,
 .master-index-cluster:focus-visible .master-cluster-image-layer.is-pattern,
 .master-index-cluster.is-touch-preview .master-cluster-image-layer.is-pattern {
-  transform: translate(-0.7%, 0.8%) scale(1.012);
+  transform: translate(-1.3%, 1.4%) scale(1.022);
 }
 
 .master-index-cluster:hover .master-cluster-image-layer.is-icon,
 .master-index-cluster:focus-visible .master-cluster-image-layer.is-icon,
 .master-index-cluster.is-touch-preview .master-cluster-image-layer.is-icon {
-  transform: translate(1.4%, 0.7%) scale(1.026);
+  transform: translate(2.2%, 1.3%) scale(1.04);
 }
 
 .master-index-cluster:hover .master-cluster-image-layer.is-upper,
 .master-index-cluster:focus-visible .master-cluster-image-layer.is-upper,
 .master-index-cluster.is-touch-preview .master-cluster-image-layer.is-upper {
-  transform: translate(0.7%, -1.1%) scale(1.016);
+  transform: translate(1.3%, -1.8%) scale(1.028);
 }
 
 /* Master index entrance: one-shot reveal triggered by the home pager. */
@@ -855,6 +859,8 @@ body:has(.home-page) {
     --cluster-node-offset: clamp(42px, 3.8vw, 50px);
     --cluster-shift-left: clamp(-36px, -2.8vw, -24px);
     --cluster-shift-right: clamp(24px, 2.8vw, 36px);
+    --cluster-art-height: clamp(169px, 25.04vh, 180px);
+    --cluster-art-width: clamp(461px, 68.3vh, 492px);
     --cluster-heading-right: clamp(18px, 1.85vw, 22px);
     --cluster-description-width: clamp(136px, 10.8vw, 150px);
     --cluster-arrow-left: clamp(142px, 13vw, 152px);
@@ -968,9 +974,8 @@ body:has(.home-page) {
     --cluster-shift-right: 6px;
     --cluster-height: clamp(92px, 11.2svh, 112px);
     --cluster-copy-width: clamp(140px, 23vw, 220px);
-    --cluster-art-left: calc(var(--cluster-copy-width) + 2px);
-    --cluster-art-height: clamp(174.5px, 21.25svh, 212.5px);
-    --cluster-art-width: clamp(476px, 57.95svh, 580px);
+    --cluster-art-height: clamp(157px, 19.13svh, 180px);
+    --cluster-art-width: clamp(428px, 52.16svh, 492px);
     --cluster-width: calc(var(--cluster-art-left) + var(--cluster-art-width));
     --home-master-stage-left: 0px;
     --home-master-stage-width: 100%;
@@ -1026,7 +1031,7 @@ body:has(.home-page) {
   }
 
   .home-master-cluster-list {
-    padding-bottom: clamp(6px, 1svh, 10px);
+    padding-bottom: clamp(24px, 4svh, 40px);
   }
 
   .master-index-cluster,
@@ -1089,6 +1094,22 @@ body:has(.home-page) {
     border-bottom-width: 3px;
   }
 
+  .home-page.is-master-index-entering .home-master-mobile-hint {
+    animation: master-index-fade-enter 360ms ease 760ms forwards;
+  }
+
+  .home-page.is-master-index-entering .master-index-node-group {
+    animation:
+      master-index-fade-enter 360ms ease
+      calc(820ms + (var(--cluster-index) * 110ms)) forwards;
+  }
+
+  .home-page.is-master-index-entering .master-index-node-connector {
+    animation:
+      master-index-line-draw 520ms cubic-bezier(0.18, 0.82, 0.28, 1)
+      calc(940ms + (var(--cluster-index) * 120ms)) forwards;
+  }
+
   .home-headbar-layer .archive-headbar {
     min-height: 0;
   }
@@ -1123,9 +1144,46 @@ body:has(.home-page) {
   .home-master-panel {
     --cluster-node-offset: 22px;
     --cluster-copy-width: clamp(136px, 37vw, 154px);
-    --cluster-height: clamp(90px, 11.8svh, 104px);
-    --cluster-art-height: clamp(170.7px, 22.38svh, 197.3px);
-    --cluster-art-width: clamp(465.5px, 61.04svh, 538px);
+    --cluster-mobile-content-left: 0px;
+    --cluster-mobile-description-left: clamp(100px, 25vw, 116px);
+    --cluster-mobile-arrow-left: clamp(250px, 66vw, 286px);
+    --cluster-mobile-title-top: 0px;
+    --cluster-art-left: var(--cluster-mobile-content-left);
+    --cluster-art-height: clamp(100px, 13.2svh, 116px);
+    --cluster-art-width: clamp(273px, 36svh, 316px);
+    --cluster-art-top: clamp(25px, 3.2svh, 28px);
+    --cluster-width: var(--cluster-art-width);
+  }
+
+  .master-index-cluster-title {
+    left: 0;
+    right: auto;
+    top: 0;
+    font-size: clamp(16px, 4.9vw, 20px);
+  }
+
+  .master-index-cluster-subtitle {
+    left: 0;
+    right: auto;
+    top: clamp(22px, 2.7svh, 26px);
+  }
+
+  .master-index-cluster-description {
+    left: var(--cluster-mobile-description-left);
+    top: var(--cluster-mobile-title-top);
+    width: clamp(120px, 35vw, 160px);
+    max-width: clamp(120px, 35vw, 160px);
+  }
+
+  .master-index-cluster-arrow {
+    left: var(--cluster-mobile-arrow-left);
+    top: calc(var(--cluster-mobile-title-top) + clamp(10px, 1.4svh, 14px));
+  }
+
+  .master-cluster-image {
+    left: var(--cluster-art-left);
+    top: var(--cluster-art-top);
+    transform: none;
   }
 
   .home-headbar-layer .archive-headbar {

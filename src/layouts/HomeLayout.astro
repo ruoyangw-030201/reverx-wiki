@@ -182,6 +182,7 @@ const masterIndexItems = topTabs
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const skipReadyDelayClass = "home-intro-is-skipped";
       const masterIntroDurationMs = 3200;
+      const clusterTouchNavigateDelayMs = 260;
 
       let isPaging = false;
       let hasPlayedMasterIntro = false;
@@ -192,6 +193,7 @@ const masterIndexItems = topTabs
       let blockedInputUntil = 0;
       let introReadyAt = Date.now() + getIntroReadyDelayMs();
       let resizeFrame = 0;
+      let clusterTouchNavigateTimer = 0;
 
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
@@ -291,6 +293,8 @@ const masterIndexItems = topTabs
       function resetAfterHistoryRestore() {
         isPaging = false;
         touchStarted = false;
+        window.clearTimeout(clusterTouchNavigateTimer);
+        clusterTouchNavigateTimer = 0;
         blockedInputUntil = Date.now() + SCROLL_NAVIGATION_LOCK_MS;
         introReadyAt = Date.now() + getIntroReadyDelayMs();
         page.dataset.homePanel = "intro";
@@ -429,13 +433,21 @@ const masterIndexItems = topTabs
 
         const cluster = event.currentTarget;
         if (!(cluster instanceof HTMLElement)) return;
-        if (cluster.classList.contains("is-touch-preview")) return;
 
         event.preventDefault();
+        if (clusterTouchNavigateTimer) return;
+
         page.querySelectorAll("[data-master-index-cluster].is-touch-preview").forEach((item) => {
           if (item !== cluster) item.classList.remove("is-touch-preview");
         });
         cluster.classList.add("is-touch-preview");
+
+        const href = cluster.getAttribute("href");
+        if (!href) return;
+
+        clusterTouchNavigateTimer = window.setTimeout(() => {
+          window.location.assign(href);
+        }, prefersReducedMotion.matches ? 80 : clusterTouchNavigateDelayMs);
       }
 
       function handleResize() {
