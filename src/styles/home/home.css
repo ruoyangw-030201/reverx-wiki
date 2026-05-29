@@ -97,13 +97,24 @@ body:has(.home-page) {
   --cluster-node-offset: clamp(50px, 4.2vw, 62px);
   --cluster-shift-left: clamp(-54px, -3.4vw, -34px);
   --cluster-shift-right: clamp(34px, 3.4vw, 56px);
-  --cluster-frame-width: 15vw;
-  --cluster-frame-height: 13.2vh;
-  --cluster-art-left: var(--cluster-frame-width);
-  --cluster-art-width: clamp(430px, 40vw, 590px);
+  /* Cluster 自己的宽度和高度 */
+  --cluster-height: 13.2vh;
   --cluster-width: calc(var(--cluster-art-left) + var(--cluster-art-width));
+  /* Cluster 文本内容的宽度 */
+  --cluster-copy-width: clamp(180px, 15vw, 250px);
+  --cluster-art-left: var(--cluster-copy-width);
+  /* Keep art height tied to the row height; width follows the source 1500:550 ratio. */
+  --cluster-art-height: clamp(160px, 25.04vh, 216px);
+  --cluster-art-width: clamp(461px, 68.3vh, 590px);
   --home-master-stage-left: clamp(190px, 18vw, 276px);
   --home-master-stage-width: min(1040px, calc(100vw - var(--home-master-stage-left) - 118px));
+  /* Cluster 文本里内容起始点设置 */
+  --cluster-heading-right: clamp(22px, 2vw, 38px);
+  --cluster-subtitle-top: clamp(28px, 2vw, 34px);
+  --cluster-description-top: clamp(44px, 3.4vw, 64px);
+  --cluster-description-width: clamp(145px, 11.5vw, 13em);
+  --cluster-arrow-left: clamp(138px, 11.7vw, 186px);
+  --cluster-arrow-top: clamp(54px, 8.3vh, 82px);
   position: relative;
   background: var(--home-master-paper);
   color: #171717;
@@ -382,7 +393,7 @@ body:has(.home-page) {
   display: block;
   width: var(--cluster-width);
   max-width: none;
-  height: var(--cluster-frame-height);
+  height: var(--cluster-height);
   isolation: isolate;
   color: #171717;
   text-decoration: none;
@@ -396,7 +407,7 @@ body:has(.home-page) {
   left: 0;
   top: 50%;
   width: var(--cluster-width);
-  height: var(--cluster-frame-height);
+  height: var(--cluster-height);
   z-index: 0;
   background: rgba(255, 255, 255, 0.8);
   pointer-events: none;
@@ -476,15 +487,15 @@ body:has(.home-page) {
   display: none;
 }
 
-.master-index-cluster-copy {
+.master-index-cluster-panel {
   position: absolute;
   left: 0;
   top: 50%;
   z-index: 2;
   display: grid;
   align-items: start;
-  width: var(--cluster-frame-width);
-  height: var(--cluster-frame-height);
+  width: var(--cluster-copy-width);
+  height: var(--cluster-height);
   box-sizing: border-box;
   padding: clamp(12px, 1.25vh, 17px) clamp(18px, 1.75vw, 28px);
   overflow: visible;
@@ -535,20 +546,20 @@ body:has(.home-page) {
   transform: translateY(-50%);
 }
 
-.master-index-cluster-text {
+.master-index-cluster-content {
   position: relative;
   z-index: 5;
   display: block;
-  width: var(--cluster-art-left);
+  width: 100%;
   max-width: none;
   min-width: 0;
-  height: 100;
+  height: 100%;
   overflow: visible;
 }
 
 .master-index-cluster-title {
   position: absolute;
-  right: 2vw;
+  right: var(--cluster-heading-right);
   top: 0;
   width: max-content;
   max-width: 100%;
@@ -563,8 +574,8 @@ body:has(.home-page) {
 
 .master-index-cluster-subtitle {
   position: absolute;
-  right: 2vw;
-  top: 2vw;
+  right: var(--cluster-heading-right);
+  top: var(--cluster-subtitle-top);
   color: rgba(21, 21, 21, 0.46);
   font-family: var(--font-latin);
   font-size: clamp(8px, 0.64vw, 11px);
@@ -576,8 +587,8 @@ body:has(.home-page) {
 .master-index-cluster-description {
   position: absolute;
   left: 0;
-  top: 3.5vw;
-  max-width: 13em;
+  top: var(--cluster-description-top);
+  max-width: var(--cluster-description-width);
   color: rgba(21, 21, 21, 0.66);
   font-family: var(--font-sans);
   font-size: clamp(12px, 0.76vw, 13px);
@@ -588,8 +599,8 @@ body:has(.home-page) {
 
 .master-index-cluster-arrow {
   position: absolute;
-  left: 11vw;
-  top: 8.3vh;
+  left: var(--cluster-arrow-left);
+  top: var(--cluster-arrow-top);
   display: flex;
   gap: 0px;
   width: clamp(72px, 6vw, 100px);
@@ -616,7 +627,7 @@ body:has(.home-page) {
   z-index: 2;
   display: block;
   width: var(--cluster-art-width);
-  aspect-ratio: 1500 / 550;
+  height: var(--cluster-art-height);
   pointer-events: none;
   transform: translateY(-50%);
 }
@@ -838,6 +849,22 @@ body:has(.home-page) {
   }
 }
 
+@media (min-width: 981px) and (max-width: 1180px) {
+  .home-master-panel {
+    --home-master-list-indent: clamp(62px, 5.4vw, 76px);
+    --cluster-node-offset: clamp(42px, 3.8vw, 50px);
+    --cluster-shift-left: clamp(-36px, -2.8vw, -24px);
+    --cluster-shift-right: clamp(24px, 2.8vw, 36px);
+    --cluster-heading-right: clamp(18px, 1.85vw, 22px);
+    --cluster-description-width: clamp(136px, 10.8vw, 150px);
+    --cluster-arrow-left: clamp(142px, 13vw, 152px);
+  }
+
+  .master-index-cluster-title {
+    font-size: clamp(19px, 1.65vw, 22px);
+  }
+}
+
 .home-copy-underlay {
   position: absolute;
   z-index: 7;
@@ -939,13 +966,15 @@ body:has(.home-page) {
     --cluster-node-offset: clamp(30px, 9vw, 42px);
     --cluster-shift-left: -6px;
     --cluster-shift-right: 6px;
-    --cluster-frame-width: clamp(140px, 23vw, 220px);
-    --cluster-frame-height: clamp(92px, 11.2svh, 112px);
-    --cluster-art-left: calc(var(--cluster-frame-width) + 2px);
-    --cluster-art-width: clamp(420px, 62vw, 560px);
+    --cluster-height: clamp(92px, 11.2svh, 112px);
+    --cluster-copy-width: clamp(140px, 23vw, 220px);
+    --cluster-art-left: calc(var(--cluster-copy-width) + 2px);
+    --cluster-art-height: clamp(174.5px, 21.25svh, 212.5px);
+    --cluster-art-width: clamp(476px, 57.95svh, 580px);
     --cluster-width: calc(var(--cluster-art-left) + var(--cluster-art-width));
     --home-master-stage-left: 0px;
     --home-master-stage-width: 100%;
+    --cluster-arrow-left: clamp(115px, 18vw, 200px);
   }
 
   .home-main {
@@ -1020,8 +1049,8 @@ body:has(.home-page) {
     width: clamp(12px, 3.4vw, 16px);
   }
 
-  .master-index-cluster-copy {
-    height: var(--cluster-frame-height);
+  .master-index-cluster-panel {
+    height: var(--cluster-height);
     padding: clamp(7px, 1svh, 10px) clamp(8px, 2.6vw, 14px);
   }
 
@@ -1029,7 +1058,7 @@ body:has(.home-page) {
     border-left-width: 2px;
   }
 
-  .master-index-cluster-text {
+  .master-index-cluster-content {
     gap: clamp(2px, 0.45svh, 5px);
   }
 
@@ -1049,15 +1078,15 @@ body:has(.home-page) {
   }
 
   .master-index-cluster-arrow {
-    width: 14px;
-    height: 6px;
+    width: 27px;
+    height: 10px;
   }
 
   .master-index-cluster-arrow span {
-    width: 5px;
-    height: 5px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
+    width: 10px;
+    height: 10px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
   }
 
   .home-headbar-layer .archive-headbar {
@@ -1093,9 +1122,10 @@ body:has(.home-page) {
 @media (max-width: 620px) {
   .home-master-panel {
     --cluster-node-offset: 22px;
-    --cluster-frame-width: clamp(136px, 37vw, 154px);
-    --cluster-art-width: clamp(320px, 84vw, 360px);
-    --cluster-frame-height: clamp(90px, 11.8svh, 104px);
+    --cluster-copy-width: clamp(136px, 37vw, 154px);
+    --cluster-height: clamp(90px, 11.8svh, 104px);
+    --cluster-art-height: clamp(170.7px, 22.38svh, 197.3px);
+    --cluster-art-width: clamp(465.5px, 61.04svh, 538px);
   }
 
   .home-headbar-layer .archive-headbar {
