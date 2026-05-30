@@ -1,4 +1,11 @@
 /* 谱系页面主容器：控制整体右移、宽度和本页色彩变量。 */
+/* 谱系页 archive 内容区：取消普通 content-frame 页面使用的外扩宽度，避免本页自定义布局再次右移后越界。 */
+.archive-content-area:has(.spectrum-classification) {
+  --archive-heading-offset-x: 0px;
+  width: 100%;
+  margin-left: 0;
+}
+
 .spectrum-classification {
   --character-profile-blue: #234d7b;
   --character-profile-blue-deep: #17395f;
@@ -7,13 +14,12 @@
   --character-profile-paper: rgba(251, 250, 246, 0.68);
   --spectrum-line: rgba(174, 119, 55, 0.74);
   --spectrum-line-strong: rgba(174, 119, 55, 0.96);
-  --spectrum-page-shift: clamp(48px, 5vw, 96px);
   --spectrum-page-edge: clamp(12px, 2vw, 28px);
   position: relative;
   z-index: 8;
-  width: calc(100% - var(--spectrum-page-shift) - var(--spectrum-page-edge));
+  width: calc(100% - var(--spectrum-page-edge));
   margin-top: 34px;
-  margin-left: var(--spectrum-page-shift);
+  margin-left: 0px;
   color: var(--color-ink);
 }
 
@@ -591,11 +597,6 @@
    .spectrum-overview-tree {
     --spectrum-overview-tree-shift: 0px;
   }
-  .spectrum-classification {
-    --spectrum-page-shift: clamp(26px, 3vw, 39px);
-  }
-
-  /* 中等宽度详细树：压缩类别卡和谱系卡宽度。 */
 }
 
 /* 窄屏布局：隐藏复杂连线，改为可读的单列谱系列表。 */
