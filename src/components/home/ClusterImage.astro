@@ -11,7 +11,7 @@ const layers = ["decor", "net", "pattern", "icon", "upper"];
   {layers.map((layer) => (
     <img
       class={`master-cluster-image-layer is-${layer}`}
-      src={`/cluster/${clusterKey}/${clusterKey}_${layer}.png`}
+      src={`/cluster/${clusterKey}/${clusterKey}_${layer}.webp`}
       alt={layer === "upper" ? alt : ""}
       loading="eager"
       decoding="async"

@@ -80,8 +80,8 @@ const ferdonaRegions = [
   },
   {
     key: "museum",
-    mobileCardX: 520,
-    mobileCardY: 450,
+    cardX: 420,
+    cardY: 220,
   },
   {
     key: "blueprint",
@@ -176,7 +176,7 @@ export const worldMaps = {
       { text: "酒城", markerX: 1750, markerY: 1010, x: 1794, y: 1010, mobileLabelOffsetX: -5 },
       { entityKey: "taran", markerX: 2011, markerY: 226, x: 2011, y: 198, mobileLabelOffsetY: 2 },
       { entityKey: "rattown", markerX: 1512, markerY: 454, x: 1512, y: 427, mobileLabelOffsetY: 2 },
-      { text: "蓝图", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: -5 },
+      { entityKey: "blueprint", interactiveRegionKey: "blueprint", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: -5 },
       { entityKey: "shalom", markerX: 2337, markerY: 543, x: 2337, y: 515, mobileLabelOffsetY: 2 },
       { entityKey: "sarra", markerX: 1752, markerY: 767, x: 1752, y: 739, mobileLabelOffsetY: 2 },
     ]),

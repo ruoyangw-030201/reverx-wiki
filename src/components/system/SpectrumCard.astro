@@ -1,0 +1,41 @@
+---
+const {
+  item,
+  variant = "lineage",
+  class: className,
+} = Astro.props;
+
+const theme = item.theme ?? {};
+const style = [
+  theme.accent && `--spectrum-card-accent: ${theme.accent}`,
+  theme.accentSoft && `--spectrum-card-accent-soft: ${theme.accentSoft}`,
+  theme.accentWash && `--spectrum-card-accent-wash: ${theme.accentWash}`,
+  theme.accentText && `--spectrum-card-accent-text: ${theme.accentText}`,
+].filter(Boolean).join("; ");
+
+const isOverviewCard = variant === "overview";
+const isClassCard = variant === "class";
+---
+
+<article
+  class:list={["spectrum-card", `is-${variant}`, className]}
+  style={style || undefined}
+>
+  <div class="spectrum-card-icon" aria-hidden="true">
+    <img src={item.icon} alt="" />
+  </div>
+
+  <div class="spectrum-card-copy">
+    <h3 class="spectrum-card-title">{item.title}</h3>
+    {!isOverviewCard && (
+      isClassCard ? (
+        <p class="spectrum-card-subtitle">{item.titleEn}</p>
+      ) : (
+        <p class="spectrum-card-subtitle">谱系本质：{item.essence}</p>
+      )
+    )}
+    {!isOverviewCard && (
+      <p class="spectrum-card-description">{item.description}</p>
+    )}
+  </div>
+</article>

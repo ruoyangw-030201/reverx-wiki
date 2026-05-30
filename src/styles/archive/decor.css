@@ -116,6 +116,7 @@
 }
 
 .archive-scroll-decor {
+  --scroll-decor-repeat-step: 2080px;
   position: absolute;
   left: 0;
   top: 78px;
@@ -145,10 +146,11 @@
 .scroll-decor-group {
   position: absolute;
   inset: 0;
+  transform: translateY(calc(var(--scroll-decor-repeat-step) * var(--scroll-decor-repeat-index, 0)));
 }
 
 .scroll-decor-group.is-mobile-repeat {
-  display: none;
+  display: block;
 }
 
 .scroll-decor-big {
@@ -207,21 +209,10 @@
 
 @media (max-width: 980px) {
   .archive-scroll-decor {
+    --scroll-decor-repeat-step: 1040px;
     top: 118px;
     bottom: auto;
-    height: 3200px;
-  }
-
-  .scroll-decor-group.is-mobile-repeat {
-    display: block;
-  }
-
-  .scroll-decor-group:nth-child(2) {
-    transform: translateY(1040px);
-  }
-
-  .scroll-decor-group:nth-child(3) {
-    transform: translateY(2080px);
+    height: calc(var(--scroll-decor-repeat-step) * var(--scroll-decor-repeat-count, 6));
   }
 
   .scroll-decor-big {
@@ -273,7 +264,7 @@
 @media (max-width: 620px) {
   .archive-scroll-decor {
     top: 108px;
-    height: 3100px;
+    height: calc(var(--scroll-decor-repeat-step) * var(--scroll-decor-repeat-count, 6));
   }
 
   .scroll-decor-small {

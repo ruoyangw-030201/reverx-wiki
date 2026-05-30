@@ -280,7 +280,7 @@ export const sidebarBySection = {
       label: "现代谱系分类法",
       labelEn: "Modern Spectrum Classification",
       href: "/system/classification",
-      icon: "/icon/indigenous.png",
+      icon: "/icon/essence.png",
     },
     {
       label: "强度",

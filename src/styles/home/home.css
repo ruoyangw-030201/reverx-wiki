@@ -865,10 +865,6 @@ body:has(.home-page) {
     --cluster-description-width: clamp(136px, 10.8vw, 150px);
     --cluster-arrow-left: clamp(142px, 13vw, 152px);
   }
-
-  .master-index-cluster-title {
-    font-size: clamp(19px, 1.65vw, 22px);
-  }
 }
 
 .home-copy-underlay {
@@ -1077,8 +1073,8 @@ body:has(.home-page) {
   }
 
   .master-index-cluster-description {
-    max-width: 12.5em;
-    font-size: clamp(8px, min(2.5vw, 1.4svh), 11px);
+    max-width: 11em;
+    font-size: clamp(10px, min(2.6vw, 1.5svh), 13px);
     line-height: 1.35;
   }
 
@@ -1171,8 +1167,8 @@ body:has(.home-page) {
   .master-index-cluster-description {
     left: var(--cluster-mobile-description-left);
     top: var(--cluster-mobile-title-top);
-    width: clamp(120px, 35vw, 160px);
-    max-width: clamp(120px, 35vw, 160px);
+    width: clamp(130px, 36vw, 170px);
+    max-width: clamp(130px, 36vw, 170px);
   }
 
   .master-index-cluster-arrow {

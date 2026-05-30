@@ -1,0 +1,200 @@
+---
+import SpectrumCard from "./SpectrumCard.astro";
+import { spectrumClasses, spectrumOverviewText, spectrumRoot } from "../../data/spectrum.js";
+import "../../styles/spectrum.css";
+
+const detailCardHeight = 150;
+const lineageGap = 12;
+const groupGap = 32;
+const connectorWidth = 100;
+const classJoinX = 0;
+const trunkX = 42;
+const lineageJoinX = 100;
+const rootSpineX = 66;
+const rootClassX = 156;
+
+const uniqueNumbers = (numbers) => [...new Set(numbers.map((number) => Math.round(number)))];
+const themeVars = (theme = {}) => [
+  theme.accent && `--spectrum-card-accent: ${theme.accent}`,
+  theme.accentSoft && `--spectrum-card-accent-soft: ${theme.accentSoft}`,
+  theme.accentWash && `--spectrum-card-accent-wash: ${theme.accentWash}`,
+  theme.accentText && `--spectrum-card-accent-text: ${theme.accentText}`,
+].filter(Boolean);
+
+let runningGroupTop = 0;
+const treeGroups = spectrumClasses.map((spectrumClass, index) => {
+  const lineageCount = spectrumClass.lineages.length;
+  const groupHeight = lineageCount * detailCardHeight + (lineageCount - 1) * lineageGap;
+  const groupMid = groupHeight / 2;
+  const lineageCenters = spectrumClass.lineages.map((_, lineageIndex) =>
+    detailCardHeight / 2 + lineageIndex * (detailCardHeight + lineageGap)
+  );
+  const trunkNodes = uniqueNumbers([...lineageCenters, groupMid]).sort((a, b) => a - b);
+  const groupTop = runningGroupTop;
+
+  runningGroupTop += groupHeight + (index < spectrumClasses.length - 1 ? groupGap : 0);
+
+  return {
+    ...spectrumClass,
+    groupHeight,
+    groupMid,
+    groupTop,
+    absoluteMid: groupTop + groupMid,
+    lineageCenters,
+    trunkNodes,
+    firstLineageCenter: lineageCenters[0],
+    lastLineageCenter: lineageCenters[lineageCenters.length - 1],
+    style: [
+      `--lineage-count: ${lineageCount}`,
+      `--spectrum-group-height: ${groupHeight}px`,
+      ...themeVars(spectrumClass.theme),
+    ].join("; "),
+  };
+});
+
+const rootConnectorHeight = runningGroupTop;
+const firstClassMid = treeGroups[0].absoluteMid;
+const lastClassMid = treeGroups[treeGroups.length - 1].absoluteMid;
+const realityClassMid = treeGroups.find((group) => group.id === "reality")?.absoluteMid ?? rootConnectorHeight / 2;
+---
+
+<div class="spectrum-classification character-profile-archive">
+  <section class="character-profile-section is-profile spectrum-section" aria-labelledby="spectrum-overview-heading">
+    <div class="character-profile-divider" aria-hidden="true"></div>
+    <h2 class="character-profile-heading" id="spectrum-overview-heading">
+      <span>概览</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">OVERVIEW</span>
+    </h2>
+    <img class="spectrum-overview-small-decor" src="/bg/bg-small-1-blue.webp" alt="" aria-hidden="true" />
+
+    <div class="spectrum-overview-panel">
+      <div class="spectrum-overview-map" aria-label="恶能三大类别概览">
+        <div class="spectrum-overview-core-bg" aria-hidden="true">
+          <img src="/cluster/malice-ball.png" alt="" />
+        </div>
+
+        <div class="spectrum-overview-tree">
+          <svg class="spectrum-overview-connector is-inline" viewBox="0 0 600 176" preserveAspectRatio="none" aria-hidden="true">
+            <path class="spectrum-line-path" d="M 300 58 V 100 H 100 V 118" />
+            <path class="spectrum-line-path" d="M 300 100 H 500 V 118" />
+            <path class="spectrum-line-path" d="M 300 100 V 118" />
+          </svg>
+
+          <svg class="spectrum-overview-connector is-stacked" viewBox="0 0 600 220" preserveAspectRatio="none" aria-hidden="true">
+            <path class="spectrum-line-path" d="M 300 52 V 92 H 150 V 116" />
+            <path class="spectrum-line-path" d="M 300 92 H 450 V 116" />
+            <path class="spectrum-line-path" d="M 300 92 V 186" />
+          </svg>
+
+          <div class="spectrum-overview-dot-layer" aria-hidden="true">
+            <span class="spectrum-overview-dot is-root is-solid"></span>
+            <span class="spectrum-overview-dot is-joint"></span>
+            <span class="spectrum-overview-dot is-essence is-solid"></span>
+            <span class="spectrum-overview-dot is-reality is-solid"></span>
+            <span class="spectrum-overview-dot is-information is-solid"></span>
+          </div>
+
+          <div class="spectrum-overview-root">
+            <SpectrumCard item={spectrumRoot} variant="overview" />
+          </div>
+
+          <div class="spectrum-overview-classes">
+            {spectrumClasses.map((spectrumClass) => (
+              <div class:list={["spectrum-overview-node", `is-${spectrumClass.id}`]}>
+                <SpectrumCard item={spectrumClass} variant="overview" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="character-note-card spectrum-overview-note" aria-label="现代谱系分类法说明">
+      <div class="character-note-copy">
+        {spectrumOverviewText.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+  </section>
+
+  <section class="character-profile-section is-profile spectrum-section" aria-labelledby="spectrum-full-heading">
+    <div class="character-profile-divider" aria-hidden="true"></div>
+    <h2 class="character-profile-heading" id="spectrum-full-heading">
+      <span>详细谱系</span>
+      <span class="character-title-separator" aria-hidden="true">/</span>
+      <span class="character-latin-text">FULL SPECTRUM</span>
+    </h2>
+
+    <div class="spectrum-tree-panel">
+      <div
+        class="spectrum-tree"
+        style={`--spectrum-tree-height: ${rootConnectorHeight}px; --spectrum-root-core-y: ${realityClassMid}px; --spectrum-detail-card-height: ${detailCardHeight}px; --spectrum-lineage-gap: ${lineageGap}px; --spectrum-group-gap: ${groupGap}px;`}
+        aria-label="现代谱系分类法树状图"
+      >
+        <svg
+          class="spectrum-root-connector"
+          viewBox={`0 0 ${rootClassX} ${rootConnectorHeight}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path class="spectrum-line-path" d={`M ${rootSpineX} ${firstClassMid} V ${lastClassMid}`} />
+          {treeGroups.map((group) => (
+            <>
+              <path class="spectrum-line-path" d={`M ${rootSpineX} ${group.absoluteMid} H ${rootClassX}`} />
+              <circle class="spectrum-line-node" cx={rootSpineX} cy={group.absoluteMid} r="4" />
+              <circle class="spectrum-line-node is-solid" cx={rootClassX} cy={group.absoluteMid} r="4" />
+            </>
+          ))}
+        </svg>
+
+        <div class="spectrum-tree-root" aria-hidden="true">
+          <img src="/cluster/malice-ball.png" alt="" />
+        </div>
+
+        <div class="spectrum-tree-groups">
+          {treeGroups.map((spectrumClass) => (
+            <section
+              class:list={["spectrum-tree-group", `is-${spectrumClass.id}`]}
+              style={spectrumClass.style}
+            >
+              <div class="spectrum-tree-class">
+                <SpectrumCard item={spectrumClass} variant="class" />
+              </div>
+
+              <svg
+                class="spectrum-group-connector"
+                viewBox={`0 0 ${connectorWidth} ${spectrumClass.groupHeight}`}
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path class="spectrum-line-path" d={`M ${classJoinX} ${spectrumClass.groupMid} H ${trunkX}`} />
+                <path
+                  class="spectrum-line-path"
+                  d={`M ${trunkX} ${spectrumClass.firstLineageCenter} V ${spectrumClass.lastLineageCenter}`}
+                />
+                {spectrumClass.lineageCenters.map((center) => (
+                  <path class="spectrum-line-path" d={`M ${trunkX} ${center} H ${lineageJoinX}`} />
+                ))}
+                <circle class="spectrum-line-node is-solid" cx={classJoinX} cy={spectrumClass.groupMid} r="4" />
+                {spectrumClass.trunkNodes.map((center) => (
+                  <circle class="spectrum-line-node" cx={trunkX} cy={center} r="4" />
+                ))}
+                {spectrumClass.lineageCenters.map((center) => (
+                  <circle class="spectrum-line-node is-solid" cx={lineageJoinX} cy={center} r="4" />
+                ))}
+              </svg>
+
+              <div class="spectrum-tree-lineages">
+                {spectrumClass.lineages.map((lineage) => (
+                  <div class="spectrum-lineage-row">
+                    <SpectrumCard item={{ ...lineage, theme: spectrumClass.theme }} variant="lineage" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
