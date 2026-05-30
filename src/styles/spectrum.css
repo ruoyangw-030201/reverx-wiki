@@ -218,14 +218,15 @@
 }
 
 /* 说明框：复用 character note 的金色框，但正文自然左对齐。 */
-.spectrum-overview-note {
+.character-note-card.spectrum-overview-note {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin-top: clamp(8px, 1vw, 12px);
 }
 
 /* 说明框文字容器：去掉人物页窄文本列带来的大块左空白。 */
-.spectrum-overview-note .character-note-copy {
+.character-note-card.spectrum-overview-note .character-note-copy {
+  grid-column: 1 / -1;
   width: 100%;
   max-width: none;
   min-width: 0;
@@ -879,8 +880,8 @@
     height: auto;
   }
 
-  .spectrum-overview-note .character-note-copy,
-  .spectrum-overview-note .character-note-copy p {
+  .character-note-card.spectrum-overview-note .character-note-copy,
+  .character-note-card.spectrum-overview-note .character-note-copy p {
     max-width: none;
   }
 }
