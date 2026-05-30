@@ -88,7 +88,7 @@
 
 /* 概览树整体：只打包线、圆点和卡片整体下移，不包含 malice-ball。 */
 .spectrum-overview-tree {
-  --spectrum-overview-tree-shift: 60px;
+  --spectrum-overview-tree-shift: 40px;
   position: relative;
   z-index: 2;
   min-height: inherit;
@@ -129,7 +129,6 @@
   pointer-events: none;
 }
 
-/* 姒傝绐勫睆鍙屾帓 SVG锛氶粯璁ら殣钘忥紝浠呭湪 620px 浠ヤ笅鎺ュ浣滅敤銆?*/
 .spectrum-overview-connector.is-stacked {
   display: none;
 }
@@ -327,6 +326,12 @@
   min-height: 58px;
   padding: 7px 10px;
   gap: 8px;
+  justify-content: center;
+}
+
+/* 概览卡片文字列：去掉通用卡片为箭头预留的右侧空间，让 icon 和标题作为一组居中。 */
+.spectrum-card.is-overview .spectrum-card-copy {
+  padding-right: 0;
 }
 
 /* 概览卡片箭头：概览树不需要可进入提示。 */
@@ -703,7 +708,7 @@
     min-height: 58px;
     padding: 6px 7px;
     gap: 5px;
-    grid-template-columns: var(--spectrum-card-icon-size) minmax(0, 1fr);
+    grid-template-columns: var(--spectrum-card-icon-size) max-content;
   }
 
   .spectrum-overview-tree .spectrum-card-title,
@@ -833,6 +838,16 @@
     max-width: none;
   }
 
+  .spectrum-card-subtitle,
+  .spectrum-card.is-lineage .spectrum-card-subtitle {
+    font-size: 17px;
+  }
+
+  .spectrum-card-description {
+    font-size: 15px;
+    word-break: break-word;
+  }
+
   .spectrum-lineage-row {
     position: relative;
     display: block;
@@ -900,11 +915,11 @@
 
   .spectrum-card-subtitle,
   .spectrum-card.is-lineage .spectrum-card-subtitle {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .spectrum-card-description {
-    font-size: 12px;
+    font-size: 13px;
     word-break: break-word;
   }
 
