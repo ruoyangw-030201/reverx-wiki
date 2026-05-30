@@ -6,6 +6,7 @@ const {
   class: className = "",
   href,
   ariaLabel,
+  button = false,
 } = Astro.props;
 
 const markerClass = [
@@ -23,7 +24,13 @@ const blades = [0, 1, 2, 3];
 ---
 
 {
-  href ? (
+  button ? (
+    <button class={markerClass} type="button" aria-label={ariaLabel ?? label} {...labelAttrs}>
+      <span class="active-direction-marker__icon" aria-hidden="true">
+        {blades.map(() => <span class="active-direction-marker__blade"></span>)}
+      </span>
+    </button>
+  ) : href ? (
     <a class={markerClass} href={href} aria-label={ariaLabel} {...labelAttrs}>
       <span class="active-direction-marker__icon" aria-hidden="true">
         {blades.map(() => <span class="active-direction-marker__blade"></span>)}

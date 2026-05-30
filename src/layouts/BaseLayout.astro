@@ -14,6 +14,24 @@ const {
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/reverx-favicon.svg" />
     <title>ReverX世界概览快速入坑包</title>
+    <script is:inline>
+      (() => {
+        const firstEntryPathKey = "reverx-first-entry-path";
+
+        function normalizePath(pathname) {
+          const normalized = pathname.replace(/\/+$/, "");
+          return normalized || "/";
+        }
+
+        try {
+          if (!window.sessionStorage.getItem(firstEntryPathKey)) {
+            window.sessionStorage.setItem(firstEntryPathKey, normalizePath(window.location.pathname));
+          }
+        } catch {
+          // Pages that need this signal choose their own no-storage fallback.
+        }
+      })();
+    </script>
   </head>
 
   <body>

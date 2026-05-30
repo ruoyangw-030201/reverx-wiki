@@ -61,16 +61,33 @@ const masterIndexItems = topTabs
   <script is:inline>
     (() => {
       const introSeenKey = "reverx-home-intro-seen";
+      const firstEntryPathKey = "reverx-first-entry-path";
+
+      function normalizePath(pathname) {
+        const normalized = pathname.replace(/\/+$/, "");
+        return normalized || "/";
+      }
 
       try {
-        if (window.sessionStorage.getItem(introSeenKey) === "true") {
+        let firstEntryPath = window.sessionStorage.getItem(firstEntryPathKey);
+        if (!firstEntryPath) {
+          firstEntryPath = normalizePath(window.location.pathname);
+          window.sessionStorage.setItem(firstEntryPathKey, firstEntryPath);
+        }
+
+        const shouldPlayIntro =
+          firstEntryPath === "/" &&
+          window.sessionStorage.getItem(introSeenKey) !== "true";
+
+        if (!shouldPlayIntro) {
           document.documentElement.classList.add("home-intro-is-skipped");
+          window.sessionStorage.setItem(introSeenKey, "true");
           return;
         }
 
         window.sessionStorage.setItem(introSeenKey, "true");
       } catch {
-        // If storage is unavailable, keep the animated first-run experience.
+        document.documentElement.classList.add("home-intro-is-skipped");
       }
     })();
   </script>
@@ -80,7 +97,7 @@ const masterIndexItems = topTabs
     data-home-pager
     data-home-panel="intro"
     data-home-ready-delay-ms={arrowDelay}
-    style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms;`}
+    style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms; --home-skip-delay: ${PARAGRAPH_START_DELAY}ms;`}
   >
     <ActiveDirectionMarker
       direction="down"
@@ -92,6 +109,14 @@ const masterIndexItems = topTabs
 
     <main class="home-main" aria-label="Home">
       <section class="home-panel home-intro-panel" aria-label="ReverX home cover">
+        <ActiveDirectionMarker
+          direction="right"
+          label="SKIP INTRO"
+          class="home-skip-intro-button"
+          button={true}
+          ariaLabel="Skip home intro"
+        />
+
         <div class="home-headbar-layer">
           <Headbar />
         </div>
@@ -181,6 +206,7 @@ const masterIndexItems = topTabs
       const introReadyDelayMs = Number(page.dataset.homeReadyDelayMs) || 0;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const skipReadyDelayClass = "home-intro-is-skipped";
+      const introSeenKey = "reverx-home-intro-seen";
       const masterIntroDurationMs = 3200;
       const clusterTouchNavigateDelayMs = 260;
 
@@ -205,6 +231,18 @@ const masterIndexItems = topTabs
         return document.documentElement.classList.contains(skipReadyDelayClass)
           ? 0
           : introReadyDelayMs;
+      }
+
+      function skipHomeIntro() {
+        document.documentElement.classList.add(skipReadyDelayClass);
+        introReadyAt = Date.now();
+        blockedInputUntil = 0;
+
+        try {
+          window.sessionStorage.setItem(introSeenKey, "true");
+        } catch {
+          // The visual skip still works without storage.
+        }
       }
 
       function masterTop() {
@@ -425,6 +463,11 @@ const masterIndexItems = topTabs
         if (!isPaging) pageDown();
       }
 
+      function handleSkipIntroClick(event) {
+        event.preventDefault();
+        skipHomeIntro();
+      }
+
       function handleClusterPreviewClick(event) {
         const shouldUseTouchPreview =
           window.matchMedia("(max-width: 980px)").matches ||
@@ -471,6 +514,7 @@ const masterIndexItems = topTabs
       });
 
       page.querySelector(".home-intro-next-arrow")?.addEventListener("click", handleIntroArrowClick);
+      page.querySelector(".home-skip-intro-button")?.addEventListener("click", handleSkipIntroClick);
       page.querySelectorAll("[data-master-index-cluster]").forEach((cluster) => {
         cluster.addEventListener("click", handleClusterPreviewClick);
       });

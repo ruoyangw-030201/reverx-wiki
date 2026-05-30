@@ -85,6 +85,64 @@ body:has(.home-page) {
   pointer-events: none;
 }
 
+.home-skip-intro-button {
+  --active-direction-size: 34px;
+  --active-direction-color: #fff;
+  top: calc(78px + clamp(12px, 1.2vw, 18px));
+  right: clamp(18px, 2.2vw, 34px);
+  z-index: 35;
+  flex-direction: row-reverse;
+  gap: 7px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: none;
+  animation: home-skip-intro-reveal 0.9s ease var(--home-skip-delay, 3000ms) forwards;
+  transition: color 180ms ease;
+}
+
+.home-skip-intro-button::before {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+.home-skip-intro-button:hover,
+.home-skip-intro-button:focus-visible,
+.home-skip-intro-button:active {
+  color: var(--color-gold);
+}
+
+.home-skip-intro-button:focus-visible {
+  outline: 1px solid var(--color-gold-light);
+  outline-offset: 7px;
+}
+
+.home-page[data-home-panel="master"] .home-skip-intro-button,
+.home-intro-is-skipped .home-skip-intro-button {
+  display: none;
+}
+
+@keyframes home-skip-intro-reveal {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+  }
+
+  1% {
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
 /* Master index panel: the second home screen and its shared color scale. */
 .home-master-panel {
   --theme-bg: #ffffff;
@@ -953,6 +1011,13 @@ body:has(.home-page) {
     scroll-snap-type: y mandatory;
   }
 
+  .home-skip-intro-button {
+    --active-direction-size: 30px;
+    top: calc(58px + 10px);
+    right: 14px;
+    gap: 6px;
+  }
+
   .home-page {
     --home-master-side-rail-width: clamp(42px, 12vw, 58px);
     --home-master-bottom-rail-height: clamp(54px, 9svh, 78px);
@@ -1137,6 +1202,17 @@ body:has(.home-page) {
 }
 
 @media (max-width: 620px) {
+  .home-skip-intro-button {
+    --active-direction-size: 28px;
+    top: calc(52px + 9px);
+    right: 9px;
+  }
+
+  .home-skip-intro-button::before {
+    font-size: 9px;
+    letter-spacing: 0.13em;
+  }
+
   .home-master-panel {
     --cluster-node-offset: 22px;
     --cluster-copy-width: clamp(136px, 37vw, 154px);
@@ -1232,6 +1308,10 @@ body:has(.home-page) {
   .home-page .home-next-page-arrow {
     animation: none;
     opacity: 1;
+  }
+
+  .home-skip-intro-button {
+    display: none;
   }
 }
 
