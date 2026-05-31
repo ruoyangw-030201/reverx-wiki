@@ -17,6 +17,9 @@ const {
   iconCaption,
   iconItems,
   iconFrameVariant = "default",
+  iconFrameGalleryId,
+  iconFrameGalleryLabel,
+  iconFrameGalleryBadge,
   decorVisualHeight = "1000px",
   nextPageLink,
 } = Astro.props;
@@ -27,6 +30,7 @@ const resolvedIconItems = Array.isArray(iconItems)
   : icon
     ? [{ icon, iconAlt, caption: iconCaption }]
     : [];
+const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameGalleryId.length > 0;
 ---
 
 <ContentFrameBox
@@ -39,6 +43,7 @@ const resolvedIconItems = Array.isArray(iconItems)
   showPaper={showPaper}
   showLines={showLines}
   extraFrameVars={showIconFrame ? `--content-frame-icon-count: ${resolvedIconItems.length};` : undefined}
+  measureInteractive={hasIconFrameGallery}
   nextPageLink={nextPageLink}
 >
   {showDecor && (
@@ -57,6 +62,9 @@ const resolvedIconItems = Array.isArray(iconItems)
         items={iconItems}
         variant={iconFrameVariant}
         showJunction={showJunction}
+        galleryId={iconFrameGalleryId}
+        galleryLabel={iconFrameGalleryLabel}
+        galleryBadge={iconFrameGalleryBadge}
       />
     </Fragment>
   )}

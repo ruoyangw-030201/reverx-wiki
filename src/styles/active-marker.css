@@ -201,6 +201,14 @@ button.active-direction-marker {
   --active-direction-rotate: 0deg;
 }
 
+/* left */
+.active-direction-marker--left {
+  top: 60%;
+  left: clamp(0px, 1.5vw, 26px);
+  transform: translateY(-50%);
+  --active-direction-rotate: 180deg;
+}
+
 /* down */
 .active-direction-marker--down {
   left: 50%;

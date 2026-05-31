@@ -10,8 +10,10 @@ import ArchiveHero from "../components/archive/ArchiveHero.astro";
 import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
 import ContentFrame from "../components/content-frame/ContentFrame.astro";
 import ContentFrameNextLink from "../components/content-frame/ContentFrameNextLink.astro";
+import ImageGallery from "../components/gallery/ImageGallery.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
+import { getCharacterGalleryImages } from "../data/characterGalleries.js";
 import {
   findNavigationItemByPath,
   getArchivePageNextLinkForPath,
@@ -53,6 +55,19 @@ const contentFrameIcon =
 const contentFrameIconCaption = currentSection === "system" ? navigationItem?.label : undefined;
 const contentFrameIconVariant = currentSection === "characters" ? "figure" : "default";
 const nextPageLink = getArchivePageNextLinkForPath(currentPath);
+const characterGalleryImages =
+  currentSection === "characters" && navigationItem?.frameIcon
+    ? getCharacterGalleryImages(navigationItem)
+    : [];
+const characterGallerySlug = (
+  navigationItem?.galleryRef
+  ?? currentPath.split("/").filter(Boolean).at(-1)
+  ?? "character"
+).replace(/[^a-z0-9_-]/gi, "-");
+const characterGalleryId = characterGalleryImages.length > 0
+  ? `character-gallery-${characterGallerySlug}`
+  : undefined;
+const characterGalleryLabel = `${frameTitle} image gallery`;
 ---
 
 <BaseLayout>
@@ -108,6 +123,9 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
             iconAlt={frameTitle}
             iconCaption={contentFrameIconCaption}
             iconFrameVariant={contentFrameIconVariant}
+            iconFrameGalleryId={characterGalleryId}
+            iconFrameGalleryLabel="打开人物图片图集"
+            iconFrameGalleryBadge="/icon/picture.png"
             nextPageLink={nextPageLink}
           >
             {hasCharacterYearSwitch && (
@@ -124,6 +142,14 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
         )}
       </section>
     </main>
+
+    {characterGalleryId && (
+      <ImageGallery
+        id={characterGalleryId}
+        images={characterGalleryImages}
+        label={characterGalleryLabel}
+      />
+    )}
 
     <Endbar />
   </div>

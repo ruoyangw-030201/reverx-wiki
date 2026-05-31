@@ -175,6 +175,12 @@
   z-index: 5;
 }
 
+/* 图集触发层：允许人物立绘框接收点击 */
+.content-frame-measure-layer.is-interactive {
+  z-index: 7;
+  pointer-events: none;
+}
+
 /* 移动端正文框前的独立控制区 */
 .content-frame-mobile-before-body {
   display: none;
@@ -187,6 +193,56 @@
   width: var(--content-frame-icon-stack-width);
   height: var(--content-frame-icon-stack-height);
   isolation: isolate;
+}
+
+/* 图集可点击状态：给立绘框明确的交互指针 */
+.content-frame-icon-stack.is-clickable {
+  cursor: pointer;
+}
+
+/* 图集触发按钮：只覆盖人物纸框与边框区域 */
+.content-frame-gallery-trigger {
+  appearance: none;
+  position: absolute;
+  inset: 32px -16px -14px 36px;
+  z-index: 6;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* 图集悬停光效：在白色底框上叠加淡金色提示 */
+.content-frame-icon-stack.is-clickable::after {
+  content: "";
+  position: absolute;
+  inset: 32px -16px -14px 36px;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 80% 18%, rgba(224, 194, 143, 0.28), transparent 34%),
+    linear-gradient(135deg, rgba(200, 155, 90, 0.16), transparent 58%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* 图集悬停反馈：鼠标和键盘聚焦时显示金色提示 */
+.content-frame-icon-stack.is-clickable:has(.content-frame-gallery-trigger:hover)::after,
+.content-frame-icon-stack.is-clickable:has(.content-frame-gallery-trigger:focus-visible)::after {
+  opacity: 1;
+  box-shadow:
+    inset 0 0 38px rgba(200, 155, 90, 0.16),
+    0 0 24px rgba(200, 155, 90, 0.18);
+}
+
+/* 图集键盘焦点：给可点击立绘框提供可见焦点 */
+.content-frame-gallery-trigger:focus-visible {
+  outline: 1px solid var(--color-gold-light);
+  outline-offset: 8px;
 }
 
 .content-frame-icon-stack.is-figure {
@@ -330,6 +386,7 @@
   width: auto;
   height: auto;
   overflow: visible;
+  pointer-events: none;
   transform: translateX(-50%);
 }
 
@@ -344,6 +401,29 @@
   max-height: none;
   object-fit: contain;
   object-position: center top;
+  pointer-events: none;
+}
+
+/* 图集入口图标：提示人物立绘框可打开图集 */
+.content-frame-gallery-badge {
+  position: absolute;
+  top: 42px;
+  right: 2px;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* 图集入口图标图片：固定小图标尺寸 */
+.content-frame-gallery-badge img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .content-frame-icon-caption {
@@ -752,6 +832,16 @@
     transform: translateX(-50%);
   }
 
+  /* 移动端图集悬停光效：匹配移动端立绘框尺寸 */
+  .content-frame-icon-stack.is-clickable::after {
+    inset: 22px 0 -8px 0;
+  }
+
+  /* 移动端图集触发按钮：只覆盖移动端纸框范围 */
+  .content-frame-gallery-trigger {
+    inset: 22px 0 -8px 0;
+  }
+
   .content-frame-icon-stack.is-extended {
     width: clamp(168px, 46vw, 230px);
   }
@@ -870,6 +960,20 @@
     object-position: center top;
   }
 
+  /* 移动端图集入口图标：缩小并保持右上角位置 */
+  .content-frame-gallery-badge {
+    top: 22px;
+    right: 12px;
+    width: 35px;
+    height: 35px;
+  }
+
+  /* 移动端图集入口图标图片：适配较小按钮 */
+  .content-frame-gallery-badge img {
+    width: 35px;
+    height: 35px;
+  }
+
   .content-frame-texture-right-blue,
   .content-frame-texture-right-gold-a,
   .content-frame-texture-right-gold-b,
@@ -922,5 +1026,22 @@
 
   .content-frame-next-link-standalone {
     --content-frame-next-right: 0px;
+  }
+}
+
+
+@media (max-width: 620px) {
+ /* 移动端图集入口图标：缩小并保持右上角位置 */
+  .content-frame-gallery-badge {
+    top: 22px;
+    right: 12px;
+    width: 25px;
+    height: 25px;
+  }
+
+  /* 移动端图集入口图标图片：适配较小按钮 */
+  .content-frame-gallery-badge img {
+    width: 25px;
+    height: 25px;
   }
 }
