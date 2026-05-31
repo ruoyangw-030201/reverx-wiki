@@ -7,6 +7,7 @@ import {
 
 const cgRootPath = join(process.cwd(), "public", "cg");
 const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;
+const webpExtensionPattern = /\.webp$/i;
 
 function getCharacterSlug(href) {
   if (typeof href !== "string") return undefined;
@@ -37,7 +38,32 @@ function getPublicFileName(src) {
 function getImageCaption(galleryRef, fileName) {
   if (!galleryRef || !fileName) return "";
 
-  return characterGalleryCaptions[galleryRef]?.[fileName] ?? "";
+  const captions = characterGalleryCaptions[galleryRef];
+  if (!captions) return "";
+
+  if (captions[fileName]) return captions[fileName];
+
+  const stem = getImageStem(fileName);
+  const fallbackEntry = Object.entries(captions).find(([captionFileName]) => (
+    getImageStem(captionFileName) === stem
+  ));
+
+  return fallbackEntry?.[1] ?? "";
+}
+
+function getImageStem(fileName) {
+  return fileName.replace(/\.[^.]+$/, "");
+}
+
+function getPreferredGalleryImage(group) {
+  const sortedFiles = [...group].sort((a, b) => (
+    a.localeCompare(b, "en", { numeric: true, sensitivity: "base" })
+  ));
+  const webpFile = sortedFiles.find((fileName) => webpExtensionPattern.test(fileName));
+  const sourceFileName = webpFile ?? sortedFiles[0];
+  const captionFileName = sortedFiles.find((fileName) => !webpExtensionPattern.test(fileName)) ?? sourceFileName;
+
+  return { sourceFileName, captionFileName };
 }
 
 function withCaption(image, caption) {
@@ -68,14 +94,26 @@ function readCgImages(galleryRef, fallbackAlt) {
   const galleryPath = join(cgRootPath, galleryRef);
   if (!existsSync(galleryPath)) return [];
 
-  return readdirSync(galleryPath, { withFileTypes: true })
+  const groupedFiles = readdirSync(galleryPath, { withFileTypes: true })
     .filter((entry) => entry.isFile() && imageExtensionPattern.test(entry.name))
     .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b, "en", { numeric: true, sensitivity: "base" }))
-    .map((fileName) => ({
-      src: encodePublicPath("cg", galleryRef, fileName),
+    .reduce((groups, fileName) => {
+      const stem = getImageStem(fileName).toLocaleLowerCase("en");
+      const group = groups.get(stem) ?? [];
+      group.push(fileName);
+      groups.set(stem, group);
+      return groups;
+    }, new Map());
+
+  return Array.from(groupedFiles.values())
+    .map(getPreferredGalleryImage)
+    .sort((a, b) => (
+      a.sourceFileName.localeCompare(b.sourceFileName, "en", { numeric: true, sensitivity: "base" })
+    ))
+    .map(({ sourceFileName, captionFileName }) => ({
+      src: encodePublicPath("cg", galleryRef, sourceFileName),
       alt: fallbackAlt,
-      caption: getImageCaption(galleryRef, fileName),
+      caption: getImageCaption(galleryRef, captionFileName),
     }));
 }
 

@@ -28,6 +28,8 @@ body.gallery-is-open {
   transition:
     opacity 160ms ease,
     visibility 160ms ease;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 /* 图集隐藏状态：关闭时完全移出渲染 */
@@ -199,6 +201,8 @@ body.gallery-is-open {
   min-height: 0;
   overflow: hidden;
   pointer-events: none;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 /* 图集当前图片：在可用视口内等比缩放 */
@@ -210,6 +214,8 @@ body.gallery-is-open {
   height: auto;
   object-fit: contain;
   pointer-events: auto;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
   user-select: none;
 }
 

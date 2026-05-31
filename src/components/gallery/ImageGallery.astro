@@ -34,6 +34,7 @@ const firstImage = galleryImages[0];
           class="image-gallery-image"
           src={firstImage.src}
           alt={firstImage.alt ?? ""}
+          draggable="false"
           data-gallery-image
         />
       </div>
@@ -99,6 +100,7 @@ const firstImage = galleryImages[0];
         if (image instanceof HTMLImageElement) {
           image.src = imageData.src;
           image.alt = imageData.alt ?? "";
+          image.draggable = false;
         }
 
         if (caption) {
@@ -220,6 +222,14 @@ const firstImage = galleryImages[0];
         document.querySelectorAll("[data-image-gallery]").forEach((gallery) => {
           if (gallery.dataset.galleryBound === "true") return;
           gallery.dataset.galleryBound = "true";
+
+          gallery.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+          });
+
+          gallery.addEventListener("dragstart", (event) => {
+            event.preventDefault();
+          });
 
           gallery.querySelectorAll("[data-gallery-close]").forEach((button) => {
             button.addEventListener("click", (event) => {
