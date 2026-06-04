@@ -13,7 +13,6 @@ const {
   showLines = true,
   nextPageLink,
   extraFrameVars,
-  measureInteractive = false,
 } = Astro.props;
 
 const isSimple = variant === "simple";
@@ -88,13 +87,7 @@ const frameVars = [
           </div>
         )}
 
-        <div
-          class:list={[
-            "content-frame-measure-layer",
-            measureInteractive && "is-interactive",
-          ]}
-          aria-hidden={measureInteractive ? undefined : "true"}
-        >
+        <div class="content-frame-measure-layer" aria-hidden="true">
           <slot name="measure" />
         </div>
 
@@ -105,6 +98,10 @@ const frameVars = [
         <div class="content-frame-body content-prose">
           <slot name="before-body" />
           <slot />
+        </div>
+
+        <div class="content-frame-interaction-layer">
+          <slot name="interaction" />
         </div>
       </>
     )}

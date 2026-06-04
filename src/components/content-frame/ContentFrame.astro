@@ -1,5 +1,6 @@
 ---
 import ContentFrameBox from "./ContentFrameBox.astro";
+import ContentFrameGalleryInteraction from "./ContentFrameGalleryInteraction.astro";
 import ContentFrameIconFrame from "./ContentFrameIconFrame.astro";
 import ContentFrameLeftDecor from "./ContentFrameLeftDecor.astro";
 import ContentFrameRightDecor from "./ContentFrameRightDecor.astro";
@@ -43,7 +44,6 @@ const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameG
   showPaper={showPaper}
   showLines={showLines}
   extraFrameVars={showIconFrame ? `--content-frame-icon-count: ${resolvedIconItems.length};` : undefined}
-  measureInteractive={hasIconFrameGallery}
   nextPageLink={nextPageLink}
 >
   {showDecor && (
@@ -62,9 +62,17 @@ const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameG
         items={iconItems}
         variant={iconFrameVariant}
         showJunction={showJunction}
+      />
+    </Fragment>
+  )}
+
+  {hasIconFrameGallery && (
+    <Fragment slot="interaction">
+      <ContentFrameGalleryInteraction
         galleryId={iconFrameGalleryId}
         galleryLabel={iconFrameGalleryLabel}
         galleryBadge={iconFrameGalleryBadge}
+        variant={iconFrameVariant}
       />
     </Fragment>
   )}

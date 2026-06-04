@@ -8,9 +8,6 @@ const {
   items,
   variant = "default",
   showJunction = true,
-  galleryId,
-  galleryLabel = "打开图片图集",
-  galleryBadge = "/icon/picture.png",
 } = Astro.props;
 
 const iconItems = Array.isArray(items)
@@ -45,7 +42,6 @@ const displayIconItems = iconItems.map((item) => ({
 
 const isExtended = variant === "extended";
 const isFigure = variant === "figure";
-const hasGallery = typeof galleryId === "string" && galleryId.length > 0;
 const iconFrameHeight = isExtended
   ? `${Math.max(352, 120 + iconItems.length * 132)}px`
   : undefined;
@@ -56,19 +52,10 @@ const iconFrameHeight = isExtended
     "content-frame-icon-stack",
     isExtended && "is-extended",
     isFigure && "is-figure",
-    hasGallery && "is-clickable",
   ]}
   style={iconFrameHeight ? `--content-frame-icon-stack-height: ${iconFrameHeight};` : undefined}
-  aria-hidden={hasGallery ? undefined : "true"}
+  aria-hidden="true"
 >
-  {hasGallery && (
-    <button
-      class="content-frame-gallery-trigger"
-      type="button"
-      aria-label={galleryLabel}
-      data-gallery-open={galleryId}
-    ></button>
-  )}
   <span class="content-frame-icon-box content-frame-icon-box-main"></span>
   <span class="content-frame-icon-box content-frame-icon-box-inner"></span>
   {showJunction && (
@@ -95,11 +82,6 @@ const iconFrameHeight = isExtended
           {item.caption && <span class="content-frame-icon-caption">{item.caption}</span>}
         </span>
       ))}
-    </span>
-  )}
-  {hasGallery && (
-    <span class="content-frame-gallery-badge" aria-hidden="true">
-      <img src={galleryBadge} alt="" />
     </span>
   )}
 </div>

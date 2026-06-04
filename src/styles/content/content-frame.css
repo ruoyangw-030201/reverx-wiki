@@ -50,6 +50,7 @@
 .content-frame-paper,
 .content-frame-lines,
 .content-frame-measure-layer,
+.content-frame-interaction-layer,
 .content-frame-icon-stack,
 .content-frame-icon-junction {
   position: absolute;
@@ -175,9 +176,13 @@
   z-index: 5;
 }
 
-/* 图集触发层：允许人物立绘框接收点击 */
-.content-frame-measure-layer.is-interactive {
-  z-index: 7;
+/* 正文框交互层：只承载独立的透明点击区域 */
+.content-frame-interaction-layer {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
   pointer-events: none;
 }
 
@@ -195,9 +200,30 @@
   isolation: isolate;
 }
 
-/* 图集可点击状态：给立绘框明确的交互指针 */
-.content-frame-icon-stack.is-clickable {
-  cursor: pointer;
+/* 图集独立交互框：与视觉图标框同位但不承载立绘 */
+.content-frame-icon-interaction {
+  position: absolute;
+  right: var(--content-frame-icon-right);
+  top: var(--content-frame-icon-top);
+  width: var(--content-frame-icon-stack-width);
+  height: var(--content-frame-icon-stack-height);
+  pointer-events: none;
+}
+
+/* 图集交互框悬停光效：在右侧纸框范围内提示可打开图集 */
+.content-frame-icon-interaction::after {
+  content: "";
+  position: absolute;
+  inset: 32px -16px -14px 36px;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 80% 18%, rgba(224, 194, 143, 0.28), transparent 34%),
+    linear-gradient(135deg, rgba(200, 155, 90, 0.16), transparent 58%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    box-shadow 180ms ease;
 }
 
 /* 图集触发按钮：只覆盖人物纸框与边框区域 */
@@ -214,25 +240,9 @@
   pointer-events: auto;
 }
 
-/* 图集悬停光效：在白色底框上叠加淡金色提示 */
-.content-frame-icon-stack.is-clickable::after {
-  content: "";
-  position: absolute;
-  inset: 32px -16px -14px 36px;
-  z-index: 1;
-  background:
-    radial-gradient(circle at 80% 18%, rgba(224, 194, 143, 0.28), transparent 34%),
-    linear-gradient(135deg, rgba(200, 155, 90, 0.16), transparent 58%);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 180ms ease,
-    box-shadow 180ms ease;
-}
-
 /* 图集悬停反馈：鼠标和键盘聚焦时显示金色提示 */
-.content-frame-icon-stack.is-clickable:has(.content-frame-gallery-trigger:hover)::after,
-.content-frame-icon-stack.is-clickable:has(.content-frame-gallery-trigger:focus-visible)::after {
+.content-frame-icon-interaction:has(.content-frame-gallery-trigger:hover)::after,
+.content-frame-icon-interaction:has(.content-frame-gallery-trigger:focus-visible)::after {
   opacity: 1;
   box-shadow:
     inset 0 0 38px rgba(200, 155, 90, 0.16),
@@ -809,6 +819,15 @@
     height: var(--content-frame-mobile-icon-space);
   }
 
+  /* 移动端正文框交互层：覆盖正文框用于放置独立点击区域 */
+  .content-frame-interaction-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   /* 移动端正文框前的独立控制区 */
   .content-frame-mobile-before-body:has(.archive-entry-year-menu) {
     position: relative;
@@ -833,8 +852,19 @@
   }
 
   /* 移动端图集悬停光效：匹配移动端立绘框尺寸 */
-  .content-frame-icon-stack.is-clickable::after {
+  .content-frame-icon-interaction::after {
     inset: 22px 0 -8px 0;
+  }
+
+  /* 移动端图集独立交互框：与移动端视觉图标框同位 */
+  .content-frame-icon-interaction {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: 0;
+    width: clamp(150px, 42vw, 210px);
+    height: var(--content-frame-mobile-icon-stack-height, clamp(145px, 40vw, 198px));
+    transform: translateX(-50%);
   }
 
   /* 移动端图集触发按钮：只覆盖移动端纸框范围 */
