@@ -1,0 +1,14 @@
+---
+const {
+  label = "风险与破坏规模",
+  low = "低",
+  high = "高",
+} = Astro.props;
+---
+
+<aside class="intensity-danger-scale" aria-label={label}>
+  <span class="intensity-danger-scale__low">{low}</span>
+  <img class="intensity-danger-scale__graphic" src="/texture/arrow.svg" alt="" aria-hidden="true" loading="lazy" />
+  <span class="intensity-danger-scale__label">{label}</span>
+  <span class="intensity-danger-scale__high">{high}</span>
+</aside>

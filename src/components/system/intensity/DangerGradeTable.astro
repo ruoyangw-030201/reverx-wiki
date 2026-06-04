@@ -1,0 +1,39 @@
+---
+const {
+  rows = [],
+} = Astro.props;
+---
+
+<div class="intensity-danger-table-wrap">
+  <table class="intensity-danger-table">
+    <caption class="intensity-danger-table__caption">危险等级表</caption>
+    <thead>
+      <tr>
+        <th class="intensity-danger-table__blank-head" scope="col" aria-label="等级"></th>
+        <th class="intensity-danger-table__blank-head" scope="col" aria-label="说明"></th>
+        <th scope="col">猎魔者</th>
+        <th scope="col">魔物</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr class:list={[`is-${row.gradeClass}`]}>
+          <th class="intensity-danger-table__grade" scope="row">
+            <span class="intensity-danger-table__diamond" aria-hidden="true"></span>
+            <span class="intensity-danger-table__grade-main">{row.grade}</span>
+          </th>
+          <td class="intensity-danger-table__copy">
+            <strong>{row.title}</strong>
+            <span>{row.description}</span>
+          </td>
+          <td class="intensity-danger-table__icon-cell">
+            <img src={row.hunterIcon} alt={row.hunterAlt ?? ""} />
+          </td>
+          <td class="intensity-danger-table__icon-cell">
+            <img src={row.monsterIcon} alt={row.monsterAlt ?? ""} />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

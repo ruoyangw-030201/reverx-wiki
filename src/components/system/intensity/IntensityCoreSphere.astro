@@ -1,0 +1,22 @@
+---
+const {
+  title = "强度 = 品阶 × 容积",
+  roundTexture = "/texture/round_round.svg",
+  radiantTexture = "/texture/round_radiant.svg",
+} = Astro.props;
+---
+
+<div
+  class="intensity-core-sphere"
+  style={`--intensity-round-texture: url("${roundTexture}"); --intensity-radiant-texture: url("${radiantTexture}")`}
+>
+  <span class="intensity-core-sphere__texture is-round" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__texture is-radiant" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__ring" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__node is-left-upper" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__node is-left-lower" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__node is-right-upper" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__node is-right-lower" aria-hidden="true"></span>
+  <span class="intensity-core-sphere__node is-bottom" aria-hidden="true"></span>
+  <p class="intensity-core-sphere__title">{title}</p>
+</div>

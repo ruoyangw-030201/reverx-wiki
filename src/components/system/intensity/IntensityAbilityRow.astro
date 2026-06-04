@@ -1,0 +1,18 @@
+---
+const {
+  icon,
+  iconAlt = "",
+  title,
+  description,
+} = Astro.props;
+---
+
+<article class="intensity-ability-row">
+  <span class="intensity-ability-row__icon" aria-hidden={iconAlt ? undefined : "true"}>
+    <img src={icon} alt={iconAlt} />
+  </span>
+  <span class="intensity-ability-row__copy">
+    <strong class="intensity-ability-row__title">{title}</strong>
+    <span class="intensity-ability-row__description">{description}</span>
+  </span>
+</article>

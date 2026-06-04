@@ -1,125 +1,170 @@
 ---
-import ContentFrame from "../../components/content-frame/ContentFrame.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import IntensityDiagram from "../../components/system/intensity/IntensityDiagram.astro";
+
+const placeholderIcons = {
+  class: "/icon/reality.png",
+  capacity: "/icon/field.png",
+  basic: "/icon/core.png",
+  energy: "/icon/electric.png",
+  semi: "/icon/fusion-weapon.png",
+  dismantle: "/icon/hypodimension.png",
+  overlimit: "/icon/light.png",
+  hunter: "/icon/human.png",
+  monster: "/icon/malit.png",
+  unknown: "/icon/unknown.png",
+};
+
+const classRows = [
+  {
+    icon: placeholderIcons.basic,
+    title: "基础级",
+    description: "可以使用武器造成“物理伤害”",
+  },
+  {
+    icon: placeholderIcons.energy,
+    title: "能量级",
+    description: "可以使用武器释放能量、信息",
+  },
+  {
+    icon: placeholderIcons.semi,
+    title: "半解构级",
+    description: "可以给武器附魔使用，比能量级破坏性更强",
+  },
+  {
+    icon: placeholderIcons.dismantle,
+    title: "解构级",
+    description: "可以不依托武器，直接徒手使用能力，自由度大幅提升",
+  },
+  {
+    icon: placeholderIcons.overlimit,
+    title: "超限级",
+    description: "开始触及谱系本质，发展出自身独特的概念",
+  },
+];
+
+const dangerRows = [
+  {
+    grade: "JR",
+    code: "~准SS",
+    gradeClass: "jr",
+    title: "猎魔者专属危险等级；注册猎魔者",
+    description: "成熟初级，基本不具备对社会或个体造成实际影响的能力。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "SR",
+    code: "~准SS",
+    gradeClass: "sr",
+    title: "猎魔者专属危险等级；资深猎魔者",
+    description: "成熟较低，可能在局部范围造成轻微影响，易被控制与处理。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D1",
+    code: "~中OS",
+    gradeClass: "d1",
+    title: "可正面击溃一支普通武装小队",
+    description: "威胁一般，对小范围目标造成显著破坏，需要专业措施应对。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D2",
+    code: "~中PS",
+    gradeClass: "d2",
+    title: "可压制或歼灭多支小队；在封闭区域形成绝对优势",
+    description: "威胁较高，可在局部区段形成压制，需要多人协同或强力手段。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D3",
+    code: "~准DR",
+    gradeClass: "d3",
+    title: "可控制或摧毁一个街区；明显破坏普通社会秩序",
+    description: "威胁很高，可压制局部秩序，造成大规模混乱与损失。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D4",
+    code: "~中CR",
+    gradeClass: "d4",
+    title: "可控制或摧毁一个城区；对设施和人群造成大规模破坏",
+    description: "威胁极高，可系统性摧毁基础设施，导致大量人员伤亡。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D5",
+    code: "~总SR",
+    gradeClass: "d5",
+    title: "可控制或摧毁整座城市",
+    description: "威胁毁灭级，具备摧毁或瘫痪完整城市的能力。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "D6",
+    code: "~总SS",
+    gradeClass: "d6",
+    title: "能力范围可影响州、省级区域大小",
+    description: "威胁毁灭级，可能跨州/省区范围，造成灾难性后果。",
+    hunterIcon: placeholderIcons.hunter,
+    monsterIcon: placeholderIcons.monster,
+  },
+  {
+    grade: "...",
+    code: "",
+    gradeClass: "unknown",
+    title: "尚不明确",
+    description: "尚不明确",
+    hunterIcon: placeholderIcons.unknown,
+    monsterIcon: placeholderIcons.unknown,
+  },
+];
+
+const classCard = {
+  title: "品阶",
+  subtitle: "CLASS",
+  lead: "品阶代表能力所处的层级，通常来说是天生的。",
+  titleIcon: placeholderIcons.class,
+  rows: classRows,
+};
+
+const capacityCard = {
+  title: "容积",
+  subtitle: "CAPACITY",
+  lead: [
+    "容积就是恶能者自身“场”的大小，本质上就是蓝条。",
+    "场越大、场中的粒子密度更高，总能量就越多（蓝条就越长）。",
+  ],
+  titleIcon: placeholderIcons.capacity,
+  texture: "/texture/capacity.svg",
+};
+
+const core = {
+  title: "强度 = 品阶 × 容积",
+  roundTexture: "/texture/round_round.svg",
+  radiantTexture: "/texture/round_radiant.svg",
+};
+
+const badge = {
+  title: "危险等级 D",
+  subtitle: "D-RANK",
+  description: "描述最终破坏规模",
+};
 ---
 
 <ArchiveLayout contentMode="custom">
-  <ContentFrame icon="/icon/danger.png" iconAlt="强度">
-    <p>
-      现代分类法中，强度用危险等级来表示。这是一套人类和魔物通用的强度评判系统。D即为危险系数，级别上不封顶；目前发现的最危险魔物为D6级。由低到高显示，如下表。
-    </p>
-    <div class="archive-table-wrap">
-      <table class="archive-table is-density">
-        <thead>
-          <tr>
-            <th scope="col">危险等级</th>
-            <th scope="col">人类标准</th>
-            <th scope="col">魔物标准</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="is-gold-grade-1" scope="row">JR</th>
-            <td>可注册成为猎魔者</td>
-            <td>/</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-2" scope="row">SR</th>
-            <td>资深猎魔者</td>
-            <td>/</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-3" scope="row">D1</th>
-            <td colspan="2">可正面击溃一支普通武装小队</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-4" scope="row">D2</th>
-            <td colspan="2">可压制或歼灭多支小队；在建筑、封闭区域内形成绝对优势</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-5" scope="row">D3</th>
-            <td colspan="2">可控制或摧毁一个街区；对普通社会秩序造成明显破坏</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-6" scope="row">D4</th>
-            <td colspan="2">可控制或摧毁一个城区；对基础设施、人群造成大规模破坏</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-7" scope="row">D5</th>
-            <td colspan="2">可控制或摧毁整座城市</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-8" scope="row">D6</th>
-            <td colspan="2">能力范围可影响州/省级地区大小</td>
-          </tr>
-          <tr>
-            <th class="is-gold-grade-8" scope="row">...</th>
-            <td colspan="2">尚不明确</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      而具体来说，在恶能体系中，强度取决于能力的品阶和容积。
-    </p>
-    <p>
-      可以说，强度=品阶x容积。
-    </p>
-
-    <p>
-      <strong>【品阶】</strong>
-    </p>
-    <p>
-      品阶代表能力所处的层级，通常来说是天生的。现代分类法将品阶如下，由低级到高级分类：
-    </p>
-    <div class="archive-table-wrap">
-      <table class="archive-table">
-        <thead>
-          <tr>
-            <th scope="col">品阶</th>
-            <th scope="col">定义</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="is-blue-grade-1" scope="row">基础级</th>
-            <td>可以使用武器造成“物理伤害”</td>
-          </tr>
-          <tr>
-            <th class="is-blue-grade-2" scope="row">能量级</th>
-            <td>可以使用武器释放能量、信息</td>
-          </tr>
-          <tr>
-            <th class="is-blue-grade-3" scope="row">半解构级</th>
-            <td>可以给武器附魔使用，比能量级破坏性更强</td>
-          </tr>
-          <tr>
-            <th class="is-blue-grade-4" scope="row">解构级</th>
-            <td>可以不依托武器，直接徒手使用能力，自由度大幅提升</td>
-          </tr>
-          <tr>
-            <th class="is-blue-grade-5" scope="row">超限级</th>
-            <td>开始触及谱系本质，发展出自身独特的概念</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      <strong>【容积】</strong>
-    </p>
-    <p>
-      容积就是恶能者自身“场”的大小，本质上就是蓝条。
-    </p>
-    <p>
-      场越大、场中的痕迹粒子密度更高，总能量就越多（蓝条就越长）。
-    </p>
-    <p>
-      同样的能力，在高品阶下可以产生本质性的变化；而在高容积下，则可以覆盖更大范围、持续更久，或释放更强烈的效果。
-    </p>
-    <p>
-      因此，强度虽然和品阶正相关，但并不完全等同于品阶。低品阶但高容积的恶能者，仍可能在实际战斗中压制高品阶但容积较小的对手。
-    </p>
-  </ContentFrame>
+  <IntensityDiagram
+    classCard={classCard}
+    capacityCard={capacityCard}
+    core={core}
+    badge={badge}
+    dangerRows={dangerRows}
+  />
 </ArchiveLayout>

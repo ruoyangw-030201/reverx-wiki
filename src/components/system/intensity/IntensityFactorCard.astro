@@ -1,0 +1,64 @@
+---
+import IntensityAbilityRow from "./IntensityAbilityRow.astro";
+
+const {
+  variant = "class",
+  title,
+  subtitle,
+  lead,
+  titleIcon,
+  titleIconAlt = "",
+  rows = [],
+  texture,
+  textureAlt = "",
+} = Astro.props;
+
+const leadParagraphs = Array.isArray(lead)
+  ? lead
+  : String(lead ?? "").split(/\n\s*\n/).filter(Boolean);
+---
+
+<article class:list={["intensity-factor-card", `is-${variant}`]}>
+  <span class="intensity-factor-card__node is-upper" aria-hidden="true"></span>
+  <span class="intensity-factor-card__node is-lower" aria-hidden="true"></span>
+
+  <div class="intensity-factor-card__inner">
+    <header class="intensity-factor-card__header">
+      {titleIcon && (
+        <span class="intensity-factor-card__title-icon" aria-hidden={titleIconAlt ? undefined : "true"}>
+          <img src={titleIcon} alt={titleIconAlt} />
+        </span>
+      )}
+      <h2 class="intensity-factor-card__title">{title}</h2>
+      <p class="intensity-factor-card__subtitle">{subtitle}</p>
+    </header>
+
+    {leadParagraphs.length > 0 && (
+      <div class="intensity-factor-card__lead">
+        {leadParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    )}
+
+    {rows.length > 0 && (
+      <div class="intensity-factor-card__rows">
+        {rows.map((row) => (
+          <IntensityAbilityRow {...row} />
+        ))}
+      </div>
+    )}
+
+    {texture && (
+      <div class="intensity-factor-card__texture-slot">
+        <div
+          class="intensity-factor-card__texture"
+          style={`--intensity-card-texture: url("${texture}")`}
+          aria-hidden={textureAlt ? undefined : "true"}
+          role={textureAlt ? "img" : undefined}
+          aria-label={textureAlt || undefined}
+        ></div>
+      </div>
+    )}
+  </div>
+</article>

@@ -1,0 +1,1175 @@
+/* 强度页外层底部收尾 */
+.archive-shell:has(.intensity-diagram) {
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+
+/* 强度页内容区收尾 */
+.archive-content-area:has(.intensity-diagram) {
+  padding-bottom: clamp(28px, 4vw, 56px);
+}
+
+/* 强度页自定义内容轨道 */
+.archive-content-area:has(.intensity-diagram) > .intensity-diagram {
+  width: calc(100% - var(--archive-content-outset-width));
+  margin-left: var(--archive-content-outset-x);
+}
+
+/* 强度页隐藏首组小型滚动装饰 */
+.archive-page:has(.intensity-diagram) .archive-scroll-decor .scroll-decor-group:first-child .scroll-decor-small {
+  display: none;
+}
+
+/* 强度页主容器 */
+.intensity-diagram {
+  --intensity-blue: #17395f;
+  --intensity-blue-soft: rgba(138, 169, 201, 0.5);
+  --intensity-blue-line: rgba(23, 57, 95, 0.92);
+  --intensity-gold: #c89b5a;
+  --intensity-gold-soft: rgba(224, 194, 143, 0.78);
+  --intensity-russet: #7d3b27;
+  --intensity-paper: rgba(251, 250, 246, 0.94);
+  --intensity-card-width: clamp(330px, 22vw, 354px);
+  --intensity-card-height: clamp(520px, 34vw, 600px);
+  --intensity-core-size: clamp(340px, 25vw, 420px);
+  --intensity-core-track-width: clamp(380px, 29vw, 500px);
+  --intensity-core-ring-size: calc(var(--intensity-core-size) * 0.72);
+  --intensity-core-offset-top: clamp(48px, 4vw, 68px);
+  --intensity-factor-gap: clamp(14px, 1.5vw, 24px);
+  --intensity-node-size: 12px;
+  --intensity-card-node-upper-y: calc(var(--intensity-card-height) * 0.32);
+  --intensity-card-node-lower-y: calc(var(--intensity-card-height) * 0.8);
+  --intensity-core-center-y: calc(var(--intensity-core-offset-top) + var(--intensity-core-size) / 2);
+  --intensity-core-left-x: calc(50% - var(--intensity-core-ring-size) / 2);
+  --intensity-core-right-x: calc(50% + var(--intensity-core-ring-size) / 2);
+  --intensity-core-side-gap: clamp(42px, 3.2vw, 56px);
+  --intensity-core-side-node-upper-y: calc(var(--intensity-core-center-y) - var(--intensity-core-side-gap) / 2);
+  --intensity-core-side-node-lower-y: calc(var(--intensity-core-center-y) + var(--intensity-core-side-gap) / 2);
+
+  --intensity-core-bottom-node-y: calc(var(--intensity-core-center-y) + var(--intensity-core-ring-size) / 2);
+  --intensity-badge-line-length: clamp(206px, 15vw, 267px);
+  --intensity-badge-top-y: calc(var(--intensity-core-bottom-node-y) + var(--intensity-badge-line-length));
+  --intensity-danger-badge-width: clamp(190px, 15vw, 236px);
+  --intensity-danger-badge-height: clamp(86px, 6.8vw, 106px);
+
+  --intensity-danger-decor-width: clamp(247px, 20vw, 318px);
+  --intensity-left-card-right-x: var(--intensity-card-width);
+  --intensity-right-card-left-x: calc(100% - var(--intensity-card-width));
+  width: 100%;
+  margin-top: clamp(24px, 2.8vw, 42px);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* 强度页无障碍标题 */
+.intensity-diagram__sr-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 强度页主舞台 */
+.intensity-diagram__stage {
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+  padding-bottom: clamp(18px, 2.2vw, 30px);
+}
+
+/* 左右大卡与核心圆布局 */
+.intensity-diagram__factors {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--intensity-card-width) var(--intensity-core-track-width) var(--intensity-card-width);
+  align-items: stretch;
+  gap: var(--intensity-factor-gap);
+  width: min(
+    100%,
+    calc(
+      var(--intensity-card-width) * 2 + var(--intensity-core-track-width) +
+      var(--intensity-factor-gap) * 2
+    )
+  );
+  margin-inline: auto;
+  min-height: var(--intensity-card-height);
+}
+
+/* 中央圆球区域 */
+.intensity-diagram__core {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  align-self: start;
+  min-height: var(--intensity-card-height);
+  padding-top: var(--intensity-core-offset-top);
+}
+
+/* 鍦嗙悆鐧借壊搴曞眰 */
+.intensity-diagram__core::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(var(--intensity-core-offset-top) + var(--intensity-core-size) / 2);
+  z-index: 1;
+  width: calc(var(--intensity-core-size) * 0.82);
+  height: calc(var(--intensity-core-size) * 0.82);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* 因子连接线图层 */
+.intensity-diagram__connector-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 因子连接折线分支 */
+.intensity-diagram__connector-branch {
+  position: absolute;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* 因子连接折线路径 */
+.intensity-diagram__connector-branch path {
+  fill: none;
+  stroke: var(--intensity-blue-line);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* 品阶上节点到圆球左上节点 */
+.intensity-diagram__connector-branch.is-class-upper {
+  left: var(--intensity-left-card-right-x);
+  top: var(--intensity-card-node-upper-y);
+  width: calc(var(--intensity-core-left-x) - var(--intensity-left-card-right-x));
+  height: calc(var(--intensity-core-side-node-upper-y) - var(--intensity-card-node-upper-y));
+}
+
+/* 品阶下节点到圆球左下节点 */
+.intensity-diagram__connector-branch.is-class-lower {
+  left: var(--intensity-left-card-right-x);
+  top: var(--intensity-core-side-node-lower-y);
+  width: calc(var(--intensity-core-left-x) - var(--intensity-left-card-right-x));
+  height: calc(var(--intensity-card-node-lower-y) - var(--intensity-core-side-node-lower-y));
+}
+
+/* 容积上节点到圆球右上节点 */
+.intensity-diagram__connector-branch.is-capacity-upper {
+  left: var(--intensity-core-right-x);
+  top: var(--intensity-card-node-upper-y);
+  width: calc(var(--intensity-right-card-left-x) - var(--intensity-core-right-x));
+  height: calc(var(--intensity-core-side-node-upper-y) - var(--intensity-card-node-upper-y));
+}
+
+/* 容积下节点到圆球右下节点 */
+.intensity-diagram__connector-branch.is-capacity-lower {
+  left: var(--intensity-core-right-x);
+  top: var(--intensity-core-side-node-lower-y);
+  width: calc(var(--intensity-right-card-left-x) - var(--intensity-core-right-x));
+  height: calc(var(--intensity-card-node-lower-y) - var(--intensity-core-side-node-lower-y));
+}
+
+.intensity-diagram__badge-row {
+  position: absolute;
+  top: var(--intensity-badge-top-y);
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  margin-top: 0;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* 圆球到底部徽章的竖向连接 */
+.intensity-diagram__badge-row::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(-1 * var(--intensity-badge-line-length));
+  width: 2px;
+  height: var(--intensity-badge-line-length);
+  background: rgba(125, 59, 39, 0.78);
+  transform: translateX(-50%);
+}
+
+
+/* 表格与危险条区域 */
+/* 危险徽章侧边折线 */
+.intensity-diagram__table-zone {
+  position: relative;
+  width: calc(100% - clamp(120px, 12vw, 190px));
+  margin: 2.7vw auto 0;
+}
+
+/* 因子大卡 */
+.intensity-factor-card {
+  position: relative;
+  z-index: 5;
+  width: var(--intensity-card-width);
+  height: 100%;
+  min-height: var(--intensity-card-height);
+  border: 1px solid var(--intensity-blue-soft);
+  border-radius: 8px;
+  background: var(--intensity-paper);
+  box-shadow: inset 0 0 42px rgba(45, 95, 150, 0.045);
+}
+
+/* 容积大卡 */
+.intensity-factor-card.is-capacity {
+  border-color: rgba(200, 155, 90, 0.56);
+  box-shadow: inset 0 0 42px rgba(200, 155, 90, 0.055);
+}
+
+/* 大卡边界节点 */
+.intensity-factor-card__node {
+  position: absolute;
+  z-index: 8;
+  display: block;
+  width: var(--intensity-node-size);
+  height: var(--intensity-node-size);
+  border: 1px solid var(--color-paper);
+  border-radius: 50%;
+  background: var(--intensity-blue);
+}
+
+/* 大卡上节点 */
+.intensity-factor-card__node.is-upper {
+  top: var(--intensity-card-node-upper-y);
+}
+
+/* 大卡下节点 */
+.intensity-factor-card__node.is-lower {
+  top: var(--intensity-card-node-lower-y);
+}
+
+/* 品阶卡节点 */
+.intensity-factor-card.is-class .intensity-factor-card__node {
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+/* 容积卡节点 */
+.intensity-factor-card.is-capacity .intensity-factor-card__node {
+  left: 0;
+  background: var(--intensity-gold);
+  transform: translate(-50%, -50%);
+}
+
+/* 大卡内框 */
+.intensity-factor-card__inner {
+  position: relative;
+  height: calc(100% - 20px);
+  min-height: calc(var(--intensity-card-height) - 20px);
+  margin: 10px;
+  padding: clamp(18px, 1.55vw, 24px) clamp(16px, 1.25vw, 20px) clamp(20px, 1.8vw, 28px);
+  border: 1px solid rgba(138, 169, 201, 0.26);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 容积卡内框 */
+.intensity-factor-card.is-capacity .intensity-factor-card__inner {
+  display: flex;
+  flex-direction: column;
+  border-color: rgba(224, 194, 143, 0.38);
+}
+
+/* 大卡标题区域 */
+.intensity-factor-card__header {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding-top: 2px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--intensity-blue);
+  text-align: center;
+}
+
+/* 容积卡标题线 */
+.intensity-factor-card.is-capacity .intensity-factor-card__header {
+  border-bottom-color: rgba(200, 155, 90, 0.8);
+}
+
+/* 大卡标题图标 */
+.intensity-factor-card__title-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 3vw, 48px);
+  height: clamp(38px, 3vw, 48px);
+  margin-bottom: 4px;
+}
+
+/* 大卡标题图标图片 */
+.intensity-factor-card__title-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 大卡中文标题 */
+.intensity-factor-card__title {
+  margin: 0;
+  color: var(--intensity-blue);
+  font-size: clamp(28px, 2.1vw, 35px);
+  font-weight: 900;
+  line-height: 1.04;
+}
+
+/* 容积卡中文标题 */
+.intensity-factor-card.is-capacity .intensity-factor-card__title {
+  color: #a66f38;
+}
+
+/* 大卡英文副标题 */
+.intensity-factor-card__subtitle {
+  margin: 2px 0 0;
+  color: var(--intensity-blue);
+  font-family: var(--font-latin);
+  font-size: clamp(15px, 1vw, 17px);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+/* 容积卡英文副标题 */
+.intensity-factor-card.is-capacity .intensity-factor-card__subtitle {
+  color: #b58a5c;
+}
+
+/* 大卡说明文字 */
+.intensity-factor-card__lead {
+  margin: 14px 0 18px;
+  color: var(--intensity-blue);
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 800;
+  line-height: 1.42;
+  text-align: center;
+}
+
+.intensity-factor-card__lead p {
+  margin: 0;
+}
+
+.intensity-factor-card__lead p + p {
+  margin-top: 1lh;
+}
+
+/* 容积卡说明文字 */
+.intensity-factor-card.is-capacity .intensity-factor-card__lead {
+  color: #6f4d35;
+}
+
+/* 品阶小卡列表 */
+.intensity-factor-card__rows {
+  display: grid;
+  gap: clamp(10px, 0.85vw, 14px);
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card__texture-slot {
+  position: relative;
+  display: grid;
+  flex: 1 1 auto;
+  min-height: 260px;
+  place-items: center;
+}
+
+/* 容积纹理区域 */
+.intensity-factor-card__texture {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(82%, 280px);
+  height: min(82%, 280px);
+  background: linear-gradient(135deg, rgba(200, 155, 90, 0.9), rgba(224, 194, 143, 0.45));
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  animation: intensity-capacity-spin 22s linear infinite;
+  -webkit-mask-image: var(--intensity-card-texture);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: var(--intensity-card-texture);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+@keyframes intensity-capacity-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intensity-factor-card__texture {
+    animation: none;
+  }
+}
+
+/* 品阶小条目 */
+.intensity-ability-row {
+  display: grid;
+  grid-template-columns: clamp(44px, 3.2vw, 54px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(10px, 0.8vw, 14px);
+  min-height: clamp(68px, 4.8vw, 82px);
+  padding: clamp(8px, 0.8vw, 12px) clamp(10px, 0.9vw, 14px);
+  border: 1px solid rgba(138, 169, 201, 0.54);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+/* 品阶小卡浅蓝级 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(1) {
+  border-color: rgba(138, 169, 201, 0.54);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(234, 242, 250, 0.68));
+}
+
+/* 品阶小卡淡蓝级 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(2) {
+  border-color: rgba(138, 169, 201, 0.66);
+  background: linear-gradient(135deg, rgba(237, 246, 255, 0.86), rgba(210, 226, 243, 0.72));
+}
+
+/* 品阶小卡中蓝级 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(3) {
+  border-color: rgba(45, 95, 150, 0.58);
+  background: linear-gradient(135deg, rgba(220, 235, 250, 0.9), rgba(166, 197, 228, 0.72));
+}
+
+/* 品阶小卡深蓝级 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(4) {
+  border-color: rgba(23, 57, 95, 0.74);
+  background: linear-gradient(135deg, rgba(71, 124, 178, 0.9), rgba(31, 78, 128, 0.92));
+}
+
+/* 品阶小卡极深蓝级 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(5) {
+  border-color: rgba(23, 57, 95, 0.9);
+  background: linear-gradient(135deg, rgba(36, 82, 130, 0.95), rgba(12, 37, 70, 0.96));
+}
+
+/* 深色品阶小卡文字 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(n + 4) .intensity-ability-row__title,
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(n + 4) .intensity-ability-row__description {
+  color: #fbfaf6;
+}
+
+/* 深色品阶小卡图标圆 */
+.intensity-factor-card__rows > .intensity-ability-row:nth-child(n + 4) .intensity-ability-row__icon {
+  border-color: rgba(251, 250, 246, 0.82);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* 品阶小条目图标圆 */
+.intensity-ability-row__icon {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 2.8vw, 46px);
+  height: clamp(38px, 2.8vw, 46px);
+  border: 1px solid rgba(45, 95, 150, 0.84);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+/* 品阶小条目图标图片 */
+.intensity-ability-row__icon img {
+  width: clamp(28px, 2vw, 34px);
+  height: clamp(28px, 2vw, 34px);
+  object-fit: contain;
+}
+
+/* 品阶小条目文案组 */
+.intensity-ability-row__copy {
+  display: grid;
+  min-width: 0;
+}
+
+/* 品阶小条目标题 */
+.intensity-ability-row__title {
+  color: var(--intensity-blue);
+  font-size: clamp(17px, 1.25vw, 20px);
+  font-weight: 900;
+  line-height: 1.16;
+}
+
+/* 品阶小条目说明 */
+.intensity-ability-row__description {
+  color: var(--color-ink);
+  font-size: 15px;
+  line-height: 1.34;
+}
+
+/* 强度圆球 */
+.intensity-core-sphere {
+  position: relative;
+  z-index: 4;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: var(--intensity-core-size);
+  height: var(--intensity-core-size);
+}
+
+/* 鍦嗙悆鐧借壊搴曞眰 */
+/* 圆球纹理基础 */
+.intensity-core-sphere__texture {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  display: block;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* 圆球外层刻度纹理 */
+.intensity-core-sphere__texture.is-round {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(224, 194, 143, 0.2), rgba(200, 155, 90, 0.78));
+  opacity: 0.92;
+  -webkit-mask-image: var(--intensity-round-texture);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: var(--intensity-round-texture);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+/* 圆球放射纹理 */
+.intensity-core-sphere__texture.is-radiant {
+  width: 88%;
+  height: 88%;
+  background: radial-gradient(circle, rgba(224, 194, 143, 0.22), rgba(200, 155, 90, 0.56));
+  opacity: 0.78;
+  -webkit-mask-image: var(--intensity-radiant-texture);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: var(--intensity-radiant-texture);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+/* 圆球蓝色完整圆 */
+.intensity-core-sphere__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--intensity-core-ring-size);
+  height: var(--intensity-core-ring-size);
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    transparent 0deg 10deg,
+    var(--intensity-blue) 10deg 80deg,
+    transparent 80deg 100deg,
+    var(--intensity-blue) 100deg 170deg,
+    transparent 170deg 190deg,
+    var(--intensity-blue) 190deg 260deg,
+    transparent 260deg 280deg,
+    var(--intensity-blue) 280deg 350deg,
+    transparent 350deg 360deg
+  );
+  -webkit-mask-image: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px),
+    #000 calc(100% - 1px),
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2px),
+    #000 calc(100% - 1px),
+    transparent 100%
+  );
+  transform: translate(-50%, -50%);
+}
+
+.intensity-core-sphere__node {
+  position: absolute;
+  z-index: 8;
+  display: block;
+  width: var(--intensity-node-size);
+  height: var(--intensity-node-size);
+  border: 1px solid #fbfaf6;
+  border-radius: 50%;
+  background: var(--intensity-blue);
+}
+
+
+/* 圆球左上节点 */
+.intensity-core-sphere__node.is-left-upper {
+  left: calc(50% - var(--intensity-core-ring-size) / 2);
+  top: calc(50% - var(--intensity-core-side-gap) / 2);
+  transform: translate(-50%, -50%);
+}
+
+/* 圆球左下节点 */
+.intensity-core-sphere__node.is-left-lower {
+  left: calc(50% - var(--intensity-core-ring-size) / 2);
+  top: calc(50% + var(--intensity-core-side-gap) / 2);
+  transform: translate(-50%, -50%);
+}
+
+/* 圆球右上节点 */
+.intensity-core-sphere__node.is-right-upper {
+  left: calc(50% + var(--intensity-core-ring-size) / 2);
+  top: calc(50% - var(--intensity-core-side-gap) / 2);
+  background: var(--intensity-gold);
+  transform: translate(-50%, -50%);
+}
+
+/* 圆球右下节点 */
+.intensity-core-sphere__node.is-right-lower {
+  left: calc(50% + var(--intensity-core-ring-size) / 2);
+  top: calc(50% + var(--intensity-core-side-gap) / 2);
+  background: var(--intensity-gold);
+  transform: translate(-50%, -50%);
+}
+
+/* 圆球底部节点 */
+.intensity-core-sphere__node.is-bottom {
+  left: 50%;
+  top: calc(50% + var(--intensity-core-ring-size) / 2);
+  background: var(--intensity-russet);
+  transform: translate(-50%, -50%);
+}
+
+
+/* 圆球公式文字 */
+.intensity-core-sphere__title {
+  position: relative;
+  z-index: 12;
+  margin: 0;
+  color: var(--intensity-blue);
+  font-size: clamp(28px, 2.1vw, 35px);
+  font-weight: 900;
+  line-height: 1.12;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 危险等级徽章 */
+.intensity-danger-badge {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-self: start;
+  justify-items: center;
+  box-sizing: border-box;
+  width: var(--intensity-danger-badge-width);
+  height: var(--intensity-danger-badge-height);
+  padding: clamp(14px, 1.15vw, 18px) clamp(18px, 1.4vw, 24px) clamp(12px, 1vw, 16px);
+  border: 1px solid rgba(224, 194, 143, 0.62);
+  border-radius: 7px;
+  background: #7d3b27;
+  color: #fbfaf6;
+  text-align: center;
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.06);
+}
+
+/* 鍗遍櫓寰界珷涓よ竟 SVG 瑁呴グ */
+.intensity-danger-badge__decor {
+  position: absolute;
+  top: 90%;
+  z-index: 1;
+  display: block;
+  width: var(--intensity-danger-decor-width);
+  object-fit: fill;
+  pointer-events: none;
+  transform: scale(1.2) translateY(-50%);
+}
+
+/* 鍗遍櫓寰界珷宸︿晶 SVG */
+.intensity-danger-badge__decor.is-left {
+  right: calc(107%);
+}
+
+/* 鍗遍櫓寰界珷鍙充晶 SVG */
+.intensity-danger-badge__decor.is-right {
+  left: calc(107%);
+}
+
+/* 危险徽章标题 */
+.intensity-danger-badge__title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: clamp(28px, 2.1vw, 35px);
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+/* 危险徽章英文 */
+.intensity-danger-badge__subtitle {
+  position: relative;
+  z-index: 2;
+  margin: 2px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-latin);
+  font-size: 15px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+/* 危险徽章说明 */
+.intensity-danger-badge__description {
+  position: relative;
+  z-index: 2;
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.24;
+}
+
+/* 危险徽章节点 */
+.intensity-danger-badge__node {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: var(--intensity-russet);
+  border: 1px solid var(--intensity-russet);
+  transform: rotate(45deg);
+}
+
+/* 徽章上节点 */
+.intensity-danger-badge__node.is-top {
+  left: 50%;
+  top: -6px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+
+/* 危险表格外框 */
+.intensity-danger-table-wrap {
+  position: relative;
+  z-index: 4;
+  padding: clamp(16px, 1.3vw, 22px);
+  border: 1px solid rgba(224, 194, 143, 0.68);
+  border-radius: 8px;
+  background: rgba(251, 250, 246, 0.92);
+}
+
+/* 危险表格 */
+.intensity-danger-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  color: var(--color-ink);
+}
+
+/* 危险表格隐藏标题 */
+.intensity-danger-table__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* 危险表格表头 */
+.intensity-danger-table thead {
+  color: var(--intensity-blue);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 危险表格表头单元 */
+.intensity-danger-table thead th {
+  padding: 0 14px 8px;
+  border: 0;
+  font-family: var(--font-sans);
+}
+
+/* 危险表格空表头 */
+.intensity-danger-table__blank-head {
+  color: transparent;
+}
+
+/* 危险表格行 */
+.intensity-danger-table tr {
+  background: rgba(251, 250, 246, 0.96);
+}
+
+/* 危险表格单元格 */
+.intensity-danger-table th,
+.intensity-danger-table td {
+  padding: clamp(12px, 1vw, 16px) clamp(14px, 1.15vw, 18px);
+  vertical-align: middle;
+}
+
+/* 危险等级单元格 */
+.intensity-danger-table__grade {
+  width: clamp(118px, 9vw, 148px);
+  border-left: 7px solid rgba(224, 194, 143, 0.56);
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 危险等级菱形 */
+.intensity-danger-table__diamond {
+  position: absolute;
+  left: clamp(18px, 1.4vw, 24px);
+  top: 50%;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* 危险等级主标 */
+.intensity-danger-table__grade-main {
+  display: block;
+  font-size: clamp(32px, 2.6vw, 42px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* 危险说明单元格 */
+.intensity-danger-table__copy {
+  min-width: 0;
+}
+
+/* 危险说明标题 */
+.intensity-danger-table__copy strong {
+  display: block;
+  font-size: clamp(17px, 1.25vw, 20px);
+  font-weight: 900;
+  line-height: 1.28;
+}
+
+/* 危险说明正文 */
+.intensity-danger-table__copy span {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-ink);
+  font-size: 15px;
+  line-height: 1.34;
+  opacity: 0.8;
+}
+
+.intensity-danger-table tr.is-d4 .intensity-danger-table__copy span,
+.intensity-danger-table tr.is-d5 .intensity-danger-table__copy span,
+.intensity-danger-table tr.is-d6 .intensity-danger-table__copy span,
+.intensity-danger-table tr.is-unknown .intensity-danger-table__copy span {
+  color: #fbfaf6;
+}
+
+/* 危险图标单元格 */
+.intensity-danger-table__icon-cell {
+  width: clamp(64px, 5vw, 82px);
+  border-left: 1px solid rgba(45, 95, 150, 0.58);
+  text-align: center;
+}
+
+/* 危险图标图片 */
+.intensity-danger-table__icon-cell img {
+  width: clamp(40px, 3vw, 52px);
+  height: clamp(40px, 3vw, 52px);
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+/* 危险表格 JR 行 */
+.intensity-danger-table tr.is-jr {
+  background: rgba(251, 250, 246, 0.98);
+}
+
+/* 危险表格 SR 行 */
+.intensity-danger-table tr.is-sr {
+  background: rgba(248, 242, 232, 0.98);
+}
+
+/* 危险表格 D1 行 */
+.intensity-danger-table tr.is-d1 {
+  background: rgba(234, 212, 177, 0.98);
+}
+
+/* 危险表格 D2 行 */
+.intensity-danger-table tr.is-d2 {
+  background: rgba(217, 178, 118, 0.98);
+}
+
+/* 危险表格 D3 行 */
+.intensity-danger-table tr.is-d3 {
+  background: rgba(197, 149, 85, 0.98);
+}
+
+/* 危险表格 D4 行 */
+.intensity-danger-table tr.is-d4 {
+  background: #7b3d27;
+  color: #fbfaf6;
+}
+
+/* 危险表格 D5 行 */
+.intensity-danger-table tr.is-d5 {
+  background: #4e160f;
+  color: #fbfaf6;
+}
+
+/* 危险表格 D6 行 */
+.intensity-danger-table tr.is-d6 {
+  background: #07090b;
+  color: #fbfaf6;
+}
+
+/* 危险表格未知行 */
+.intensity-danger-table tr.is-unknown {
+  background: #090909;
+  color: #fbfaf6;
+}
+
+/* 右侧危险条 */
+.intensity-danger-scale {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  isolation: isolate;
+  display: block;
+  --intensity-danger-scale-start: 12%;
+  --intensity-danger-scale-end: 80%;
+  --intensity-danger-scale-label-gap: 0px;
+  width: 72px;
+  height: min(100%, 560px);
+  color: #9a3d31;
+  font-size: 16px;
+  font-weight: 900;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* 鍗遍櫓鏉＄櫧鑹插簳灞?*/
+.intensity-danger-scale::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 58px;
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* 危险条低标 */
+.intensity-danger-scale__low {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: calc(var(--intensity-danger-scale-start) - var(--intensity-danger-scale-label-gap));
+  color: #b57a48;
+  line-height: 1;
+  text-align: center;
+  transform: translate(-50%, -100%);
+}
+
+/* 危险条竖线 */
+.intensity-danger-scale__graphic {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 72px;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* 危险条文字 */
+.intensity-danger-scale__label {
+  position: absolute;
+  z-index: 2;
+  left: 80%;
+  top: 50%;
+  width: auto;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 0;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  transform: translateY(-50%);
+}
+
+
+/* 危险条高标 */
+.intensity-danger-scale__high {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: calc(var(--intensity-danger-scale-end) + var(--intensity-danger-scale-label-gap));
+  line-height: 1;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+/* 强度页平板布局 */
+@media (max-width: 980px) {
+  /* 平板恢复单栏内容轨道 */
+  .archive-content-area:has(.intensity-diagram) > .intensity-diagram {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* 平板主容器 */
+  .intensity-diagram {
+    --intensity-card-width: min(100%, 340px);
+    --intensity-card-height: auto;
+    --intensity-core-size: clamp(300px, 58vw, 360px);
+    margin-top: 20px;
+  }
+
+  /* 平板主舞台 */
+  .intensity-diagram__stage {
+    width: min(100%, 760px);
+  }
+
+  /* 平板因子布局 */
+  .intensity-diagram__factors {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 22px;
+    width: 100%;
+  }
+
+  /* 平板圆球区域 */
+  .intensity-diagram__core {
+    order: 2;
+    min-height: auto;
+    padding-top: 4px;
+  }
+
+  /* 平板品阶顺序 */
+  .intensity-factor-card.is-class {
+    order: 1;
+  }
+
+  /* 平板容积顺序 */
+  .intensity-factor-card.is-capacity {
+    order: 3;
+  }
+
+  /* 平板隐藏因子连接 */
+  .intensity-diagram__connector-layer {
+    display: none;
+  }
+
+  /* 平板隐藏大卡节点 */
+  .intensity-factor-card__node {
+    display: none;
+  }
+
+  /* 平板徽章间距 */
+  .intensity-diagram__badge-row {
+    position: relative;
+    inset: auto;
+    margin-top: 26px;
+  }
+
+  /* 平板圆球到徽章线 */
+  .intensity-diagram__badge-row::before {
+    display: none;
+  }
+
+  /* 平板徽章折线 */
+  /* 平板表格区域 */
+  .intensity-diagram__table-zone {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  /* 平板危险条 */
+  .intensity-danger-scale {
+    display: none;
+  }
+}
+
+/* 强度页窄屏布局 */
+@media (max-width: 760px) {
+  /* 窄屏舞台贴合视口 */
+  .intensity-diagram__stage {
+    width: min(100%, calc(100vw - 36px));
+    margin-inline: 0;
+  }
+
+  /* 窄屏表格滚动 */
+  .intensity-danger-table-wrap {
+    overflow-x: auto;
+  }
+
+  /* 窄屏表格最小宽度 */
+  .intensity-danger-table {
+    min-width: 720px;
+  }
+}
+
+/* 强度页手机布局 */
+@media (max-width: 520px) {
+  /* 手机主容器 */
+  .intensity-diagram {
+    --intensity-core-size: 260px;
+  }
+
+  /* 手机大卡 */
+  .intensity-factor-card {
+    width: min(100%, 320px);
+    min-height: auto;
+  }
+
+  /* 手机大卡内框 */
+  .intensity-factor-card__inner {
+    min-height: auto;
+  }
+
+  /* 手机容积纹理 */
+  .intensity-factor-card.is-capacity .intensity-factor-card__texture-slot {
+    min-height: 250px;
+  }
+
+  .intensity-factor-card__texture {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* 手机圆球标题 */
+  .intensity-core-sphere__title {
+    font-size: 22px;
+  }
+}
+
