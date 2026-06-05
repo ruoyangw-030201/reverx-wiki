@@ -1292,12 +1292,6 @@
   }
 
   /* 危险等级表格 */
-  .intensity-danger-table__icon-cell {
-    width: 56px;
-    padding-inline: 8px;
-  }
-
-  /* 危险等级表格 */
   .intensity-danger-table__icon-cell img {
     width: 36px;
     height: 36px;
@@ -1310,6 +1304,24 @@
     min-height: 36px;
     font-size: 22px;
   }
+
+  /* 移动端危险表格：限制图标实际宽度 */
+  .intensity-danger-table__icon-cell img {
+    width: 32px;
+    height: 32px;
+    transform: translateX(-10%);
+  }
+
+  /* 移动端危险表格：允许说明自然换行 */
+  .intensity-danger-table__copy {
+    min-width: 0;
+  }
+
+  /* 移动端危险表格：允许长句自然换行 */
+  .intensity-danger-table__copy strong,
+  .intensity-danger-table__copy span {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* 窄屏布局调整 */
@@ -1321,14 +1333,52 @@
     margin-inline: 0;
   }
 
-  /* 危险等级表格 */
+  /* 移动端危险表格：收窄边距 */
   .intensity-danger-table-wrap {
-    overflow-x: auto;
+    padding: 10px;
+    overflow-x: visible;
   }
 
-  /* 危险等级表格 */
+  /* 移动端危险表格：只保留等级与说明两列 */
   .intensity-danger-table {
-    min-width: 720px;
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-spacing: 0 6px;
+  }
+
+  /* 移动端危险表格：隐藏猎魔者与魔物两列 */
+  .intensity-danger-table__icon-col,
+  .intensity-danger-table thead th:nth-child(3),
+  .intensity-danger-table thead th:nth-child(4),
+  .intensity-danger-table__icon-cell {
+    display: none;
+  }
+
+  /* 移动端危险表格：压缩等级列 */
+  .intensity-danger-table__grade-col,
+  .intensity-danger-table__grade {
+    width: 64px;
+    min-width: 0;
+  }
+
+  /* 移动端危险表格：给说明列留出主要空间 */
+  .intensity-danger-table__copy-col,
+  .intensity-danger-table__copy {
+    width: auto;
+    min-width: 0;
+  }
+
+  /* 移动端危险表格：收紧单元格 */
+  .intensity-danger-table th,
+  .intensity-danger-table td {
+    padding: 8px 9px;
+  }
+
+  /* 移动端危险表格：允许长句自然换行 */
+  .intensity-danger-table__copy strong,
+  .intensity-danger-table__copy span {
+    overflow-wrap: anywhere;
   }
 }
 
@@ -1365,5 +1415,26 @@
   /* 强度圆球 */
   .intensity-core-sphere__title {
     font-size: 22px;
+  }
+
+  /* 鍗遍櫓绛夌骇琛ㄦ牸 */
+  .intensity-danger-table th,
+  .intensity-danger-table td {
+    padding: 9px;
+  }
+
+  /* 鍗遍櫓绛夌骇琛ㄦ牸 */
+  .intensity-danger-table__grade-main {
+    font-size: 27px;
+  }
+
+  /* 鍗遍櫓绛夌骇琛ㄦ牸 */
+  .intensity-danger-table__copy strong {
+    font-size: 14px;
+  }
+
+  /* 鍗遍櫓绛夌骇琛ㄦ牸 */
+  .intensity-danger-table__copy span {
+    font-size: 12px;
   }
 }
