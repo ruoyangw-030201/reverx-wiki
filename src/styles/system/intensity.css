@@ -323,7 +323,7 @@
 .intensity-factor-card__title {
   margin: 0;
   color: var(--intensity-blue);
-  font-size: 2.65cqw;
+  font-size: 2.5cqw;
   font-weight: 900;
   line-height: 1.04;
 }
@@ -666,7 +666,7 @@
   z-index: 12;
   margin: 0;
   color: var(--intensity-blue);
-  font-size: 2.65cqw;
+  font-size: 2.5cqw;
   font-weight: 900;
   line-height: 1.12;
   text-align: center;
@@ -719,7 +719,7 @@
   position: relative;
   z-index: 2;
   margin: 0;
-  font-size: 2.65cqw;
+  font-size: 2.5cqw;
   font-weight: 900;
   line-height: 1.12;
 }
