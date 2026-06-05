@@ -31,8 +31,8 @@
   --intensity-blue-soft: rgba(138, 169, 201, 0.5);
   --intensity-paper: rgba(251, 250, 246, 0.94);
   --intensity-card-width: 26.8cqw;
-  --intensity-card-height: 60cqw;
-  --intensity-core-size: 31.8cqw;
+  --intensity-card-height: 58cqw;
+  --intensity-core-size: 36cqw;
   --intensity-core-top: 4cqw;
   --intensity-core-ring-size: calc(var(--intensity-core-size) * 0.72);
   --intensity-card-node-upper-local-y: 14.6cqw;
@@ -46,7 +46,7 @@
   --intensity-core-side-node-upper-y: calc(var(--intensity-core-center-y) - var(--intensity-core-side-gap) / 2);
   --intensity-core-side-node-lower-y: calc(var(--intensity-core-center-y) + var(--intensity-core-side-gap) / 2);
   --intensity-core-bottom-node-y: calc(var(--intensity-core-center-y) + var(--intensity-core-ring-size) / 2);
-  --intensity-badge-line-length: 20.8cqw;
+  --intensity-badge-line-length: 17.1cqw;
   --intensity-badge-top-y: calc(var(--intensity-core-bottom-node-y) + var(--intensity-badge-line-length));
   --intensity-danger-badge-width: 17.9cqw;
   --intensity-danger-badge-height: 8cqw;
