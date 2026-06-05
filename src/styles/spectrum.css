@@ -12,8 +12,6 @@
   --character-profile-gold: rgba(200, 155, 90, 0.86);
   --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
   --character-profile-paper: rgba(251, 250, 246, 0.68);
-  --spectrum-line: rgba(174, 119, 55, 0.74);
-  --spectrum-line-strong: rgba(174, 119, 55, 0.96);
   --spectrum-page-edge: clamp(12px, 2vw, 28px);
   position: relative;
   z-index: 8;
@@ -150,24 +148,6 @@
   pointer-events: none;
 }
 
-/* 概览独立圆点：脱离 SVG 缩放，避免横向拉伸成椭圆。 */
-.spectrum-overview-dot {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border: 1px solid var(--spectrum-line-strong);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 0 0 2px rgba(200, 155, 90, 0.11);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-/* 概览实心圆点：用于连接到卡片边缘的端点。 */
-.spectrum-overview-dot.is-solid {
-  background: var(--spectrum-line-strong);
-}
-
 /* 概览 root 端点：对齐恶能卡片底部中心。 */
 .spectrum-overview-dot.is-root {
   left: 50%;
@@ -261,29 +241,6 @@
 .spectrum-classification + .content-frame-next-link-standalone {
   margin-top: clamp(34px, 4vw, 62px);
   margin-bottom: clamp(28px, 3vw, 46px);
-}
-
-/* 谱系 SVG 线条：所有连接线统一使用金色 1px 直角线。 */
-.spectrum-line-path {
-  fill: none;
-  stroke: var(--spectrum-line);
-  stroke-linecap: butt;
-  stroke-linejoin: miter;
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-/* 谱系 SVG 节点：空心圆覆盖在线上，避免竖线从圆点中穿出。 */
-.spectrum-line-node {
-  fill: rgba(255, 255, 255, 0.98);
-  stroke: var(--spectrum-line-strong);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-/* 谱系 SVG 实心节点：用于连接到卡片边缘的端点。 */
-.spectrum-line-node.is-solid {
-  fill: var(--spectrum-line-strong);
 }
 
 /* 谱系卡片基础：接近 ability card，但用主题变量控制边框和标题色。 */

@@ -4,6 +4,7 @@ import IntensityCoreSphere from "./IntensityCoreSphere.astro";
 import DangerBadge from "./DangerBadge.astro";
 import DangerGradeTable from "./DangerGradeTable.astro";
 import DangerScale from "./DangerScale.astro";
+import SystemConnectorSvg from "../connectors/SystemConnectorSvg.astro";
 import "../../../styles/system/intensity.css";
 
 const {
@@ -13,6 +14,29 @@ const {
   core,
   badge,
 } = Astro.props;
+
+const connectorBranches = [
+  {
+    className: "intensity-diagram__connector-branch is-class-upper",
+    d: "M 0 0 H 22 Q 30 0 30 8 V 92 Q 30 100 38 100 H 100",
+  },
+  {
+    className: "intensity-diagram__connector-branch is-class-lower",
+    d: "M 0 100 H 22 Q 30 100 30 92 V 8 Q 30 0 38 0 H 100",
+  },
+  {
+    className: "intensity-diagram__connector-branch is-capacity-upper",
+    d: "M 100 0 H 78 Q 70 0 70 8 V 92 Q 70 100 62 100 H 0",
+  },
+  {
+    className: "intensity-diagram__connector-branch is-capacity-lower",
+    d: "M 100 100 H 78 Q 70 100 70 92 V 8 Q 70 0 62 0 H 0",
+  },
+  {
+    className: "intensity-diagram__connector-branch is-core-badge",
+    d: "M 50 0 V 100",
+  },
+];
 ---
 
 <section class="intensity-diagram" aria-labelledby="intensity-diagram-title">
@@ -21,27 +45,24 @@ const {
   <div class="intensity-diagram__stage">
     <div class="intensity-diagram__factors">
       <div class="intensity-diagram__connector-layer" aria-hidden="true">
-        <svg class="intensity-diagram__connector-branch is-class-upper" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-          <path d="M 0 0 H 22 Q 30 0 30 8 V 92 Q 30 100 38 100 H 100"></path>
-        </svg>
-        <svg class="intensity-diagram__connector-branch is-class-lower" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-          <path d="M 0 100 H 22 Q 30 100 30 92 V 8 Q 30 0 38 0 H 100"></path>
-        </svg>
-        <svg class="intensity-diagram__connector-branch is-capacity-upper" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-          <path d="M 100 0 H 78 Q 70 0 70 8 V 92 Q 70 100 62 100 H 0"></path>
-        </svg>
-        <svg class="intensity-diagram__connector-branch is-capacity-lower" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-          <path d="M 100 100 H 78 Q 70 100 70 92 V 8 Q 70 0 62 0 H 0"></path>
-        </svg>
+        {connectorBranches.map((branch) => (
+          <SystemConnectorSvg
+            className={branch.className}
+            viewBox="0 0 100 100"
+            paths={[branch.d]}
+          />
+        ))}
       </div>
 
       <IntensityFactorCard {...classCard} variant="class" />
+      <span class="intensity-diagram__mobile-operator is-multiply" aria-hidden="true">×</span>
 
       <div class="intensity-diagram__core">
         <IntensityCoreSphere {...core} />
       </div>
 
       <IntensityFactorCard {...capacityCard} variant="capacity" />
+      <span class="intensity-diagram__mobile-operator is-equals" aria-hidden="true">=</span>
 
       <div class="intensity-diagram__badge-row">
         <DangerBadge {...badge} />

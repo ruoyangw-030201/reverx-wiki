@@ -1,5 +1,6 @@
 ---
 import IntensityAbilityRow from "./IntensityAbilityRow.astro";
+import SystemConnectorNode from "../connectors/SystemConnectorNode.astro";
 
 const {
   variant = "class",
@@ -19,8 +20,14 @@ const leadParagraphs = Array.isArray(lead)
 ---
 
 <article class:list={["intensity-factor-card", `is-${variant}`]}>
-  <span class="intensity-factor-card__node is-upper" aria-hidden="true"></span>
-  <span class="intensity-factor-card__node is-lower" aria-hidden="true"></span>
+  <SystemConnectorNode
+    className="intensity-factor-card__node is-upper"
+    filled
+  />
+  <SystemConnectorNode
+    className="intensity-factor-card__node is-lower"
+    filled
+  />
 
   <div class="intensity-factor-card__inner">
     <header class="intensity-factor-card__header">

@@ -1,0 +1,68 @@
+:where(.spectrum-classification, .intensity-diagram) {
+  --system-spectrum-line: rgba(174, 119, 55, 0.74);
+  --system-spectrum-line-strong: rgba(174, 119, 55, 0.96);
+  --system-connector-color: var(--system-spectrum-line);
+  --system-connector-node-color: var(--system-spectrum-line-strong);
+  --system-connector-stroke-width: 1px;
+  --system-connector-node-size: 9px;
+}
+
+.system-connector-layer {
+  pointer-events: none;
+}
+
+.system-connector-path {
+  fill: none;
+  stroke: var(--system-connector-color, rgba(174, 119, 55, 0.74));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: var(--system-connector-stroke-width, 1px);
+  vector-effect: non-scaling-stroke;
+}
+
+.system-connector-node,
+.system-connector-dot {
+  width: var(--system-connector-node-size, 9px);
+  height: var(--system-connector-node-size, 9px);
+  border: 1px solid var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+  border-radius: 50%;
+  background: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+  box-shadow: 0 0 0 2px var(--system-connector-node-shadow, rgba(200, 155, 90, 0.11));
+  pointer-events: none;
+}
+
+.system-connector-node {
+  display: block;
+}
+
+.system-connector-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.system-connector-node.is-solid,
+.system-connector-dot.is-solid {
+  background: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+}
+
+.system-connector-node.is-hollow,
+.system-connector-dot.is-hollow {
+  background: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+}
+
+circle.system-connector-node {
+  width: auto;
+  height: auto;
+  fill: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+  stroke: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+circle.system-connector-node.is-solid {
+  fill: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+}
+
+circle.system-connector-node.is-hollow {
+  fill: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+}

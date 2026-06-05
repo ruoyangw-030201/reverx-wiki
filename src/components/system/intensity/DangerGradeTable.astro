@@ -7,6 +7,12 @@ const {
 <div class="intensity-danger-table-wrap">
   <table class="intensity-danger-table">
     <caption class="intensity-danger-table__caption">危险等级表</caption>
+    <colgroup>
+      <col class="intensity-danger-table__grade-col" />
+      <col class="intensity-danger-table__copy-col" />
+      <col class="intensity-danger-table__icon-col" />
+      <col class="intensity-danger-table__icon-col" />
+    </colgroup>
     <thead>
       <tr>
         <th class="intensity-danger-table__blank-head" scope="col" aria-label="等级"></th>
@@ -27,10 +33,22 @@ const {
             <span>{row.description}</span>
           </td>
           <td class="intensity-danger-table__icon-cell">
-            <img src={row.hunterIcon} alt={row.hunterAlt ?? ""} />
+            {row.hunterIcon ? (
+              <img src={row.hunterIcon} alt={row.hunterAlt ?? ""} />
+            ) : (
+              <span class="intensity-danger-table__icon-mark" aria-label={row.hunterAlt ?? undefined}>
+                {row.hunterMark ?? "/"}
+              </span>
+            )}
           </td>
           <td class="intensity-danger-table__icon-cell">
-            <img src={row.monsterIcon} alt={row.monsterAlt ?? ""} />
+            {row.monsterIcon ? (
+              <img src={row.monsterIcon} alt={row.monsterAlt ?? ""} />
+            ) : (
+              <span class="intensity-danger-table__icon-mark" aria-label={row.monsterAlt ?? undefined}>
+                {row.monsterMark ?? "/"}
+              </span>
+            )}
           </td>
         </tr>
       ))}

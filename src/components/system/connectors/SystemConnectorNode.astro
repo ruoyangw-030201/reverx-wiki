@@ -1,0 +1,24 @@
+---
+import "../../../styles/system/connectors.css";
+
+const {
+  as = "span",
+  filled = false,
+  className = "",
+  cx,
+  cy,
+  r = 4,
+} = Astro.props;
+
+const classes = [
+  "system-connector-node",
+  filled ? "is-solid" : "is-hollow",
+  className,
+];
+---
+
+{as === "circle" ? (
+  <circle class:list={classes} cx={cx} cy={cy} r={r} />
+) : (
+  <span class:list={classes} aria-hidden="true"></span>
+)}

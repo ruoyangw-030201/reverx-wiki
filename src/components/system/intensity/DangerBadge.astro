@@ -1,6 +1,8 @@
 ---
+import SystemConnectorNode from "../connectors/SystemConnectorNode.astro";
+
 const {
-  title = "危险等级 D",
+  title = "危险等级",
   subtitle = "D-RANK",
   description = "描述最终破坏规模",
 } = Astro.props;
@@ -9,7 +11,7 @@ const {
 <div class="intensity-danger-badge">
   <img class="intensity-danger-badge__decor is-left" src="/texture/danger_left_single.svg" alt="" aria-hidden="true" loading="lazy" />
   <img class="intensity-danger-badge__decor is-right" src="/texture/danger_right_single.svg" alt="" aria-hidden="true" loading="lazy" />
-  <span class="intensity-danger-badge__node is-top" aria-hidden="true"></span>
+  <SystemConnectorNode className="intensity-danger-badge__node is-top" filled />
   <h2 class="intensity-danger-badge__title">{title}</h2>
   <p class="intensity-danger-badge__subtitle">{subtitle}</p>
   <p class="intensity-danger-badge__description">{description}</p>

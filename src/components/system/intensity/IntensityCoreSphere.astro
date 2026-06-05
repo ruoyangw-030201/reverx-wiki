@@ -1,4 +1,6 @@
 ---
+import SystemConnectorNode from "../connectors/SystemConnectorNode.astro";
+
 const {
   title = "强度 = 品阶 × 容积",
   roundTexture = "/texture/round_round.svg",
@@ -13,10 +15,10 @@ const {
   <span class="intensity-core-sphere__texture is-round" aria-hidden="true"></span>
   <span class="intensity-core-sphere__texture is-radiant" aria-hidden="true"></span>
   <span class="intensity-core-sphere__ring" aria-hidden="true"></span>
-  <span class="intensity-core-sphere__node is-left-upper" aria-hidden="true"></span>
-  <span class="intensity-core-sphere__node is-left-lower" aria-hidden="true"></span>
-  <span class="intensity-core-sphere__node is-right-upper" aria-hidden="true"></span>
-  <span class="intensity-core-sphere__node is-right-lower" aria-hidden="true"></span>
-  <span class="intensity-core-sphere__node is-bottom" aria-hidden="true"></span>
+  <SystemConnectorNode className="intensity-core-sphere__node is-left-upper" filled />
+  <SystemConnectorNode className="intensity-core-sphere__node is-left-lower" filled />
+  <SystemConnectorNode className="intensity-core-sphere__node is-right-upper" filled />
+  <SystemConnectorNode className="intensity-core-sphere__node is-right-lower" filled />
+  <SystemConnectorNode className="intensity-core-sphere__node is-bottom" filled />
   <p class="intensity-core-sphere__title">{title}</p>
 </div>

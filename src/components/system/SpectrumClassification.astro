@@ -1,5 +1,7 @@
 ---
 import SpectrumCard from "./SpectrumCard.astro";
+import SystemConnectorNode from "./connectors/SystemConnectorNode.astro";
+import SystemConnectorSvg from "./connectors/SystemConnectorSvg.astro";
 import { spectrumClasses, spectrumOverviewText, spectrumRoot } from "../../data/spectrum.js";
 import "../../styles/spectrum.css";
 
@@ -56,6 +58,18 @@ const rootConnectorHeight = runningGroupTop;
 const firstClassMid = treeGroups[0].absoluteMid;
 const lastClassMid = treeGroups[treeGroups.length - 1].absoluteMid;
 const realityClassMid = treeGroups.find((group) => group.id === "reality")?.absoluteMid ?? rootConnectorHeight / 2;
+
+const overviewInlinePaths = [
+  "M 300 58 V 100 H 100 V 118",
+  "M 300 100 H 500 V 118",
+  "M 300 100 V 118",
+];
+
+const overviewStackedPaths = [
+  "M 300 52 V 92 H 150 V 116",
+  "M 300 92 H 450 V 116",
+  "M 300 92 V 186",
+];
 ---
 
 <div class="spectrum-classification character-profile-archive">
@@ -75,24 +89,24 @@ const realityClassMid = treeGroups.find((group) => group.id === "reality")?.abso
         </div>
 
         <div class="spectrum-overview-tree">
-          <svg class="spectrum-overview-connector is-inline" viewBox="0 0 600 176" preserveAspectRatio="none" aria-hidden="true">
-            <path class="spectrum-line-path" d="M 300 58 V 100 H 100 V 118" />
-            <path class="spectrum-line-path" d="M 300 100 H 500 V 118" />
-            <path class="spectrum-line-path" d="M 300 100 V 118" />
-          </svg>
+          <SystemConnectorSvg
+            className="spectrum-overview-connector is-inline"
+            viewBox="0 0 600 176"
+            paths={overviewInlinePaths}
+          />
 
-          <svg class="spectrum-overview-connector is-stacked" viewBox="0 0 600 220" preserveAspectRatio="none" aria-hidden="true">
-            <path class="spectrum-line-path" d="M 300 52 V 92 H 150 V 116" />
-            <path class="spectrum-line-path" d="M 300 92 H 450 V 116" />
-            <path class="spectrum-line-path" d="M 300 92 V 186" />
-          </svg>
+          <SystemConnectorSvg
+            className="spectrum-overview-connector is-stacked"
+            viewBox="0 0 600 220"
+            paths={overviewStackedPaths}
+          />
 
           <div class="spectrum-overview-dot-layer" aria-hidden="true">
-            <span class="spectrum-overview-dot is-root is-solid"></span>
-            <span class="spectrum-overview-dot is-joint"></span>
-            <span class="spectrum-overview-dot is-essence is-solid"></span>
-            <span class="spectrum-overview-dot is-reality is-solid"></span>
-            <span class="spectrum-overview-dot is-information is-solid"></span>
+            <span class="system-connector-dot spectrum-overview-dot is-root is-solid"></span>
+            <span class="system-connector-dot spectrum-overview-dot is-joint is-hollow"></span>
+            <span class="system-connector-dot spectrum-overview-dot is-essence is-solid"></span>
+            <span class="system-connector-dot spectrum-overview-dot is-reality is-solid"></span>
+            <span class="system-connector-dot spectrum-overview-dot is-information is-solid"></span>
           </div>
 
           <div class="spectrum-overview-root">
@@ -137,12 +151,12 @@ const realityClassMid = treeGroups.find((group) => group.id === "reality")?.abso
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path class="spectrum-line-path" d={`M ${rootSpineX} ${firstClassMid} V ${lastClassMid}`} />
+          <path class="system-connector-path" d={`M ${rootSpineX} ${firstClassMid} V ${lastClassMid}`} />
           {treeGroups.map((group) => (
             <>
-              <path class="spectrum-line-path" d={`M ${rootSpineX} ${group.absoluteMid} H ${rootClassX}`} />
-              <circle class="spectrum-line-node" cx={rootSpineX} cy={group.absoluteMid} r="4" />
-              <circle class="spectrum-line-node is-solid" cx={rootClassX} cy={group.absoluteMid} r="4" />
+              <path class="system-connector-path" d={`M ${rootSpineX} ${group.absoluteMid} H ${rootClassX}`} />
+              <SystemConnectorNode as="circle" cx={rootSpineX} cy={group.absoluteMid} r="4" />
+              <SystemConnectorNode as="circle" cx={rootClassX} cy={group.absoluteMid} r="4" filled />
             </>
           ))}
         </svg>
@@ -167,20 +181,20 @@ const realityClassMid = treeGroups.find((group) => group.id === "reality")?.abso
                 preserveAspectRatio="none"
                 aria-hidden="true"
               >
-                <path class="spectrum-line-path" d={`M ${classJoinX} ${spectrumClass.groupMid} H ${trunkX}`} />
+                <path class="system-connector-path" d={`M ${classJoinX} ${spectrumClass.groupMid} H ${trunkX}`} />
                 <path
-                  class="spectrum-line-path"
+                  class="system-connector-path"
                   d={`M ${trunkX} ${spectrumClass.firstLineageCenter} V ${spectrumClass.lastLineageCenter}`}
                 />
                 {spectrumClass.lineageCenters.map((center) => (
-                  <path class="spectrum-line-path" d={`M ${trunkX} ${center} H ${lineageJoinX}`} />
+                  <path class="system-connector-path" d={`M ${trunkX} ${center} H ${lineageJoinX}`} />
                 ))}
-                <circle class="spectrum-line-node is-solid" cx={classJoinX} cy={spectrumClass.groupMid} r="4" />
+                <SystemConnectorNode as="circle" cx={classJoinX} cy={spectrumClass.groupMid} r="4" filled />
                 {spectrumClass.trunkNodes.map((center) => (
-                  <circle class="spectrum-line-node" cx={trunkX} cy={center} r="4" />
+                  <SystemConnectorNode as="circle" cx={trunkX} cy={center} r="4" />
                 ))}
                 {spectrumClass.lineageCenters.map((center) => (
-                  <circle class="spectrum-line-node is-solid" cx={lineageJoinX} cy={center} r="4" />
+                  <SystemConnectorNode as="circle" cx={lineageJoinX} cy={center} r="4" filled />
                 ))}
               </svg>
 

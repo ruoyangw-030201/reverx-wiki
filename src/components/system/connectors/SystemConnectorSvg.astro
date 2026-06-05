@@ -1,0 +1,34 @@
+---
+import "../../../styles/system/connectors.css";
+
+const {
+  viewBox = "0 0 100 100",
+  className = "",
+  paths = [],
+  preserveAspectRatio = "none",
+  ariaHidden = true,
+  focusable = "false",
+} = Astro.props;
+
+const normalizedPaths = paths.map((path) =>
+  typeof path === "string" ? { d: path } : path
+);
+---
+
+<svg
+  class:list={["system-connector-layer", className]}
+  viewBox={viewBox}
+  preserveAspectRatio={preserveAspectRatio}
+  aria-hidden={ariaHidden ? "true" : undefined}
+  focusable={focusable}
+>
+  {normalizedPaths.map((path) => (
+    <path
+      class:list={[
+        "system-connector-path",
+        path.className,
+      ]}
+      d={path.d}
+    />
+  ))}
+</svg>
