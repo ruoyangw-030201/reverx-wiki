@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Headbar from "../components/Headbar.astro";
-import Endbar from "../components/Endbar.astro";
+import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
+import ChromeEndbar from "../components/chrome/ChromeEndbar.astro";
 import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
-import ArchiveMobilePageNav from "../components/ArchiveMobilePageNav.astro";
-import ArchiveSidebar from "../components/ArchiveSidebar.astro";
-import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
+import ChromeSidebarMobile from "../components/chrome/ChromeSidebarMobile.astro";
+import ChromeSidebar from "../components/chrome/ChromeSidebar.astro";
+import BackgroundSurface from "../components/background/BackgroundSurface.astro";
+import ScrollDecor from "../components/background/ScrollDecor.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/active-marker.css";
@@ -74,19 +75,21 @@ function hasClickableCityLabel(city) {
     data-world-map-ready-delay-ms={WORLD_MAP_SCROLL_MARKER_READY_DELAY_MS}
     data-world-map-key={mapConfig.key}
   >
-    <ArchiveScrollDecor class="world-map-scroll-decor" />
+    <BackgroundSurface tone="white" />
 
-    <main class="archive-shell world-map-shell">
+    <ScrollDecor variant="worldMap" />
+
+    <main class="chrome-layout-main world-map-shell">
       <section class="world-map-archive" aria-labelledby="world-map-title">
-        <Headbar />
-        <ArchiveMobilePageNav
+        <ChromeHeadbar />
+        <ChromeSidebarMobile
           collapseInactiveGroups
           idPrefix="world-map-mobile-page-nav"
         />
 
         <section class="world-map-lower">
           <div class="world-map-sidebar-desktop">
-            <ArchiveSidebar collapseInactiveGroups idPrefix="world-map-sidebar-desktop" />
+            <ChromeSidebar collapseInactiveGroups idPrefix="world-map-sidebar-desktop" />
           </div>
 
           <div class="world-map-details">
@@ -126,8 +129,8 @@ function hasClickableCityLabel(city) {
             >
               <defs>
                 <filter id={`world-map-region-glow-${mapConfig.key}`} x="-8%" y="-8%" width="116%" height="116%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#e0c28f" flood-opacity="0.72" />
-                  <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#c89b5a" flood-opacity="0.34" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="var(--gold-light)" flood-opacity="0.72" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="var(--gold-main)" flood-opacity="0.34" />
                 </filter>
               </defs>
 
@@ -208,7 +211,7 @@ function hasClickableCityLabel(city) {
           </div>
         </div>
 
-        <Endbar />
+        <ChromeEndbar />
       </section>
 
     </main>

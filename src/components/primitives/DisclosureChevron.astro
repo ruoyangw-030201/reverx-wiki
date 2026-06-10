@@ -1,0 +1,17 @@
+---
+import "../../styles/primitives/disclosure-chevron.css";
+
+const {
+  open = false,
+  class: className,
+} = Astro.props;
+---
+
+<span
+  class:list={[
+    "disclosure-chevron",
+    open && "is-open",
+    className,
+  ]}
+  aria-hidden="true"
+></span>

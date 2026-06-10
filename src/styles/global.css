@@ -1,26 +1,219 @@
 :root {
-  --color-bg: #f7f5ef;
-  --color-paper: #fbfaf6;
-  --color-ink: #151515;
-  --color-muted: #6f6f6f;
+  /* Alpha stops for translucent tokens; avoid one-off opacity values. */
+  --alpha-strong: 0.82;
+  --alpha-border: 0.64;
+  --alpha-line: 0.42;
+  --alpha-soft: 0.28;
+  --alpha-wash: 0.12;
 
-  --color-black: #090909;
-  --color-blue: #2d5f96;
-  --color-blue-light: #8aa9c9;
-  --color-gold: #c89b5a;
-  --color-gold-light: #e0c28f;
+  /* Base black colors. */
+  --black-deep: #090909; /* Page chrome, dark panels, deepest ladder stops. */
+  --black-panel-base: #050a10; /* Cool black for sidebar, gallery panels, essence theme. */
+  --black-main: #151515; /* Primary body text and icon captions. */
+  --rgb-black-deep: 9 9 9;
+  --rgb-black-panel-base: 5 10 16;
+  --rgb-black-main: 21 21 21;
 
-  --border-thin: 1px solid rgba(200, 155, 90, 0.65);
-  --border-blue: 1px solid rgba(45, 95, 150, 0.65);
+  /* Base white colors. */
+  --white-main: #ffffff; /* Pure white highlights and paper centers. */
+  --white-paper: #fbfaf6; /* Warm paper backgrounds and light pages. */
+  --white-cool: #efeded; /* Cool map/index paper surfaces. */
+  --rgb-white-main: 255 255 255;
+  --rgb-white-paper: 251 250 246;
+  --rgb-white-cool: 239 237 237;
 
-  --font-serif: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* Base gray colors. */
+  --gray-main: #787e84; /* Muted UI labels and secondary neutral marks. */
+  --gray-light: #b9b9b9; /* Pale dividers and endbar micro UI. */
+  --rgb-gray-main: 120 126 132;
+  --rgb-gray-light: 185 185 185;
+
+  /* Base blue colors. */
+  --blue-dark: #17395f; /* Deep ladder blues and high-intensity states. */
+  --blue-main: #2d5f96; /* Primary system blue, links, borders, markers. */
+  --blue-light: #8aa9c9; /* Pale blue labels, glows, diagram highlights. */
+  --rgb-blue-dark: 23 57 95;
+  --rgb-blue-main: 45 95 150;
+  --rgb-blue-light: 138 169 201;
+
+  /* Base gold colors. */
+  --gold-dark: #8f5d35; /* Russet accents, spectrum text, connector lines. */
+  --gold-main: #c89b5a; /* Primary gold borders, frame accents, active states. */
+  --gold-light: #e0c28f; /* Light gold highlights and low red ladder step. */
+  --rgb-gold-dark: 143 93 53;
+  --rgb-gold-main: 200 155 90;
+  --rgb-gold-light: 224 194 143;
+
+  /* Base red colors. */
+  --red-dark: #4e160f; /* High danger ladder background. */
+  --red-deep: #7b3d27; /* Mid danger ladder background. */
+  --rgb-red-dark: 78 22 15;
+  --rgb-red-deep: 123 61 39;
+
+  /* Derived black and ink colors. */
+  --ink-strong: rgb(var(--rgb-black-main) / var(--alpha-strong)); /* Strong small text on light paper. */
+  --ink-readable: rgb(var(--rgb-black-main) / var(--alpha-border)); /* Readable secondary text on paper. */
+  --ink-muted: rgb(var(--rgb-black-main) / var(--alpha-soft)); /* Quiet captions and metadata. */
+  --ink-faint: rgb(var(--rgb-black-main) / var(--alpha-wash)); /* Subtle shadows and hairlines. */
+  --black-panel: rgb(var(--rgb-black-panel-base) / var(--alpha-border)); /* Gallery caption/counter panels. */
+  --black-overlay: rgb(var(--rgb-black-deep) / var(--alpha-soft)); /* Dark overlays, scrims, paper shadows. */
+
+  /* Derived white colors. */
+  --white-readable: rgb(var(--rgb-white-main) / var(--alpha-strong)); /* Text/fills on dark panels. */
+  --white-soft: rgb(var(--rgb-white-main) / var(--alpha-border)); /* Translucent white panel fills. */
+  --white-faint: rgb(var(--rgb-white-main) / var(--alpha-soft)); /* Faint dark-mode dividers and glints. */
+  --white-wash:  rgb(var(--rgb-white-main) / calc(var(--alpha-wash)/2)); /* dark bacground very soft white highlight. */
+
+  /* Derived gray colors. */
+  --neutral-ui: rgb(var(--rgb-gray-main) / var(--alpha-border)); /* Neutral UI marks and index wires. */
+  --neutral-light: rgb(var(--rgb-gray-light) / var(--alpha-border)); /* Pale endbar marks and micro dividers. */
+
+  /* Derived gold colors. */
+  --gold-strong: rgb(var(--rgb-gold-main) / var(--alpha-strong)); /* Strong gold borders and emphasized accents. */
+  --gold-border: rgb(var(--rgb-gold-main) / var(--alpha-border)); /* Standard content frame/headbar/sidebar borders. */
+  --gold-line: rgb(var(--rgb-gold-main) / var(--alpha-line)); /* Thin frame lines, outlines, separators. */
+  --gold-wash: rgb(var(--rgb-gold-main) / var(--alpha-wash)); /* Soft gold glow and paper inner wash. */
+
+  /* Derived blue colors. */
+  --blue-bright: rgb(var(--rgb-blue-light) / var(--alpha-border)); /* Bright blue diagram and label emphasis. */
+  --blue-border: rgb(var(--rgb-blue-main) / var(--alpha-border)); /* Standard blue borders and component edges. */
+  --blue-line: rgb(var(--rgb-blue-main) / var(--alpha-line)); /* Thin blue guide lines and offsets. */
+  --blue-wash: rgb(var(--rgb-blue-main) / var(--alpha-wash)); /* Soft blue glows and background washes. */
+
+  /* Derived russet colors. */
+  --russet-line: rgb(var(--rgb-gold-dark) / var(--alpha-border)); /* Russet frame edges and connector strokes. */
+  --russet-text: rgb(var(--rgb-gold-dark) / var(--alpha-strong)); /* Russet text and red ladder bridge. */
+
+  /* Reusable blue ladder colors for intensity/step diagrams. */
+  --ladder-blue-border: rgb(var(--rgb-blue-dark) / var(--alpha-border)); /* Ladder outer border. */
+  --ladder-blue-border-strong: rgb(var(--rgb-blue-dark) / var(--alpha-strong)); /* Strongest ladder border. */
+  --ladder-blue-e-bg: var(--blue-wash); /* Grade E pale blue fill. */
+  --ladder-blue-d-bg-start: var(--white-readable); /* Grade D light fill start. */
+  --ladder-blue-d-bg-end: var(--blue-line); /* Grade D blue fill end. */
+  --ladder-blue-c-bg-start: rgb(var(--rgb-blue-light) / var(--alpha-border)); /* Grade C bright fill start. */
+  --ladder-blue-c-bg-end: var(--blue-line); /* Grade C blue fill end. */
+  --ladder-blue-b-bg-start: var(--blue-border); /* Grade B blue fill start. */
+  --ladder-blue-b-bg-end: var(--blue-main); /* Grade B blue fill end. */
+  --ladder-blue-a-bg-start: var(--blue-dark); /* Grade A blue fill start. */
+  --ladder-blue-a-bg-end: var(--black-panel-base); /* Grade A dark fill end. */
+
+  /* Reusable red/gold danger ladder colors. */
+  --ladder-red-1: var(--white-paper); /* Danger grade 1. */
+  --ladder-red-2: var(--gold-light); /* Danger grade 2. */
+  --ladder-red-3: var(--gold-strong); /* Danger grade 3. */
+  --ladder-red-4: var(--russet-text); /* Danger grade 4. */
+  --ladder-red-5: var(--red-deep); /* Danger grade 5. */
+  --ladder-red-6: var(--red-dark); /* Danger grade 6. */
+  --ladder-red-7: var(--black-deep); /* Danger grade 7. */
+
+  /* Text font metrics */
   --font-sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: var(--font-sans);
   --font-latin: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
-  --theme-bg: #ffffff;
-  --theme-paper: #fbfaf6;
-  --theme-ink: #151515;
+  /* Text size metrics */
+  /* normal text */
+  --text-xs: 10px;  /*headbar tab 英文小字、mobile page nav 英文小字、active arrow 的辅助标签、endbar meta、world map region card 英文标签*/
+  --text-sm: 12px; /* archive heading 的竖排 kicker、world map heading kicker、sidebar heading 英文、endbar copyright/legal、spectrum card subtitle、character ability card 的编号、intensity danger table 的小说明 */
+  --text-label: 14px; /* archive subtitle、endbar brand、gallery counter、index section description、sidebar link、spectrum lineage subtitle/overview title、world map heading */
+  --text-body-sm: 15px; /* text body, mobile, sidebar link label */
+  --text-body: 16px; /* text body, sidebar group */
+  /* heading text */
+  --text-lead: 18px; /* sidebar heading、sidebar section link、spectrum overview title、spectrum mobile subtitle、intensity ability row title*/
+  --text-title-sm: 20px; /* spectrum lineage title */
+  --text-title: 22px; /* copyright h2、gallery close desktop、spectrum card title、intensity danger icon mark、intensity core sphere title */
+  --text-title-lg: 24px; /* archive secondary title、mobile archive heading title、world-map mobile h1、intensity danger grade main */
+  --text-heading: 30px; /*  archive primary title、world-map desktop h1、spectrum mobile class title、intensity factor title、danger badge title、danger table grade、mobile operator */
+  /* decor text */
+  --text-display: 78px; /*  index side mark number, home master side mark number */
 
+  /* Spacing scale for page rhythm and reusable UI gaps. */
+  /* Usable space */
+  --space-hair: 2px;
+  --space-micro: 4px;
+  --space-tight: 8px;
+  --space-small: 12px;
+  --space-compact: 16px;
+  --space-medium: 18px;
+  --space-large: 24px;
+  /* space definition of components*/
+  --space-section: 32px;
+  --space-shell: 42px;
+  /* need to be verified */
+  --space-outset: 48px;
+  --space-wide: 72px;
+  /* page end metrics */
+  --space-end-mobile: 64px;
+  --space-end: 96px;
+
+  /* Shared archive/index layout metrics; keep component geometry local. */
+  /* Gap between sidebar and main stage, between main stage and right end */
+  --layout-shell-gap: clamp(28px, 2.5vw, 42px);
+  /* Gap between sidebar and top elements */
+  --layout-shell-pad-top: 24px;
+  /* To be cleaned */
+  --layout-content-outset-x: clamp(48px, 4.586vw, 72px);
+  --layout-content-outset-width: clamp(58px, 5.478vw, 86px);
+  --layout-side-rail-width: clamp(88px, 7.643vw, 120px);
+  --layout-bottom-rail-height: clamp(60px, 8.889vh, 80px);
+  --layout-mobile-side-rail-width: clamp(42px, 12vw, 58px);
+  --layout-mobile-bottom-rail-height: clamp(54px, 9svh, 78px);
+
+  /* Chrome frame metrics for Figma-like page assembly. */
+  --chrome-headbar-height: 78px;
+  --chrome-headbar-height-mobile: 58px;
+  --chrome-hero-height: 194px;
+  --chrome-sidebar-width: 216px;
+  --chrome-sidebar-min-height: 200px;
+  --chrome-endbar-height: 58px;
+
+  /* Radius scale for frames, cards, pills, and circular marks. */
+  --radius-sharp: 2px;
+  --radius-frame: 6px;
+  --radius-card: 7px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Functional line-height tokens for exact UI, compact UI, prose, and dense cards. */
+  --basic-line-height: 1;
+  --ui-line-height: 1.25;
+  --card-line-height: 1.35;
+  --prose-line-height: 1.7;
+  --prose-paragraph-gap: var(--space-large);
+  --prose-paragraph-gap-tight: var(--space-small);
+  --prose-indent: 2em;
+
+  /* Motion scale for interaction and page entrance timing. */
+  --duration-fast: 160ms;
+  --duration-base: 180ms;
+  --duration-content: 220ms;
+  --duration-enter: 520ms;
+  --ease-standard: ease;
+  --ease-enter: cubic-bezier(0.18, 0.82, 0.28, 1);
+
+  /* Z-index layers; local stacks may still use 0-8 for internal ordering. */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-content: 2;
+  --z-decor: 4;
+  --z-main: 12;
+  --z-sticky: 20;
+  --z-chrome: 30;
+  --z-floating: 50;
+  --z-popover: 80;
+  --z-overlay: 90;
+  --z-modal: 1000;
+
+  /* Icon Size*/
+  --icon-median: 38px;
+  --icon-median-mobile: 30px;
+  --icon-small: 19px;
+
+  /*
+    Breakpoint policy: write literal values in @media/@container.
+    980px = mobile, 620px = narrow, 720px/560px = content containers,
+    1180px+ = local tuning for complex home/diagram compositions.
+  */
 }
 
 * {
@@ -29,14 +222,14 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--color-bg);
+  background: var(--white-paper);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  color: var(--color-ink);
-  background: var(--color-bg);
+  color: var(--black-main);
+  background: var(--white-paper);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -66,5 +259,5 @@ p {
 }
 
 ::selection {
-  background: rgba(200, 155, 90, 0.28);
+  background: var(--gold-line);
 }

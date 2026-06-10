@@ -1,0 +1,53 @@
+/* Action: reusable disclosure menu toggle button. */
+.menu-toggle-button {
+  --menu-toggle-width: var(--icon-median);
+  --menu-toggle-height: var(--icon-median);
+  /* bar properties */
+  --menu-toggle-bar-width: 18px;
+  --menu-toggle-bar-height: var(--space-hair);
+  --menu-toggle-gap: var(--space-micro);
+  /* color */
+  --menu-toggle-color: var(--blue-light);
+  --menu-toggle-active-color: var(--gold-light);
+  --menu-toggle-border-color: var(--gold-line);
+  --menu-toggle-active-border-color: var(--gold-border);
+  --menu-toggle-active-bg: var(--gold-wash);
+  appearance: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--menu-toggle-gap);
+  width: var(--menu-toggle-width);
+  height: var(--menu-toggle-height);
+  padding: 0;
+  border: 1px solid var(--menu-toggle-border-color);
+  background: var(--white-wash);
+  color: var(--menu-toggle-color);
+  cursor: pointer;
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
+}
+
+.menu-toggle-button:hover,
+.menu-toggle-button:focus-visible,
+.menu-toggle-button:active,
+.menu-toggle-button[aria-expanded="true"] {
+  color: var(--menu-toggle-active-color);
+  border-color: var(--menu-toggle-active-border-color);
+  background: var(--menu-toggle-active-bg);
+}
+
+.menu-toggle-button:focus-visible {
+  outline: 1px solid var(--gold-line);
+  outline-offset: var(--space-micro);
+}
+
+.menu-toggle-button__bar {
+  display: block;
+  width: var(--menu-toggle-bar-width);
+  height: var(--menu-toggle-bar-height);
+  background: currentColor;
+}

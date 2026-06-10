@@ -1,6 +1,5 @@
 ---
-import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
-import ArchiveHeadingSideIcon from "../../../components/ArchiveHeadingSideIcon.astro";
+import EntryHeading from "../../../components/primitives/EntryHeading.astro";
 import ArchiveInfoCardList from "../../../components/content/ArchiveInfoCardList.astro";
 import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
@@ -64,8 +63,7 @@ const idaInfoCards = [
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading id="shalom-base" variant="secondary" title={shalom.label} subtitle={shalom.labelEn} anchorName="--shalom-base-heading" />
-  <ArchiveHeadingSideIcon icon="/big-icon-dark/shalom-base.webp" anchorName="--shalom-base-heading" />
+  <EntryHeading id="shalom-base" variant="secondary" title={shalom.label} subtitle={shalom.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/shalom.webp" />
@@ -80,8 +78,7 @@ const idaInfoCards = [
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="rattown-base" variant="secondary" title={rattown.label} subtitle={rattown.labelEn} anchorName="--rattown-base-heading" />
-  <ArchiveHeadingSideIcon icon="/big-icon-dark/rattown-base.webp" anchorName="--rattown-base-heading" />
+  <EntryHeading id="rattown-base" variant="secondary" title={rattown.label} subtitle={rattown.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/rattown.webp" />
@@ -96,8 +93,7 @@ const idaInfoCards = [
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="taran-base" variant="secondary" title={taran.label} subtitle={taran.labelEn} anchorName="--taran-base-heading" />
-  <ArchiveHeadingSideIcon icon="/big-icon-dark/taran-base.webp" anchorName="--taran-base-heading" />
+  <EntryHeading id="taran-base" variant="secondary" title={taran.label} subtitle={taran.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/taran.webp" />
@@ -112,8 +108,7 @@ const idaInfoCards = [
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="sarra-base" variant="secondary" title={sarra.label} subtitle={sarra.labelEn} anchorName="--sarra-base-heading" />
-  <ArchiveHeadingSideIcon icon="/big-icon-dark/sarra-base.webp" anchorName="--sarra-base-heading" />
+  <EntryHeading id="sarra-base" variant="secondary" title={sarra.label} subtitle={sarra.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon="/big-icon/sarra.webp" />
@@ -125,7 +120,7 @@ const idaInfoCards = [
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="contech" variant="secondary" title={contech.label} subtitle={contech.labelEn} />
+  <EntryHeading id="contech" variant="secondary" title={contech.label} subtitle={contech.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon={contech.icon} />
@@ -143,7 +138,7 @@ const idaInfoCards = [
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading id="ida" variant="secondary" title={ida.label} subtitle={ida.labelEn} />
+  <EntryHeading id="ida" variant="secondary" title={ida.label} subtitle={ida.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon={ida.icon} />

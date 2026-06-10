@@ -1,5 +1,5 @@
 ---
-import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import EntryHeading from "../../../components/primitives/EntryHeading.astro";
 import ArchiveInfoCardList from "../../../components/content/ArchiveInfoCardList.astro";
 import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
@@ -33,7 +33,7 @@ const fifthStreetInfoCards = [
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading id="5thstreet" variant="secondary" title={fifthStreet.label} subtitle={fifthStreet.labelEn} />
+  <EntryHeading id="5thstreet" variant="secondary" title={fifthStreet.label} subtitle={fifthStreet.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon={fifthStreet.icon} />

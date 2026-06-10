@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Headbar from "../components/Headbar.astro";
+import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
 import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
 import NextPageTrigger from "../components/NextPageTrigger.astro";
-import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
-import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
+import EntryHeading from "../components/primitives/EntryHeading.astro";
+import BackgroundLayer from "../components/background/BackgroundLayer.astro";
+import BackgroundSurface from "../components/background/BackgroundSurface.astro";
 import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
@@ -45,9 +46,11 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
     class:list={["archive-page", "archive-index-page", `is-${currentSection}`]}
     data-index-next-page={indexScrollNextPage?.href}
   >
-    <ArchiveBackgroundLayer />
+    <BackgroundSurface tone="white" />
 
-    <Headbar />
+    <BackgroundLayer />
+
+    <ChromeHeadbar />
 
     {
       indexScrollNextPage && (
@@ -88,7 +91,7 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
     <main class="archive-shell archive-index-shell">
       <section class="archive-content-area archive-index-content">
         <div class="index-animate index-animate-heading-intro">
-          <ArchiveEntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
+          <EntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
 
           <ContentFrameBox class="archive-index-intro-box" variant="simple" tone="light" minHeight="118px">
             <slot name="intro" />

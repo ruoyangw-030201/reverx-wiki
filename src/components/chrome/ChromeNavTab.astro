@@ -1,0 +1,24 @@
+---
+import BilingualTab from "../actions/BilingualTab.astro";
+import HourglassMarker from "../primitives/HourglassMarker.astro";
+import "../../styles/chrome/nav-tab.css";
+
+const {
+  href,
+  label,
+  labelEn,
+  active = false,
+  size = "default",
+} = Astro.props;
+---
+
+<BilingualTab
+  href={href}
+  label={label}
+  labelEn={labelEn}
+  active={active}
+  size={size}
+  class="chrome-nav-tab"
+>
+  <HourglassMarker />
+</BilingualTab>

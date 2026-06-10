@@ -1,0 +1,118 @@
+﻿---
+import "../../styles/primitives/symbols.css";
+import "../../styles/primitives/divider-line.css";
+import "../../styles/chrome/headbar.css";
+import ChromeNavTab from "./ChromeNavTab.astro";
+import MenuToggleButton from "../actions/MenuToggleButton.astro";
+import { chromeText } from "../../data/chromeText.js";
+import { topTabs } from "../../data/navigation.js";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const menuId = "chrome-topnav-menu";
+const { headbar } = chromeText;
+
+function normalizeHref(href) {
+  if (!href) return "";
+  const [path] = href.split("#");
+  return path.replace(/\/$/, "") || "/";
+}
+
+function isTopActive(href) {
+  const normalized = normalizeHref(href);
+  return currentPath === normalized || currentPath.startsWith(normalized + "/");
+}
+---
+
+<header class="chrome-headbar" data-disclosure-root>
+  <a class="chrome-brand" href="/">
+    <img class="chrome-brand-icon" src="/big-icon/reverx.webp" alt="" aria-hidden="true" />
+    <span class="chrome-brand-text">
+      <span class="chrome-brand-title">{headbar.brandTitle}</span>
+    </span>
+  </a>
+
+  <MenuToggleButton
+    class="chrome-menu-toggle"
+    label={headbar.menuToggleLabel}
+    controls={menuId}
+  />
+
+  <nav class="chrome-topnav" id={menuId} aria-label={headbar.navAriaLabel} data-disclosure-panel>
+    {topTabs.map((tab, index) => (
+      <>
+        {index > 0 && <span class="chrome-topnav-divider divider-line" aria-hidden="true"></span>}
+        <ChromeNavTab
+          href={tab.href}
+          label={tab.label}
+          labelEn={tab.labelEn}
+          active={isTopActive(tab.href)}
+        />
+      </>
+    ))}
+  </nav>
+
+  <div class="chrome-head-actions" aria-hidden="true">
+    <span class="icon-symbol icon-symbol-search"></span>
+    <span class="icon-symbol icon-symbol-dot-grid"></span>
+  </div>
+</header>
+
+<script>
+  const HEADBAR_MOBILE_QUERY = window.matchMedia("(max-width: 980px)");
+
+  function initChromeHeadbarDisclosures() {
+    document.querySelectorAll(".chrome-headbar[data-disclosure-root]").forEach((headbar) => {
+      if (!(headbar instanceof HTMLElement) || headbar.dataset.disclosureReady === "true") return;
+
+      const toggle = headbar.querySelector("[data-disclosure-toggle]");
+      const menu = headbar.querySelector("[data-disclosure-panel]");
+      if (!(toggle instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return;
+
+      headbar.dataset.disclosureReady = "true";
+
+      function closeMenu() {
+        headbar.removeAttribute("data-disclosure-open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+
+      function openMenu() {
+        headbar.setAttribute("data-disclosure-open", "true");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+
+      toggle.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches) return;
+        event.stopPropagation();
+
+        if (headbar.hasAttribute("data-disclosure-open")) {
+          closeMenu();
+          return;
+        }
+
+        openMenu();
+      });
+
+      menu.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches) return;
+        if (event.target instanceof Element && event.target.closest("a")) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!HEADBAR_MOBILE_QUERY.matches || !headbar.hasAttribute("data-disclosure-open")) return;
+        if (event.target instanceof Node && headbar.contains(event.target)) return;
+        closeMenu();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+
+      HEADBAR_MOBILE_QUERY.addEventListener("change", closeMenu);
+    });
+  }
+
+  initChromeHeadbarDisclosures();
+  document.addEventListener("astro:page-load", initChromeHeadbarDisclosures);
+</script>

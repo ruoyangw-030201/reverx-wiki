@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Headbar from "../components/Headbar.astro";
+import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
 import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
-import ArchiveBackgroundLayer from "../components/archive/ArchiveBackgroundLayer.astro";
+import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import MasterIndexCluster from "../components/home/MasterIndexCluster.astro";
 import { topTabs } from "../data/navigation.js";
 import "../styles/home/home.css";
@@ -118,7 +118,7 @@ const masterIndexItems = topTabs
         />
 
         <div class="home-headbar-layer">
-          <Headbar />
+          <ChromeHeadbar />
         </div>
 
         <HomeCoverCanvas variant="animated" />
@@ -137,10 +137,10 @@ const masterIndexItems = topTabs
       </section>
 
       <section class="home-panel home-master-panel" id="home-master-index" aria-label="MASTER INDEX">
-        <ArchiveBackgroundLayer />
+        <BackgroundLayer />
 
         <div class="home-master-headbar">
-          <Headbar />
+          <ChromeHeadbar />
         </div>
 
         <div class="home-master-crosshair" aria-hidden="true">

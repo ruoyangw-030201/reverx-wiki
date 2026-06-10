@@ -1,5 +1,5 @@
 ---
-import ArchiveEntryHeading from "../../../components/ArchiveEntryHeading.astro";
+import EntryHeading from "../../../components/primitives/EntryHeading.astro";
 import ContentFrame from "../../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../../components/content-frame/ContentFrameBox.astro";
 import ContentFrameIconFrame from "../../../components/content-frame/ContentFrameIconFrame.astro";
@@ -17,7 +17,7 @@ const qenevian = resolveWorldEntity("qenevian");
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading id="qenevian" variant="secondary" title={qenevian.label} subtitle={qenevian.labelEn} />
+  <EntryHeading id="qenevian" variant="secondary" title={qenevian.label} subtitle={qenevian.labelEn} />
   <ContentFrameBox>
     <Fragment slot="measure">
       <ContentFrameIconFrame icon={qenevian.icon} />

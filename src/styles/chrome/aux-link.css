@@ -1,0 +1,49 @@
+/* Chrome auxiliary link item: optional divider plus a secondary chrome link. */
+.chrome-aux-link-item {
+  display: inline-flex;
+  align-items: baseline;
+  flex: 0 0 auto;
+  gap: var(--space-tight);
+  min-width: 0;
+}
+
+.chrome-aux-link-divider {
+  --divider-line-height: 1.1em;
+  align-self: center;
+}
+
+.chrome-aux-link {
+  flex: 0 0 auto;
+  position: relative;
+  color: var(--neutral-light);
+  font-family: var(--font-sans);
+  letter-spacing: 0.08em;
+  line-height: var(--ui-line-height);
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: var(--space-micro);
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    text-decoration-color var(--duration-base) var(--ease-standard);
+}
+
+.chrome-aux-link:hover,
+.chrome-aux-link:focus-visible,
+.chrome-aux-link:active {
+  color: var(--gray-main);
+  text-decoration-color: var(--gray-main);
+}
+
+.chrome-aux-link:focus-visible {
+  outline: 1px solid var(--gray-main);
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .chrome-aux-link {
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+  }
+}

@@ -1,0 +1,38 @@
+---
+import "../../styles/chrome/sidebar-link.css";
+import HourglassMarker from "../primitives/HourglassMarker.astro";
+
+const {
+  href,
+  label,
+  icon,
+  depth = "default",
+  active = false,
+  currentAnchor = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<a
+  {...attrs}
+  class:list={[
+    "chrome-sidebar-link",
+    depth === "child" && "is-child",
+    active && "is-active",
+    currentAnchor && "is-current-anchor",
+    className,
+  ]}
+  href={href}
+>
+  {icon && (
+    <img
+      class="chrome-sidebar-icon"
+      src={icon}
+      data-sidebar-icon
+      alt=""
+    />
+  )}
+  <span class="chrome-sidebar-label">{label}</span>
+  <HourglassMarker />
+</a>

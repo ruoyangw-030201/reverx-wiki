@@ -1,0 +1,113 @@
+/* Primitive marker: animated hourglass symbol. */
+.hourglass-marker {
+  --hourglass-color: var(--gold-main);
+  position: absolute;
+  display: none;
+  width: 18px;
+  height: 28px;
+  color: var(--hourglass-color);
+  pointer-events: none;
+}
+
+.hourglass-body {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 50%;
+  animation: hourglass-flip 2.8s ease-in-out infinite;
+}
+
+.hourglass-body::before,
+.hourglass-body::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+.hourglass-body::before {
+  top: 0;
+}
+
+.hourglass-body::after {
+  bottom: 0;
+}
+
+.hourglass-line {
+  position: absolute;
+  left: 8px;
+  top: 0px;
+  width: 2px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+  transform: rotate(30deg);
+  transform-origin: center center;
+}
+
+.hourglass-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 30px;
+  border-radius: inherit;
+  background: currentColor;
+  transform: rotate(-60deg);
+  transform-origin: center center;
+}
+
+.hourglass-fill {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+}
+
+.hourglass-fill-top {
+  top: 8px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid currentColor;
+}
+
+.hourglass-fill-bottom {
+  bottom: 5px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 11px solid currentColor;
+}
+
+@keyframes hourglass-flip {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  16% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  66% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hourglass-body {
+    animation: none;
+    transform: rotate(0deg);
+  }
+}

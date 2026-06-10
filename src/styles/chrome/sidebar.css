@@ -1,0 +1,193 @@
+/* Frame: left chrome rail. Width/min-height are owned by the component root. */
+.chrome-sidebar {
+  --chrome-sidebar-frame-inset-x: var(--space-tight);
+  --chrome-sidebar-frame-inset-y: var(--space-small);
+  --chrome-sidebar-content-inset-x: var(--space-small);
+  --chrome-sidebar-content-inset-y: var(--space-compact);
+  --chrome-sidebar-row-gap: var(--space-micro);
+  --chrome-sidebar-group-gap: var(--space-small);
+  --chrome-sidebar-icon-size: var(--icon-median);
+  --chrome-sidebar-child-icon-size: var(--icon-median-mobile);
+  --chrome-sidebar-marker-space: var(--space-compact);
+  --chrome-sidebar-child-indent: var(--space-medium);
+  position: relative;
+  z-index: var(--z-chrome);
+  isolation: isolate;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: var(--chrome-sidebar-width);
+  min-height: var(--chrome-sidebar-min-height);
+  padding: var(--chrome-sidebar-frame-inset-y) var(--chrome-sidebar-frame-inset-x);
+  color: var(--white-paper);
+  background: linear-gradient(180deg, var(--black-deep), var(--black-panel-base));
+  box-shadow: 10px 0 26px var(--black-overlay);
+}
+
+.chrome-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/bg/bg-sidebar-vertical.webp") center top / 100% auto repeat-y;
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+.chrome-sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Gold frame: decorative border only; content spacing is defined by sidebar variables. */
+.chrome-sidebar-nav {
+  position: relative;
+  box-sizing: border-box;
+  padding:
+    var(--chrome-sidebar-content-inset-y) var(--chrome-sidebar-content-inset-x);
+  border: 1px solid var(--gold-line);
+}
+
+.chrome-sidebar-nav::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  bottom: -1px;
+  width: 52px;
+  height: 1px;
+  background: var(--gold-main);
+}
+
+.chrome-sidebar-nav::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  bottom: -1px;
+  width: 1px;
+  height: 52px;
+  background: var(--gold-main);
+}
+
+.chrome-sidebar-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  /* justify-content: center; */
+  gap: 6px;
+  margin: 0 0 var(--space-small);
+  min-width: 0;
+  /* text-align: center; */
+}
+
+.chrome-sidebar-heading span {
+  color: var(--white-main);
+  font-size: var(--text-lead);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  letter-spacing: 0.08em;
+}
+
+.chrome-sidebar-heading small {
+  color: var(--white-soft);
+  font-family: var(--font-latin);
+  font-size: var(--text-sm);
+  line-height: var(--ui-line-height);
+  letter-spacing: 0.1em;
+}
+
+.chrome-sidebar-section-link {
+  display: block;
+  margin: 0 0 var(--space-small);
+  color: var(--blue-light);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.chrome-sidebar-section-link span {
+  display: block;
+  font-size: var(--text-lead);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  letter-spacing: 0.08em;
+  /* text-align: center; */
+  overflow-wrap: anywhere;
+}
+
+.chrome-sidebar-section-link:hover,
+.chrome-sidebar-section-link:focus-visible {
+  color: var(--gold-light);
+}
+
+.chrome-sidebar-section-link:focus-visible {
+  outline: 1px solid var(--gold-line);
+  outline-offset: 4px;
+}
+
+.chrome-sidebar-group {
+  position: relative;
+  display: block;
+  margin: var(--chrome-sidebar-group-gap) 0 var(--chrome-sidebar-row-gap);
+  padding: 0 var(--chrome-sidebar-marker-space) 0 0;
+  color: var(--blue-light);
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  letter-spacing: 0.12em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.chrome-sidebar-group:first-child {
+  margin-top: var(--space-micro);
+}
+
+.chrome-sidebar-group.is-active {
+  color: var(--gold-light);
+}
+
+.chrome-sidebar-group.is-clickable:hover,
+.chrome-sidebar-group.is-clickable:focus-visible {
+  color: var(--gold-light);
+}
+
+.chrome-sidebar-group.is-clickable:focus-visible {
+  outline: 1px solid var(--gold-line);
+  outline-offset: 4px;
+}
+
+.chrome-sidebar-group .hourglass-marker {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0.5);
+}
+
+.chrome-sidebar-group.is-active .hourglass-marker {
+  display: block;
+}
+
+.chrome-sidebar-collapsible-group {
+  position: relative;
+}
+
+.chrome-sidebar-group-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+  margin: var(--chrome-sidebar-group-gap) 0 var(--chrome-sidebar-row-gap);
+}
+
+.chrome-sidebar-group-row .chrome-sidebar-group {
+  min-width: 0;
+  margin: 0;
+}
+
+.chrome-sidebar-group-label {
+  font-size: var(--text-lead);
+}
+
+.chrome-sidebar-group-children[hidden] {
+  display: none;
+}

@@ -1,0 +1,35 @@
+/* Primitive: 各种样式的ui symbol */
+.icon-symbol {
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+/* Symbol: magnifying-glass search mark for decorative or future action slots. */
+.icon-symbol-search {
+  width: var(--icon-small);
+  height: var(--icon-small);
+  border: 2px solid var(--blue-main);
+  border-radius: var(--radius-circle);
+  position: relative;
+  opacity: 0.85;
+}
+
+.icon-symbol-search::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 2px;
+  background: var(--blue-main);
+  right: -7px;
+  bottom: -4px;
+  transform: rotate(45deg);
+}
+
+/* Symbol: nine-dot grid mark for decorative chrome/action clusters. */
+.icon-symbol-dot-grid {
+  width: var(--icon-small);
+  height: var(--icon-small);
+  background-image: radial-gradient(var(--white-soft) 1.2px, transparent 1.2px);
+  background-size: 7px 7px;
+  opacity: 0.45;
+}

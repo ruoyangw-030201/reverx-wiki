@@ -1,15 +1,15 @@
 .content-frame-unit {
-  --content-frame-offset-x: clamp(48px, 4.586vw, 72px);
+  --content-frame-offset-x: var(--layout-content-outset-x);
   --content-frame-main-right: calc(19.5% + var(--content-frame-offset-x));
   position: relative;
   width: 100%;
 }
 
 .content-frame {
-  --content-frame-edge-gold: rgba(200, 155, 90, 0.74);
-  --content-frame-edge-russet: rgba(143, 93, 53, 0.74);
-  --content-frame-edge-blue: rgba(45, 95, 150, 0.68);
-  --content-frame-offset-x: clamp(48px, 4.586vw, 72px);
+  --content-frame-edge-gold: var(--gold-border);
+  --content-frame-edge-russet: var(--russet-line);
+  --content-frame-edge-blue: var(--blue-border);
+  --content-frame-offset-x: var(--layout-content-outset-x);
   --content-frame-offset-y: 28px;
   --content-frame-left-expand: clamp(48px, 5vw, 82px);
   --content-frame-box-height: 250px;
@@ -42,7 +42,7 @@
   position: relative;
   width: 100%;
   min-height: var(--content-frame-visual-height);
-  color: var(--color-ink);
+  color: var(--black-main);
 }
 
 .content-frame-decor-underlay,
@@ -84,15 +84,14 @@
   bottom: var(--content-frame-main-bottom);
   z-index: 2;
   background:
-    radial-gradient(circle at 50% 35%, #fff 0, #fff 58%, #fbfaf6 100%),
-    linear-gradient(180deg, #fff, #fbfaf6);
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-main) 58%, var(--white-paper) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
   clip-path: none;
   transition:
-    background 220ms ease,
-    box-shadow 220ms ease;
+    background var(--duration-content) var(--ease-standard),
+    box-shadow var(--duration-content) var(--ease-standard);
   box-shadow:
-    inset 0 0 42px rgba(200, 155, 90, 0.08),
-    inset 0 0 85px rgba(45, 95, 150, 0.045);
+    inset 0 0 42px var(--gold-wash);
 }
 
 .content-frame-lines {
@@ -147,7 +146,7 @@
   left: calc(9.4% - var(--content-frame-offset-x) - var(--content-frame-left-expand));
   width: 5.2%;
   height: 1px;
-  background: rgba(107, 86, 68, 0.42);
+  background: var(--gold-wash);
 }
 
 .content-frame-line-left-glyph-top {
@@ -176,7 +175,7 @@
   z-index: 5;
 }
 
-/* 正文框交互层：只承载独立的透明点击区域 */
+/* 濮濓絾鏋冨鍡曟唉娴滄帒鐪伴敍姘涧閹佃儻娴囬悪顒傜彌閻ㄥ嫰鈧繑妲戦悙鐟板毊閸栧搫鐓?*/
 .content-frame-interaction-layer {
   left: 0;
   top: 0;
@@ -186,7 +185,7 @@
   pointer-events: none;
 }
 
-/* 移动端正文框前的独立控制区 */
+/* 缁夎濮╃粩顖涱劀閺傚洦顢嬮崜宥囨畱閻欘剛鐝涢幒褍鍩楅敓?*/
 .content-frame-mobile-before-body {
   display: none;
 }
@@ -200,7 +199,7 @@
   isolation: isolate;
 }
 
-/* 图集独立交互框：与视觉图标框同位但不承载立绘 */
+/* 閸ラ箖娉﹂悪顒傜彌娴溿倓绨板鍡窗娑撳氦顫嬬憴澶婃禈閺嶅洦顢嬮崥灞肩秴娴ｅ棔绗夐幍鑳祰缁斿绮?*/
 .content-frame-icon-interaction {
   position: absolute;
   right: var(--content-frame-icon-right);
@@ -210,23 +209,23 @@
   pointer-events: none;
 }
 
-/* 图集交互框悬停光效：在右侧纸框范围内提示可打开图集 */
+/* 閸ラ箖娉︽禍銈勭鞍濡楀棙鍋撻崑婊冨帨閺佸牞绱伴崷銊ュ礁娓氀呯剨濡楀棜瀵栭崶鏉戝敶閹绘劗銇氶崣顖涘ⅵ瀵偓閸ラ箖娉?*/
 .content-frame-icon-interaction::after {
   content: "";
   position: absolute;
   inset: 32px -16px -14px 36px;
   z-index: 1;
   background:
-    radial-gradient(circle at 80% 18%, rgba(224, 194, 143, 0.28), transparent 34%),
-    linear-gradient(135deg, rgba(200, 155, 90, 0.16), transparent 58%);
+    radial-gradient(circle at 80% 18%, var(--gold-wash), transparent 34%),
+    linear-gradient(135deg, var(--gold-wash), transparent 58%);
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 180ms ease,
-    box-shadow 180ms ease;
+    opacity var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
 }
 
-/* 图集触发按钮：只覆盖人物纸框与边框区域 */
+/* 閸ラ箖娉︾憴锕€褰傞幐澶愭尦閿涙艾褰х憰鍡欐磰娴滆櫣澧跨痪鍛婎攱娑撳氦绔熷鍡楀隘閿?*/
 .content-frame-gallery-trigger {
   appearance: none;
   position: absolute;
@@ -240,18 +239,18 @@
   pointer-events: auto;
 }
 
-/* 图集悬停反馈：鼠标和键盘聚焦时显示金色提示 */
+/* 閸ラ箖娉﹂幃顒€浠犻崣宥夘洯閿涙岸绱堕弽鍥ф嫲闁款喚娲忛懕姘卞妽閺冭埖妯夌粈娲櫨閼瑰弶褰侀敓?*/
 .content-frame-icon-interaction:has(.content-frame-gallery-trigger:hover)::after,
 .content-frame-icon-interaction:has(.content-frame-gallery-trigger:focus-visible)::after {
   opacity: 1;
   box-shadow:
-    inset 0 0 38px rgba(200, 155, 90, 0.16),
-    0 0 24px rgba(200, 155, 90, 0.18);
+    inset 0 0 38px var(--gold-wash),
+    0 0 24px var(--gold-wash);
 }
 
-/* 图集键盘焦点：给可点击立绘框提供可见焦点 */
+/* 閸ラ箖娉﹂柨顔炬磸閻掞妇鍋ｉ敍姘辩舶閸欘垳鍋ｉ崙鑽ょ彌缂佹ɑ顢嬮幓鎰返閸欘垵顫嗛悞锔惧仯 */
 .content-frame-gallery-trigger:focus-visible {
-  outline: 1px solid var(--color-gold-light);
+  outline: 1px solid var(--gold-light);
   outline-offset: 8px;
 }
 
@@ -265,14 +264,14 @@
   inset: 32px 0 -14px 36px;
   z-index: 0;
   background:
-    radial-gradient(circle at 50% 35%, #fff 0, #fff 58%, #fbfaf6 100%),
-    linear-gradient(180deg, #fff, #fbfaf6);
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-main) 58%, var(--white-paper) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
 }
 
 .content-frame-icon-box {
   position: absolute;
   display: block;
-  border: 1px solid rgba(200, 155, 90, 0.76);
+  border: 1px solid var(--gold-strong);
   background: transparent;
 }
 
@@ -280,13 +279,13 @@
   inset: 32px -16px -14px 36px;
   z-index: 2;
   border-width: 1px;
-  border-color: rgba(143, 93, 53, 0.74);
+  border-color: var(--russet-line);
 }
 
 .content-frame-icon-box-inner {
   inset: 0 0 0 18px;
   z-index: 1;
-  border-color: rgba(200, 155, 90, 0.58);
+  border-color: var(--gold-line);
 }
 
 .content-frame-icon-junction {
@@ -320,7 +319,7 @@
   top: 3px;
   width: 28px;
   height: 28px;
-  background: var(--color-blue);
+  background: var(--blue-main);
   opacity: 0.92;
 }
 
@@ -330,7 +329,7 @@
   top: 12px;
   width: 90px;
   height: 80px;
-  border: 1px solid rgba(45, 95, 150, 0.76);
+  border: 1px solid var(--blue-border);
 }
 
 .content-frame-icon-media {
@@ -351,10 +350,10 @@
 .content-frame-icon-item {
   display: grid;
   justify-items: center;
-  color: rgba(21, 21, 21, 0.58);
+  color: var(--ink-muted);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--text-body);
+  line-height: var(--ui-line-height);
   text-align: center;
 }
 
@@ -368,24 +367,24 @@
   width: var(--content-frame-icon-image-multiple-width);
 }
 
-/* 能力体系档案内容框的图标尺寸 */
+/* 閼宠棄濮忔担鎾堕兇濡楋絾顢嶉崘鍛啇濡楀棛娈戦崶鐐垼鐏忓搫顕?*/
 .archive-page.is-system .content-frame {
   --content-frame-icon-image-width: clamp(124px, 10.2vw, 160px);
   --content-frame-icon-image-multiple-width: clamp(76px, 6.8vw, 100px);
 }
 
-/* 能力体系档案图标与说明文字的间距 */
+/* 閼宠棄濮忔担鎾堕兇濡楋絾顢嶉崶鐐垼娑撳氦顕╅弰搴㈡瀮鐎涙娈戦梻纾嬬獩 */
 .archive-page.is-system .content-frame-icon-media .content-frame-icon-caption {
   margin-top: 4px;
 }
 
-/* 能力体系档案多图项目的行间距 */
+/* 閼宠棄濮忔担鎾堕兇濡楋絾顢嶆径姘禈妞ゅ湱娲伴惃鍕攽闂傜绐?*/
 .archive-page.is-system .content-frame-icon-media.is-multiple {
   align-content: center;
   gap: clamp(8px, 0.75vw, 12px);
 }
 
-/* 角色立绘的图片锚点 */
+/* 鐟欐帟澹婄粩瀣帛閻ㄥ嫬娴橀悧鍥晪閿?*/
 .content-frame-icon-media.is-figure {
   left: 50%;
   top: 0;
@@ -414,7 +413,7 @@
   pointer-events: none;
 }
 
-/* 图集入口图标：提示人物立绘框可打开图集 */
+/* 閸ラ箖娉﹂崗銉ュ經閸ョ偓鐖ｉ敍姘絹缁€杞版眽閻椻晝鐝涚紒妯活攱閸欘垱澧﹀鈧崶楣冩肠 */
 .content-frame-gallery-badge {
   position: absolute;
   top: 42px;
@@ -428,7 +427,7 @@
   pointer-events: none;
 }
 
-/* 图集入口图标图片：固定小图标尺寸 */
+/* 閸ラ箖娉﹂崗銉ュ經閸ョ偓鐖ｉ崶鍓у閿涙艾娴愮€规艾鐨崶鐐垼鐏忓搫顕?*/
 .content-frame-gallery-badge img {
   display: block;
   width: 40px;
@@ -439,6 +438,7 @@
 .content-frame-icon-caption {
   display: block;
   margin-top: -54px;
+  color: var(--black-main);
 }
 
 .content-frame-icon-media.is-multiple .content-frame-icon-caption {
@@ -508,8 +508,8 @@
   position: absolute;
   z-index: 1;
   display: block;
-  border: 1px solid rgba(200, 155, 90, 0.68);
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--gold-border);
+  background: var(--white-soft);
 }
 
 .content-frame-white-block-right {
@@ -536,7 +536,7 @@
   overflow-wrap: anywhere;
 }
 
-/* 角色档案页内容框的紧凑内边距 */
+/* 鐟欐帟澹婂锝嗩攳妞ら潧鍞寸€硅顢嬮惃鍕彛閸戞垵鍞存潏纭呯獩 */
 .archive-page.is-characters .content-frame:has(.character-profile-archive) {
   --content-frame-body-top: 194px;
   --content-frame-body-bottom: 58px;
@@ -546,18 +546,17 @@
 
 .content-frame-simple {
   --content-frame-simple-background:
-    radial-gradient(circle at 50% 35%, #fff 0, #fff 58%, #fbfaf6 100%),
-    linear-gradient(180deg, #fff, #fbfaf6);
-  --content-frame-simple-color: var(--color-ink);
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-main) 58%, var(--white-paper) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
+  --content-frame-simple-color: var(--black-main);
   --content-frame-simple-padding: 24px 34px;
-  --content-frame-simple-line-height: 1.7;
-  --content-frame-simple-border: rgba(200, 155, 90, 0.66);
-  --content-frame-simple-outer-border: rgba(200, 155, 90, 0.42);
-  --content-frame-simple-offset-border: rgba(45, 95, 150, 0.34);
+  --content-frame-simple-line-height: var(--prose-line-height);
+  --content-frame-simple-border: var(--gold-border);
+  --content-frame-simple-outer-border: var(--gold-line);
+  --content-frame-simple-offset-border: var(--blue-line);
   --content-frame-simple-shadow:
-    inset 0 0 0 1px rgba(45, 95, 150, 0.15),
-    inset 0 0 42px rgba(200, 155, 90, 0.08),
-    inset 0 0 85px rgba(45, 95, 150, 0.045);
+    inset 0 0 0 1px var(--blue-wash),
+    inset 0 0 42px var(--gold-wash);
   width: 100%;
   min-height: var(--content-frame-simple-min-height);
   background: var(--content-frame-simple-background);
@@ -568,14 +567,14 @@
 
 .content-frame-simple.is-dark {
   --content-frame-simple-background:
-    linear-gradient(180deg, rgba(12, 12, 12, 0.94), rgba(5, 5, 5, 0.92)),
-    radial-gradient(circle at 80% 0%, rgba(45, 95, 150, 0.14), transparent 34%);
-  --content-frame-simple-color: rgba(255, 255, 255, 0.84);
-  --content-frame-simple-border: rgba(200, 155, 90, 0.64);
+    linear-gradient(180deg, var(--black-deep), var(--black-overlay)),
+    radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
+  --content-frame-simple-color: var(--white-readable);
+  --content-frame-simple-border: var(--gold-border);
   --content-frame-simple-shadow:
-    inset 0 0 0 1px rgba(45, 95, 150, 0.28),
-    inset 0 0 42px rgba(200, 155, 90, 0.05),
-    0 18px 80px rgba(0, 0, 0, 0.36);
+    inset 0 0 0 1px var(--blue-line),
+    inset 0 0 42px var(--gold-wash),
+    0 18px 80px var(--black-overlay);
 }
 
 .content-frame-simple::before,
@@ -602,12 +601,12 @@
 
 .content-frame-next-link {
   --content-frame-next-paper:
-    radial-gradient(circle at 50% 35%, #fff 0, #fff 58%, #fbfaf6 100%),
-    linear-gradient(180deg, #fff, #fbfaf6);
-  --content-frame-next-color: rgba(21, 21, 21, 0.78);
-  --content-frame-next-accent: var(--color-blue);
-  --content-frame-next-border: rgba(200, 155, 90, 0.72);
-  --content-frame-next-border-soft: rgba(200, 155, 90, 0.46);
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-main) 58%, var(--white-paper) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
+  --content-frame-next-color: var(--ink-strong);
+  --content-frame-next-accent: var(--blue-main);
+  --content-frame-next-border: var(--gold-border);
+  --content-frame-next-border-soft: var(--gold-line);
   position: relative;
   z-index: 8;
   display: flex;
@@ -622,16 +621,15 @@
   border: 1px solid var(--content-frame-next-border);
   color: var(--content-frame-next-color);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.35;
   letter-spacing: 0;
   text-decoration: none;
   box-shadow:
-    inset 0 0 36px rgba(200, 155, 90, 0.08),
-    inset 0 0 60px rgba(45, 95, 150, 0.045);
+    inset 0 0 36px var(--gold-wash);
   transition:
-    border-color 180ms ease,
-    color 180ms ease;
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
 }
 
 .content-frame-next-link::before,
@@ -639,7 +637,7 @@
   content: "";
   position: absolute;
   pointer-events: none;
-  transition: border-color 180ms ease;
+  transition: border-color var(--duration-base) var(--ease-standard);
 }
 
 .content-frame-next-link::before {
@@ -649,7 +647,7 @@
 
 .content-frame-next-link::after {
   inset: 5px -11px -5px 11px;
-  border: 1px solid rgba(45, 95, 150, 0.32);
+  border: 1px solid var(--blue-line);
 }
 
 .content-frame-next-link-label {
@@ -676,7 +674,7 @@
   flex: 0 0 auto;
   color: var(--content-frame-next-accent);
   transform: none;
-  transition: color 180ms ease;
+  transition: color var(--duration-base) var(--ease-standard);
 }
 
 .content-frame-next-link-marker.active-direction-marker--right {
@@ -688,28 +686,28 @@
 .content-frame-next-link:hover,
 .content-frame-next-link:focus-visible,
 .content-frame-next-link:active {
-  --content-frame-next-accent: var(--color-gold);
-  --content-frame-next-border: rgba(200, 155, 90, 0.95);
-  --content-frame-next-border-soft: rgba(224, 194, 143, 0.72);
-  color: var(--color-gold);
+  --content-frame-next-accent: var(--gold-main);
+  --content-frame-next-border: var(--gold-main);
+  --content-frame-next-border-soft: var(--gold-line);
+  color: var(--gold-main);
 }
 
 .content-frame-next-link:focus-visible {
-  outline: 1px solid var(--color-gold-light);
+  outline: 1px solid var(--gold-light);
   outline-offset: 8px;
 }
 
 .content-frame-next-link.is-dark {
   --content-frame-next-paper:
-    linear-gradient(180deg, rgba(12, 12, 12, 0.94), rgba(5, 5, 5, 0.92)),
-    radial-gradient(circle at 80% 0%, rgba(45, 95, 150, 0.14), transparent 34%);
-  --content-frame-next-color: rgba(255, 255, 255, 0.84);
-  --content-frame-next-border: rgba(200, 155, 90, 0.64);
-  --content-frame-next-border-soft: rgba(200, 155, 90, 0.42);
+    linear-gradient(180deg, var(--black-deep), var(--black-overlay)),
+    radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
+  --content-frame-next-color: var(--white-readable);
+  --content-frame-next-border: var(--gold-border);
+  --content-frame-next-border-soft: var(--gold-line);
   box-shadow:
-    inset 0 0 0 1px rgba(45, 95, 150, 0.28),
-    inset 0 0 42px rgba(200, 155, 90, 0.05),
-    0 18px 80px rgba(0, 0, 0, 0.22);
+    inset 0 0 0 1px var(--blue-line),
+    inset 0 0 42px var(--gold-wash),
+    0 18px 80px var(--black-overlay);
 }
 
 .content-frame-simple .content-frame-next-link {
@@ -721,7 +719,7 @@
 }
 
 .content-frame-next-link-standalone {
-  --content-frame-next-right: calc(19.5% + clamp(48px, 4.586vw, 72px));
+  --content-frame-next-right: calc(19.5% + var(--layout-content-outset-x));
   margin: 0 var(--content-frame-next-right) 0 auto;
 }
 
@@ -749,7 +747,7 @@
     --content-frame-mobile-paper-top: calc(var(--content-frame-mobile-icon-space) + 8px);
   }
 
-  /* 移动端带独立前置控制区的正文框起点 */
+  /* 缁夎濮╃粩顖氱敨閻欘剛鐝涢崜宥囩枂閹貉冨煑閸栬櫣娈戝锝嗘瀮濡楀棜鎹ｉ敓?*/
   .content-frame:has(.content-frame-mobile-before-body .archive-entry-year-menu) {
     --content-frame-mobile-control-space: 76px;
     --content-frame-mobile-paper-top: calc(var(--content-frame-mobile-icon-space) + var(--content-frame-mobile-control-space) + 8px);
@@ -819,7 +817,7 @@
     height: var(--content-frame-mobile-icon-space);
   }
 
-  /* 移动端正文框交互层：覆盖正文框用于放置独立点击区域 */
+  /* 缁夎濮╃粩顖涱劀閺傚洦顢嬫禍銈勭鞍鐏炲偊绱扮憰鍡欐磰濮濓絾鏋冨鍡欐暏娴滃孩鏂佺純顔惧缁斿鍋ｉ崙璇插隘閿?*/
   .content-frame-interaction-layer {
     position: absolute;
     left: 0;
@@ -828,7 +826,7 @@
     bottom: 0;
   }
 
-  /* 移动端正文框前的独立控制区 */
+  /* 缁夎濮╃粩顖涱劀閺傚洦顢嬮崜宥囨畱閻欘剛鐝涢幒褍鍩楅敓?*/
   .content-frame-mobile-before-body:has(.archive-entry-year-menu) {
     position: relative;
     z-index: 8;
@@ -851,12 +849,12 @@
     transform: translateX(-50%);
   }
 
-  /* 移动端图集悬停光效：匹配移动端立绘框尺寸 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棙鍋撻崑婊冨帨閺佸牞绱伴崠褰掑帳缁夎濮╃粩顖滅彌缂佹ɑ顢嬬亸鍝勵嚟 */
   .content-frame-icon-interaction::after {
     inset: 22px 0 -8px 0;
   }
 
-  /* 移动端图集独立交互框：与移动端视觉图标框同位 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棛瀚粩瀣╂唉娴滄帗顢嬮敍姘瑢缁夎濮╃粩顖濐潒鐟欏娴橀弽鍥攱閸氬奔缍?*/
   .content-frame-icon-interaction {
     position: absolute;
     left: 50%;
@@ -867,7 +865,7 @@
     transform: translateX(-50%);
   }
 
-  /* 移动端图集触发按钮：只覆盖移动端纸框范围 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棜袝閸欐垶瀵滈柦顕嗙窗閸欘亣顩惄鏍╅崝銊ь伂缁惧憡顢嬮懠鍐ㄦ纯 */
   .content-frame-gallery-trigger {
     inset: 22px 0 -8px 0;
   }
@@ -934,17 +932,17 @@
     width: clamp(84px, 24vw, 122px);
   }
 
-  /* 移动端能力体系档案内容框的单图尺寸 */
+  /* 缁夎濮╃粩顖濆厴閸旀稐缍嬬化缁樸€傚鍫濆敶鐎硅顢嬮惃鍕礋閸ユ儳鏄傞敓?*/
   .archive-page.is-system .content-frame-icon-image {
     width: clamp(72px, 21vw, 100px);
   }
 
-  /* 移动端能力体系档案内容框的多图尺寸 */
+  /* 缁夎濮╃粩顖濆厴閸旀稐缍嬬化缁樸€傚鍫濆敶鐎硅顢嬮惃鍕樋閸ユ儳鏄傞敓?*/
   .archive-page.is-system .content-frame-icon-media.is-multiple .content-frame-icon-image {
     width: clamp(56px, 17vw, 76px);
   }
 
-  /* 移动端能力体系档案多图项目的行间距 */
+  /* 缁夎濮╃粩顖濆厴閸旀稐缍嬬化缁樸€傚鍫濐樋閸ラ箖銆嶉惄顔炬畱鐞涘矂妫块敓?*/
   .archive-page.is-system .content-frame-icon-media.is-multiple {
     gap: 6px;
   }
@@ -959,8 +957,8 @@
   }
 
   .content-frame-icon-item {
-    font-size: 13px;
-    line-height: 1.25;
+    font-size: var(--text-label);
+    line-height: var(--ui-line-height);
   }
 
   .content-frame-icon-caption,
@@ -990,7 +988,7 @@
     object-position: center top;
   }
 
-  /* 移动端图集入口图标：缩小并保持右上角位置 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棗鍙嗛崣锝呮禈閺嶅浄绱扮紓鈺佺毈楠炴湹绻氶幐浣稿礁娑撳﹨顫楁担宥囩枂 */
   .content-frame-gallery-badge {
     top: 22px;
     right: 12px;
@@ -998,7 +996,7 @@
     height: 35px;
   }
 
-  /* 移动端图集入口图标图片：适配较小按钮 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棗鍙嗛崣锝呮禈閺嶅洤娴橀悧鍥风窗闁倿鍘ゆ潏鍐ㄧ毈閹稿鎸?*/
   .content-frame-gallery-badge img {
     width: 35px;
     height: 35px;
@@ -1061,7 +1059,7 @@
 
 
 @media (max-width: 620px) {
- /* 移动端图集入口图标：缩小并保持右上角位置 */
+ /* 缁夎濮╃粩顖氭禈闂嗗棗鍙嗛崣锝呮禈閺嶅浄绱扮紓鈺佺毈楠炴湹绻氶幐浣稿礁娑撳﹨顫楁担宥囩枂 */
   .content-frame-gallery-badge {
     top: 22px;
     right: 12px;
@@ -1069,7 +1067,7 @@
     height: 25px;
   }
 
-  /* 移动端图集入口图标图片：适配较小按钮 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棗鍙嗛崣锝呮禈閺嶅洤娴橀悧鍥风窗闁倿鍘ゆ潏鍐ㄧ毈閹稿鎸?*/
   .content-frame-gallery-badge img {
     width: 25px;
     height: 25px;

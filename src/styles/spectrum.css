@@ -1,5 +1,5 @@
-/* 谱系页面主容器：控制整体右移、宽度和本页色彩变量。 */
-/* 谱系页 archive 内容区：取消普通 content-frame 页面使用的外扩宽度，避免本页自定义布局再次右移后越界。 */
+/* 鐠嬭京閮存い鐢告桨娑撹顔愰崳顭掔窗閹貉冨煑閺佺繝缍嬮崣宕囆╅妴浣割啍鎼达箑鎷伴張顒勩€夐懝鎻掑兊閸欐﹢鍣洪敓?*/
+/* 鐠嬭京閮撮敓?archive 閸愬懎顔愰崠鐚寸窗閸欐牗绉烽弲顕嗘嫹?content-frame 妞ょ敻娼版担璺ㄦ暏閻ㄥ嫬顦婚幍鈺侇啍鎼达讣绱濋柆鍨帳閺堫剟銆夐懛顏勭暰娑斿绔风仦鈧崘宥嗩偧閸欏磭些閸氬氦绉洪悾宀嬫嫹?*/
 .archive-content-area:has(.spectrum-classification) {
   --archive-heading-offset-x: 0px;
   width: 100%;
@@ -7,47 +7,48 @@
 }
 
 .spectrum-classification {
-  --character-profile-blue: #234d7b;
-  --character-profile-blue-deep: #17395f;
-  --character-profile-gold: rgba(200, 155, 90, 0.86);
-  --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
-  --character-profile-paper: rgba(251, 250, 246, 0.68);
+  --character-profile-blue: var(--blue-main);
+  --character-profile-blue-deep: var(--blue-dark);
+  --character-profile-gold: var(--gold-strong);
+  --character-profile-gold-soft: var(--gold-wash);
+  --character-profile-paper: var(--white-soft);
+  --spectrum-card-description-font-size: var(--text-body);
+  --spectrum-overview-title-font-size: var(--text-body);
+  --spectrum-mobile-class-title-font-size: var(--text-heading);
+  --spectrum-mobile-class-subtitle-font-size: var(--text-lead);
+  --spectrum-mobile-class-description-font-size: var(--text-body);
   --spectrum-page-edge: clamp(12px, 2vw, 28px);
   position: relative;
   z-index: 8;
   width: calc(100% - var(--spectrum-page-edge));
   margin-top: 34px;
   margin-left: 0px;
-  color: var(--color-ink);
+  color: var(--black-main);
 }
 
-/* 移动端概览最终规则：统一覆盖旧的纵向假树逻辑，使用 SVG 树作为唯一连线来源。 */
+/* 缁夎濮╃粩顖涱洤鐟欏牊娓剁紒鍫ｎ潐閸掓瑱绱扮紒鐔剁鐟曞棛娲婇弮褏娈戠痪闈涙倻閸嬪洦鐖查柅鏄忕帆閿涘奔濞囬敓?SVG 閺嶆垳缍旀稉鍝勬暜娑撯偓鏉╃偟鍤庨弶銉︾爱閿?*/
 
-/* 手机概览最终规则：三卡横排放不下时切换为 2x3 SVG 树。 */
+/* 閹靛婧€濮掑倽顫嶉張鈧紒鍫ｎ潐閸掓瑱绱版稉澶婂幢濡亝甯撻弨鍙ョ瑝娑撳妞傞崚鍥ㄥ床閿?2x3 SVG 閺嶆埊鎷?*/
 
-/* 谱系模块盒模型：避免卡片和 SVG 连接层计算宽度时溢出。 */
+/* 鐠嬭京閮村Ο鈥虫健閻╂帗膩閸ㄥ绱伴柆鍨帳閸楋紕澧栭敓?SVG 鏉╃偞甯寸仦鍌濐吀缁犳顔旀惔锔芥濠с垹鍤敓?*/
 .spectrum-classification,
 .spectrum-classification * {
   box-sizing: border-box;
 }
 
-/* 谱系章节：沿用 character profile 的标题系统，仅控制本页区块间距。 */
+/* 鐠嬭京閮寸粩鐘哄Ν閿涙碍閮ㄩ敓?character profile 閻ㄥ嫭鐖ｆ０妯奸兇缂佺噦绱濇禒鍛付閸掕埖婀版い闈涘隘閸ф妫跨捄婵撴嫹?*/
 .spectrum-section {
   display: grid;
   gap: clamp(12px, 1.4vw, 18px);
 }
 
-/* 谱系章节相邻距离：让概览与详细谱系之间形成长页节奏。 */
+/* 鐠嬭京閮寸粩鐘哄Ν閻╂悂鍋︾捄婵堫瀲閿涙俺顔€濮掑倽顫嶆稉搴ゎ嚊缂佸棜姘ㄧ化璁崇闂傛潙鑸伴幋鎰版毐妞や絻濡總蹇ユ嫹?*/
 .spectrum-section + .spectrum-section {
   margin-top: clamp(25px, 3.5vw, 49px);
 }
 
-/* 谱系页全局小装饰：隐藏 archive scroll decor 自带的小放射图。 */
-.archive-page:has(.spectrum-classification) .archive-scroll-decor .scroll-decor-group:first-child .scroll-decor-small {
-  display: none;
-}
-
-/* 概览小装饰：单独放入 overview，中心对齐 malice-ball 当前中心。 */
+/* 鐠嬭京閮存い闈涘弿鐏炩偓鐏忓繗顥婃甯窗闂呮劘妫?archive scroll decor 閼奉亜鐢惃鍕毈閺€鎯х殸閸ユ拝鎷?*/
+/* 濮掑倽顫嶇亸蹇氼棅妤楀府绱伴崡鏇犲閺€鎯у弳 overview閿涘奔鑵戣箛鍐嚠閿?malice-ball 瑜版挸澧犳稉顓炵妇閿?*/
 .spectrum-overview-small-decor {
   position: absolute;
   left: 49%;
@@ -64,25 +65,25 @@
   user-select: none;
 }
 
-/* 谱系白底面板：概览和详细树共用的低装饰容器。 */
+/* 鐠嬭京閮撮惂钘夌俺闂堛垺婢橀敍姘洤鐟欏牆鎷扮拠锔剧矎閺嶆垵鍙￠悽銊ф畱娴ｅ氦顥婃鏉款啇閸ｎ煉鎷?*/
 .spectrum-overview-panel,
 .spectrum-tree-panel {
   position: relative;
   z-index: 1;
-  border: 1px solid rgba(45, 95, 150, 0.24);
-  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--blue-line);
+  background: var(--white-readable);
   box-shadow:
-    inset 0 0 36px rgba(45, 95, 150, 0.035),
-    inset 0 0 48px rgba(200, 155, 90, 0.025);
+    inset 0 0 36px var(--blue-wash),
+    inset 0 0 48px var(--gold-wash);
 }
 
-/* 概览面板：给 root 卡、分支线和三张小卡留出固定纵深。 */
+/* 濮掑倽顫嶉棃銏℃緲閿涙氨绮?root 閸椔扳偓浣稿瀻閺€顖滃殠閸滃奔绗佸鐘茬毈閸楋紕鏆€閸戝搫娴愮€规氨鏃卞ǎ鎲嬫嫹?*/
 .spectrum-overview-panel {
   min-height: clamp(222px, 19vw, 268px);
   overflow: visible;
 }
 
-/* 概览树画布：使用相对定位承载 SVG 连线和卡片层。 */
+/* 濮掑倽顫嶉弽鎴犳暰鐢喛绱版担璺ㄦ暏閻╃顕€规矮缍呴幍鑳祰 SVG 鏉╃偟鍤庨崪灞藉幢閻楀洤鐪伴敓?*/
 .spectrum-overview-map {
   --spectrum-overview-pad: clamp(22px, 5vw, 82px);
   position: relative;
@@ -90,7 +91,7 @@
   padding: 22px var(--spectrum-overview-pad) 20px;
 }
 
-/* 概览树整体：只打包线、圆点和卡片整体下移，不包含 malice-ball。 */
+/* 濮掑倽顫嶉弽鎴炴殻娴ｆ搫绱伴崣顏呭ⅵ閸栧懐鍤庨妴浣告妇閻愮懓鎷伴崡锛勫閺佺繝缍嬫稉瀣╅敍灞肩瑝閸栧懎鎯?malice-ball閿?*/
 .spectrum-overview-tree {
   --spectrum-overview-tree-shift: 40px;
   position: relative;
@@ -99,7 +100,7 @@
   transform: translateY(var(--spectrum-overview-tree-shift));
 }
 
-/* 概览核心底图：把原 malice-ball 放回顶端，垫在卡片和连线下面。 */
+/* 濮掑倽顫嶉弽绋跨妇鎼存洖娴橀敍姘Ω閿?malice-ball 閺€鎯ф礀妞ゅ墎顏敍灞界仛閸︺劌宕遍悧鍥ф嫲鏉╃偟鍤庢稉瀣桨閿?*/
 .spectrum-overview-core-bg {
   position: absolute;
   left: 50%;
@@ -114,7 +115,7 @@
   pointer-events: none;
 }
 
-/* 概览核心底图图片：保持素材完整，不影响实际卡片布局。 */
+/* 濮掑倽顫嶉弽绋跨妇鎼存洖娴橀崶鍓у閿涙矮绻氶幐浣虹閺夋劕鐣弫杈剧礉娑撳秴濂栭崫宥呯杽闂勫懎宕遍悧鍥х鐏炩偓閿?*/
 .spectrum-overview-core-bg img {
   display: block;
   width: 100%;
@@ -122,7 +123,7 @@
   object-fit: contain;
 }
 
-/* 概览 SVG 连线：只负责恶能 root 到三类卡片的直角树线。 */
+/* 濮掑倽顫?SVG 鏉╃偟鍤庨敍姘涧鐠愮喕鐭楅幁鎯板厴 root 閸掗绗佺猾璇插幢閻楀洨娈戦惄纾嬵潡閺嶆垹鍤庨敓?*/
 .spectrum-overview-connector {
   position: absolute;
   left: 0;
@@ -137,7 +138,7 @@
   display: none;
 }
 
-/* 概览圆点图层：与 SVG 连线同宽同高，但圆点本身不参与 SVG 拉伸。 */
+/* 濮掑倽顫嶉崷鍡欏仯閸ユ儳鐪伴敍姘瑢 SVG 鏉╃偟鍤庨崥灞筋啍閸氬矂鐝敍灞肩稻閸﹀棛鍋ｉ張顒冮煩娑撳秴寮敓?SVG 閹峰鍑犻敓?*/
 .spectrum-overview-dot-layer {
   position: absolute;
   left: 0;
@@ -148,37 +149,37 @@
   pointer-events: none;
 }
 
-/* 概览 root 端点：对齐恶能卡片底部中心。 */
+/* 濮掑倽顫?root 缁旑垳鍋ｉ敍姘嚠姒绘劖浼撻懗钘夊幢閻楀洤绨抽柈銊よ厬韫囧喛鎷?*/
 .spectrum-overview-dot.is-root {
   left: 50%;
   top: 58px;
 }
 
-/* 概览中继节点：三分支在此处分流。 */
+/* 濮掑倽顫嶆稉顓犳埛閼哄倻鍋ｉ敍姘瑏閸掑棙鏁崷銊︻劃婢跺嫬鍨庡ù渚婃嫹?*/
 .spectrum-overview-dot.is-joint {
   left: 50%;
   top: 100px;
 }
 
-/* 概览本源类端点：对齐左侧卡片顶部中心。 */
+/* 濮掑倽顫嶉張顒佺爱缁崵顏悙鐧哥窗鐎靛綊缍堝锔挎櫠閸楋紕澧栨い鍫曞劥娑擃厼绺鹃敓?*/
 .spectrum-overview-dot.is-essence {
   left: 16.6667%;
   top: 118px;
 }
 
-/* 概览现实类端点：对齐中间卡片顶部中心。 */
+/* 濮掑倽顫嶉悳鏉跨杽缁崵顏悙鐧哥窗鐎靛綊缍堟稉顓㈡？閸楋紕澧栨い鍫曞劥娑擃厼绺鹃敓?*/
 .spectrum-overview-dot.is-reality {
   left: 50%;
   top: 118px;
 }
 
-/* 概览信息类端点：对齐右侧卡片顶部中心。 */
+/* 濮掑倽顫嶆穱鈩冧紖缁崵顏悙鐧哥窗鐎靛綊缍堥崣鍏呮櫠閸楋紕澧栨い鍫曞劥娑擃厼绺鹃敓?*/
 .spectrum-overview-dot.is-information {
   left: 83.3333%;
   top: 118px;
 }
 
-/* 概览 root 卡：恶能节点置于树的顶部中心。 */
+/* 濮掑倽顫?root 閸椻槄绱伴幁鎯板厴閼哄倻鍋ｇ純顔荤艾閺嶆垹娈戞い鍫曞劥娑擃厼绺鹃敓?*/
 .spectrum-overview-root {
   position: relative;
   z-index: 3;
@@ -186,7 +187,7 @@
   margin: 0 auto;
 }
 
-/* 概览三类卡容器：三张小卡等宽排列在 root 下方。 */
+/* 濮掑倽顫嶆稉澶岃閸椻€愁啇閸ｎ煉绱版稉澶婄炊鐏忓繐宕辩粵澶婎啍閹烘帒鍨敓?root 娑撳鏌熼敓?*/
 .spectrum-overview-classes {
   position: relative;
   z-index: 3;
@@ -197,20 +198,20 @@
   margin-top: 60px;
 }
 
-/* 概览类别节点：保持每张小卡同宽同高。 */
+/* 濮掑倽顫嶇猾璇插焼閼哄倻鍋ｉ敍姘箽閹镐焦鐦″鐘茬毈閸椻€虫倱鐎硅棄鎮撴姗堟嫹?*/
 .spectrum-overview-node {
   width: 158px;
   justify-self: center;
 }
 
-/* 说明框：复用 character note 的金色框，但正文自然左对齐。 */
+/* 鐠囧瓨妲戝鍡窗婢跺秶鏁?character note 閻ㄥ嫰鍣鹃懝鍙夘攱閿涘奔绲惧锝嗘瀮閼奉亞鍔у锕€顕鎰舵嫹?*/
 .character-note-card.spectrum-overview-note {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin-top: clamp(8px, 1vw, 12px);
 }
 
-/* 说明框文字容器：去掉人物页窄文本列带来的大块左空白。 */
+/* 鐠囧瓨妲戝鍡樻瀮鐎涙顔愰崳顭掔窗閸樼粯甯€娴滆櫣澧挎い鐢电崕閺傚洦婀伴崚妤€鐢弶銉ф畱婢堆冩健瀹革妇鈹栭惂鏂ゆ嫹?*/
 .character-note-card.spectrum-overview-note .character-note-copy {
   grid-column: 1 / -1;
   width: 100%;
@@ -224,31 +225,31 @@
   word-break: normal;
 }
 
-/* 说明框段落：复用角色档案人物概述的自然段格式。 */
+/* 鐠囧瓨妲戝鍡橆唽閽€鏂ょ窗婢跺秶鏁ょ憴鎺曞濡楋絾顢嶆禍铏瑰⒖濮掑倽鍫惃鍕殰閻掕埖顔岄弽鐓庣础閿?*/
 .spectrum-overview-note .character-note-copy p {
   margin: 0;
   max-width: 100%;
   text-align: left;
-  text-indent: 2em;
+  text-indent: var(--prose-indent);
 }
 
-/* 说明框最后一段：复用角色档案人物概述的收尾格式。 */
+/* 鐠囧瓨妲戝鍡樻付閸氬簼绔村▓纰夌窗婢跺秶鏁ょ憴鎺曞濡楋絾顢嶆禍铏瑰⒖濮掑倽鍫惃鍕暪鐏忕偓鐗稿蹇ユ嫹?*/
 .spectrum-overview-note .character-note-copy p:last-child {
   margin-bottom: 0;
 }
 
-/* 谱系页下一页入口：custom 模式下把页末按钮推到最后容器下方。 */
+/* 鐠嬭京閮存い鍏哥瑓娑撯偓妞ら潧鍙嗛崣锝忕窗custom 濡€崇础娑撳濡告い鍨汞閹稿鎸抽幒銊ュ煂閺堚偓閸氬骸顔愰崳銊ょ瑓閺傜櫢鎷?*/
 .spectrum-classification + .content-frame-next-link-standalone {
   margin-top: clamp(34px, 4vw, 62px);
   margin-bottom: clamp(28px, 3vw, 46px);
 }
 
-/* 谱系卡片基础：接近 ability card，但用主题变量控制边框和标题色。 */
+/* 鐠嬭京閮撮崡锛勫閸╄櫣顢呴敍姘复閿?ability card閿涘奔绲鹃悽銊ゅ瘜妫版ê褰夐柌蹇斿付閸掓儼绔熷鍡楁嫲閺嶅洭顣介懝璇ф嫹?*/
 .spectrum-card {
-  --spectrum-card-accent: rgba(174, 119, 55, 0.94);
-  --spectrum-card-accent-soft: rgba(200, 155, 90, 0.32);
-  --spectrum-card-accent-wash: rgba(224, 194, 143, 0.12);
-  --spectrum-card-accent-text: rgba(143, 93, 53, 0.96);
+  --spectrum-card-accent: var(--gold-dark);
+  --spectrum-card-accent-soft: var(--gold-line);
+  --spectrum-card-accent-wash: var(--gold-wash);
+  --spectrum-card-accent-text: var(--russet-text);
   --spectrum-card-icon-size: 52px;
   position: relative;
   display: grid;
@@ -258,18 +259,18 @@
   width: 100%;
   max-width: 100%;
   padding: 9px 10px;
-  border: 1px solid color-mix(in srgb, var(--spectrum-card-accent) 68%, rgba(255, 255, 255, 0.35));
-  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--spectrum-card-accent) 68%, var(--white-faint));
+  border-radius: var(--radius-frame);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.84), var(--spectrum-card-accent-wash)),
-    rgba(251, 250, 246, 0.76);
+    linear-gradient(135deg, var(--white-readable), var(--spectrum-card-accent-wash)),
+    var(--white-soft);
   box-shadow:
     inset 0 0 22px var(--spectrum-card-accent-wash),
-    0 6px 20px rgba(21, 21, 21, 0.03);
+    0 6px 20px var(--ink-faint);
   overflow: hidden;
 }
 
-/* 谱系卡片箭头：详细卡保留右侧指示符，overview 小卡隐藏。 */
+/* 鐠嬭京閮撮崡锛勫缁狀厼銇旈敍姘愁嚊缂佸棗宕辨穱婵堟殌閸欏厖鏅堕幐鍥┿仛缁楋讣绱漮verview 鐏忓繐宕遍梾鎰閿?*/
 .spectrum-card::after {
   content: ">";
   position: absolute;
@@ -277,14 +278,14 @@
   top: 50%;
   color: var(--spectrum-card-accent-text);
   font-family: var(--font-latin);
-  font-size: 19px;
+  font-size: var(--text-lead);
   font-weight: 400;
-  line-height: 1;
+  line-height: var(--basic-line-height);
   opacity: 0.58;
   transform: translateY(-50%);
 }
 
-/* 概览卡片变体：只显示图案和中文标题，尺寸明显缩小。 */
+/* 濮掑倽顫嶉崡锛勫閸欐ü缍嬮敍姘涧閺勫墽銇氶崶鐐攳閸滃奔鑵戦弬鍥ㄧ垼妫版﹫绱濈亸鍝勵嚟閺勫孩妯夌紓鈺佺毈閿?*/
 .spectrum-card.is-overview {
   --spectrum-card-icon-size: 42px;
   min-height: 58px;
@@ -293,41 +294,41 @@
   justify-content: center;
 }
 
-/* 概览卡片文字列：去掉通用卡片为箭头预留的右侧空间，让 icon 和标题作为一组居中。 */
+/* 濮掑倽顫嶉崡锛勫閺傚洤鐡ч崚妤嬬窗閸樼粯甯€闁氨鏁ら崡锛勫娑撹櫣顔勬径鎾暕閻ｆ瑧娈戦崣鍏呮櫠缁屾椽妫块敍宀冾唨 icon 閸滃本鐖ｆ０妯圭稊娑撹桨绔寸紒鍕湷娑擃叏鎷?*/
 .spectrum-card.is-overview .spectrum-card-copy {
   padding-right: 0;
 }
 
-/* 概览卡片箭头：概览树不需要可进入提示。 */
+/* 濮掑倽顫嶉崡锛勫缁狀厼銇旈敍姘洤鐟欏牊鐖叉稉宥夋付鐟曚礁褰叉潻娑樺弳閹绘劗銇氶敓?*/
 .spectrum-card.is-overview::after {
   display: none;
 }
 
-/* 大类卡片变体：比谱系卡略大，用于 detailed tree 中列。 */
+/* 婢堆呰閸楋紕澧栭崣妯圭秼閿涙碍鐦拫杈╅兇閸楋紕鏆愭径褝绱濋悽銊ょ艾 detailed tree 娑擃厼鍨敓?*/
 .spectrum-card.is-class {
   --spectrum-card-icon-size: 66px;
   padding: 12px 14px;
 }
 
-/* 谱系小卡变体：固定高度以配合连接层坐标。 */
+/* 鐠嬭京閮寸亸蹇撳幢閸欐ü缍嬮敍姘祼鐎规岸鐝惔锔夸簰闁板秴鎮庢潻鐐村复鐏炲倸娼楅弽鍥锋嫹?*/
 .spectrum-card.is-lineage {
   padding: 12px 14px;
 }
 
-/* 卡片图标圆框：黑色底圆固定，图标在圆心绝对居中。 */
+/* 閸楋紕澧栭崶鐐垼閸﹀棙顢嬮敍姘剁拨閼规彃绨抽崷鍡楁祼鐎规熬绱濋崶鐐垼閸︺劌娓捐箛鍐卜鐎电懓鐪虫稉顓ㄦ嫹?*/
 .spectrum-card-icon {
   position: relative;
   display: grid;
   place-items: center;
   width: var(--spectrum-card-icon-size);
   height: var(--spectrum-card-icon-size);
-  border: 1px solid rgba(45, 95, 150, 0.72);
-  border-radius: 50%;
-  background: #050505;
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-circle);
+  background: var(--black-deep);
   overflow: visible;
 }
 
-/* 卡片图标图片：不单独缩小素材，只随圆框尺寸整体变化。 */
+/* 閸楋紕澧栭崶鐐垼閸ュ墽澧栭敍姘瑝閸楁洜瀚紓鈺佺毈缁辩姵娼楅敍灞藉涧闂呭繐娓惧鍡楁槀鐎靛憡鏆ｆ担鎾冲綁閸栨牭鎷?*/
 .spectrum-card-icon img {
   position: absolute;
   left: 50%;
@@ -340,68 +341,68 @@
   transform: translate(-50%, -50%);
 }
 
-/* 卡片文字列：预留箭头空间并防止长文本撑开布局。 */
+/* 閸楋紕澧栭弬鍥х摟閸掓绱版０鍕殌缁狀厼銇旂粚娲？楠炲爼妲诲銏ゆ毐閺傚洦婀伴幘鎴濈磻鐢啫鐪敓?*/
 .spectrum-card-copy {
   min-width: 0;
   padding-right: clamp(5px, 0.5vw, 10px);
 }
 
-/* 卡片中文标题：主题色跟随卡片变量，字号保持克制。 */
+/* 閸楋紕澧栨稉顓熸瀮閺嶅洭顣介敍姘瘜妫版澹婄捄鐔兼閸楋紕澧栭崣姗€鍣洪敍灞界摟閸欒渹绻氶幐浣稿帬閸掕鎷?*/
 .spectrum-card-title {
   margin: 0;
   color: var(--spectrum-card-accent-text);
-  font-size: 22px;
+  font-size: var(--text-title);
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 
-/* 概览卡片标题：小卡标题比详细正文略突出。 */
+/* 濮掑倽顫嶉崡锛勫閺嶅洭顣介敍姘毈閸椻剝鐖ｆ０妯荤槷鐠囷妇绮忓锝嗘瀮閻ｃ儳鐛婇崙鐚存嫹?*/
 .spectrum-card.is-overview .spectrum-card-title {
-  font-size: 18px;
+  font-size: var(--text-lead);
 }
 
-/* 谱系卡标题：小卡标题统一高度节奏。 */
+/* 鐠嬭京閮撮崡鈩冪垼妫版﹫绱扮亸蹇撳幢閺嶅洭顣界紒鐔剁妤傛ê瀹抽懞鍌氼殧閿?*/
 .spectrum-card.is-lineage .spectrum-card-title {
-  font-size: 20px;
+  font-size: var(--text-title-sm);
 }
 
-/* 卡片副标题：英文类别或谱系本质使用主题色。 */
+/* 閸楋紕澧栭崜顖涚垼妫版﹫绱伴懟杈ㄦ瀮缁鍩嗛幋鏍皑缁粯婀扮拹銊ゅ▏閻劋瀵屾０妯垮閿?*/
 .spectrum-card-subtitle {
   margin: 3px 0 0;
   color: var(--spectrum-card-accent-text);
   font-family: var(--font-latin);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 
-/* 谱系卡副标题：中文“谱系本质”使用正文无衬线字体。 */
+/* 鐠嬭京閮撮崡鈥冲閺嶅洭顣介敍姘厬閺傚洠鈧粏姘ㄧ化缁樻拱鐠愩劉鈧繀濞囬悽銊︻劀閺傚洦妫ょ悰顒傚殠鐎涙ぞ缍嬮敓?*/
 .spectrum-card.is-lineage .spectrum-card-subtitle {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--text-body);
 }
 
-/* 卡片描述：正文固定黑色，不跟随主题色变化。 */
+/* 閸楋紕澧栭幓蹇氬牚閿涙碍顒滈弬鍥ф祼鐎规岸绮﹂懝璇х礉娑撳秷绐￠梾蹇庡瘜妫版澹婇崣妯哄閿?*/
 .spectrum-card-description {
   margin: 6px 0 0;
-  color: var(--color-ink);
-  font-size: clamp(14px, 1vw, 16px);
+  color: var(--black-main);
+  font-size: var(--spectrum-card-description-font-size);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: var(--card-line-height);
   overflow-wrap: anywhere;
 }
 
-/* 详细树面板：为左侧核心、类别卡和谱系卡提供呼吸空间。 */
+/* 鐠囷妇绮忛弽鎴︽桨閺夊尅绱版稉鍝勪箯娓氀勭壋韫囧啨鈧胶琚崚顐㈠幢閸滃矁姘ㄧ化璇插幢閹绘劒绶甸崨鐓庢儧缁屾椽妫块敓?*/
 .spectrum-tree-panel {
   padding: clamp(28px, 3vw, 44px) clamp(24px, 3.2vw, 46px);
   overflow: visible;
 }
 
-/* 详细树画布：定义各列宽度，并允许宽屏继续向右展开。 */
+/* 鐠囷妇绮忛弽鎴犳暰鐢喛绱扮€规矮绠熼崥鍕灙鐎硅棄瀹抽敍灞借嫙閸忎浇顔忕€硅棄鐫嗙紒褏鐢婚崥鎴濆礁鐏炴洖绱戦敓?*/
 .spectrum-tree {
   --spectrum-root-column: 156px;
   --spectrum-detail-card-width: clamp(240px, 23vw, 360px);
@@ -427,7 +428,7 @@
   );
 }
 
-/* 详细树 root SVG：画左侧 spine 和到三张大类卡的横线。 */
+/* 鐠囷妇绮忛敓?root SVG閿涙氨鏁惧锔挎櫠 spine 閸滃苯鍩屾稉澶婄炊婢堆呰閸楋紕娈戝Ο顏嗗殠閿?*/
 .spectrum-root-connector {
   position: absolute;
   left: 0;
@@ -438,7 +439,7 @@
   pointer-events: none;
 }
 
-/* 详细树核心图：旋转 malice-ball 覆盖在现实类卡片中点高度。 */
+/* 鐠囷妇绮忛弽鎴炵壋韫囧啫娴橀敍姘閿?malice-ball 鐟曞棛娲婇崷銊у箛鐎圭偟琚崡锛勫娑擃厾鍋ｆ妯哄閿?*/
 .spectrum-tree-root {
   position: absolute;
   left: 60px;
@@ -448,14 +449,14 @@
   place-items: center;
   width: clamp(210px, 20vw, 310px);
   aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.96) 0 34%, rgba(255, 255, 255, 0) 68%);
+  border-radius: var(--radius-circle);
+  background: radial-gradient(circle, var(--white-main) 0 34%, transparent 68%);
   opacity: 0.72;
   transform: translate(-50%, -50%) rotate(-90deg);
   pointer-events: none;
 }
 
-/* 详细树核心图片：保持素材完整显示，不参与布局宽度计算。 */
+/* 鐠囷妇绮忛弽鎴炵壋韫囧啫娴橀悧鍥风窗娣囨繃瀵旂槐鐘虫綏鐎瑰本鏆ｉ弰鍓с仛閿涘奔绗夐崣鍌欑瑢鐢啫鐪€硅棄瀹崇拋锛勭暬閿?*/
 .spectrum-tree-root img {
   position: relative;
   z-index: 2;
@@ -463,10 +464,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 10px 20px rgba(45, 95, 150, 0.12));
+  filter: drop-shadow(0 10px 20px var(--blue-wash));
 }
 
-/* 详细树分组列：按 2/5/3 谱系堆叠，gap 与组件坐标一致。 */
+/* 鐠囷妇绮忛弽鎴濆瀻缂佸嫬鍨敍姘瘻 2/5/3 鐠嬭京閮撮崼鍡楀綌閿涘疅ap 娑撳海绮嶆禒璺烘綏閺嶅洣绔撮懛杈炬嫹?*/
 .spectrum-tree-groups {
   position: relative;
   z-index: 3;
@@ -474,7 +475,7 @@
   gap: var(--spectrum-group-gap);
 }
 
-/* 详细树单个大类组：让大类卡在本组总高度中点对齐。 */
+/* 鐠囷妇绮忛弽鎴濆礋娑擃亜銇囩猾鑽ょ矋閿涙俺顔€婢堆呰閸椻€虫躬閺堫剛绮嶉幀濠氱彯鎼达缚鑵戦悙鐟邦嚠姒绘劧鎷?*/
 .spectrum-tree-group {
   position: relative;
   display: grid;
@@ -488,7 +489,7 @@
   min-width: 0;
 }
 
-/* 详细树大类卡列：位于左侧 root 连接线和右侧谱系分支之间。 */
+/* 鐠囷妇绮忛弽鎴濄亣缁宕遍崚妤嬬窗娴ｅ秳绨锔挎櫠 root 鏉╃偞甯寸痪鍨嫲閸欏厖鏅剁拫杈╅兇閸掑棙鏁稊瀣？閿?*/
 .spectrum-tree-class {
   position: relative;
   z-index: 3;
@@ -497,7 +498,7 @@
   justify-self: stretch;
 }
 
-/* 详细树组内 SVG：统一绘制大类到谱系卡的横线、竖线和节点。 */
+/* 鐠囷妇绮忛弽鎴犵矋閿?SVG閿涙氨绮烘稉鈧紒妯哄煑婢堆呰閸掓媽姘ㄧ化璇插幢閻ㄥ嫭铆缁捐￥鈧胶鐝痪鍨嫲閼哄倻鍋ｉ敓?*/
 .spectrum-group-connector {
   position: absolute;
   left: calc(var(--spectrum-root-column) + var(--spectrum-class-column));
@@ -508,7 +509,7 @@
   pointer-events: none;
 }
 
-/* 详细树谱系列：固定行高和行距，和 SVG 坐标逐行对应。 */
+/* 鐠囷妇绮忛弽鎴ｆ皑缁鍨敍姘祼鐎规俺顢戞妯烘嫲鐞涘矁绐涢敍灞芥嫲 SVG 閸ф劖鐖ｉ柅鎰攽鐎电懓绨查敓?*/
 .spectrum-tree-lineages {
   grid-column: 4;
   display: grid;
@@ -518,55 +519,59 @@
   min-width: 0;
 }
 
-/* 详细树谱系行：只承载卡片，连接线由 SVG 层统一处理。 */
+/* 鐠囷妇绮忛弽鎴ｆ皑缁槒顢戦敍姘涧閹佃儻娴囬崡锛勫閿涘矁绻涢幒銉у殠閿?SVG 鐏炲倻绮烘稉鈧径鍕倞閿?*/
 .spectrum-lineage-row {
   position: relative;
   display: block;
   min-width: 0;
 }
 
-/* 详细树谱系卡：高度锁定，保证所有连接端点对齐卡片中线。 */
+/* 鐠囷妇绮忛弽鎴ｆ皑缁宕遍敍姘剁彯鎼达箓鏀ｇ€规熬绱濇穱婵婄槈閹碘偓閺堝绻涢幒銉ь伂閻愮懓顕鎰幢閻楀洣鑵戠痪鍖℃嫹?*/
 .spectrum-tree-class > .spectrum-card,
 .spectrum-lineage-row > .spectrum-card {
   height: var(--spectrum-detail-card-height);
 }
 
-/* 本页正文覆盖：避免 archive 正文样式给卡片段落加缩进。 */
+/* 閺堫剟銆夊锝嗘瀮鐟曞棛娲婇敍姘朵缉閿?archive 濮濓絾鏋冮弽宄扮础缂佹瑥宕遍悧鍥唽閽€钘夊缂傗晞绻橀敓?*/
 .content-prose .spectrum-classification p {
   text-indent: 0;
 }
 
-/* 璇存槑妗嗘钀斤細鍦ㄦ湰椤靛叏灞€ p 閲嶇疆涔嬪悗锛屾仮澶嶄汉鐗╂杩扮殑鑷劧娈垫牸銆?*/
+/* 閻犲洤鐡ㄥΣ鎴濐浖閸℃﹩鍞介柦鈧弬銈囩獥闁革负鍔嶅﹢鐗堛亜闂堟稑寮块悘鐐╁亾 p 闂佹彃绉堕悿鍡樼▕鐎ｎ亝鍊甸柨娑樻湰娴狀喗寰勫鍕溄闁绘せ鏅滈々褎娼婚幍顔界暠闁煎浜為崝褍鈻撻崹顐ゅ閿?*/
 .content-prose .spectrum-classification .spectrum-overview-note .character-note-copy p {
   margin: 0;
   max-width: 100%;
-  text-indent: 2em;
+  text-indent: var(--prose-indent);
 }
 
-/* 璇存槑妗嗘渶鍚庢钀斤細淇濇寔閲戣壊妗嗗唴鐨勬敹灏惧竷灞€銆?*/
+/* 閻犲洤鐡ㄥΣ鎴濐浖閸℃ɑ浠橀柛姘椤斿矂鎷冮弬銈囩獥濞ｅ洦绻冪€垫棃鏌岄幋锝咁棌婵℃妫楅崬鎾儍閸曨剚鏆悘蹇斿劤缁旈浠﹂埀顒勫Υ?*/
 .content-prose .spectrum-classification .spectrum-overview-note .character-note-copy p:last-child {
   margin-bottom: 0;
 }
 
-/* 中等宽度布局：缩小左移和卡列，保留完整树状结构。 */
+/* 娑擃厾鐡戠€硅棄瀹崇敮鍐ㄧ湰閿涙氨缂夌亸蹇撲箯缁夎鎷伴崡鈥冲灙閿涘奔绻氶悾娆忕暚閺佸瓨鐖查悩鍓佺波閺嬪嫸鎷?*/
 @media (max-width: 1180px) {
-  /* 中等宽度主容器：减少右移幅度，避免碰到视口边缘。 */
+  /* 娑擃厾鐡戠€硅棄瀹虫稉璇差啇閸ｎ煉绱伴崙蹇撶毌閸欏磭些楠炲懎瀹抽敍宀勪缉閸忓秶顫崚鎷岊潒閸欙綀绔熺紓姗堟嫹?*/
    .spectrum-overview-tree {
     --spectrum-overview-tree-shift: 0px;
   }
 }
 
-/* 窄屏布局：隐藏复杂连线，改为可读的单列谱系列表。 */
+/* 缁愬嫬鐫嗙敮鍐ㄧ湰閿涙岸娈ｉ挊蹇擃槻閺夊倽绻涚痪鍖＄礉閺€閫涜礋閸欘垵顕伴惃鍕礋閸掓姘ㄧ化璇插灙鐞涱煉鎷?*/
 
-/* 手机布局：进一步缩小卡片内部元素，确保中文不挤压。 */
+/* 閹靛婧€鐢啫鐪敍姘崇箻娑撯偓濮濄儳缂夌亸蹇撳幢閻楀洤鍞撮柈銊ュ帗缁辩媴绱濈涵顔荤箽娑擃厽鏋冩稉宥嗗皨閸樺鎷?*/
 
-/* 移动端概览最终覆盖：删除旧假树的实际影响，只保留 SVG 连线几何。 */
+/* 缁夎濮╃粩顖涱洤鐟欏牊娓剁紒鍫ｎ洬閻╂牭绱伴崚鐘绘珟閺冄冧海閺嶆垹娈戠€圭偤妾ぐ鍗炴惙閿涘苯褰ф穱婵堟殌 SVG 鏉╃偟鍤庨崙鐘辩秿閿?*/
 
-/* 手机概览最终覆盖：620px 以下切为两列双排，卡片稍缩。 */
+/* 閹靛婧€濮掑倽顫嶉張鈧紒鍫ｎ洬閻╂牭绱?20px 娴犮儰绗呴崚鍥﹁礋娑撱倕鍨崣灞惧笓閿涘苯宕遍悧鍥┾棦缂傗晪鎷?*/
 
-/* 移动端布局：统一使用 archive 内容宽度，并用 SVG 保留 overview 小树。 */
+/* 缁夎濮╃粩顖氱鐏炩偓閿涙氨绮烘稉鈧担璺ㄦ暏 archive 閸愬懎顔愮€硅棄瀹抽敍灞借嫙閿?SVG 娣囨繄鏆€ overview 鐏忓繑鐖查敓?*/
 @media (max-width: 980px) {
   .spectrum-classification {
+    --spectrum-overview-title-font-size: clamp(13px, 3.1vw, 16px);
+    --spectrum-mobile-class-title-font-size: clamp(21px, 5.4vw, 32px);
+    --spectrum-mobile-class-subtitle-font-size: clamp(12px, 3.1vw, 18px);
+    --spectrum-mobile-class-description-font-size: var(--text-body-sm);
     width: 100%;
     max-width: 100%;
     margin-top: 20px;
@@ -672,7 +677,7 @@
 
   .spectrum-overview-tree .spectrum-card-title,
   .spectrum-card.is-overview .spectrum-card-title {
-    font-size: clamp(13px, 3.1vw, 16px);
+    font-size: var(--spectrum-overview-title-font-size);
     white-space: nowrap;
     overflow-wrap: normal;
     word-break: keep-all;
@@ -713,14 +718,14 @@
     height: auto;
     min-width: 0;
     padding: clamp(16px, 4vw, 28px) clamp(12px, 3.5vw, 22px);
-    border: 1px solid color-mix(in srgb, var(--spectrum-card-accent) 68%, rgba(255, 255, 255, 0.35));
-    border-radius: 7px;
+    border: 1px solid color-mix(in srgb, var(--spectrum-card-accent) 68%, var(--white-faint));
+    border-radius: var(--radius-card);
     background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.86), var(--spectrum-card-accent-wash)),
-      rgba(251, 250, 246, 0.76);
+      linear-gradient(135deg, var(--white-readable), var(--spectrum-card-accent-wash)),
+      var(--white-soft);
     box-shadow:
       inset 0 0 24px var(--spectrum-card-accent-wash),
-      0 8px 24px rgba(21, 21, 21, 0.035);
+      0 8px 24px var(--ink-faint);
   }
 
   .spectrum-tree-class,
@@ -769,14 +774,14 @@
   }
 
   .spectrum-tree-class .spectrum-card-title {
-    font-size: clamp(21px, 5.4vw, 32px);
+    font-size: var(--spectrum-mobile-class-title-font-size);
     line-height: 1.08;
     text-align: center;
   }
 
   .spectrum-tree-class .spectrum-card-subtitle {
     margin-top: 2px;
-    font-size: clamp(12px, 3.1vw, 18px);
+    font-size: var(--spectrum-mobile-class-subtitle-font-size);
     line-height: 1.08;
     text-align: center;
   }
@@ -784,8 +789,8 @@
   .spectrum-tree-class .spectrum-card-description {
     max-width: 28em;
     margin: 12px auto 0;
-    font-size: clamp(14px, 3.4vw, 16px);
-    line-height: 1.5;
+    font-size: var(--spectrum-mobile-class-description-font-size);
+    line-height: var(--card-line-height);
     text-align: left;
   }
 
@@ -799,11 +804,11 @@
 
   .spectrum-card-subtitle,
   .spectrum-card.is-lineage .spectrum-card-subtitle {
-    font-size: 17px;
+    font-size: var(--text-lead);
   }
 
   .spectrum-card-description {
-    font-size: 15px;
+    font-size: var(--text-body-sm);
     word-break: break-word;
   }
 
@@ -844,7 +849,7 @@
   }
 }
 
-/* 手机布局：三张类别卡横排放不下时切换为 2x3 的 SVG 小树。 */
+/* 閹靛婧€鐢啫鐪敍姘瑏瀵姷琚崚顐㈠幢濡亝甯撻弨鍙ョ瑝娑撳妞傞崚鍥ㄥ床閿?2x3 閿?SVG 鐏忓繑鐖查敓?*/
 @media (max-width: 620px) {
   .spectrum-card,
   .spectrum-card.is-class,
@@ -869,16 +874,16 @@
 
   .spectrum-card-title,
   .spectrum-card.is-lineage .spectrum-card-title {
-    font-size: 17px;
+    font-size: var(--text-lead);
   }
 
   .spectrum-card-subtitle,
   .spectrum-card.is-lineage .spectrum-card-subtitle {
-    font-size: 14px;
+    font-size: var(--text-body-sm);
   }
 
   .spectrum-card-description {
-    font-size: 13px;
+    font-size: var(--text-label);
     word-break: break-word;
   }
 
@@ -949,6 +954,7 @@
 
   .spectrum-overview-tree .spectrum-card-title,
   .spectrum-card.is-overview .spectrum-card-title {
-    font-size: 14px;
+    font-size: var(--text-body-sm);
   }
 }
+

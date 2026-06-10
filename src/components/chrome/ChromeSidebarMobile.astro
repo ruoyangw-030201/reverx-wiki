@@ -1,0 +1,26 @@
+---
+import "../../styles/chrome/sidebar-mobile.css";
+import "../../styles/primitives/frame-decor.css";
+import ChromeSidebar from "./ChromeSidebar.astro";
+import DisclosureChevron from "../primitives/DisclosureChevron.astro";
+import { chromeText } from "../../data/chromeText.js";
+
+const {
+  collapseInactiveGroups = false,
+  idPrefix = "chrome-sidebar-mobile",
+} = Astro.props;
+
+const { sidebar } = chromeText;
+---
+
+<details class="chrome-sidebar-mobile">
+  <summary class="chrome-sidebar-mobile-summary frame-decor is-blue">
+    <span>{sidebar.mobileTitle ?? "\u9875\u9762\u5bfc\u822a"}</span>
+    <small>{sidebar.mobileTitleEn ?? "CONTENT LIST"}</small>
+    <DisclosureChevron />
+  </summary>
+
+  <div class="chrome-sidebar-mobile-panel">
+    <ChromeSidebar collapseInactiveGroups={collapseInactiveGroups} idPrefix={idPrefix} />
+  </div>
+</details>

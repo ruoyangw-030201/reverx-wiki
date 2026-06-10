@@ -1,0 +1,17 @@
+---
+import "../../styles/primitives/divider-line.css";
+import "../../styles/chrome/aux-link.css";
+
+const {
+  href,
+  label,
+  showDivider = true,
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<span class:list={["chrome-aux-link-item", className]}>
+  {showDivider && <span class="chrome-aux-link-divider divider-line" aria-hidden="true"></span>}
+  <a {...attrs} class="chrome-aux-link" href={href}>{label}<slot /></a>
+</span>

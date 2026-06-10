@@ -1,5 +1,5 @@
 ---
-import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
+import EntryHeading from "../../components/primitives/EntryHeading.astro";
 import ContentFrame from "../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../components/content-frame/ContentFrameBox.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
@@ -39,7 +39,7 @@ const foundersPlan = anchorsById["founders-plan"];
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading
+  <EntryHeading
     id={foundersPlan.id}
     variant="secondary"
     title={foundersPlan.label}

@@ -1,4 +1,4 @@
-.home-cover-canvas {
+﻿.home-cover-canvas {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -59,25 +59,25 @@
 
 .home-frame-box.is-black-outline {
   z-index: 2;
-  color: rgba(6, 8, 10, 0.9);
+  color: var(--ink-strong);
 }
 
 .home-frame-box.is-blue-outline {
   z-index: 1;
-  color: rgba(48, 91, 145, 0.82);
+  color: var(--blue-border);
 }
 
 .home-frame-box.is-blue-filled {
   z-index: 4;
-  color: rgba(48, 91, 145, 0.86);
-  background: rgb(239, 237, 237);
+  color: var(--blue-border);
+  background: var(--white-cool);
   animation-name: home-frame-soft-pop;
   animation-duration: 0.18s;
 }
 
 .home-frame-box.is-gold-outline {
   z-index: 3;
-  color: rgba(213, 171, 102, 0.9);
+  color: var(--gold-strong);
 }
 
 @keyframes home-birds-resolve {
@@ -142,7 +142,7 @@
 }
 
 .home-cover-canvas.is-static {
-  top: calc(50svh - var(--archive-hero-home-crop-y, 78px));
+  top: calc(50svh - var(--chrome-hero-home-crop-y, 78px));
 }
 
 .home-cover-canvas.is-static .home-birds-layer img,

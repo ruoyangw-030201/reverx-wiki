@@ -1,0 +1,19 @@
+/* Primitive symbol: chevron indicating a closed or open disclosure. */
+.disclosure-chevron {
+  --disclosure-chevron-size: 9px;
+  --disclosure-chevron-stroke: 2px;
+  --disclosure-chevron-closed-transform: translateY(-62%) rotate(45deg);
+  --disclosure-chevron-open-transform: translateY(-32%) rotate(225deg);
+  display: block;
+  width: var(--disclosure-chevron-size);
+  height: var(--disclosure-chevron-size);
+  border-right: var(--disclosure-chevron-stroke) solid currentColor;
+  border-bottom: var(--disclosure-chevron-stroke) solid currentColor;
+  transform: var(--disclosure-chevron-closed-transform);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.disclosure-chevron.is-open,
+details[open] > summary .disclosure-chevron {
+  transform: var(--disclosure-chevron-open-transform);
+}

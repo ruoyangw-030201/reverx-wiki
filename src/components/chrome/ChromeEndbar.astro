@@ -1,0 +1,32 @@
+﻿---
+import "../../styles/chrome/endbar.css";
+import HourglassMarker from "../primitives/HourglassMarker.astro";
+import ChromeAuxLink from "./ChromeAuxLink.astro";
+import { chromeText } from "../../data/chromeText.js";
+
+const currentPathWithSearch = `${Astro.url.pathname}${Astro.url.search}`;
+const copyrightHref = `/copyright/?from=${encodeURIComponent(currentPathWithSearch)}`;
+const { endbar } = chromeText;
+---
+
+<footer class="chrome-endbar" aria-label={endbar.ariaLabel}>
+  <span class="chrome-endbar-row chrome-endbar-row-main">
+    <span class="chrome-endbar-brand">
+      <HourglassMarker />
+      {endbar.brand}
+    </span>
+    <span class="chrome-endbar-meta chrome-endbar-meta-full">
+      {endbar.metaFull}
+    </span>
+    <span class="chrome-endbar-meta chrome-endbar-meta-short">
+      {endbar.metaShort}
+    </span>
+  </span>
+  <span class="chrome-endbar-row chrome-endbar-legal-row">
+    <span class="chrome-endbar-copyright">
+      <span class="chrome-endbar-copyright-full">{endbar.copyrightFull}</span>
+      <span class="chrome-endbar-copyright-short">{endbar.copyrightShort}</span>
+    </span>
+    <ChromeAuxLink href={copyrightHref} label={endbar.legalLabel} />
+  </span>
+</footer>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import BackgroundSurface from "../components/background/BackgroundSurface.astro";
+import ChromeEndbar from "../components/chrome/ChromeEndbar.astro";
+import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
+import ChromeHero from "../components/chrome/ChromeHero.astro";
+import ChromeSidebar from "../components/chrome/ChromeSidebar.astro";
+import ChromeSidebarMobile from "../components/chrome/ChromeSidebarMobile.astro";
+import ChromeStage from "../components/chrome/ChromeStage.astro";
+import "../styles/chrome/chrome-layout.css";
+
+const {
+  surfaceTone = "white",
+  heroVariant,
+  showHero = true,
+  showSidebar = true,
+  sidebarCollapseInactiveGroups = false,
+  sidebarIdPrefix = "chrome-sidebar-group",
+  mobileSidebarIdPrefix = "chrome-sidebar-mobile",
+  pageClass,
+  characterArchiveMode,
+} = Astro.props;
+
+const pageClassList = Array.isArray(pageClass)
+  ? pageClass
+  : [pageClass].filter(Boolean);
+---
+
+<BaseLayout>
+  <div
+    class:list={["chrome-page", ...pageClassList]}
+    data-character-archive-mode={characterArchiveMode}
+  >
+    <BackgroundSurface tone={surfaceTone} />
+
+    <ChromeHeadbar />
+
+    {showHero && <ChromeHero variant={heroVariant} />}
+
+    <slot name="decor" />
+
+    <main class:list={["chrome-layout-main", !showSidebar && "has-no-sidebar"]}>
+      {showSidebar && (
+        <>
+          <div class="chrome-sidebar-slot">
+            <ChromeSidebar
+              collapseInactiveGroups={sidebarCollapseInactiveGroups}
+              idPrefix={sidebarIdPrefix}
+            />
+          </div>
+          <ChromeSidebarMobile
+            collapseInactiveGroups={sidebarCollapseInactiveGroups}
+            idPrefix={mobileSidebarIdPrefix}
+          />
+        </>
+      )}
+
+      <ChromeStage>
+        <slot />
+      </ChromeStage>
+    </main>
+
+    <slot name="after-stage" />
+
+    <ChromeEndbar />
+  </div>
+</BaseLayout>

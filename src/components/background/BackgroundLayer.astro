@@ -1,0 +1,34 @@
+---
+import "../../styles/background/background-layer.css";
+
+const {
+  texture = "archive",
+} = Astro.props;
+
+const showArchiveTexture = texture === "archive";
+
+const archiveTextures = [
+  { className: "background-layer__texture--large", src: "/bg/bg-big-1.webp" },
+  { className: "background-layer__texture--right-a", src: "/texture/texture-3.png" },
+  { className: "background-layer__texture--right-b", src: "/texture/texture-5.png" },
+  { className: "background-layer__texture--right-c", src: "/texture/texture-7.png" },
+  { className: "background-layer__texture--gold-dot", src: "/texture/texture-8.png" },
+  { className: "background-layer__texture--small-a", src: "/bg/bg-small-5.png" },
+  { className: "background-layer__texture--small-b", src: "/bg/bg-small-6.png" },
+  { className: "background-layer__texture--small-c", src: "/bg/bg-small-7.png" },
+];
+---
+
+<div class="background-layer" aria-hidden="true">
+  {showArchiveTexture && (
+    <>
+      {archiveTextures.map((textureItem) => (
+        <img
+          class:list={["background-layer__texture", textureItem.className]}
+          src={textureItem.src}
+          alt=""
+        />
+      ))}
+    </>
+  )}
+</div>

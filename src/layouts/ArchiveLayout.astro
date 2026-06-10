@@ -1,19 +1,11 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Headbar from "../components/Headbar.astro";
-import Endbar from "../components/Endbar.astro";
-import ArchiveMobilePageNav from "../components/ArchiveMobilePageNav.astro";
-import ArchiveSidebar from "../components/ArchiveSidebar.astro";
-import ArchiveEntryHeading from "../components/ArchiveEntryHeading.astro";
-import ArchiveYearSwitch from "../components/ArchiveYearSwitch.astro";
-import ArchiveHero from "../components/archive/ArchiveHero.astro";
-import ArchiveScrollDecor from "../components/archive/ArchiveScrollDecor.astro";
-import ContentFrame from "../components/content-frame/ContentFrame.astro";
+import ArchiveDefaultLayout from "./ArchiveDefaultLayout.astro";
+import ChromeLayout from "./ChromeLayout.astro";
+import EntryHeading from "../components/primitives/EntryHeading.astro";
+import ScrollDecor from "../components/background/ScrollDecor.astro";
 import ContentFrameNextLink from "../components/content-frame/ContentFrameNextLink.astro";
-import ImageGallery from "../components/gallery/ImageGallery.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
-import { getCharacterGalleryImages } from "../data/characterGalleries.js";
 import {
   findNavigationItemByPath,
   getArchivePageNextLinkForPath,
@@ -34,123 +26,38 @@ const navigationItem = findNavigationItemByPath(currentPath);
 const sectionTab = topTabs.find((tab) => tab.key === currentSection);
 const sectionKicker =
   currentSection === "characters" ? "FILES" : sectionTab?.labelEn ?? currentSection.toUpperCase();
-const frameTitle = title ?? navigationItem?.label ?? "世界简介";
+const frameTitle = title ?? navigationItem?.label ?? "Archive Entry";
 const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? "introduction";
-const hasCharacterYearSwitch = currentSection === "characters" && currentPath !== "/characters";
-const characterYearSwitchCurrent = hasCharacterYearSwitch
-  ? { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" }
-  : undefined;
-const characterYearSwitchOptions = hasCharacterYearSwitch
-  ? [
-      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" },
-      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2039\u5e74", mode: "spoiler" },
-    ]
-  : undefined;
-const contentFrameIcon =
-  currentSection === "characters"
-    ? navigationItem?.frameIcon
-    : currentSection === "world" || currentSection === "system"
-      ? navigationItem?.icon
-      : undefined;
-const contentFrameIconCaption = currentSection === "system" ? navigationItem?.label : undefined;
-const contentFrameIconVariant = currentSection === "characters" ? "figure" : "default";
 const nextPageLink = getArchivePageNextLinkForPath(currentPath);
-const characterGalleryImages =
-  currentSection === "characters" && navigationItem?.frameIcon
-    ? getCharacterGalleryImages(navigationItem)
-    : [];
-const characterGallerySlug = (
-  navigationItem?.galleryRef
-  ?? currentPath.split("/").filter(Boolean).at(-1)
-  ?? "character"
-).replace(/[^a-z0-9_-]/gi, "-");
-const characterGalleryId = characterGalleryImages.length > 0
-  ? `character-gallery-${characterGallerySlug}`
-  : undefined;
-const characterGalleryLabel = `${frameTitle} image gallery`;
 ---
 
-<BaseLayout>
-  <div
-    class:list={["archive-page", `is-${currentSection}`]}
-    data-character-archive-mode={hasCharacterYearSwitch ? "normal" : undefined}
+{contentMode === "custom" ? (
+  <ChromeLayout
+    pageClass={["archive-page", `is-${currentSection}`]}
+    heroVariant={currentSection}
+    mobileSidebarIdPrefix="chrome-archive-sidebar-mobile"
   >
-    <Headbar />
+    <ScrollDecor slot="decor" />
 
-    <ArchiveHero />
-
-    <ArchiveScrollDecor />
-
-    <main class="archive-shell">
-      <ArchiveSidebar />
-      <ArchiveMobilePageNav idPrefix="archive-mobile-page-nav" />
-
-      <section class="archive-content-area">
-        {hasCharacterYearSwitch ? (
-          <div class="archive-entry-heading-cluster">
-            <ArchiveEntryHeading
-              kicker={sectionKicker}
-              title={frameTitle}
-              subtitle={frameSubtitle}
-            />
-            <ArchiveYearSwitch
-              current={characterYearSwitchCurrent}
-              options={characterYearSwitchOptions}
-              placement="desktop"
-            />
-          </div>
-        ) : (
-          <ArchiveEntryHeading
-            kicker={sectionKicker}
-            title={frameTitle}
-            subtitle={frameSubtitle}
-          />
-        )}
-
-        {contentMode === "custom" ? (
-          <>
-            <slot />
-            {nextPageLink && (
-              <ContentFrameNextLink
-                {...nextPageLink}
-                class="content-frame-next-link-standalone"
-              />
-            )}
-          </>
-        ) : (
-          <ContentFrame
-            icon={contentFrameIcon}
-            iconAlt={frameTitle}
-            iconCaption={contentFrameIconCaption}
-            iconFrameVariant={contentFrameIconVariant}
-            iconFrameGalleryId={characterGalleryId}
-            iconFrameGalleryLabel="打开人物图片图集"
-            iconFrameGalleryBadge="/icon/picture.png"
-            nextPageLink={nextPageLink}
-          >
-            {hasCharacterYearSwitch && (
-              <Fragment slot="mobile-before-body">
-                <ArchiveYearSwitch
-                  current={characterYearSwitchCurrent}
-                  options={characterYearSwitchOptions}
-                  placement="mobile"
-                />
-              </Fragment>
-            )}
-            <slot />
-          </ContentFrame>
-        )}
-      </section>
-    </main>
-
-    {characterGalleryId && (
-      <ImageGallery
-        id={characterGalleryId}
-        images={characterGalleryImages}
-        label={characterGalleryLabel}
+    <section class="archive-content-area">
+      <EntryHeading
+        kicker={sectionKicker}
+        title={frameTitle}
+        subtitle={frameSubtitle}
       />
-    )}
 
-    <Endbar />
-  </div>
-</BaseLayout>
+      <slot />
+
+      {nextPageLink && (
+        <ContentFrameNextLink
+          {...nextPageLink}
+          class="content-frame-next-link-standalone"
+        />
+      )}
+    </section>
+  </ChromeLayout>
+) : (
+  <ArchiveDefaultLayout title={title} subtitle={subtitle}>
+    <slot />
+  </ArchiveDefaultLayout>
+)}

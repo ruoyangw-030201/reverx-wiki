@@ -1,5 +1,5 @@
 ---
-import ArchiveEntryHeading from "../ArchiveEntryHeading.astro";
+import EntryHeading from "../primitives/EntryHeading.astro";
 
 const {
   title,
@@ -15,7 +15,7 @@ const descriptionText = description
 
 <article class="index-section" style={`--index-section-content-width: ${contentWidth};`}>
   <div class="index-section-heading-row">
-    <ArchiveEntryHeading variant="secondary" title={title} subtitle={subtitle} />
+    <EntryHeading variant="secondary" title={title} subtitle={subtitle} />
     {descriptionText && <p class="index-section-description">{descriptionText}</p>}
   </div>
   <div class="index-section-content">

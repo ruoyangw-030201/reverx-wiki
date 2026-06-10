@@ -1,0 +1,59 @@
+/* Primitive: double-line frame decoration. */
+.frame-decor {
+  --frame-decor-border: var(--gold-border);
+  --frame-decor-outer-border: var(--gold-line);
+  --frame-decor-offset: -7px 8px 7px -8px;
+  --frame-decor-outer-display: block;
+  position: relative;
+  border: 1px solid var(--frame-decor-border);
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+.frame-decor::before {
+  content: "";
+  position: absolute;
+  display: var(--frame-decor-outer-display);
+  inset: var(--frame-decor-offset);
+  border: 1px solid var(--frame-decor-outer-border);
+  pointer-events: none;
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+/* Color preset: blue double frame for inactive navigation and index items. */
+.frame-decor.is-blue {
+  --frame-decor-border: var(--blue-border);
+  --frame-decor-outer-border: var(--blue-line);
+}
+
+/* Color preset: gold double frame for active and emphasized items. */
+.frame-decor.is-gold {
+  --frame-decor-border: var(--gold-border);
+  --frame-decor-outer-border: var(--gold-line);
+}
+
+/* Layer preset: hide the offset outer frame until an active state requests it. */
+.frame-decor.is-single {
+  --frame-decor-outer-display: none;
+}
+
+/* Interactive blue frames become gold without taking ownership of content styling. */
+.frame-decor.is-blue:hover,
+.frame-decor.is-blue:focus-visible,
+.frame-decor.is-blue:active,
+.frame-decor.is-blue.is-active,
+.frame-decor-trigger:hover .frame-decor.is-blue,
+.frame-decor-trigger:focus-visible .frame-decor.is-blue,
+.frame-decor-trigger:active .frame-decor.is-blue,
+.frame-decor-trigger.is-active .frame-decor.is-blue,
+details[open] > summary.frame-decor.is-blue {
+  --frame-decor-border: var(--gold-border);
+  --frame-decor-outer-border: var(--gold-line);
+}
+
+/* A single frame only gains its outer frame when selected or pressed. */
+.frame-decor.is-single:active,
+.frame-decor.is-single.is-active,
+.frame-decor-trigger:active .frame-decor.is-single,
+.frame-decor-trigger.is-active .frame-decor.is-single {
+  --frame-decor-outer-display: block;
+}

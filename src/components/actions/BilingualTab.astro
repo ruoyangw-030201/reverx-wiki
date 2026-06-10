@@ -1,0 +1,32 @@
+---
+import "../../styles/primitives/frame-decor.css";
+import "../../styles/actions/bilingual-tab.css";
+
+const {
+  href,
+  label,
+  labelEn,
+  active = false,
+  size = "default",
+  class: className,
+  ariaLabel,
+} = Astro.props;
+---
+
+<a
+  class:list={[
+    "bilingual-tab",
+    "frame-decor",
+    "is-blue",
+    "is-single",
+    className,
+    active && "is-active",
+    size === "compact" && "is-compact",
+  ]}
+  href={href}
+  aria-label={ariaLabel}
+>
+  <span class="bilingual-tab__label">{label}</span>
+  <small class="bilingual-tab__sub-label">{labelEn}</small>
+  <slot />
+</a>

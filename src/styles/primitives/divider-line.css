@@ -1,0 +1,24 @@
+/* Primitive: reusable one-pixel line divider. */
+.divider-line {
+  --divider-line-color: var(--gold-line);
+  --divider-line-thickness: 1px;
+  --divider-line-length: 100%;
+  --divider-line-width: var(--divider-line-thickness);
+  --divider-line-height: var(--divider-line-length);
+  flex: 0 0 auto;
+  width: var(--divider-line-width);
+  height: var(--divider-line-height);
+  background: var(--divider-line-color);
+}
+
+/* Orientation shortcut: vertical divider for static rails and grouped actions. */
+.divider-line.is-vertical {
+  --divider-line-width: var(--divider-line-thickness);
+  --divider-line-height: var(--divider-line-length);
+}
+
+/* Orientation shortcut: horizontal divider for static dropdowns, panels, and stacked groups. */
+.divider-line.is-horizontal {
+  --divider-line-width: var(--divider-line-length);
+  --divider-line-height: var(--divider-line-thickness);
+}

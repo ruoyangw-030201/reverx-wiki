@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
-import ArchiveBackgroundLayer from "../../components/archive/ArchiveBackgroundLayer.astro";
+import EntryHeading from "../../components/primitives/EntryHeading.astro";
+import BackgroundLayer from "../../components/background/BackgroundLayer.astro";
+import BackgroundSurface from "../../components/background/BackgroundSurface.astro";
 import ContentFrameNextLink from "../../components/content-frame/ContentFrameNextLink.astro";
 import "../../styles/archive/layout.css";
 import "../../styles/content/content.css";
@@ -12,10 +13,12 @@ const fallbackReturnHref = "/";
 
 <BaseLayout description="REVERX ARCHIVE 版权声明">
   <div class="archive-page copyright-page">
-    <ArchiveBackgroundLayer />
+    <BackgroundSurface tone="white" />
+
+    <BackgroundLayer />
 
     <main class="copyright-shell">
-      <ArchiveEntryHeading
+      <EntryHeading
         kicker="NOTICE"
         title="版权声明"
         subtitle="COPYRIGHT NOTICE"

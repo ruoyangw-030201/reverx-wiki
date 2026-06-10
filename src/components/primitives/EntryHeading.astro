@@ -1,0 +1,23 @@
+---
+import "../../styles/primitives/entry-heading.css";
+
+const {
+  id,
+  kicker,
+  title,
+  subtitle,
+  variant = "primary",
+  titleTag,
+} = Astro.props;
+
+const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
+const isPrimary = variant === "primary";
+---
+
+<header id={id} class:list={["entry-heading", `is-${variant}`]}>
+  {isPrimary && <span class="entry-heading-kicker">{kicker}</span>}
+  <div class="entry-heading-title-row">
+    <HeadingTag class="entry-heading-title frame-decor is-gold">{title}</HeadingTag>
+  </div>
+  {subtitle && <p class="entry-heading-subtitle">{subtitle}</p>}
+</header>

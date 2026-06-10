@@ -1,0 +1,52 @@
+.chrome-nav-tab {
+  --bilingual-tab-min-width: var(--chrome-headbar-item-min-width);
+  --bilingual-tab-padding: 0 var(--chrome-headbar-item-pad-x);
+}
+
+.chrome-nav-tab .hourglass-marker {
+  position: absolute;
+  left: 50%;
+  bottom: -21px;
+  transform: translateX(-50%) scale(0.62);
+  z-index: var(--z-popover);
+}
+
+.chrome-nav-tab.is-active .hourglass-marker {
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .chrome-nav-tab {
+    --bilingual-tab-padding: 0 34px 0 14px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .chrome-nav-tab .bilingual-tab__label {
+    white-space: nowrap;
+  }
+
+  .chrome-nav-tab .bilingual-tab__sub-label {
+    display: block;
+  }
+
+  .chrome-nav-tab .hourglass-marker {
+    left: auto;
+    right: 8px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%) scale(0.42);
+  }
+}
+
+@media (max-width: 620px) {
+  .chrome-nav-tab {
+    --bilingual-tab-height: var(--bilingual-tab-compact-height);
+    --bilingual-tab-label-size: var(--bilingual-tab-compact-label-size);
+  }
+
+  .chrome-nav-tab .hourglass-marker {
+    transform: translateY(-50%) scale(0.4);
+  }
+}

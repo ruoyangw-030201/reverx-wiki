@@ -1,0 +1,25 @@
+---
+import "../../styles/actions/menu-toggle-button.css";
+
+const {
+  controls,
+  label = "Toggle menu",
+  expanded = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<button
+  {...attrs}
+  class:list={["menu-toggle-button", className]}
+  type="button"
+  aria-label={label}
+  aria-expanded={expanded ? "true" : "false"}
+  aria-controls={controls}
+  data-disclosure-toggle
+>
+  <span class="menu-toggle-button__bar"></span>
+  <span class="menu-toggle-button__bar"></span>
+  <span class="menu-toggle-button__bar"></span>
+</button>

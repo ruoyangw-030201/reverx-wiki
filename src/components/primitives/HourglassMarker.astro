@@ -1,0 +1,13 @@
+---
+import "../../styles/primitives/hourglass-marker.css";
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={["hourglass-marker", className]} aria-hidden="true">
+  <span class="hourglass-body">
+    <span class="hourglass-line"></span>
+    <span class="hourglass-fill hourglass-fill-top"></span>
+    <span class="hourglass-fill hourglass-fill-bottom"></span>
+  </span>
+</span>

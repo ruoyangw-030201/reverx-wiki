@@ -1,0 +1,56 @@
+---
+import "../../styles/background/scroll-decor.css";
+
+const {
+  variant = "default",
+  repeatCount = 6,
+  class: className,
+} = Astro.props;
+
+const variantClassByName = {
+  default: null,
+  secret: "is-secret",
+  worldMap: "is-world-map",
+} as const;
+
+type ScrollDecorVariant = keyof typeof variantClassByName;
+
+function isScrollDecorVariant(value: unknown): value is ScrollDecorVariant {
+  return typeof value === "string" && value in variantClassByName;
+}
+
+const variantKey = isScrollDecorVariant(variant) ? variant : "default";
+const variantClass = variantClassByName[variantKey];
+const resolvedRepeatCount = Number.isFinite(Number(repeatCount))
+  ? Math.max(1, Number(repeatCount))
+  : 6;
+const decorGroups = Array.from({ length: resolvedRepeatCount }, (_, index) => index);
+const decorImages = [
+  { className: "scroll-decor__image--big", src: "/bg/bg-big-3.webp" },
+  { className: "scroll-decor__image--small", src: "/bg/bg-small-1-blue.webp" },
+  { className: "scroll-decor__image--tri", src: "/bg/bg-small-2.webp" },
+  { className: "scroll-decor__image--orb", src: "/bg/bg-small-3.webp" },
+  { className: "scroll-decor__image--poly", src: "/bg/bg-small-4.webp" },
+];
+---
+
+<div
+  class:list={["scroll-decor-layer", variantClass, className]}
+  style={`--scroll-decor-repeat-count: ${decorGroups.length};`}
+  aria-hidden="true"
+>
+  {decorGroups.map((group) => (
+    <div
+      class="scroll-decor__group"
+      style={`--scroll-decor-repeat-index: ${group};`}
+    >
+      {decorImages.map((decorImage) => (
+        <img
+          class:list={["scroll-decor__image", decorImage.className]}
+          src={decorImage.src}
+          alt=""
+        />
+      ))}
+    </div>
+  ))}
+</div>

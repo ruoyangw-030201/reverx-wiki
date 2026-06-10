@@ -1,5 +1,5 @@
 ---
-import ArchiveEntryHeading from "../../components/ArchiveEntryHeading.astro";
+import EntryHeading from "../../components/primitives/EntryHeading.astro";
 import ContentFrame from "../../components/content-frame/ContentFrame.astro";
 import ContentFrameBox from "../../components/content-frame/ContentFrameBox.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
@@ -39,7 +39,7 @@ const hybridMalicer = anchorsById["hybrid-malicer"];
     </p>
   </ContentFrame>
 
-  <ArchiveEntryHeading
+  <EntryHeading
     id={malitPossession.id}
     variant="secondary"
     title={malitPossession.label}
@@ -54,7 +54,7 @@ const hybridMalicer = anchorsById["hybrid-malicer"];
     </p>
   </ContentFrameBox>
 
-  <ArchiveEntryHeading
+  <EntryHeading
     id={hybridMalicer.id}
     variant="secondary"
     title={hybridMalicer.label}

@@ -1,0 +1,76 @@
+.background-layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-base);
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--background-surface, var(--white-main));
+}
+
+.background-layer__texture {
+  position: absolute;
+  display: block;
+  user-select: none;
+  object-fit: contain;
+}
+
+.background-layer__texture--large {
+  width: 60vw;
+  min-width: 173px;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+.background-layer__texture--right-a,
+.background-layer__texture--right-b {
+  width: 18.75vw;
+  min-width: 240px;
+  top: -10vh;
+}
+
+.background-layer__texture--right-a {
+  right: -6vw;
+}
+
+.background-layer__texture--right-b {
+  right: 6vw;
+}
+
+.background-layer__texture--right-c,
+.background-layer__texture--gold-dot,
+.background-layer__texture--small-a,
+.background-layer__texture--small-b,
+.background-layer__texture--small-c {
+  width: 14.25vw;
+  min-width: 188px;
+}
+
+.background-layer__texture--right-c {
+  top: 150px;
+  right: 5vw;
+}
+
+.background-layer__texture--gold-dot {
+  top: 10vh;
+  right: 15vw;
+}
+
+.background-layer__texture--small-a,
+.background-layer__texture--small-b,
+.background-layer__texture--small-c {
+  right: 5vw;
+  opacity: 0.6;
+}
+
+.background-layer__texture--small-a {
+  top: 300px;
+}
+
+.background-layer__texture--small-b {
+  top: 450px;
+}
+
+.background-layer__texture--small-c {
+  top: 600px;
+}

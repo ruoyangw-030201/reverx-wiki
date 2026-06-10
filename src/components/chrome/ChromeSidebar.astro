@@ -1,0 +1,234 @@
+﻿---
+import "../../styles/chrome/sidebar.css";
+import HourglassMarker from "../primitives/HourglassMarker.astro";
+import DisclosureToggleButton from "../actions/DisclosureToggleButton.astro";
+import ChromeSidebarLink from "./ChromeSidebarLink.astro";
+import { chromeText } from "../../data/chromeText.js";
+import {
+  getSectionFromPath,
+  getSidebarAnchorsForPath,
+  getSidebarItemsForPath,
+  normalizeNavigationHref,
+  topTabs,
+} from "../../data/navigation.js";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const { collapseInactiveGroups = false, idPrefix = "chrome-sidebar-group" } = Astro.props;
+const currentSection = getSectionFromPath(currentPath);
+const items = getSidebarItemsForPath(currentPath);
+const sectionTab = topTabs.find((tab) => tab.key === currentSection);
+const { sidebar } = chromeText;
+const title = sidebar.title;
+const titleEn = sidebar.titleEn;
+const collapsibleGroupKeys = new Set(["ferdona", "hespera"]);
+const ariaLabel = sidebar.ariaLabel;
+
+function isCollapsibleGroup(item) {
+  return item.type === "group" && (collapsibleGroupKeys.has(item.entityKey) || !item.href);
+}
+
+function isSideActive(href) {
+  if (!href) return false;
+  if (href.includes("#")) return false;
+  return currentPath === normalizeNavigationHref(href);
+}
+
+function normalizeAnchor(itemPath, anchor) {
+  const href = anchor.href ?? `${itemPath}#${anchor.id}`;
+
+  return {
+    ...anchor,
+    depth: 2,
+    isAnchor: true,
+    href,
+  };
+}
+
+function withPageAnchors(sidebarItems) {
+  return sidebarItems.flatMap((item) => {
+    const itemPath = normalizeNavigationHref(item.href);
+    if (item.type === "group" || !itemPath) {
+      return [item];
+    }
+
+    const anchorsForItem = getSidebarAnchorsForPath(itemPath).map((anchor) =>
+      normalizeAnchor(itemPath, anchor)
+    );
+
+    return anchorsForItem.length > 0 ? [item, ...anchorsForItem] : [item];
+  });
+}
+
+function groupSidebarItems(sidebarItems) {
+  const groupedItems = [];
+  let currentCollapsibleGroup = null;
+
+  sidebarItems.forEach((item) => {
+    if (isCollapsibleGroup(item)) {
+      currentCollapsibleGroup = {
+        type: "collapsible-group",
+        item,
+        id: `${idPrefix}-${item.entityKey ?? groupedItems.length}`,
+        children: [],
+      };
+      groupedItems.push(currentCollapsibleGroup);
+      return;
+    }
+
+    if (item.type === "group") {
+      currentCollapsibleGroup = null;
+      groupedItems.push({
+        type: "item",
+        item,
+      });
+      return;
+    }
+
+    if (currentCollapsibleGroup) {
+      currentCollapsibleGroup.children.push(item);
+      return;
+    }
+
+    groupedItems.push({
+      type: "item",
+      item,
+    });
+  });
+
+  return groupedItems;
+}
+
+const sidebarItems = withPageAnchors(items);
+const groupedSidebarItems = groupSidebarItems(sidebarItems);
+
+function isCollapsibleEntryActive(entry) {
+  return isSideActive(entry.item.href) || entry.children.some((item) => isSideActive(item.href));
+}
+
+function isCollapsibleEntryExpanded(entry) {
+  return !collapseInactiveGroups || isCollapsibleEntryActive(entry);
+}
+---
+
+<aside class="chrome-sidebar">
+  <section class="chrome-sidebar-nav">
+    <div class="chrome-sidebar-heading">
+      <span>{title}</span>
+      <small>{titleEn}</small>
+    </div>
+
+    <nav aria-label={ariaLabel}>
+      {sectionTab && (
+        <a class="chrome-sidebar-section-link" href={sectionTab.href}>
+          <span>{sectionTab.label}</span>
+        </a>
+      )}
+
+      {groupedSidebarItems.map((entry) => (
+        entry.type === "collapsible-group" ? (
+          <div
+            class:list={[
+              "chrome-sidebar-collapsible-group",
+              !isCollapsibleEntryExpanded(entry) && "is-collapsed",
+            ]}
+            data-sidebar-group-key={entry.item.key ?? entry.item.entityKey}
+            data-sidebar-collapsible
+          >
+            <div class="chrome-sidebar-group-row">
+              <DisclosureToggleButton
+                class="chrome-sidebar-group-toggle"
+                expanded={isCollapsibleEntryExpanded(entry)}
+                controls={entry.id}
+                ariaLabel={`${sidebar.collapsibleTogglePrefix}${entry.item.label}`}
+                data-sidebar-toggle
+              />
+              {entry.item.href ? (
+                <a
+                  class:list={[
+                    "chrome-sidebar-group",
+                    "chrome-sidebar-group-label",
+                    "is-clickable",
+                    isSideActive(entry.item.href) && "is-active",
+                  ]}
+                  href={entry.item.href}
+                >
+                  {entry.item.label}
+                  <HourglassMarker />
+                </a>
+              ) : (
+                <span class="chrome-sidebar-group chrome-sidebar-group-label">
+                  {entry.item.label}
+                </span>
+              )}
+            </div>
+
+            <div
+              class="chrome-sidebar-group-children"
+              id={entry.id}
+              data-sidebar-group-children
+              data-sidebar-group-key={entry.item.key ?? entry.item.entityKey}
+              data-sidebar-children
+              hidden={!isCollapsibleEntryExpanded(entry)}
+            >
+              {entry.children.map((item) => (
+                <ChromeSidebarLink
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  depth={item.depth === 2 ? "child" : "default"}
+                  active={isSideActive(item.href)}
+                  class={item.isAnchor ? "is-anchor" : undefined}
+                  data-sidebar-link-path={normalizeNavigationHref(item.href)}
+                  data-sidebar-original-group-key={entry.item.key ?? entry.item.entityKey}
+                  data-sidebar-original-icon={item.icon}
+                  data-sidebar-mode-overrides={item.modeSidebarOverrides ? JSON.stringify(item.modeSidebarOverrides) : undefined}
+                  data-sidebar-anchor={item.isAnchor ? item.href : undefined}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          entry.item.type === "group" ? (
+            entry.item.href ? (
+              <a
+                class:list={[
+                  "chrome-sidebar-group",
+                  "is-clickable",
+                  isSideActive(entry.item.href) && "is-active",
+                ]}
+                href={entry.item.href}
+              >
+                {entry.item.label}
+                <HourglassMarker />
+              </a>
+            ) : (
+              <div class="chrome-sidebar-group">
+                {entry.item.label}
+              </div>
+            )
+          ) : (
+            <ChromeSidebarLink
+              href={entry.item.href}
+              label={entry.item.label}
+              icon={entry.item.icon}
+              depth={entry.item.depth === 2 ? "child" : "default"}
+              active={isSideActive(entry.item.href)}
+              class={entry.item.isAnchor ? "is-anchor" : undefined}
+              data-sidebar-link-path={normalizeNavigationHref(entry.item.href)}
+              data-sidebar-original-icon={entry.item.icon}
+              data-sidebar-mode-overrides={entry.item.modeSidebarOverrides ? JSON.stringify(entry.item.modeSidebarOverrides) : undefined}
+              data-sidebar-anchor={entry.item.isAnchor ? entry.item.href : undefined}
+            />
+          )
+        )
+      ))}
+    </nav>
+  </section>
+</aside>
+
+<script>
+  import { initChromeSidebar } from "../../scripts/chromeSidebar.js";
+
+  initChromeSidebar();
+  document.addEventListener("astro:page-load", initChromeSidebar);
+</script>

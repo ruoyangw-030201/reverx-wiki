@@ -1,0 +1,12 @@
+---
+import "../../styles/background/background-surface.css";
+
+const {
+  tone = "white",
+} = Astro.props;
+
+const surfaceTones = new Set(["white", "paper", "cool", "dark"]);
+const surfaceTone = surfaceTones.has(tone) ? tone : "white";
+---
+
+<span class:list={["background-surface", `is-${surfaceTone}`]} aria-hidden="true"></span>

@@ -1,6 +1,6 @@
 .content-prose {
-  font-size: 16px;
-  line-height: var(--content-prose-line-height, 1.6);
+  font-size: var(--text-body);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
 }
 
 .content-prose > :first-child {
@@ -8,8 +8,8 @@
 }
 
 .content-prose p {
-  margin: 0 0 24px;
-  text-indent: 2em;
+  margin: 0 0 var(--prose-paragraph-gap);
+  text-indent: var(--prose-indent);
 }
 
 .content-prose > :last-child {
@@ -17,18 +17,18 @@
 }
 
 .archive-placeholder {
-  color: rgba(21, 21, 21, 0.58);
-  font-size: 17px;
+  color: var(--ink-muted);
+  font-size: var(--text-lead);
   letter-spacing: 0.02em;
 }
 
-/* 正文内通用资料卡模块 */
+/* 濮濓絾鏋冮崘鍛粹偓姘辨暏鐠у嫭鏋￠崡鈩兡侀敓?*/
 .archive-info-card-module {
-  --character-profile-blue: #234d7b;
-  --character-profile-blue-deep: #17395f;
-  --character-profile-gold: rgba(200, 155, 90, 0.86);
-  --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
-  --character-profile-paper: rgba(251, 250, 246, 0.68);
+  --character-profile-blue: var(--blue-main);
+  --character-profile-blue-deep: var(--blue-dark);
+  --character-profile-gold: var(--gold-strong);
+  --character-profile-gold-soft: var(--gold-wash);
+  --character-profile-paper: var(--white-soft);
   --character-ability-card-font: clamp(15px, calc(14px + 0.25cqw), 16px);
   --character-ability-title-font: clamp(16px, calc(15px + 0.25cqw), 17px);
   --character-ability-emblem-size: clamp(58px, 8.8cqw, 64px);
@@ -36,80 +36,80 @@
   width: 100%;
   margin: 0 0 clamp(18px, 2vw, 24px);
   container-type: inline-size;
-  color: var(--color-ink);
+  color: var(--black-main);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: var(--content-prose-line-height, 1.6);
+  font-size: var(--text-body);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
 }
 
-/* 正文内通用资料卡列表 */
+/* 濮濓絾鏋冮崘鍛粹偓姘辨暏鐠у嫭鏋￠崡鈥冲灙閿?*/
 .archive-info-card-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(7px, 1cqw, 12px);
 }
 
-/* 正文内通用资料卡段落的缩进重置 */
+/* 濮濓絾鏋冮崘鍛粹偓姘辨暏鐠у嫭鏋￠崡鈩冾唽閽€鐣屾畱缂傗晞绻橀柌宥囩枂 */
 .content-prose .archive-info-card-module p {
   margin: 0;
   text-indent: 0;
 }
 
-/* 角色档案卡片组的整体容器 */
+/* 鐟欐帟澹婂锝嗩攳閸楋紕澧栫紒鍕畱閺佺繝缍嬬€圭懓娅?*/
 .character-profile-archive {
-  --character-profile-blue: #234d7b;
-  --character-profile-blue-deep: #17395f;
-  --character-profile-gold: rgba(200, 155, 90, 0.86);
-  --character-profile-gold-soft: rgba(224, 194, 143, 0.42);
-  --character-profile-paper: rgba(251, 250, 246, 0.68);
-  --character-profile-text: var(--color-ink);
+  --character-profile-blue: var(--blue-main);
+  --character-profile-blue-deep: var(--blue-dark);
+  --character-profile-gold: var(--gold-strong);
+  --character-profile-gold-soft: var(--gold-wash);
+  --character-profile-paper: var(--white-soft);
+  --character-profile-text: var(--black-main);
   display: grid;
   gap: clamp(12px, 1.4vw, 18px);
   width: 100%;
   color: var(--character-profile-text);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: var(--content-prose-line-height, 1.6);
+  font-size: var(--text-body);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   overflow-wrap: normal;
   word-break: normal;
-  transition: color 220ms ease;
+  transition: color var(--duration-content) var(--ease-standard);
 }
 
-/* 角色档案年份模式面板的默认隐藏状态 */
+/* 鐟欐帟澹婂锝嗩攳楠炵繝鍞ゅΟ鈥崇础闂堛垺婢橀惃鍕帛鐠併倝娈ｉ挊蹇曞Ц閿?*/
 .archive-page.is-characters .character-profile-archive[data-character-archive-panel] {
   display: none;
 }
 
-/* 角色档案普通年份模式面板 */
+/* 鐟欐帟澹婂锝嗩攳閺咁噣鈧艾鍕炬禒鑺ツ佸蹇涙桨閿?*/
 .archive-page.is-characters[data-character-archive-mode="normal"] .character-profile-archive[data-character-archive-panel="normal"],
 .archive-page.is-characters:not([data-character-archive-mode]) .character-profile-archive[data-character-archive-panel="normal"] {
   display: grid;
 }
 
-/* 角色档案剧透年份模式面板 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇撳嬀娴犺姤膩瀵繘娼伴敓?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive[data-character-archive-panel="spoiler"] {
   display: grid;
 }
 
-/* 角色档案剧透模式的正文颜色变量 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱濮濓絾鏋冩０婊嗗閸欐﹢鍣?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive {
   --character-profile-card-background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    linear-gradient(135deg, var(--white-soft), var(--white-soft)),
     var(--character-profile-paper);
 }
 
-/* 角色档案卡片组内普通段落的缩进重置 */
+/* 鐟欐帟澹婂锝嗩攳閸楋紕澧栫紒鍕敶閺咁噣鈧碍顔岄拃鐣屾畱缂傗晞绻橀柌宥囩枂 */
 .content-prose .character-profile-archive p {
   margin: 0;
   text-indent: 0;
 }
 
-/* 角色档案英文文本 */
+/* 鐟欐帟澹婂锝嗩攳閼昏鲸鏋冮弬鍥ㄦ拱 */
 .character-latin-text {
   font-family: var(--font-latin);
 }
 
-/* 正文隐藏文本触发器 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀扮憴锕€褰傞敓?*/
 .content-hidden-text {
   position: relative;
   display: inline-grid;
@@ -120,8 +120,8 @@
   padding: 0 0.28em;
   border: 0;
   border-radius: 2px;
-  background: rgba(5, 5, 5, 0.88);
-  color: #fff;
+  background: var(--black-deep);
+  color: var(--white-main);
   font: inherit;
   line-height: inherit;
   letter-spacing: 0;
@@ -129,47 +129,47 @@
   cursor: pointer;
 }
 
-/* 正文隐藏文本的文字层 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕瀮鐎涙鐪?*/
 .content-hidden-text-face {
   grid-area: text;
   min-width: 100%;
   color: currentColor;
   text-align: center;
   white-space: nowrap;
-  transition: opacity 160ms ease;
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 
-/* 正文隐藏文本的默认文字 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕帛鐠併倖鏋冮敓?*/
 .content-hidden-text-face.is-visible {
   opacity: 1;
 }
 
-/* 正文隐藏文本的隐藏内容 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕閽樺繐鍞撮敓?*/
 .content-hidden-text-face.is-hidden {
   opacity: 0;
 }
 
-/* 正文隐藏文本的显示状态 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕▔缁€铏瑰Ц閿?*/
 .content-hidden-text:hover .content-hidden-text-face.is-visible,
 .content-hidden-text:focus-visible .content-hidden-text-face.is-visible,
 .content-hidden-text[aria-pressed="true"] .content-hidden-text-face.is-visible {
   opacity: 0;
 }
 
-/* 正文隐藏文本的揭示状态 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕疆缁€铏瑰Ц閿?*/
 .content-hidden-text:hover .content-hidden-text-face.is-hidden,
 .content-hidden-text:focus-visible .content-hidden-text-face.is-hidden,
 .content-hidden-text[aria-pressed="true"] .content-hidden-text-face.is-hidden {
   opacity: 1;
 }
 
-/* 正文隐藏文本的键盘焦点 */
+/* 濮濓絾鏋冮梾鎰閺傚洦婀伴惃鍕暛閻╂鍔嶉敓?*/
 .content-hidden-text:focus-visible {
-  outline: 1px solid var(--color-gold-light);
+  outline: 1px solid var(--gold-light);
   outline-offset: 2px;
 }
 
-/* 角色档案中英文标题分隔符 */
+/* 鐟欐帟澹婂锝嗩攳娑擃叀瀚抽弬鍥ㄧ垼妫版ê鍨庨梾鏃傤儊 */
 .character-title-separator {
   display: inline-block;
   margin: 0;
@@ -178,7 +178,7 @@
   letter-spacing: 0;
 }
 
-/* 基础设定区块 */
+/* 閸╄櫣顢呯拋鎯х暰閸栧搫娼?*/
 .character-profile-section {
   --character-section-heading-top: 0px;
   --character-section-heading-height: 34px;
@@ -192,12 +192,12 @@
   background: transparent;
 }
 
-/* 基础设定区块的间距 */
+/* 閸╄櫣顢呯拋鎯х暰閸栧搫娼￠惃鍕？閿?*/
 .character-profile-section.is-profile {
   padding-top: 46px;
 }
 
-/* 基础设定和武器设定顶部横线 */
+/* 閸╄櫣顢呯拋鎯х暰閸滃本顒熼崳銊啎鐎规岸銆婇柈銊γ敓?*/
 .character-profile-divider,
 .character-weapons-divider {
   position: absolute;
@@ -206,11 +206,11 @@
   top: var(--character-section-line-top);
   z-index: 2;
   height: 1.5px;
-  background: linear-gradient(90deg, var(--character-profile-blue), rgba(45, 95, 150, 0.34), var(--character-profile-gold));
-  transition: background 220ms ease;
+  background: linear-gradient(90deg, var(--character-profile-blue), var(--blue-line), var(--character-profile-gold));
+  transition: background var(--duration-content) var(--ease-standard);
 }
 
-/* 深蓝色章节标题条 */
+/* 濞ｈ精鎽戦懝鑼彿閼哄倹鐖ｆ０妯绘蒋 */
 .character-profile-heading,
 .character-weapons-heading {
   position: absolute;
@@ -226,27 +226,27 @@
   border-radius: 6px 6px 2px 2px;
   background:
     linear-gradient(90deg, var(--character-profile-blue-deep), var(--character-profile-blue));
-  color: #fff;
-  font-size: 17px;
+  color: var(--white-main);
+  font-size: var(--text-lead);
   font-weight: 900;
-  line-height: 1;
+  line-height: var(--basic-line-height);
   letter-spacing: 0;
-  transition: background 220ms ease;
+  transition: background var(--duration-content) var(--ease-standard);
 }
 
-/* 基础设定内容的两栏布局 */
+/* 閸╄櫣顢呯拋鎯х暰閸愬懎顔愰惃鍕⒈閺嶅繐绔风仦鈧?*/
 .character-profile-body {
   display: block;
 }
 
-/* 能力卡片列表 */
+/* 閼宠棄濮忛崡锛勫閸掓銆?*/
 .character-profile-ability-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(7px, 1cqw, 12px);
 }
 
-/* 能力卡片 */
+/* 閼宠棄濮忛崡锛勫 */
 .character-ability-card {
   position: relative;
   display: grid;
@@ -256,34 +256,34 @@
   min-height: 96px;
   padding: clamp(8px, 1.2cqw, 10px) clamp(9px, 1.45cqw, 12px);
   border: 1px solid var(--character-profile-gold);
-  border-radius: 7px;
+  border-radius: var(--radius-card);
   background: var(--character-profile-card-background,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    linear-gradient(135deg, var(--white-soft), var(--white-soft)),
     var(--character-profile-paper)
   );
   overflow: hidden;
   font-size: var(--character-ability-card-font);
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   transition:
-    background 220ms ease,
-    border-color 220ms ease,
-    color 220ms ease;
+    background var(--duration-content) var(--ease-standard),
+    border-color var(--duration-content) var(--ease-standard),
+    color var(--duration-content) var(--ease-standard);
 }
 
-/* 能力卡片右下角的箭头装饰 */
+/* 閼宠棄濮忛崡锛勫閸欏厖绗呯憴鎺旀畱缁狀厼銇旂憗鍛淬偘 */
 .character-ability-card::after {
   content: ">>>";
   position: absolute;
   right: 13px;
   bottom: 0px;
-  color: rgba(143, 93, 53, 0.72);
-  font-size: 12px;
+  color: var(--russet-line);
+  font-size: var(--text-sm);
   font-family: var(--font-latin);
   font-weight: 700;
   letter-spacing: 0.08em;
 }
 
-/* 能力卡片圆形徽章 */
+/* 閼宠棄濮忛崡锛勫閸﹀棗鑸板鐣岀彿 */
 .character-ability-emblem {
   position: relative;
   display: grid;
@@ -293,13 +293,13 @@
   aspect-ratio: auto;
   flex: 0 0 var(--character-ability-emblem-size);
   margin-inline: auto;
-  border: 1px solid rgba(45, 95, 150, 0.76);
-  border-radius: 50%;
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-circle);
   overflow: visible;
-  transition: border-color 220ms ease;
+  transition: border-color var(--duration-content) var(--ease-standard);
 }
 
-/* 能力卡片圆形徽章图标 */
+/* 閼宠棄濮忛崡锛勫閸﹀棗鑸板鐣岀彿閸ョ偓鐖?*/
 .character-ability-emblem img {
   position: absolute;
   left: 50%;
@@ -314,20 +314,20 @@
   transform-origin: center;
 }
 
-/* 能力谱系徽章下方文字 */
+/* 閼宠棄濮忕拫杈╅兇瀵扮晫鐝锋稉瀣煙閺傚洤鐡?*/
 .character-ability-emblem-text {
   grid-column: 1;
   grid-row: 2;
   align-self: start;
   margin-top: -6px;
-  color: var(--color-ink);
-  font-size: 16px;
+  color: var(--black-main);
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   text-align: center;
 }
 
-/* 能力卡片正文 */
+/* 閼宠棄濮忛崡锛勫濮濓絾鏋?*/
 .character-ability-copy {
   grid-column: 2;
   grid-row: 1;
@@ -336,7 +336,7 @@
   padding-bottom: 4px;
 }
 
-/* 能力卡片标题 */
+/* 閼宠棄濮忛崡锛勫閺嶅洭顣?*/
 .character-ability-heading {
   position: absolute;
   left: clamp(9px, 1.45cqw, 12px);
@@ -349,39 +349,39 @@
   justify-content: flex-end;
   column-gap: 0;
   margin: 0;
-  color: rgba(143, 93, 53, 0.86);
+  color: var(--russet-text);
   font-size: var(--character-ability-card-font);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   white-space: nowrap;
   overflow-wrap: normal;
   word-break: normal;
 }
 
-/* 能力卡片能力名称 */
+/* 閼宠棄濮忛崡锛勫閼宠棄濮忛崥宥囆?*/
 .character-ability-title {
-  color: var(--color-ink);
+  color: var(--black-main);
   font-size: var(--character-ability-title-font);
   font-weight: 900;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
 }
 
-/* 能力卡片描述 */
+/* 閼宠棄濮忛崡锛勫閹诲繗鍫?*/
 .character-ability-description {
   margin-top: 2px;
-  color: var(--color-ink);
+  color: var(--black-main);
   font-size: var(--character-ability-card-font);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--card-line-height);
   min-height: 24px;
 }
 
-/* 能力卡片空描述占位 */
+/* 閼宠棄濮忛崡锛勫缁岀儤寮挎潻鏉垮窗閿?*/
 .character-ability-description.is-empty {
   visibility: hidden;
 }
 
-/* 人物概述金色方框 */
+/* 娴滆櫣澧垮鍌濆牚闁叉垼澹婇弬瑙勵攱 */
 .character-note-card {
   position: relative;
   display: grid;
@@ -390,18 +390,18 @@
   min-height: 96px;
   padding: clamp(12px, 1.4vw, 18px);
   border: 1px solid var(--character-profile-gold);
-  border-radius: 7px;
+  border-radius: var(--radius-card);
   background: var(--character-profile-card-background,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    linear-gradient(135deg, var(--white-soft), var(--white-soft)),
     var(--character-profile-paper)
   );
   transition:
-    background 220ms ease,
-    border-color 220ms ease,
-    color 220ms ease;
+    background var(--duration-content) var(--ease-standard),
+    border-color var(--duration-content) var(--ease-standard),
+    color var(--duration-content) var(--ease-standard);
 }
 
-/* 人物概述右侧点状装饰 */
+/* 娴滆櫣澧垮鍌濆牚閸欏厖鏅堕悙鍦Ц鐟佸懘銈?*/
 .character-note-card::before {
   content: "";
   position: absolute;
@@ -409,12 +409,12 @@
   bottom: clamp(9px, 1vw, 13px);
   width: 5px;
   height: 5px;
-  border-radius: 50%;
-  background: rgba(143, 93, 53, 0.52);
-  box-shadow: 22px 0 0 rgba(143, 93, 53, 0.52), 44px 0 0 rgba(143, 93, 53, 0.52);
+  border-radius: var(--radius-circle);
+  background: var(--russet-line);
+  box-shadow: 22px 0 0 var(--russet-line), 44px 0 0 var(--russet-line);
 }
 
-/* 人物概述灵图标底座 */
+/* 娴滆櫣澧垮鍌濆牚閻忛潧娴橀弽鍥х俺閿?*/
 .character-note-symbol {
   position: relative;
   display: grid;
@@ -423,18 +423,18 @@
   height: 64px;
   aspect-ratio: auto;
   flex: 0 0 64px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background:
-    radial-gradient(circle, rgba(224, 194, 143, 0.46) 0 36%, rgba(224, 194, 143, 0.16) 37% 66%, transparent 67%);
+    radial-gradient(circle, var(--gold-wash) 0 36%, var(--gold-wash) 37% 66%, transparent 67%);
   overflow: visible;
 }
 
-/* 人物概述灵图标放射底纹 */
+/* 娴滆櫣澧垮鍌濆牚閻忛潧娴橀弽鍥ㄦ杹鐏忓嫬绨抽敓?*/
 .character-note-symbol::before {
   content: none;
 }
 
-/* 人物概述灵图标图片 */
+/* 娴滆櫣澧垮鍌濆牚閻忛潧娴橀弽鍥ф禈閿?*/
 .character-note-symbol img {
   position: absolute;
   left: 50%;
@@ -448,47 +448,47 @@
   transform: translate(-50%, -50%);
 }
 
-/* 人物概述文字容器 */
+/* 娴滆櫣澧垮鍌濆牚閺傚洤鐡х€圭懓娅?*/
 .character-note-content {
   min-width: 0;
 }
 
-/* 人物概述标题 */
+/* 娴滆櫣澧垮鍌濆牚閺嶅洭顣?*/
 .character-note-title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: 0;
   margin: 0 0 6px;
-  color: rgba(143, 93, 53, 0.86);
-  font-size: 17px;
+  color: var(--russet-text);
+  font-size: var(--text-lead);
   font-weight: 900;
-  line-height: var(--content-prose-line-height, 1);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   letter-spacing: 0;
 }
 
-/* 人物概述正文 */
+/* 娴滆櫣澧垮鍌濆牚濮濓絾鏋?*/
 .character-note-copy {
   display: block;
   padding-right: clamp(0px, 4vw, 72px);
-  color: var(--color-ink);
-  font-size: 16px;
+  color: var(--black-main);
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
 }
 
-/* 人物概述正文段落 */
+/* 娴滆櫣澧垮鍌濆牚濮濓絾鏋冨▓浣冩儰 */
 .content-prose .character-note-copy p {
-  margin: 0 0 18px;
-  text-indent: 2em;
+  margin: 0 0 var(--prose-paragraph-gap);
+  text-indent: var(--prose-indent);
 }
 
-/* 人物概述最后一个正文段落 */
+/* 娴滆櫣澧垮鍌濆牚閺堚偓閸氬簼绔存稉顏咁劀閺傚洦顔岄敓?*/
 .content-prose .character-note-copy p:last-child {
   margin-bottom: 0;
 }
 
-/* 武器档案区块 */
+/* 濮濓箑娅掑锝嗩攳閸栧搫娼?*/
 .character-weapons-section {
   --character-section-heading-top: 0px;
   --character-section-heading-height: 34px;
@@ -504,51 +504,51 @@
   background: transparent;
 }
 
-/* 武器档案标题条 */
+/* 濮濓箑娅掑锝嗩攳閺嶅洭顣介敓?*/
 .character-weapons-heading {
   min-width: clamp(210px, 24vw, 288px);
 }
 
-/* 武器档案双列网格 */
+/* 濮濓箑娅掑锝嗩攳閸欏苯鍨純鎴炵壐 */
 .character-weapons-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(8px, 1.25cqw, 16px);
 }
 
-/* 武器档案单类武器列 */
+/* 濮濓箑娅掑锝嗩攳閸楁洜琚锕€娅掗敓?*/
 .character-weapon-column {
   display: grid;
   align-content: start;
   gap: clamp(8px, 1vw, 12px);
 }
 
-/* 武器卡片 */
+/* 濮濓箑娅掗崡锛勫 */
 .character-weapon-card {
   position: relative;
   min-height: 254px;
   padding: clamp(7px, 1cqw, 8px) clamp(9px, 1.4cqw, 12px) clamp(10px, 1.45cqw, 12px);
   border: 1px solid var(--character-profile-gold);
-  border-radius: 7px;
+  border-radius: var(--radius-card);
   background: var(--character-profile-card-background,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(251, 250, 246, 0.68)),
+    linear-gradient(135deg, var(--white-soft), var(--white-soft)),
     var(--character-profile-paper)
   );
   overflow: hidden;
   font-size: var(--character-weapon-card-font);
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--card-line-height);
   transition:
-    background 220ms ease,
-    border-color 220ms ease,
-    color 220ms ease;
+    background var(--duration-content) var(--ease-standard),
+    border-color var(--duration-content) var(--ease-standard),
+    color var(--duration-content) var(--ease-standard);
 }
 
-/* 武器未配置卡片 */
+/* 濮濓箑娅掗張顏堝帳缂冾喖宕遍敓?*/
 .character-weapon-card.is-empty {
   min-height: 254px;
 }
 
-/* 武器卡片预留图案层 */
+/* 濮濓箑娅掗崡锛勫妫板嫮鏆€閸ョ偓顢嶉敓?*/
 .character-weapon-card::after {
   content: "";
   position: absolute;
@@ -557,17 +557,17 @@
   z-index: 0;
   width: clamp(82px, 9vw, 126px);
   aspect-ratio: 1;
-  border: 1px solid rgba(200, 155, 90, 0.34);
-  border-radius: 50%;
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius-circle);
   opacity: 0.42;
 }
 
-/* 武器未配置卡片的预留图案层 */
+/* 濮濓箑娅掗張顏堝帳缂冾喖宕遍悧鍥╂畱妫板嫮鏆€閸ョ偓顢嶉敓?*/
 .character-weapon-card.is-empty::after {
   display: none;
 }
 
-/* 武器卡片顶部资料区 */
+/* 濮濓箑娅掗崡锛勫妞ゅ爼鍎寸挧鍕灐閿?*/
 .character-weapon-main {
   position: relative;
   z-index: 1;
@@ -577,7 +577,7 @@
   align-items: stretch;
 }
 
-/* 武器锦旗图标框 */
+/* 濮濓箑娅掗柨锔芥閸ョ偓鐖ｉ敓?*/
 .character-weapon-banner {
   position: relative;
   display: block;
@@ -590,7 +590,7 @@
   overflow: hidden;
 }
 
-/* 武器锦旗图标图片 */
+/* 濮濓箑娅掗柨锔芥閸ョ偓鐖ｉ崶鍓у */
 .character-weapon-banner img {
   position: absolute;
   left: 50%;
@@ -604,32 +604,32 @@
   transform: translate(-50%, -50%);
 }
 
-/* 武器卡片信息区 */
+/* 濮濓箑娅掗崡锛勫娣団剝浼呴敓?*/
 .character-weapon-content {
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
 }
 
-/* 武器类型文字块 */
+/* 濮濓箑娅掔猾璇茬€烽弬鍥х摟閿?*/
 .character-weapon-type-text {
   min-width: 0;
   padding-top: 2px;
 }
 
-/* 武器类型标签 */
+/* 濮濓箑娅掔猾璇茬€烽弽鍥╊劮 */
 .character-weapon-type-text > span {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: 0;
-  color: rgba(21, 21, 21, 0.68);
+  color: var(--ink-readable);
   font-size: var(--character-weapon-small-font);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--card-line-height);
 }
 
-/* 武器名称和表格区 */
+/* 濮濓箑娅掗崥宥囆為崪宀冦€冮弽鐓庡隘 */
 .character-weapon-detail {
   display: grid;
   grid-template-columns: minmax(76px, 0.72fr) minmax(132px, 1.28fr);
@@ -638,58 +638,58 @@
   margin-top: 4px;
 }
 
-/* 武器名称 */
+/* 濮濓箑娅掗崥宥囆?*/
 .character-weapon-name {
   display: grid;
   place-items: center;
   min-height: 100%;
   color: var(--character-profile-blue-deep);
   font-size: var(--character-weapon-name-font);
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--content-prose-line-height, var(--prose-line-height));
   text-align: center;
 }
 
-/* 武器资料表 */
+/* 濮濓箑娅掔挧鍕灐閿?*/
 .character-weapon-fields {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--white-faint);
   font-size: var(--character-weapon-small-font);
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--card-line-height);
 }
 
-/* 武器资料表单元格 */
+/* 濮濓箑娅掔挧鍕灐鐞涖劌宕熼崗鍐╃壐 */
 .character-weapon-fields th,
 .character-weapon-fields td {
-  border: 1px solid rgba(200, 155, 90, 0.42);
+  border: 1px solid var(--gold-line);
   padding: clamp(3px, 0.6cqw, 4px) clamp(4px, 0.75cqw, 6px);
   text-align: center;
   vertical-align: top;
 }
 
-/* 武器资料表标签格 */
+/* 濮濓箑娅掔挧鍕灐鐞涖劍鐖ｇ粵鐐壐 */
 .character-weapon-fields th {
   width: 38%;
-  background: rgba(224, 194, 143, 0.28);
-  color: rgba(21, 21, 21, 0.68);
+  background: var(--gold-wash);
+  color: var(--ink-readable);
   font-weight: 400;
 }
 
-/* 武器效果描述 */
+/* 濮濓箑娅掗弫鍫熺亯閹诲繗鍫?*/
 .character-weapon-description {
   position: relative;
   z-index: 1;
   margin-top: 10px;
   padding-top: 8px;
   border-top: 1px solid var(--character-profile-gold);
-  color: var(--color-ink);
+  color: var(--black-main);
   font-size: var(--character-weapon-card-font);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--prose-line-height);
 }
 
-/* 武器未配置卡片的中心提示 */
+/* 濮濓箑娅掗張顏堝帳缂冾喖宕遍悧鍥╂畱娑擃厼绺鹃幓鎰仛 */
 .character-weapon-empty-text {
   position: absolute;
   inset: 0;
@@ -698,15 +698,15 @@
   place-content: center;
   justify-items: center;
   padding: 48px 16px 18px;
-  color: var(--color-ink);
+  color: var(--black-main);
   font-size: var(--character-weapon-card-font);
   font-weight: 400;
-  line-height: var(--content-prose-line-height, 1.6);
+  line-height: var(--prose-line-height);
   text-align: center;
   pointer-events: none;
 }
 
-/* 武器信息不完全卡片的提示图标 */
+/* 濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊ュ幢閻楀洨娈戦幓鎰仛閸ョ偓鐖?*/
 .character-weapon-empty-icon {
   display: grid;
   place-items: center;
@@ -714,7 +714,7 @@
   height: 92px;
 }
 
-/* 武器信息不完全卡片的提示图标图片 */
+/* 濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊ュ幢閻楀洨娈戦幓鎰仛閸ョ偓鐖ｉ崶鍓у */
 .character-weapon-empty-icon img {
   grid-area: 1 / 1;
   width: 92px;
@@ -722,29 +722,29 @@
   object-fit: contain;
 }
 
-/* 武器信息不完全卡片剧透图标默认隐藏 */
+/* 濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊ュ幢閻楀洤澧介柅蹇撴禈閺嶅洭绮拋銈夋閿?*/
 .character-weapon-empty-icon .is-spoiler {
   display: none;
 }
 
-/* 剧透模式的武器信息不完全普通图标 */
+/* 閸撗団偓蹇斈佸蹇曟畱濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊︽珮闁艾娴橀敓?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-normal {
   display: none;
 }
 
-/* 剧透模式的武器信息不完全浅色图标 */
+/* 閸撗団偓蹇斈佸蹇曟畱濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊︾ガ閼规彃娴橀敓?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-spoiler {
   display: block;
 }
 
-/* 角色档案剧透模式的变更卡片底色 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块崡锛勫鎼存洝澹?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-note-card.is-changed,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-weapon-card.is-changed {
-  background: rgba(0, 0, 0);
+  background: var(--black-deep);
 }
 
-/* 角色档案剧透模式的变更卡片正文 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块崡锛勫濮濓絾鏋?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-title,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-description,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-note-copy,
@@ -752,90 +752,90 @@
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-text,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields td,
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields th {
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--white-readable);
 }
 
-/* 角色档案剧透模式的变更武器名称 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲垮锕€娅掗崥宥囆?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-name {
-  color: rgba(199, 222, 247, 0.96);
+  color: var(--blue-light);
 }
 
-/* 角色档案剧透模式的变更武器卡标题 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲垮锕€娅掗崡鈩冪垼閿?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-type-text > span {
-  color: var(--color-gold-light);
+  color: var(--gold-light);
 }
 
-/* 角色档案剧透模式的变更能力卡标题 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块懗钘夊閸椻剝鐖ｉ敓?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed .character-ability-heading {
-  color: var(--color-gold-light);
+  color: var(--gold-light);
 }
 
-/* 角色档案剧透模式的变更能力卡箭头 */
+/* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块懗钘夊閸楋紕顔勯敓?*/
 .archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed::after {
-  color: var(--color-gold-light);
+  color: var(--gold-light);
 }
 
 @container (max-width: 720px) {
-  /* 窄桌面正文内通用资料卡列表 */
+  /* 缁愬嫭顢戦棃銏☆劀閺傚洤鍞撮柅姘辨暏鐠у嫭鏋￠崡鈥冲灙閿?*/
   .archive-info-card-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* 窄桌面基础设定卡片列表 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃崡锛勫閸掓銆?*/
   .character-profile-ability-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* 窄桌面基础设定所属势力卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃幍鈧仦鐐插◢閸旀稑宕遍悧鍥€庨敓?*/
   .character-profile-ability-list > .character-ability-card:nth-child(1) {
     order: 1;
   }
 
-  /* 窄桌面基础设定能力谱系卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃懗钘夊鐠嬭京閮撮崡锛勫妞ゅ搫绨?*/
   .character-profile-ability-list > .character-ability-card:nth-child(4) {
     order: 2;
   }
 
-  /* 窄桌面基础设定年龄卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃獮鎾窞閸楋紕澧栨い鍝勭碍 */
   .character-profile-ability-list > .character-ability-card:nth-child(2) {
     order: 3;
   }
 
-  /* 窄桌面基础设定品阶卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃崫渚€妯侀崡锛勫妞ゅ搫绨?*/
   .character-profile-ability-list > .character-ability-card:nth-child(5) {
     order: 4;
   }
 
-  /* 窄桌面基础设定物种卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃悧鈺冾潚閸楋紕澧栨い鍝勭碍 */
   .character-profile-ability-list > .character-ability-card:nth-child(3) {
     order: 5;
   }
 
-  /* 窄桌面基础设定危险等级卡片顺序 */
+  /* 缁愬嫭顢戦棃銏犵唨绾偓鐠佹儳鐣鹃崡閬嶆珦缁涘楠囬崡锛勫妞ゅ搫绨?*/
   .character-profile-ability-list > .character-ability-card:nth-child(6) {
     order: 6;
   }
 }
 
 @container (max-width: 560px) {
-  /* 窄容器正文内通用资料卡列表 */
+  /* 缁愬嫬顔愰崳銊︻劀閺傚洤鍞撮柅姘辨暏鐠у嫭鏋￠崡鈥冲灙閿?*/
   .archive-info-card-list {
     grid-template-columns: 1fr;
   }
 
-  /* 窄容器基础设定卡片列表 */
+  /* 缁愬嫬顔愰崳銊ョ唨绾偓鐠佹儳鐣鹃崡锛勫閸掓銆?*/
   .character-profile-ability-list {
     grid-template-columns: 1fr;
   }
 
-  /* 窄容器基础设定卡片顺序 */
+  /* 缁愬嫬顔愰崳銊ョ唨绾偓鐠佹儳鐣鹃崡锛勫妞ゅ搫绨?*/
   .character-profile-ability-list > .character-ability-card {
     order: initial;
   }
 }
 
 @container (max-width: 560px) {
-  /* 窄容器武器档案网格 */
+  /* 缁愬嫬顔愰崳銊︻劅閸ｃ劍銆傚鍫㈢秹閿?*/
   .character-weapons-grid {
     grid-template-columns: 1fr;
   }
@@ -843,36 +843,48 @@
 
 @media (max-width: 980px) {
   .content-frame-body.content-prose {
-    --content-prose-line-height: 1.85;
+    font-size: var(--text-body-sm);
+    --content-prose-line-height: var(--prose-line-height);
   }
 
   .content-frame-simple .content-frame-body.content-prose {
-    --content-prose-line-height: var(--content-frame-simple-line-height, 1.7);
+    --content-prose-line-height: var(--content-frame-simple-line-height, var(--prose-line-height));
   }
 
-  /* 移动端角色档案卡片组 */
+  /* 缁夎濮╃粩顖濐潡閼瑰弶銆傚鍫濆幢閻楀洨绮?*/
   .character-profile-archive {
+    font-size: var(--text-body-sm);
     width: 100%;
     gap: 18px;
   }
 
-  /* 移动端基础设定内容布局 */
+  .archive-info-card-module,
+  .character-profile-section {
+    --character-ability-card-font: var(--text-body-sm);
+  }
+
+  .character-weapons-section {
+    --character-weapon-card-font: var(--text-body-sm);
+    --character-weapon-small-font: var(--text-body-sm);
+  }
+
+  /* 缁夎濮╃粩顖氱唨绾偓鐠佹儳鐣鹃崘鍛啇鐢啫鐪?*/
   .character-profile-body {
     grid-template-columns: 1fr;
   }
 
-  /* 移动端能力卡片列表 */
+  /* 缁夎濮╃粩顖濆厴閸旀稑宕遍悧鍥у灙閿?*/
   .character-profile-ability-list {
     display: grid;
     grid-template-columns: 1fr;
   }
 
-  /* 移动端正文内通用资料卡列表 */
+  /* 缁夎濮╃粩顖涱劀閺傚洤鍞撮柅姘辨暏鐠у嫭鏋￠崡鈥冲灙閿?*/
   .archive-info-card-list {
     grid-template-columns: 1fr;
   }
 
-  /* 移动端能力卡片 */
+  /* 缁夎濮╃粩顖濆厴閸旀稑宕遍敓?*/
   .character-profile-ability-list > .character-ability-card,
   .character-profile-ability-list > .character-ability-card:first-child,
   .character-profile-ability-list > .character-ability-card:nth-child(2),
@@ -884,12 +896,12 @@
     order: initial;
   }
 
-  /* 移动端武器档案网格 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劍銆傚鍫㈢秹閿?*/
   .character-weapons-grid {
     grid-template-columns: 1fr;
   }
 
-  /* 移动端武器卡片顶部资料区 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劌宕遍悧鍥€婇柈銊ㄧカ閺傛瑥灏?*/
   .character-weapon-main {
     grid-template-columns: var(--character-weapon-banner-width) minmax(0, 1fr);
     grid-template-areas:
@@ -899,29 +911,29 @@
     align-items: start;
   }
 
-  /* 移动端武器锦旗图标框 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劑鏁犻弮妤€娴橀弽鍥攱 */
   .character-weapon-banner {
     grid-area: banner;
   }
 
-  /* 移动端武器卡片信息区 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劌宕遍悧鍥︿繆閹垰灏?*/
   .character-weapon-content {
     display: contents;
   }
 
-  /* 移动端武器类型文字块 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劎琚崹瀣瀮鐎涙娼?*/
   .character-weapon-type-text {
     grid-area: type;
     align-self: start;
     padding-top: 0;
   }
 
-  /* 移动端武器名称和表格区 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劌鎮曠粔鏉挎嫲鐞涖劍鐗搁敓?*/
   .character-weapon-detail {
     display: contents;
   }
 
-  /* 移动端武器名称 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劌鎮曢敓?*/
   .character-weapon-name {
     grid-area: name;
     justify-self: stretch;
@@ -932,7 +944,7 @@
     text-align: center;
   }
 
-  /* 移动端武器资料表 */
+  /* 缁夎濮╃粩顖涱劅閸ｃ劏绁弬娆掋€?*/
   .character-weapon-fields {
     grid-area: fields;
     margin-top: 8px;
@@ -941,30 +953,32 @@
 }
 
 @media (max-width: 620px) {
-  /* 小屏基础设定资料表 */
+  /* 鐏忓繐鐫嗛崺铏诡攨鐠佹儳鐣剧挧鍕灐閿?*/
   .character-profile-facts {
     table-layout: fixed;
   }
 
-  /* 小屏人物概述金色方框 */
+  /* 鐏忓繐鐫嗘禍铏瑰⒖濮掑倽鍫柌鎴ｅ閺傝顢?*/
   .character-note-card {
     grid-template-columns: 1fr;
   }
 
-  /* 小屏人物概述右侧点状装饰 */
+  /* 鐏忓繐鐫嗘禍铏瑰⒖濮掑倽鍫崣鍏呮櫠閻愬湱濮哥憗鍛淬偘 */
   .character-note-card::before {
     display: none;
   }
 
-  /* 小屏人物概述正文 */
+  /* 鐏忓繐鐫嗘禍铏瑰⒖濮掑倽鍫锝嗘瀮 */
   .character-note-copy {
     padding-right: 0;
   }
 
-  /* 小屏章节标题条 */
+  /* 鐏忓繐鐫嗙粩鐘哄Ν閺嶅洭顣介敓?*/
   .character-profile-heading,
   .character-weapons-heading {
     min-width: min(100%, 230px);
-    font-size: 15px;
+    font-size: var(--text-body-sm);
   }
 }
+
+

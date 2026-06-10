@@ -1,21 +1,21 @@
 const themes = {
   essence: {
-    accent: "#050505",
-    accentSoft: "rgba(5, 5, 5, 0.18)",
-    accentWash: "rgba(5, 5, 5, 0.055)",
-    accentText: "#050505",
+    accent: "var(--black-panel-base)",
+    accentSoft: "var(--black-overlay)",
+    accentWash: "var(--ink-faint)",
+    accentText: "var(--black-panel-base)",
   },
   reality: {
-    accent: "rgba(174, 119, 55, 0.94)",
-    accentSoft: "rgba(200, 155, 90, 0.32)",
-    accentWash: "rgba(224, 194, 143, 0.12)",
-    accentText: "rgba(143, 93, 53, 0.96)",
+    accent: "var(--gold-dark)",
+    accentSoft: "var(--gold-line)",
+    accentWash: "var(--gold-wash)",
+    accentText: "var(--gold-dark)",
   },
   information: {
-    accent: "#234d7b",
-    accentSoft: "rgba(45, 95, 150, 0.24)",
-    accentWash: "rgba(45, 95, 150, 0.08)",
-    accentText: "#234d7b",
+    accent: "var(--blue-main)",
+    accentSoft: "var(--blue-line)",
+    accentWash: "var(--blue-wash)",
+    accentText: "var(--blue-main)",
   },
 };
 

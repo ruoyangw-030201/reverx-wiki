@@ -1,0 +1,22 @@
+---
+import "../../styles/actions/disclosure-toggle-button.css";
+
+const {
+  expanded = false,
+  controls,
+  ariaLabel = "Toggle section",
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<button
+  {...attrs}
+  class:list={["disclosure-toggle-button", className]}
+  type="button"
+  aria-label={ariaLabel}
+  aria-expanded={expanded ? "true" : "false"}
+  aria-controls={controls}
+>
+  <span class="disclosure-toggle-button__icon" aria-hidden="true"></span>
+</button>

@@ -1,0 +1,119 @@
+/* Chrome leaf navigation link: shared by top-level and child entries. */
+.chrome-sidebar-link {
+  --sidebar-link-indent: 0;
+  --sidebar-link-icon-size: var(--chrome-sidebar-icon-size);
+  --sidebar-link-icon-gap: var(--space-hair);
+  --sidebar-link-label-size: var(--text-body-sm);
+  --sidebar-link-letter-spacing: 0.02em;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  min-height: var(--sidebar-link-icon-size);
+  margin: 0 0 var(--chrome-sidebar-row-gap) var(--sidebar-link-indent);
+  padding: var(--space-hair) var(--chrome-sidebar-marker-space) var(--space-hair) 0;
+  overflow: visible;
+  border-bottom: 1px solid var(--gold-wash);
+  color: var(--white-readable);
+  font-size: var(--text-label);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--sidebar-link-letter-spacing);
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.chrome-sidebar-link:has(.chrome-sidebar-icon) {
+  grid-template-columns: var(--sidebar-link-icon-size) minmax(0, 1fr);
+  column-gap: var(--sidebar-link-icon-gap);
+}
+
+/* icon */
+.chrome-sidebar-icon {
+  display: block;
+  width: var(--sidebar-link-icon-size);
+  height: var(--sidebar-link-icon-size);
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.45);
+}
+
+/* link文字 */
+.chrome-sidebar-label {
+  min-width: 0;
+  font-size: var(--sidebar-link-label-size);
+  letter-spacing: var(--sidebar-link-letter-spacing);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* focus高亮 */
+.chrome-sidebar-link:hover,
+.chrome-sidebar-link:focus-visible {
+  color: var(--gold-light);
+}
+
+.chrome-sidebar-link:focus-visible {
+  outline: 1px solid var(--gold-line);
+  outline-offset: -3px;
+}
+
+/* is-active出现金色底 */
+.chrome-sidebar-link.is-active {
+  color: var(--white-main);
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold-line),
+      var(--gold-wash) 62%,
+      transparent
+    );
+}
+
+/* is-active出现左边竖条 */
+.chrome-sidebar-link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--gold-border);
+}
+
+/* 沙漏标 */
+.chrome-sidebar-link .hourglass-marker {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0.5);
+}
+
+.chrome-sidebar-link.is-active .hourglass-marker {
+  display: block;
+}
+
+/* Child entries only change hierarchy-related geometry and typography. */
+.chrome-sidebar-link.is-child {
+  --sidebar-link-indent: var(--chrome-sidebar-child-indent);
+  --sidebar-link-icon-size: var(--chrome-sidebar-child-icon-size);
+  --sidebar-link-icon-gap: 1px;
+  --sidebar-link-label-size: var(--text-label);
+  --sidebar-link-letter-spacing: -0.02em;
+}
+
+.chrome-sidebar-link.is-child::before {
+  display: none;
+}
+
+/* 二级tab的is-active金色字、金色底 */
+.chrome-sidebar-link.is-current-anchor {
+  color: var(--gold-light);
+  background: var(--gold-wash);
+}
+
+.chrome-sidebar-link.is-current-anchor .chrome-sidebar-icon {
+  opacity: 1;
+  filter: none;
+}
+
+.chrome-sidebar-link.is-current-anchor .hourglass-marker {
+  display: none;
+}

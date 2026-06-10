@@ -1,0 +1,245 @@
+﻿/* ========== chrome headbar ========== */
+
+ /* Frame: full-width top chrome bar. Height is fixed for Figma-like assembly. */
+.chrome-headbar {
+  /*brand区域列宽*/
+  --chrome-headbar-brand-track: 150px;
+  /*右侧图标区域列宽*/
+  --chrome-headbar-actions-track: clamp(96px, 9vw, 140px);
+  /*headbar左右内边距*/
+  --chrome-headbar-pad-x: clamp(20px, 2vw, 32px);
+  /*导航区右侧额外留白，让tab不贴到actions区*/
+  --chrome-headbar-nav-pad-right: clamp(6px, 1vw, 12px);
+  /*导航区里tab、divider间的水平间距*/
+  --chrome-headbar-nav-gap: clamp(10px, 1vw, 18px);
+  /*传给tab的左右padding内间距*/
+  --chrome-headbar-item-pad-x: clamp(12px, 1vw, 18px);
+  /*传给tab的最小宽度*/
+  --chrome-headbar-item-min-width: clamp(96px, 7vw, 112px);
+  /*右侧图标符号的gap宽度*/
+  --chrome-headbar-actions-gap: clamp(14px, 1.5vw, 22px);
+  --chrome-headbar-divider-color: var(--gold-line);
+  --chrome-headbar-divider-thickness: 1px;
+  position: relative;
+  z-index: var(--z-sticky);
+  isolation: isolate;
+  overflow: visible;
+  height: var(--chrome-headbar-height);
+  display: grid;
+  grid-template-columns: var(--chrome-headbar-brand-track) minmax(0, 1fr) var(--chrome-headbar-actions-track);
+  align-items: center;
+  padding: 0 var(--chrome-headbar-pad-x);
+  background: var(--black-deep);
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.chrome-headbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/bg/bg-headbar-gold.webp") center / 100% 100% no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.chrome-headbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.chrome-brand {
+  --chrome-brand-icon-width: 132px;
+  --chrome-brand-icon-offset: 6px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: fit-content;
+  min-height: 50px;
+  padding: 0;
+  color: var(--white-main);
+  min-width: 0;
+  transform: translateY(-5px);
+}
+
+.chrome-brand-icon {
+  display: block;
+  width: var(--chrome-brand-icon-width);
+  height: auto;
+  margin-left: calc(var(--chrome-brand-icon-offset) * -1);
+  object-fit: contain;
+}
+
+.chrome-brand-text {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: -16px;
+}
+
+.chrome-brand-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: var(--white-readable);
+  white-space: nowrap;
+}
+
+.chrome-topnav {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--chrome-headbar-nav-gap);
+  height: 100%;
+  align-items: center;
+  margin-left: auto;
+  padding-right: var(--chrome-headbar-nav-pad-right);
+}
+
+.chrome-topnav::before {
+  content: "";
+  width: var(--chrome-headbar-divider-thickness);
+  height: var(--chrome-headbar-height);
+  background: var(--chrome-headbar-divider-color);
+  flex: 0 0 auto;
+}
+
+.chrome-topnav::after {
+  content: "";
+  width: var(--chrome-headbar-divider-thickness);
+  height: var(--chrome-headbar-height);
+  background: var(--chrome-headbar-divider-color);
+  flex: 0 0 auto;
+}
+
+.chrome-topnav .chrome-topnav-divider {
+  --divider-line-length: var(--chrome-headbar-height);
+}
+
+.chrome-head-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--chrome-headbar-actions-gap);
+}
+
+.chrome-headbar .chrome-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .chrome-headbar {
+    --chrome-headbar-pad-x: var(--space-medium);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    height: var(--chrome-headbar-height-mobile);
+    gap: var(--space-micro);
+    padding: 0 var(--chrome-headbar-pad-x);
+  }
+
+  .chrome-brand {
+    --chrome-brand-icon-width: clamp(96px, 25vw, 120px);
+    min-height: 0;
+    transform: none;
+  }
+
+  .chrome-brand-icon {
+    transform: none;
+  }
+
+  .chrome-brand-text {
+    display: none;
+  }
+
+  /* Mobile disclosure button: host controls placement; action CSS controls button skin. */
+  .chrome-headbar .chrome-menu-toggle {
+    --menu-toggle-width: var(--icon-median);
+    --menu-toggle-height: var(--icon-median);
+    position: relative;
+    z-index: var(--z-chrome);
+    justify-self: end;
+    display: inline-flex;
+  }
+
+  /* Mobile disclosure panel: headbar owns position, size, texture, and reveal motion. */
+  .chrome-topnav {
+    position: absolute;
+    top: 100%;
+    right: var(--chrome-headbar-pad-x);
+    z-index: var(--z-sticky);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    width: 132px;
+    height: auto;
+    min-width: 0;
+    margin: 0;
+    /* nav tab和新的panel的上下、左右间距*/
+    padding: var(--space-small) var(--space-small);
+    overflow: visible;
+    border: 1px solid var(--gold-line);
+    background:
+      linear-gradient(var(--black-deep), var(--black-deep)),
+      url("/bg/bg-headbar-gold.webp") center / 100% 100% no-repeat,
+      var(--black-deep);
+    box-shadow: 0 18px 28px var(--black-overlay);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(var(--space-tight));
+    visibility: hidden;
+    transition:
+      opacity var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard),
+      visibility var(--duration-fast) var(--ease-standard);
+  }
+  .chrome-headbar[data-disclosure-open="true"] .chrome-topnav {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .chrome-topnav::before,
+  .chrome-topnav::after {
+    display: none;
+  }
+
+  .chrome-topnav .chrome-topnav-divider {
+    --divider-line-length: 100%;
+    --divider-line-width: var(--divider-line-length);
+    --divider-line-height: var(--divider-line-thickness);
+    position: relative;
+    z-index: var(--z-decor);
+    display: block;
+    flex: 0 0 1px;
+    margin: var(--space-small) 0 var(--space-small);
+    box-shadow: none;
+  }
+
+  .chrome-head-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .chrome-headbar {
+    --chrome-headbar-pad-x: var(--space-tight);
+    gap: var(--space-micro);
+  }
+
+  .chrome-brand {
+    --chrome-brand-icon-width: clamp(88px, 25vw, 104px);
+  }
+
+  .chrome-headbar .chrome-menu-toggle {
+    --menu-toggle-width: var(--icon-median-mobile);
+    --menu-toggle-height: var(--icon-median-mobile);
+    --menu-toggle-bar-width: 16px;
+  }
+
+}

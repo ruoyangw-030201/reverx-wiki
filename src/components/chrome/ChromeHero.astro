@@ -1,0 +1,26 @@
+﻿---
+import HomeCoverCanvas from "../HomeCoverCanvas.astro";
+import "../../styles/chrome/hero.css";
+
+const variantClassByName = {
+  default: null,
+  world: "is-world",
+  system: "is-system",
+  characters: "is-characters",
+  secret: "is-secret",
+} as const;
+
+type HeroVariant = keyof typeof variantClassByName;
+
+function isHeroVariant(value: unknown): value is HeroVariant {
+  return typeof value === "string" && value in variantClassByName;
+}
+
+const { variant = "default" } = Astro.props;
+const variantKey = isHeroVariant(variant) ? variant : "default";
+const variantClass = variantClassByName[variantKey];
+---
+
+<section class:list={["chrome-hero", variantClass]} aria-hidden="true">
+  <HomeCoverCanvas variant="static" />
+</section>

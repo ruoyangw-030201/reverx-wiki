@@ -1,6 +1,6 @@
 :where(.spectrum-classification, .intensity-diagram) {
-  --system-spectrum-line: rgba(174, 119, 55, 0.74);
-  --system-spectrum-line-strong: rgba(174, 119, 55, 0.96);
+  --system-spectrum-line: var(--russet-line);
+  --system-spectrum-line-strong: var(--gold-dark);
   --system-connector-color: var(--system-spectrum-line);
   --system-connector-node-color: var(--system-spectrum-line-strong);
   --system-connector-stroke-width: 1px;
@@ -13,7 +13,7 @@
 
 .system-connector-path {
   fill: none;
-  stroke: var(--system-connector-color, rgba(174, 119, 55, 0.74));
+  stroke: var(--system-connector-color, var(--russet-line));
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: var(--system-connector-stroke-width, 1px);
@@ -24,10 +24,10 @@
 .system-connector-dot {
   width: var(--system-connector-node-size, 9px);
   height: var(--system-connector-node-size, 9px);
-  border: 1px solid var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
-  border-radius: 50%;
-  background: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
-  box-shadow: 0 0 0 2px var(--system-connector-node-shadow, rgba(200, 155, 90, 0.11));
+  border: 1px solid var(--system-connector-node-color, var(--gold-dark));
+  border-radius: var(--radius-circle);
+  background: var(--system-connector-node-fill, var(--white-main));
+  box-shadow: 0 0 0 2px var(--system-connector-node-shadow, var(--gold-wash));
   pointer-events: none;
 }
 
@@ -42,27 +42,27 @@
 
 .system-connector-node.is-solid,
 .system-connector-dot.is-solid {
-  background: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+  background: var(--system-connector-node-color, var(--gold-dark));
 }
 
 .system-connector-node.is-hollow,
 .system-connector-dot.is-hollow {
-  background: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+  background: var(--system-connector-node-fill, var(--white-main));
 }
 
 circle.system-connector-node {
   width: auto;
   height: auto;
-  fill: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
-  stroke: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+  fill: var(--system-connector-node-fill, var(--white-main));
+  stroke: var(--system-connector-node-color, var(--gold-dark));
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 circle.system-connector-node.is-solid {
-  fill: var(--system-connector-node-color, rgba(174, 119, 55, 0.96));
+  fill: var(--system-connector-node-color, var(--gold-dark));
 }
 
 circle.system-connector-node.is-hollow {
-  fill: var(--system-connector-node-fill, rgba(255, 255, 255, 0.98));
+  fill: var(--system-connector-node-fill, var(--white-main));
 }

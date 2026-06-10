@@ -1,0 +1,88 @@
+.chrome-sidebar-mobile {
+  display: none;
+}
+
+.chrome-sidebar-mobile-summary {
+  list-style: none;
+}
+
+.chrome-sidebar-mobile-summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .chrome-sidebar-mobile {
+    position: relative;
+    z-index: var(--z-chrome);
+    display: block;
+    width: var(--chrome-sidebar-width);
+    margin: 0;
+  }
+
+  .chrome-sidebar-mobile-summary {
+    --frame-decor-offset: -5px 6px 5px -6px;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-tight); /* gap between summary chinese and english */
+    min-height: var(--space-shell);
+    padding: 0 var(--space-section) 0 var(--space-compact); /* padding between summary box and word */
+    background:
+      linear-gradient(var(--black-deep), var(--black-deep)),
+      url("/bg/bg-headbar-gold.webp") center / 100% 100% no-repeat,
+      var(--black-deep);
+    color: var(--blue-light);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      color var(--duration-base) var(--ease-standard),
+      border-color var(--duration-base) var(--ease-standard),
+      background-color var(--duration-base) var(--ease-standard);
+  }
+
+  .chrome-sidebar-mobile-summary .disclosure-chevron {
+    position: absolute;
+    right: var(--space-medium);
+    top: 50%;
+  }
+
+  .chrome-sidebar-mobile[open] .chrome-sidebar-mobile-summary,
+  .chrome-sidebar-mobile-summary:hover,
+  .chrome-sidebar-mobile-summary:focus-visible {
+    color: var(--gold-light);
+    background-color: var(--gold-wash);
+  }
+
+  .chrome-sidebar-mobile-summary:focus-visible {
+    outline: 1px solid var(--gold-line);
+    outline-offset: 6px;
+  }
+
+  /* summary texts */
+  .chrome-sidebar-mobile-summary span {
+    color: currentColor;
+    font-size: var(--text-body);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .chrome-sidebar-mobile-summary small {
+    color: currentColor;
+    font-family: var(--font-latin);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    opacity: 0.72;
+    white-space: nowrap;
+  }
+
+  .chrome-sidebar-mobile-panel {
+    width: 100%;
+    margin-top: var(--space-small);
+  }
+
+  .chrome-sidebar-mobile .chrome-sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+}

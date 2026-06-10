@@ -1,0 +1,88 @@
+.bilingual-tab {
+  /* 中文主题字颜色 */
+  --bilingual-tab-color: var(--blue-light);
+  --bilingual-tab-active-color: var(--gold-light);
+  /* 英文主题字颜色 */
+  --bilingual-tab-accent-color: var(--blue-bright);
+  --bilingual-tab-active-accent-color: var(--gold-border);
+  /* active时背景淡色 */
+  --bilingual-tab-hover-bg: var(--gold-wash);
+  /* 中文和英文间的垂直间距 */
+  --bilingual-tab-gap: 4px;
+  /* tab高度 */
+  --bilingual-tab-height: 50px;
+  --bilingual-tab-compact-height: 48px;
+  /* tab宽度 */
+  --bilingual-tab-min-width: auto;
+  /* 默认内边距，上下0，左右18px，可以被override */
+  --bilingual-tab-padding: 0 18px;
+  /* 字号，字距 */
+  --bilingual-tab-label-size: var(--text-body);
+  --bilingual-tab-compact-label-size: var(--text-body-sm);
+  --bilingual-tab-label-letter-spacing: 0.04em;
+  --bilingual-tab-sub-label-size: var(--text-xs);
+  --bilingual-tab-sub-label-letter-spacing: 0.14em;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--bilingual-tab-gap);
+  min-width: var(--bilingual-tab-min-width);
+  height: var(--bilingual-tab-height);
+  padding: var(--bilingual-tab-padding);
+  background: var(--white-wash);
+  color: var(--bilingual-tab-color);
+  text-decoration: none;
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
+}
+
+.bilingual-tab__label {
+  font-family: var(--font-sans);
+  font-size: var(--bilingual-tab-label-size);
+  line-height: var(--basic-line-height);
+  letter-spacing: var(--bilingual-tab-label-letter-spacing);
+  font-weight: 800;
+}
+
+.bilingual-tab__sub-label {
+  font-family: var(--font-latin);
+  font-size: var(--bilingual-tab-sub-label-size);
+  line-height: var(--basic-line-height);
+  letter-spacing: var(--bilingual-tab-sub-label-letter-spacing);
+  font-weight: 400;
+  color: var(--bilingual-tab-accent-color);
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.bilingual-tab.is-active {
+  color: var(--bilingual-tab-active-color);
+  font-weight: 800;
+}
+
+.bilingual-tab.is-compact {
+  --bilingual-tab-height: var(--bilingual-tab-compact-height);
+  --bilingual-tab-label-size: var(--bilingual-tab-compact-label-size);
+}
+
+.bilingual-tab:hover,
+.bilingual-tab:focus-visible,
+.bilingual-tab:active {
+  color: var(--bilingual-tab-active-color);
+  background: var(--bilingual-tab-hover-bg);
+}
+
+.bilingual-tab:hover .bilingual-tab__sub-label,
+.bilingual-tab:focus-visible .bilingual-tab__sub-label,
+.bilingual-tab:active .bilingual-tab__sub-label,
+.bilingual-tab.is-active .bilingual-tab__sub-label {
+  color: var(--bilingual-tab-active-accent-color);
+}
+
+.bilingual-tab:focus-visible {
+  outline: 0;
+}

@@ -1,4 +1,4 @@
-/* 页面滚动锁：图集打开时固定底层页面位置 */
+/* 妞ょ敻娼板姘З闁夸緤绱伴崶楣冩肠閹垫挸绱戦弮璺烘祼鐎规艾绨崇仦鍌炪€夐棃顫秴閿?*/
 html.gallery-is-open,
 body.gallery-is-open {
   overscroll-behavior: none;
@@ -12,35 +12,35 @@ body.gallery-is-open {
   overflow: hidden;
 }
 
-/* 图集遮罩根层：覆盖整个视口并分出工具栏与图片区 */
+/* 閸ラ箖娉﹂柆顔惧兊閺嶇懓鐪伴敍姘愁洬閻╂牗鏆ｆ稉顏囶潒閸欙絽鑻熼崚鍡楀毉瀹搞儱鍙块弽蹇庣瑢閸ュ墽澧栭敓?*/
 .image-gallery {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: var(--z-modal);
   display: block;
   width: 100vw;
   height: 100dvh;
   overflow: hidden;
-  color: var(--color-blue-light);
+  color: var(--blue-light);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 160ms ease,
-    visibility 160ms ease;
+    opacity var(--duration-fast) var(--ease-standard),
+    visibility var(--duration-fast) var(--ease-standard);
   -webkit-touch-callout: none;
   user-select: none;
 }
 
-/* 图集隐藏状态：关闭时完全移出渲染 */
-/* 图集打开状态：只切换可见性，不移除覆盖层 */
+/* 閸ラ箖娉﹂梾鎰閻樿埖鈧緤绱伴崗鎶芥４閺冭泛鐣崗銊╅崙鐑樿閿?*/
+/* 閸ラ箖娉﹂幍鎾崇磻閻樿埖鈧緤绱伴崣顏勫瀼閹广垹褰茬憴浣光偓褝绱濇稉宥囆╅梽銈堫洬閻╂牕鐪?*/
 .image-gallery[data-gallery-active="true"] {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-/* 图集黑色背景：点击可关闭图集 */
+/* 閸ラ箖娉︽鎴ｅ閼冲本娅欓敍姘卞仯閸戣褰查崗鎶芥４閸ラ箖娉?*/
 .image-gallery-backdrop {
   appearance: none;
   position: absolute;
@@ -50,11 +50,11 @@ body.gallery-is-open {
   width: 100%;
   height: 100%;
   border: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: var(--ink-strong);
   cursor: zoom-out;
 }
 
-/* 图集顶部工具栏：承载序号和关闭按钮 */
+/* 閸ラ箖娉︽い鍫曞劥瀹搞儱鍙块弽蹇ョ窗閹佃儻娴囨惔蹇撳娇閸滃苯鍙ч梻顓熷瘻閿?*/
 .image-gallery-toolbar {
   position: absolute;
   top: 16px;
@@ -70,8 +70,8 @@ body.gallery-is-open {
   pointer-events: none;
 }
 
-/* 图集序号：显示当前图片位置 */
-/* 图集说明文字：在顶部居中显示当前图片 caption */
+/* 閸ラ箖娉︽惔蹇撳娇閿涙碍妯夌粈鍝勭秼閸撳秴娴橀悧鍥︾秴閿?*/
+/* 閸ラ箖娉︾拠瀛樻閺傚洤鐡ч敍姘躬妞ゅ爼鍎寸仦鍛厬閺勫墽銇氳ぐ鎾冲閸ュ墽澧?caption */
 .image-gallery-caption {
   position: absolute;
   top: 16px;
@@ -82,12 +82,12 @@ body.gallery-is-open {
   padding: 5px 10px;
   box-sizing: border-box;
   overflow: hidden;
-  background: rgba(5, 10, 16, 0.72);
-  border: 1px solid rgba(45, 95, 150, 0.8);
+  background: var(--black-panel);
+  border: 1px solid var(--blue-border);
   pointer-events: none;
 }
 
-/* 文字层按整个 viewport 居中 */
+/* 閺傚洤鐡х仦鍌涘瘻閺佺繝閲?viewport 鐏炲懍鑵?*/
 .image-gallery-caption-text {
   position: fixed;
   top: 16px;
@@ -100,18 +100,18 @@ body.gallery-is-open {
   max-width: calc(100vw - 220px);
   padding: 5px 10px;
   box-sizing: border-box;
-  color: var(--color-blue-light);
+  color: var(--blue-light);
   font-family: var(--font-serif);
-  font-size: 13px;
+  font-size: var(--text-body-sm);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: var(--ui-line-height);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* 图集说明隐藏：无 caption 时不显示空框 */
+/* 閸ラ箖娉︾拠瀛樻闂呮劘妫岄敍姘￥ caption 閺冩湹绗夐弰鍓с仛缁岀儤顢?*/
 .image-gallery-caption[hidden] {
   display: none;
 }
@@ -124,17 +124,17 @@ body.gallery-is-open {
   min-height: 38px;
   padding: 0 12px;
   box-sizing: border-box;
-  background: rgba(5, 10, 16, 0.72);
-  border: 1px solid rgba(45, 95, 150, 0.8);
-  color: var(--color-blue-light);
+  background: var(--black-panel);
+  border: 1px solid var(--blue-border);
+  color: var(--blue-light);
   font-family: var(--font-latin);
-  font-size: 15px;
+  font-size: var(--text-body-sm);
   font-weight: 800;
-  line-height: 1;
+  line-height: var(--basic-line-height);
   pointer-events: auto;
 }
 
-/* 图集关闭按钮：右上角 X 控件 */
+/* 閸ラ箖娉﹂崗鎶芥４閹稿鎸抽敍姘礁娑撳﹨顫?X 閹貉傛 */
 .image-gallery-close {
   appearance: none;
   display: inline-flex;
@@ -143,36 +143,36 @@ body.gallery-is-open {
   width: 38px;
   height: 38px;
   padding: 0;
-  background: rgba(5, 10, 16, 0.72);
-  border: 1px solid rgba(45, 95, 150, 0.8);
-  color: var(--color-blue-light);
+  background: var(--black-panel);
+  border: 1px solid var(--blue-border);
+  color: var(--blue-light);
   font-family: var(--font-latin);
-  font-size: 22px;
+  font-size: var(--text-title);
   font-weight: 700;
-  line-height: 1;
+  line-height: var(--basic-line-height);
   cursor: pointer;
   pointer-events: auto;
   transition:
-    border-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
 }
 
-/* 图集关闭按钮交互：蓝色主题切换为金色反馈 */
+/* 閸ラ箖娉﹂崗鎶芥４閹稿鎸虫禍銈勭鞍閿涙俺鎽戦懝韫瘜妫版ê鍨忛幑顫礋闁叉垼澹婇崣宥夘洯 */
 .image-gallery-close:hover,
 .image-gallery-close:focus-visible {
-  border-color: rgba(224, 194, 143, 0.9);
-  color: var(--color-gold-light);
-  box-shadow: 0 0 18px rgba(200, 155, 90, 0.26);
+  border-color: var(--gold-strong);
+  color: var(--gold-light);
+  box-shadow: 0 0 18px var(--gold-line);
 }
 
-/* 图集关闭按钮焦点：提供键盘可见焦点 */
+/* 閸ラ箖娉﹂崗鎶芥４閹稿鎸抽悞锔惧仯閿涙碍褰佹笟娑㈡暛閻╂ê褰茬憴浣哄妽閿?*/
 .image-gallery-close:focus-visible {
-  outline: 1px solid var(--color-gold-light);
+  outline: 1px solid var(--gold-light);
   outline-offset: 5px;
 }
 
-/* 图集图片舞台：在工具栏下方提供固定可视区域 */
+/* 閸ラ箖娉﹂崶鍓у閼哥偛褰撮敍姘躬瀹搞儱鍙块弽蹇庣瑓閺傝褰佹笟娑樻祼鐎规艾褰茬憴鍡楀隘閿?*/
 .image-gallery-stage {
   position: absolute;
   inset: 0;
@@ -190,7 +190,7 @@ body.gallery-is-open {
   pointer-events: none;
 }
 
-/* 图集图片容器：用固定舞台约束图片原始尺寸 */
+/* 閸ラ箖娉﹂崶鍓у鐎圭懓娅掗敍姘辨暏閸ュ搫鐣鹃懜鐐插酱缁撅附娼崶鍓у閸樼喎顫愮亸鍝勵嚟 */
 .image-gallery-image-wrap {
   display: flex;
   align-items: center;
@@ -205,7 +205,7 @@ body.gallery-is-open {
   user-select: none;
 }
 
-/* 图集当前图片：在可用视口内等比缩放 */
+/* 閸ラ箖娉﹁ぐ鎾冲閸ュ墽澧栭敍姘躬閸欘垳鏁ょ憴鍡楀經閸愬懐鐡戝В鏃傜級閿?*/
 .image-gallery-image {
   display: block;
   max-width: 100%;
@@ -219,19 +219,19 @@ body.gallery-is-open {
   user-select: none;
 }
 
-/* 图集方向箭头：覆盖 active marker 的默认固定位置 */
+/* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旈敍姘愁洬閿?active marker 閻ㄥ嫰绮拋銈呮祼鐎规矮缍呴敓?*/
 .image-gallery-arrow {
   --active-direction-size: 54px;
-  --active-direction-color: var(--color-blue-light);
+  --active-direction-color: var(--blue-light);
   z-index: 3;
   pointer-events: auto;
   cursor: pointer;
   transition:
-    color 180ms ease,
-    filter 180ms ease;
+    color var(--duration-base) var(--ease-standard),
+    filter var(--duration-base) var(--ease-standard);
 }
 
-/* 图集左箭头：放置在屏幕左侧中部 */
+/* 閸ラ箖娉﹀锔绢唲婢惰揪绱伴弨鍓х枂閸︺劌鐫嗛獮鏇炰箯娓氀傝厬閿?*/
 .image-gallery-arrow-left {
   left: clamp(12px, 2vw, 34px);
   right: auto;
@@ -239,30 +239,30 @@ body.gallery-is-open {
   transform: translateY(-50%);
 }
 
-/* 图集右箭头：放置在屏幕右侧中部 */
+/* 閸ラ箖娉﹂崣宕囶唲婢惰揪绱伴弨鍓х枂閸︺劌鐫嗛獮鏇炲礁娓氀傝厬閿?*/
 .image-gallery-arrow-right {
   right: clamp(12px, 2vw, 34px);
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* 图集方向箭头交互：悬停与焦点切换金色 */
+/* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旀禍銈勭鞍閿涙碍鍋撻崑婊€绗岄悞锔惧仯閸掑洦宕查柌鎴ｅ */
 .image-gallery-arrow:hover,
 .image-gallery-arrow:focus-visible {
-  --active-direction-color: var(--color-gold-light);
-  color: var(--color-gold-light);
-  filter: drop-shadow(0 0 12px rgba(200, 155, 90, 0.5));
+  --active-direction-color: var(--gold-light);
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 12px var(--gold-line));
 }
 
-/* 图集方向箭头焦点：提供键盘可见焦点 */
+/* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旈悞锔惧仯閿涙碍褰佹笟娑㈡暛閻╂ê褰茬憴浣哄妽閿?*/
 .image-gallery-arrow:focus-visible {
-  outline: 1px solid var(--color-gold-light);
+  outline: 1px solid var(--gold-light);
   outline-offset: 8px;
 }
 
 @media (max-width: 980px) {
-  /* 移动端图集遮罩：缩小顶部工具栏高度 */
-  /* 移动端顶部工具栏：贴近右上角但保留触控距离 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棝浼勭純鈺嬬窗缂傗晛鐨い鍫曞劥瀹搞儱鍙块弽蹇涚彯閿?*/
+  /* 缁夎濮╃粩顖炪€婇柈銊ヤ紣閸忛攱鐖敍姘冲垱鏉╂垵褰告稉濠咁潡娴ｅ棔绻氶悾娆捫曢幒褑绐涢敓?*/
   .image-gallery-toolbar {
     top: 12px;
     right: 14px;
@@ -270,27 +270,27 @@ body.gallery-is-open {
     padding: 0;
   }
 
-  /* 移动端序号：减小视觉占位 */
+  /* 缁夎濮╃粩顖氱碍閸欏嚖绱伴崙蹇撶毈鐟欏棜顫庨崡鐘辩秴 */
   .image-gallery-counter {
     min-width: 52px;
     min-height: 34px;
     padding: 0 10px;
-    font-size: 14px;
+    font-size: var(--text-label);
   }
 
-  /* 移动端关闭按钮：保持清晰触控面积 */
+  /* 缁夎濮╃粩顖氬彠闂傤厽瀵滈柦顕嗙窗娣囨繃瀵斿〒鍛珰鐟欙附甯堕棃銏⑿?*/
   .image-gallery-close {
     width: 34px;
     height: 34px;
-    font-size: 20px;
+    font-size: var(--text-lead);
   }
 
-  /* 移动端图片舞台：缩小边距给图片更多空间 */
+  /* 缁夎濮╃粩顖氭禈閻楀洩鍨堕崣甯窗缂傗晛鐨潏纭呯獩缂佹瑥娴橀悧鍥ㄦ纯婢舵氨鈹栭敓?*/
   .image-gallery-stage {
     padding: 56px 44px;
   }
 
-  /* 移动端图集说明：避开右上角控制按钮 */
+  /* 缁夎濮╃粩顖氭禈闂嗗棜顕╅弰搴窗闁灝绱戦崣鍏呯瑐鐟欐帗甯堕崚鑸靛瘻閿?*/
   .image-gallery-caption {
     top: 12px;
     left: 14px;
@@ -306,11 +306,11 @@ body.gallery-is-open {
     box-sizing: border-box;
     overflow: hidden;
     transform: none;
-    font-size: 13px;
+    font-size: var(--text-label);
     text-align: center;
   }
 
-  /* 移动端恢复为在 caption 框内部居中，不再按 viewport 居中 */
+  /* 缁夎濮╃粩顖涗划婢跺秳璐熼敓?caption 濡楀棗鍞撮柈銊ョ湷娑擃叏绱濇稉宥呭晙閿?viewport 鐏炲懍鑵?*/
   .image-gallery-caption-text {
     position: static;
     left: auto;
@@ -321,25 +321,25 @@ body.gallery-is-open {
     max-width: 100%;
     padding: 0;
     box-sizing: border-box;
-    line-height: 1.25;
+    line-height: var(--ui-line-height);
     text-align: center;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  /* 移动端当前图片：使用动态视口限制图片尺寸 */
-  /* 移动端方向箭头：贴边并略微缩小 */
+  /* 缁夎濮╃粩顖氱秼閸撳秴娴橀悧鍥风窗娴ｈ法鏁ら崝銊︹偓浣筋潒閸欙綁妾洪崚璺烘禈閻楀洤鏄傞敓?*/
+  /* 缁夎濮╃粩顖涙煙閸氭垹顔勬径杈剧窗鐠愮绔熼獮鍓佹殣瀵邦喚缂夐敓?*/
   .image-gallery-arrow {
     --active-direction-size: 44px;
   }
 
-  /* 移动端左箭头：靠左边缘居中 */
+  /* 缁夎濮╃粩顖氫箯缁狀厼銇旈敍姘舵浆瀹革箒绔熺紓妯虹湷閿?*/
   .image-gallery-arrow-left {
     left: 6px;
   }
 
-  /* 移动端右箭头：靠右边缘居中 */
+  /* 缁夎濮╃粩顖氬礁缁狀厼銇旈敍姘舵浆閸欏疇绔熺紓妯虹湷閿?*/
   .image-gallery-arrow-right {
     right: 6px;
   }

@@ -1,0 +1,54 @@
+/* Action: reusable button for expanding and collapsing a related panel. */
+.disclosure-toggle-button {
+  --disclosure-toggle-size: var(--icon-median-mobile);
+  --disclosure-toggle-mark-size: 12px;
+  --disclosure-toggle-mark-thickness: 2px;
+  appearance: none;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--disclosure-toggle-size);
+  height: var(--disclosure-toggle-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue-light);
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.disclosure-toggle-button__icon,
+.disclosure-toggle-button__icon::after {
+  display: block;
+  width: var(--disclosure-toggle-mark-size);
+  height: var(--disclosure-toggle-mark-thickness);
+  background: currentColor;
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.disclosure-toggle-button__icon {
+  position: relative;
+  transform: rotate(45deg);
+}
+
+.disclosure-toggle-button__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: rotate(90deg);
+}
+
+.disclosure-toggle-button[aria-expanded="false"] .disclosure-toggle-button__icon {
+  transform: rotate(0);
+}
+
+.disclosure-toggle-button:hover,
+.disclosure-toggle-button:focus-visible {
+  color: var(--gold-light);
+}
+
+.disclosure-toggle-button:focus-visible {
+  outline: 1px solid var(--gold-line);
+  outline-offset: 3px;
+}
