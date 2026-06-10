@@ -1,5 +1,6 @@
 ---
-import "../styles/archive/year-switch.css";
+import RefreshIcon from "../primitives/RefreshIcon.astro";
+import "../../styles/archive/year-switch.css";
 
 const {
   current,
@@ -18,34 +19,26 @@ const resolvedOptions = current
       ...rawOptions,
     ]
   : rawOptions;
+const hasPageMode = Boolean(current?.mode) || resolvedOptions.some((option) => Boolean(option?.mode));
 ---
 
 {current && (
   <>
     <div class:list={["archive-entry-year-menu", `is-${placement}`]} data-year-switch>
       <button
-        class="archive-entry-year-switch"
+        class="archive-entry-year-switch frame-decor is-gold refresh-icon-trigger"
         type="button"
         aria-label="切换设定年份"
         aria-haspopup="menu"
         aria-expanded="false"
         data-year-switch-trigger
         data-year-switch-default-label={current.label}
-        data-character-archive-target-mode={current.mode ?? "normal"}
+        data-page-target-mode={hasPageMode ? current.mode ?? "normal" : undefined}
       >
         <span class="archive-entry-year-switch-label" data-year-switch-label>
           {current.label}
         </span>
-        <span class="archive-entry-year-switch-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M5.6 8.4a7.4 7.4 0 0 1 11.8-1.8" />
-            <path d="M17.4 6.6h-3.5" />
-            <path d="M17.4 6.6v-3.5" />
-            <path d="M18.4 15.6a7.4 7.4 0 0 1-11.8 1.8" />
-            <path d="M6.6 17.4h3.5" />
-            <path d="M6.6 17.4v3.5" />
-          </svg>
-        </span>
+        <RefreshIcon class="archive-entry-year-switch-icon" />
       </button>
 
       {resolvedOptions.length > 0 && (
@@ -57,7 +50,7 @@ const resolvedOptions = current
               role="menuitem"
               data-year-switch-option
               data-year-switch-option-label={option.label}
-              data-character-archive-target-mode={option.mode ?? "normal"}
+              data-page-target-mode={hasPageMode ? option.mode ?? "normal" : undefined}
             >
               {option.label}
             </button>
@@ -67,18 +60,19 @@ const resolvedOptions = current
     </div>
 
     <script>
-      const getCharacterArchivePage = () => document.querySelector(".archive-page.is-characters");
+      const getPageModeRoot = () => document.querySelector(".chrome-page");
 
-      const setCharacterArchiveMode = (mode = "normal") => {
-        const page = getCharacterArchivePage();
+      const setPageMode = (mode) => {
+        if (!mode) return;
+        const page = getPageModeRoot();
         if (!page) return;
 
-        page.setAttribute("data-character-archive-mode", mode);
-        document.querySelectorAll("[data-character-archive-panel]").forEach((panel) => {
-          const isActive = panel.getAttribute("data-character-archive-panel") === mode;
+        page.setAttribute("data-page-mode", mode);
+        document.querySelectorAll("[data-page-mode-panel]").forEach((panel) => {
+          const isActive = panel.getAttribute("data-page-mode-panel") === mode;
           panel.setAttribute("aria-hidden", String(!isActive));
         });
-        window.dispatchEvent(new CustomEvent("character-archive-mode-change", {
+        window.dispatchEvent(new CustomEvent("page-mode-change", {
           detail: { mode },
         }));
       };
@@ -110,7 +104,6 @@ const resolvedOptions = current
       };
 
       const bindYearSwitches = () => {
-        setCharacterArchiveMode("normal");
         closeAllYearMenus();
 
         document.querySelectorAll("[data-year-switch]").forEach((menuRoot) => {
@@ -121,6 +114,7 @@ const resolvedOptions = current
           if (label && trigger?.dataset.yearSwitchDefaultLabel) {
             label.textContent = trigger.dataset.yearSwitchDefaultLabel;
           }
+          setPageMode(trigger?.dataset.pageTargetMode);
           updateYearMenuOptions(menuRoot, label?.textContent?.trim());
 
           if (menuRoot.dataset.yearSwitchBound === "true") return;
@@ -139,8 +133,8 @@ const resolvedOptions = current
             option.addEventListener("click", (event) => {
               event.stopPropagation();
               const nextLabel = option.dataset.yearSwitchOptionLabel;
-              const nextMode = option.dataset.characterArchiveTargetMode || "normal";
-              setCharacterArchiveMode(nextMode);
+              const nextMode = option.dataset.pageTargetMode;
+              setPageMode(nextMode);
               syncYearSwitchLabels(nextLabel);
               closeYearMenu(menuRoot);
             });
@@ -148,8 +142,8 @@ const resolvedOptions = current
         });
       };
 
-      if (!window.__archiveEntryYearSwitchBound) {
-        window.__archiveEntryYearSwitchBound = true;
+      if (!window.__archiveYearSwitchBound) {
+        window.__archiveYearSwitchBound = true;
         document.addEventListener("click", closeAllYearMenus);
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape") closeAllYearMenus();

@@ -12,12 +12,22 @@ const {
 
 const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
 const isPrimary = variant === "primary";
+const hasControl = Astro.slots.has("control");
 ---
 
 <header id={id} class:list={["entry-heading", `is-${variant}`]}>
-  {isPrimary && <span class="entry-heading-kicker">{kicker}</span>}
-  <div class="entry-heading-title-row">
-    <HeadingTag class="entry-heading-title frame-decor is-gold">{title}</HeadingTag>
+  <div class="entry-heading-row">
+    <div class="entry-heading-stack">
+      {isPrimary && <span class="entry-heading-kicker">{kicker}</span>}
+      <div class="entry-heading-title-row">
+        <HeadingTag class="entry-heading-title frame-decor is-gold">{title}</HeadingTag>
+      </div>
+      {subtitle && <p class="entry-heading-subtitle">{subtitle}</p>}
+    </div>
+    {hasControl && (
+      <div class="entry-heading-control">
+        <slot name="control" />
+      </div>
+    )}
   </div>
-  {subtitle && <p class="entry-heading-subtitle">{subtitle}</p>}
 </header>

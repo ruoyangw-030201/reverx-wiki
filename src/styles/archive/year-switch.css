@@ -1,3 +1,5 @@
+@import "../primitives/frame-decor.css";
+
 .archive-entry-year-menu {
   position: relative;
   z-index: var(--z-popover);
@@ -6,22 +8,18 @@
   flex: 0 0 auto;
 }
 
-.archive-entry-year-menu.is-desktop {
-  transform: translateX(8px);
-}
-
 .archive-entry-year-menu.is-mobile {
   display: none;
 }
 
 .archive-entry-year-switch {
-  position: relative;
-  z-index: 1;
+  /* 高度不固定，大约是上下8+8+icon28 = 44px */
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 9px 8px 12px;
-  border: 1px solid var(--gold-border);
+  /* 文字和图标的间隔 */
+  gap: var(--space-tight);
+  /* 内间距 */
+  padding: 8px 9px 8px var(--space-small);
   background: var(--archive-entry-year-paper,
     radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),
     linear-gradient(180deg, var(--white-main), var(--white-paper))
@@ -30,84 +28,27 @@
   font: inherit;
   font-family: var(--font-sans);
   font-size: var(--text-body);
-  line-height: var(--content-prose-line-height, var(--prose-line-height));
+  line-height: var(--ui-line-height);
   letter-spacing: 0;
   white-space: nowrap;
   cursor: pointer;
   box-shadow: inset 0 0 28px var(--gold-wash);
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
-}
-
-.archive-entry-year-switch::before {
-  content: "";
-  position: absolute;
-  inset: -6px 7px 6px -7px;
-  border: 1px solid var(--gold-line);
-  pointer-events: none;
-}
-
-.archive-entry-year-switch-label {
-  position: relative;
-  z-index: 1;
-}
-
-.archive-entry-year-switch-icon {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--blue-border);
-  border-radius: var(--radius-circle);
-  color: var(--blue-main);
-  animation: archive-year-refresh 2.4s linear infinite;
-  transition:
-    border-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
-}
-
-.archive-entry-year-switch-icon svg {
-  width: 19px;
-  height: 19px;
-  overflow: visible;
-}
-
-.archive-entry-year-switch-icon path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .archive-entry-year-switch:hover,
 .archive-entry-year-switch:focus-visible,
 .archive-entry-year-menu.is-open .archive-entry-year-switch {
-  border-color: var(--gold-main);
-  color: var(--gold-main);
-}
-
-.archive-entry-year-switch:hover .archive-entry-year-switch-icon,
-.archive-entry-year-switch:focus-visible .archive-entry-year-switch-icon,
-.archive-entry-year-menu.is-open .archive-entry-year-switch-icon {
-  border-color: var(--gold-main);
   color: var(--gold-main);
 }
 
 .archive-entry-year-switch:focus-visible {
-  outline: 1px solid var(--gold-light);
-  outline-offset: 6px;
+  outline: 0;
 }
 
 .archive-entry-year-dropdown {
   position: absolute;
-  top: calc(100% + 9px);
-  right: -8px;
-  z-index: var(--z-chrome);
+  top: calc(100% + var(--space-tight));
+  z-index: 2;
   display: grid;
   min-width: 100%;
   padding: 0;
@@ -116,7 +57,7 @@
     radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),
     linear-gradient(180deg, var(--white-main), var(--white-paper))
   );
-  box-shadow: 0 12px 32px var(--ink-faint);
+  box-shadow: 0 12px 28px var(--ink-faint);
 }
 
 .archive-entry-year-dropdown[hidden],
@@ -130,7 +71,8 @@
   justify-content: flex-start;
   min-width: max-content;
   min-height: 40px;
-  padding: 0 20px;
+  /* 左起间距12px，和上面对齐 */
+  padding: 0 var(--space-small);
   border: 0;
   background: transparent;
   color: var(--ink-strong);
@@ -153,69 +95,37 @@
   outline: none;
 }
 
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-menu {
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-menu {
   --archive-entry-year-paper:
-    linear-gradient(180deg, var(--black-deep), var(--black-overlay)),
+    linear-gradient(180deg, var(--black-deep), var(--ink-strong)),
     radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
 }
 
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option {
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-switch,
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option {
   color: var(--white-readable);
 }
 
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option:hover,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-option:focus-visible {
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option:hover,
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option:focus-visible {
   background: linear-gradient(90deg, var(--gold-line), var(--gold-wash));
   color: var(--gold-light);
 }
 
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch-icon,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch:hover .archive-entry-year-switch-icon,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-switch:focus-visible .archive-entry-year-switch-icon,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .archive-entry-year-menu.is-open .archive-entry-year-switch-icon {
-  border-color: var(--gold-main);
-  color: var(--gold-main);
-}
-
-@keyframes archive-year-refresh {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .archive-entry-year-switch-icon {
-    animation: none;
-  }
-}
-
 @media (max-width: 980px) {
-  .archive-default-heading-cluster .archive-entry-year-menu.is-desktop {
+  .entry-heading-control .archive-entry-year-menu.is-desktop {
     display: none;
   }
 
-  .content-frame-mobile-before-body > .archive-entry-year-menu.is-mobile {
+  .content-frame-mobile-before-body .archive-entry-year-menu.is-mobile {
+    /* year-switch自己不固定手机端位置，由content-frame导入 */
     position: relative;
     left: auto;
     bottom: auto;
-    z-index: var(--z-popover);
     display: inline-flex;
     width: fit-content;
     max-width: 100%;
     margin: 0;
     transform: none;
-  }
-
-  .archive-entry-year-switch {
-    max-width: 100%;
-    padding: 7px 8px 7px 10px;
-    font-size: var(--text-body);
-  }
-
-  .archive-entry-year-dropdown {
-    left: 0;
-    right: auto;
-    max-width: 100%;
   }
 }

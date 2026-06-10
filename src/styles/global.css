@@ -141,10 +141,11 @@
   --space-shell: 42px;
   /* need to be verified */
   --space-outset: 48px;
+  --space-broad: 64px;
   --space-wide: 72px;
   /* page end metrics */
-  --space-end-mobile: 64px;
-  --space-end: 96px;
+  --space-end-mobile: 128px;
+  --space-end: 196px;
 
   /* Shared archive/index layout metrics; keep component geometry local. */
   /* Gap between sidebar and main stage, between main stage and right end */
@@ -176,6 +177,7 @@
 
   /* Functional line-height tokens for exact UI, compact UI, prose, and dense cards. */
   --basic-line-height: 1;
+  --title-line-height: 1.1;
   --ui-line-height: 1.25;
   --card-line-height: 1.35;
   --prose-line-height: 1.7;

@@ -18,7 +18,7 @@ const {
   sidebarIdPrefix = "chrome-sidebar-group",
   mobileSidebarIdPrefix = "chrome-sidebar-mobile",
   pageClass,
-  characterArchiveMode,
+  pageMode,
 } = Astro.props;
 
 const pageClassList = Array.isArray(pageClass)
@@ -29,7 +29,7 @@ const pageClassList = Array.isArray(pageClass)
 <BaseLayout>
   <div
     class:list={["chrome-page", ...pageClassList]}
-    data-character-archive-mode={characterArchiveMode}
+    data-page-mode={pageMode}
   >
     <BackgroundSurface tone={surfaceTone} />
 

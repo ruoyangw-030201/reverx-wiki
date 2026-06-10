@@ -1,5 +1,5 @@
 ---
-import ArchiveYearSwitch from "../ArchiveYearSwitch.astro";
+import YearSwitchButton from "./YearSwitchButton.astro";
 import ContentFrame from "../content-frame/ContentFrame.astro";
 import EntryHeading from "../primitives/EntryHeading.astro";
 import "../../styles/archive/default-layout.css";
@@ -22,18 +22,16 @@ const hasYearSwitch = Boolean(yearSwitchCurrent);
 ---
 
 <section class="archive-default-frame">
-  {hasYearSwitch ? (
-    <div class="archive-default-heading-cluster">
-      <EntryHeading kicker={kicker} title={title} subtitle={subtitle} />
-      <ArchiveYearSwitch
+  <EntryHeading kicker={kicker} title={title} subtitle={subtitle}>
+    {hasYearSwitch && (
+      <YearSwitchButton
+        slot="control"
         current={yearSwitchCurrent}
         options={yearSwitchOptions}
         placement="desktop"
       />
-    </div>
-  ) : (
-    <EntryHeading kicker={kicker} title={title} subtitle={subtitle} />
-  )}
+    )}
+  </EntryHeading>
 
   <ContentFrame
     icon={contentFrameIcon}
@@ -47,7 +45,7 @@ const hasYearSwitch = Boolean(yearSwitchCurrent);
   >
     {hasYearSwitch && (
       <Fragment slot="mobile-before-body">
-        <ArchiveYearSwitch
+        <YearSwitchButton
           current={yearSwitchCurrent}
           options={yearSwitchOptions}
           placement="mobile"

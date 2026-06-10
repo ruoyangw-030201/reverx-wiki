@@ -128,7 +128,7 @@ function expandSidebarGroupForChildren(children) {
   toggle?.setAttribute("aria-expanded", "true");
 }
 
-function applyCharacterSidebarMode(mode = "normal") {
+function applyPageModeSidebarOverrides(mode = "normal") {
   const currentPath = normalizePath(window.location.pathname);
   if (!currentPath.startsWith("/characters/")) return;
 
@@ -157,20 +157,20 @@ function applyCharacterSidebarMode(mode = "normal") {
   });
 }
 
-function initCharacterSidebarModeOverrides() {
-  applyCharacterSidebarMode(
-    document.querySelector(".archive-page.is-characters")?.getAttribute("data-character-archive-mode") ?? "normal"
+function initPageModeSidebarOverrides() {
+  applyPageModeSidebarOverrides(
+    document.querySelector(".chrome-page")?.getAttribute("data-page-mode") ?? "normal"
   );
 
-  if (window.__chromeSidebarModeOverrideBound) return;
-  window.__chromeSidebarModeOverrideBound = true;
-  window.addEventListener("character-archive-mode-change", (event) => {
-    applyCharacterSidebarMode(event.detail?.mode ?? "normal");
+  if (window.__chromeSidebarPageModeOverrideBound) return;
+  window.__chromeSidebarPageModeOverrideBound = true;
+  window.addEventListener("page-mode-change", (event) => {
+    applyPageModeSidebarOverrides(event.detail?.mode ?? "normal");
   });
 }
 
 export function initChromeSidebar() {
   initSidebarCollapsibleGroups();
   initSidebarAnchorState();
-  initCharacterSidebarModeOverrides();
+  initPageModeSidebarOverrides();
 }

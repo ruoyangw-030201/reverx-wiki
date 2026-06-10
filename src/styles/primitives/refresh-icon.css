@@ -1,0 +1,49 @@
+/* Primitive: decorative rotating refresh mark. */
+.refresh-icon {
+  --refresh-icon-size: 28px;
+  --refresh-icon-symbol-size: 16px;
+  --refresh-icon-color: var(--blue-main);
+  --refresh-icon-border-color: var(--blue-border);
+  display: grid;
+  place-items: center;
+  width: var(--refresh-icon-size);
+  height: var(--refresh-icon-size);
+  border: 1px solid var(--refresh-icon-border-color);
+  border-radius: var(--radius-circle);
+  color: var(--refresh-icon-color);
+  animation: refresh-icon-spin 2.4s linear infinite;
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.refresh-icon::before {
+  content: "";
+  display: block;
+  width: var(--refresh-icon-symbol-size);
+  height: var(--refresh-icon-symbol-size);
+  background: currentColor;
+  mask: url("/symbol/Refresh-cw.svg") center / contain no-repeat;
+  -webkit-mask: url("/symbol/Refresh-cw.svg") center / contain no-repeat;
+}
+
+.refresh-icon-trigger:hover .refresh-icon,
+.refresh-icon-trigger:focus-visible .refresh-icon,
+.refresh-icon-trigger:active .refresh-icon,
+.refresh-icon-trigger.is-active .refresh-icon,
+.refresh-icon-trigger[aria-expanded="true"] .refresh-icon {
+  --refresh-icon-color: var(--gold-main);
+  --refresh-icon-border-color: var(--gold-main);
+}
+
+@keyframes refresh-icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .refresh-icon {
+    animation: none;
+  }
+}

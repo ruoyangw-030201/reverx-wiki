@@ -1,6 +1,9 @@
 ﻿/* ========== chrome headbar ========== */
 
  /* Frame: full-width top chrome bar. Height is fixed for Figma-like assembly. */
+@import "../primitives/symbols.css";
+@import "../primitives/divider-line.css";
+
 .chrome-headbar {
   /*brand区域列宽*/
   --chrome-headbar-brand-track: 150px;

@@ -1,4 +1,6 @@
 /* Chrome auxiliary link item: optional divider plus a secondary chrome link. */
+@import "../primitives/divider-line.css";
+
 .chrome-aux-link-item {
   display: inline-flex;
   align-items: baseline;

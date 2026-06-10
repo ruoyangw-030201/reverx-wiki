@@ -76,23 +76,23 @@
 }
 
 /* 鐟欐帟澹婂锝嗩攳楠炵繝鍞ゅΟ鈥崇础闂堛垺婢橀惃鍕帛鐠併倝娈ｉ挊蹇曞Ц閿?*/
-.archive-page.is-characters .character-profile-archive[data-character-archive-panel] {
+.archive-page.is-characters .character-profile-archive[data-page-mode-panel] {
   display: none;
 }
 
 /* 鐟欐帟澹婂锝嗩攳閺咁噣鈧艾鍕炬禒鑺ツ佸蹇涙桨閿?*/
-.archive-page.is-characters[data-character-archive-mode="normal"] .character-profile-archive[data-character-archive-panel="normal"],
-.archive-page.is-characters:not([data-character-archive-mode]) .character-profile-archive[data-character-archive-panel="normal"] {
+.archive-page.is-characters[data-page-mode="normal"] .character-profile-archive[data-page-mode-panel="normal"],
+.archive-page.is-characters:not([data-page-mode]) .character-profile-archive[data-page-mode-panel="normal"] {
   display: grid;
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇撳嬀娴犺姤膩瀵繘娼伴敓?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive[data-character-archive-panel="spoiler"] {
+.archive-page.is-characters[data-page-mode="spoiler"] .character-profile-archive[data-page-mode-panel="spoiler"] {
   display: grid;
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱濮濓絾鏋冩０婊嗗閸欐﹢鍣?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-profile-archive {
+.archive-page.is-characters[data-page-mode="spoiler"] .character-profile-archive {
   --character-profile-card-background:
     linear-gradient(135deg, var(--white-soft), var(--white-soft)),
     var(--character-profile-paper);
@@ -728,50 +728,50 @@
 }
 
 /* 閸撗団偓蹇斈佸蹇曟畱濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊︽珮闁艾娴橀敓?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-normal {
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-normal {
   display: none;
 }
 
 /* 閸撗団偓蹇斈佸蹇曟畱濮濓箑娅掓穱鈩冧紖娑撳秴鐣崗銊︾ガ閼规彃娴橀敓?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-spoiler {
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-empty-icon .is-spoiler {
   display: block;
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块崡锛勫鎼存洝澹?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-note-card.is-changed,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-weapon-card.is-changed {
+.archive-page.is-characters[data-page-mode="spoiler"] .character-ability-card.is-changed,
+.archive-page.is-characters[data-page-mode="spoiler"] .character-note-card.is-changed,
+.archive-page.is-characters[data-page-mode="spoiler"] .character-weapon-card.is-changed {
   background: var(--black-deep);
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块崡锛勫濮濓絾鏋?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-title,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-ability-description,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-note-copy,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-description,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-empty-text,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields td,
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-fields th {
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-ability-title,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-ability-description,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-note-copy,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-description,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-empty-text,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-fields td,
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-fields th {
   color: var(--white-readable);
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲垮锕€娅掗崥宥囆?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-name {
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-name {
   color: var(--blue-light);
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲垮锕€娅掗崡鈩冪垼閿?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .is-changed .character-weapon-type-text > span {
+.archive-page.is-characters[data-page-mode="spoiler"] .is-changed .character-weapon-type-text > span {
   color: var(--gold-light);
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块懗钘夊閸椻剝鐖ｉ敓?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed .character-ability-heading {
+.archive-page.is-characters[data-page-mode="spoiler"] .character-ability-card.is-changed .character-ability-heading {
   color: var(--gold-light);
 }
 
 /* 鐟欐帟澹婂锝嗩攳閸撗団偓蹇斈佸蹇曟畱閸欐ɑ娲块懗钘夊閸楋紕顔勯敓?*/
-.archive-page.is-characters[data-character-archive-mode="spoiler"] .character-ability-card.is-changed::after {
+.archive-page.is-characters[data-page-mode="spoiler"] .character-ability-card.is-changed::after {
   color: var(--gold-light);
 }
 

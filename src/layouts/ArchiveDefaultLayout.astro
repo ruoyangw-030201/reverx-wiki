@@ -25,11 +25,11 @@ const sectionKicker =
   currentSection === "characters" ? "FILES" : sectionTab?.labelEn ?? currentSection.toUpperCase();
 const frameTitle = title ?? navigationItem?.label ?? "Archive Entry";
 const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? "introduction";
-const hasCharacterYearSwitch = currentSection === "characters" && currentPath !== "/characters";
-const characterYearSwitchCurrent = hasCharacterYearSwitch
+const hasPageModeSwitch = currentSection === "characters" && currentPath !== "/characters";
+const pageModeSwitchCurrent = hasPageModeSwitch
   ? { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" }
   : undefined;
-const characterYearSwitchOptions = hasCharacterYearSwitch
+const pageModeSwitchOptions = hasPageModeSwitch
   ? [
       { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" },
       { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2039\u5e74", mode: "spoiler" },
@@ -62,7 +62,7 @@ const characterGalleryLabel = `${frameTitle} image gallery`;
 <ChromeLayout
   pageClass={["archive-page", "archive-default-page", `is-${currentSection}`]}
   heroVariant={currentSection}
-  characterArchiveMode={hasCharacterYearSwitch ? "normal" : undefined}
+  pageMode={hasPageModeSwitch ? "normal" : undefined}
   mobileSidebarIdPrefix="chrome-archive-sidebar-mobile"
 >
   <ScrollDecor slot="decor" />
@@ -71,8 +71,8 @@ const characterGalleryLabel = `${frameTitle} image gallery`;
     kicker={sectionKicker}
     title={frameTitle}
     subtitle={frameSubtitle}
-    yearSwitchCurrent={characterYearSwitchCurrent}
-    yearSwitchOptions={characterYearSwitchOptions}
+    yearSwitchCurrent={pageModeSwitchCurrent}
+    yearSwitchOptions={pageModeSwitchOptions}
     contentFrameIcon={contentFrameIcon}
     contentFrameIconCaption={contentFrameIconCaption}
     contentFrameIconVariant={contentFrameIconVariant}
