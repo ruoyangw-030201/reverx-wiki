@@ -1,16 +1,15 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
-import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
+import ActiveDirectionAction from "../components/ActiveDirectionAction.astro";
 import NextPageTrigger from "../components/NextPageTrigger.astro";
 import EntryHeading from "../components/primitives/EntryHeading.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import BackgroundSurface from "../components/background/BackgroundSurface.astro";
-import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
+import ContentBox from "../components/content-frame/ContentBox.astro";
 import "../styles/archive/layout.css";
 import "../styles/content/content.css";
 import "../styles/index.css";
-import "../styles/active-marker.css";
 import {
   findNavigationItemByPath,
   getNextArchivePageForPath,
@@ -54,9 +53,10 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
 
     {
       indexScrollNextPage && (
-        <ActiveDirectionMarker
+        <ActiveDirectionAction
           direction="down"
           label="SCROLL"
+          animated
           class="index-animate-marker index-page-arrow index-page-arrow--down"
           href={indexScrollNextPage.href}
           ariaLabel={`进入${indexScrollNextPage.label ?? indexScrollNextPage.labelEn ?? "下一页"}`}
@@ -66,8 +66,9 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
 
     {
       nextIndexTab && (
-        <ActiveDirectionMarker
+        <ActiveDirectionAction
           direction="right"
+          animated
           class="index-animate-marker index-tab-arrow index-tab-arrow--next"
           href={nextIndexTab.href}
           ariaLabel={`进入${nextIndexTab.label}`}
@@ -93,9 +94,9 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
         <div class="index-animate index-animate-heading-intro">
           <EntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
 
-          <ContentFrameBox class="archive-index-intro-box" variant="simple" tone="light" minHeight="118px">
+          <ContentBox class="archive-index-intro-box" variant="simple" minHeight="118px">
             <slot name="intro" />
-          </ContentFrameBox>
+          </ContentBox>
         </div>
 
         <div class="index-animate index-animate-grid">

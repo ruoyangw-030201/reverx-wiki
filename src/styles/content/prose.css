@@ -1,0 +1,30 @@
+﻿/* 正文段落的格式规则。*/
+.prose {
+  font-size: var(--text-body);
+  line-height: var(--prose-line-height);
+}
+
+/* 上下不留多余的margin */
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+/* 自然段，有段落间距高度。*/
+.prose p {
+  margin: 0 0 var(--prose-paragraph-gap);
+  text-indent: var(--prose-indent);
+}
+
+.is-secret .prose {
+  color: var(--white-readable);
+}
+
+@media (max-width: 980px) {
+  .prose {
+    font-size: var(--text-body-sm);
+  }
+}

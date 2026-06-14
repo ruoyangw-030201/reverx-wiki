@@ -13,11 +13,6 @@
   inset-block-start: 0;
 }
 
-.scroll-decor-layer.is-secret {
-  opacity: 1;
-  mix-blend-mode: screen;
-}
-
 .archive-page:has(.intensity-diagram) .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small,
 .archive-page:has(.spectrum-classification) .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small {
   display: none;
@@ -72,6 +67,12 @@
   height: 40%;
   right: 70vw;
   top: 900px;
+}
+
+/* dark mode */
+.scroll-decor-layer.is-secret {
+  opacity: 1;
+  mix-blend-mode: screen;
 }
 
 .scroll-decor-layer.is-secret .scroll-decor__image--big {

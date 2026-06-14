@@ -1,0 +1,116 @@
+---
+import YearSwitchButton from "../actions/YearSwitchButton.astro";
+import EntryHeading from "../primitives/EntryHeading.astro";
+import ContentBox from "./ContentBox.astro";
+import IconFrame from "./IconFrame.astro";
+import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+
+const {
+  archive: archiveProp,
+  id,
+  kicker: kickerProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  variant = "ornate",
+  showLines = true,
+  showIconFrame = true,
+  icon: iconProp,
+  iconAlt: iconAltProp,
+  iconCaption: iconCaptionProp,
+  iconItems,
+  iconFrameDisplay: iconFrameDisplayProp,
+  iconFrameVariant: iconFrameVariantProp,
+  iconFrameGalleryId: iconFrameGalleryIdProp,
+  iconFrameGalleryLabel: iconFrameGalleryLabelProp,
+  iconFrameGalleryBadge = "/icon/picture.png",
+  showIconFrameJunction = true,
+  showIconFrameDisplayPanel = true,
+  class: className,
+} = Astro.props;
+
+const archive = archiveProp ?? getArchiveEntryContext(Astro.url.pathname, Astro.props);
+const kicker = kickerProp ?? archive?.sectionKicker;
+const title = titleProp ?? archive?.frameTitle;
+const subtitle = subtitleProp ?? archive?.frameSubtitle;
+const icon = iconProp ?? archive?.contentFrameIcon;
+const iconAlt = iconAltProp ?? title ?? "";
+const iconCaption = iconCaptionProp ?? archive?.contentFrameIconCaption;
+const iconFrameDisplay =
+  iconFrameDisplayProp
+  ?? archive?.contentFrameIconDisplay
+  ?? "default";
+const iconFrameVariant =
+  iconFrameVariantProp
+    ? iconFrameVariantProp
+    : variant === "secret"
+      ? "secret"
+      : "default";
+const iconFrameGalleryId = iconFrameGalleryIdProp ?? archive?.characterGalleryId;
+const iconFrameGalleryLabel = iconFrameGalleryLabelProp ?? archive?.characterGalleryLabel;
+const headingVariant = variant === "secret" ? "secret" : "primary";
+const resolvedIconItems = Array.isArray(iconItems)
+  ? iconItems
+  : icon
+    ? [{ icon, iconAlt, caption: iconCaption }]
+    : [];
+const hasIconFrame = showIconFrame && resolvedIconItems.length > 0;
+const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameGalleryId.length > 0;
+const hasYearSwitch = Boolean(archive?.hasPageModeSwitch && archive?.pageModeSwitchCurrent);
+---
+
+<section class:list={["content-frame-section", "content-frame-primary-section", className]}>
+  <div class="content-frame-primary-header">
+    <EntryHeading
+      id={id}
+      kicker={kicker}
+      variant={headingVariant}
+      title={title}
+      subtitle={subtitle}
+    />
+
+    {hasYearSwitch && (
+      <div class="content-frame-year-switch">
+        <YearSwitchButton
+          current={archive.pageModeSwitchCurrent}
+          options={archive.pageModeSwitchOptions}
+        />
+      </div>
+    )}
+  </div>
+
+  {hasIconFrame && (
+    <div class="content-frame-overlay" aria-hidden={hasIconFrameGallery ? undefined : "true"}>
+      <div class="content-frame-icon-frame">
+        <IconFrame
+          items={resolvedIconItems}
+          display={iconFrameDisplay}
+          variant={iconFrameVariant}
+          galleryId={iconFrameGalleryId}
+          galleryLabel={iconFrameGalleryLabel}
+          galleryBadge={iconFrameGalleryBadge}
+          showJunction={showIconFrameJunction}
+          showDisplayPanel={showIconFrameDisplayPanel}
+        />
+      </div>
+    </div>
+  )}
+
+  {hasIconFrame && (
+    <div class="content-frame-mobile-icon-frame" aria-hidden={hasIconFrameGallery ? undefined : "true"}>
+      <IconFrame
+        items={resolvedIconItems}
+        display={iconFrameDisplay}
+        variant={iconFrameVariant}
+        galleryId={iconFrameGalleryId}
+        galleryLabel={iconFrameGalleryLabel}
+        galleryBadge={iconFrameGalleryBadge}
+        showJunction={showIconFrameJunction}
+        showDisplayPanel={showIconFrameDisplayPanel}
+      />
+    </div>
+  )}
+
+  <ContentBox variant={variant} showLines={showLines}>
+    <slot />
+  </ContentBox>
+</section>

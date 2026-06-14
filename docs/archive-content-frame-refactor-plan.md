@@ -1,123 +1,106 @@
 # Archive Content Frame Refactor Plan
 
-This note records the current agreement for the archive default page and the later content-frame cleanup. It is intentionally narrower than `astro-shell-refactor-progress.md`.
+This note records the current archive content-frame boundary after the default/custom merge and the first MDX page migration.
 
 ## Current State
 
-`ArchiveDefaultLayout.astro` is the archive default page shell consumer. It composes `ChromeLayout`, `ScrollDecor`, page-level archive data, and chooses the default frame path for normal archive pages. Custom archive pages still keep the old compatibility path for now.
+`ArchiveShellLayout.astro` is the archive page shell:
 
-`ArchiveDefaultFrame.astro` currently composes the default archive content area:
+- `ChromeLayout`
+- `ScrollDecor`
+- archive page classes and page mode
+- character `ImageGallery` after-stage rendering
+- default slot passthrough
 
-- `EntryHeading`, including its optional control slot
-- optional desktop `YearSwitchButton`, composed into the heading control slot
-- `ContentFrame`
-- temporary mobile year switch slot inside `ContentFrame`
+It can optionally expose the legacy `.archive-content-area` wrapper for special pages that do not use `ContentFrame`.
 
-`EntryHeading.astro` is a generic heading primitive. It owns the heading row, the original heading stack, and the optional trailing control slot. It does not import or know about `YearSwitchButton`.
+`ArchiveDefaultLayout.astro` is the standard archive text-entry layout. Here "default" means any archive page whose main content is one or more standard content-frame sections. It composes:
 
-`YearSwitchButton.astro` is an archive component. It owns the year label/menu UI and may optionally switch page-level display mode through `pageMode`. The mode semantics are page-generic, even though only character archive pages are currently wired to use spoiler mode.
+- `ArchiveShellLayout`
+- one `ContentFrame`
+- page-provided `PrimarySection` / `SecondarySection` children
 
-`default-layout.css` currently exists as a transition file. It should only contain archive default outer-placement rules while the content frame is still being cleaned:
+`ArchiveSecretLayout.astro` is the archive secret text-entry layout. It is parallel to `ArchiveDefaultLayout`, but fixes shell/content variants to secret mode:
 
-- default frame wrapper behavior
-- temporary heading-to-content-frame spacing hacks
+- `ArchiveShellLayout` with secret surface, hero, scroll decor, and page class
+- one `ContentFrame` with secret next-link mode
+- page-provided `PrimarySection variant="secret"` / `SecondarySection variant="secret"` children
 
-`default-layout.css` should not own the internals of the heading row, desktop/mobile year switch visibility, or the year switch visual states. Those live with `EntryHeading`, `year-switch.css`, and `RefreshIcon`.
+`ArchiveDefaultFrame.astro`, `default-layout.css`, `ArchiveLayout.astro`, the old `SecretLayout.astro`, and `secret.css` have been removed.
 
-The remaining temporary year-switch coupling is mobile placement:
+Ordinary archive text pages are currently `.mdx` route files under `src/pages`. They explicitly compose:
 
-- desktop switch is attached to `EntryHeading` through the control slot
-- mobile switch is still placed through `ContentFrame`'s `mobile-before-body` slot
-- `year-switch.css` still contains selectors for `.content-frame-mobile-before-body`
-- `ArchiveDefaultFrame.astro` still renders separate desktop/mobile switch instances
+- `ArchiveDefaultLayout` or `ArchiveSecretLayout`
+- one `PrimarySection`
+- optional `SecondarySection` children
 
-These leftovers should wait until content-frame mobile layout and boundary cleanup are complete.
+These pages no longer pass `archive={archive}` or call `getArchiveEntryContext()` directly. `PrimarySection` and `SecondarySection` can resolve archive context from the current path.
 
-The heading-to-content-frame negative or special spacing is not a final responsibility of the heading or year switch. It exists because the old content-frame visual boundary and layout boundary do not yet match.
+Special pages still use page-specific Astro routes:
 
-`ContentFrame.astro` is currently the content-frame composition entry. It decides whether to include the icon frame, left/right decor, gallery interaction, mobile-before-body slot, and next link.
+- `src/pages/system/classification.astro`
+- `src/pages/system/intensity.astro`
 
-`ContentFrameBox.astro` is currently too heavy. It renders the box, but it also owns content-frame layers and placement slots:
+## Content Frame Boundary
 
-- decor underlay
-- paper
-- line frame
-- measure/icon layer
-- mobile-before-body layer
-- body layer
-- interaction layer
-- next link placement
+`ContentFrame.astro` is the single content-frame composition entry. It owns:
 
-## Intended Final Boundaries
+- underlay decor placement
+- the main one-column section grid
+- flow placement for the final next-link button
+- secret decor hiding through `.content-frame.is-secret`
 
-`ArchiveDefaultLayout.astro` should stay responsible for archive page shell data and page-level composition.
+`PrimarySection.astro` is the first archive entry section. It owns:
 
-`ArchiveDefaultFrame.astro` should stay responsible for archive default content composition:
+- primary `EntryHeading`
+- optional year switch flow item
+- desktop icon-frame overlay placement
+- mobile icon-frame flow placement
+- one `ContentBox`
 
-- heading area
-- optional page/year switch placement at the archive level
-- one `ContentFrame` entry
+`SecondarySection.astro` is the repeated section wrapper after the primary section. It owns:
 
-It should not know how icon frames, decor layers, interaction layers, or content-frame paper geometry are drawn.
+- optional `EntryHeading`
+- desktop icon-frame overlay placement
+- mobile icon-frame flow placement
+- one `ContentBox`
 
-`default-layout.css` should not become a permanent large layout module. After content-frame cleanup, it should either keep only a small archive default wrapper responsibility or disappear into the component styles that actually own the relevant layout.
+`ContentBox.astro` is the box renderer. It owns:
 
-`ContentFrame.astro` should be the only content-frame internal composition and layout entry. It should combine:
+- paper/surface background
+- russet/gold/blue decorative lines
+- optional side glyph
+- body and text slots
+- `simple` and `secret` variants
 
-- decor
-- icon frame
-- mobile control slot
-- `ContentFrameBox`
-- gallery interaction
-- next link
+`IconFrame.astro` owns the icon frame drawing and action layer. `IconDisplayPanel.astro` owns the icon/image display variants:
 
-Do not add a permanent `ContentFrameShell` or `ContentFrameLayout` layer if it only duplicates `ContentFrame`. A temporary shell is acceptable only as an intermediate extraction while reducing `ContentFrameBox.astro`; it should either be folded back into `ContentFrame.astro` or prove a distinct responsibility before it remains.
+- `single`
+- `multiple`
+- `figure`
 
-`ContentFrameBox.astro` should become a narrow frame renderer:
+`figure` is a structural display variant, not a character-only visual variant. Secret mode is a visual variant.
 
-- draw the paper or simple surface
-- draw the gold/blue/russet frame lines
-- expose a body slot
-- avoid knowing about icon frame, decor, gallery, character pages, year switch, or archive page state
+## Current MDX Status
 
-## Refactor Order
+The first MDX migration is complete for ordinary default/secret text pages, excluding special pages. Current MDX pages still live under `src/pages`, so each file is still a route component. This means they still import layout/section/content helpers when needed.
 
-1. Keep the current `ArchiveDefaultFrame.astro` structure stable while cleaning `ContentFrameBox.astro`.
+This is an intermediate state. The better long-term direction is recorded in `docs/archive-content-collection-migration-plan.md`: move archive MDX to content collections and let dynamic Astro routes own layouts and section mappings.
 
-   The current `EntryHeading` control slot plus mobile year switch slot is acceptable as a temporary bridge. Do not expand `default-layout.css` unless it is needed to preserve the current page shape.
+## Remaining Work
 
-2. Move content-frame internal layer ownership out of `ContentFrameBox.astro`.
-
-   The first target is to make `ContentFrameBox.astro` stop owning placement for icon/decor/interaction/mobile-control layers. Those layers belong to `ContentFrame.astro`.
-
-3. Keep `ContentFrame.astro` as the single composition entry.
-
-   If an intermediate shell file is created during extraction, treat it as temporary. The desired final shape is `ContentFrame.astro` plus a simpler `ContentFrameBox.astro`, not three overlapping layers.
-
-4. Split CSS by responsibility after the component boundary is clear.
-
-   Expected direction:
-
-   - `content-frame.css`: content-frame composition, layers, icon/decor/mobile/interaction placement
-   - `content-frame-box.css`: paper, line frame, body slot, simple/ornate box rendering
-   - `default-layout.css`: only archive default outer placement, and ideally less over time
-
-5. Remove page/domain selectors from generic content-frame CSS.
-
-   Rules such as character-page selectors inside `content-frame.css` should move toward explicit variants or toward the character content component. The content frame should know about structural variants like `figure`, not business identities like `characters`.
-
-6. Revisit `YearSwitchButton` mobile placement.
-
-   Once `ContentFrame` exposes a cleaner mobile control boundary, remove the remaining `.content-frame-mobile-before-body` dependency from `year-switch.css` and reconsider whether `ArchiveDefaultFrame.astro` still needs separate desktop/mobile switch instances.
-
-7. Revisit `default-layout.css`.
-
-   After `ContentFrame` exposes a stable real layout boundary, remove temporary heading-to-content-frame spacing hacks. If the file no longer has a real layout responsibility, delete it or replace it with a smaller heading-row component stylesheet.
+- Clean `ArchiveInfoCardList` and info-card CSS before moving world entries to content collections.
+- Move ordinary archive text MDX from `src/pages` to `src/content/archive`.
+- Add dynamic Astro routes for world/system/character archive entries.
+- Keep classification and intensity on `ArchiveShellLayout` until their page-specific content-area rules are cleaned.
+- Revisit `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
 
 ## Decisions To Preserve
 
-- Do not split an `is-character` content-frame component just because character pages have special colors or card treatments. Those belong to later content/profile/card components.
-- Treat `figure` as a structural content-frame variant, not as a character-only concept.
-- Keep mobile year switch behavior stable for now: desktop year switch is in the `EntryHeading` control slot; mobile year switch remains inside the content frame at the current visual position until content-frame mobile layout is cleaned.
-- Do not let decorative visual overhang push the whole chrome stage left or right. Visual layers may overflow internally, but the stage position should remain fixed.
-- Avoid letting `default-layout.css` become the new place where old content-frame placement hacks accumulate.
+- Archive entry data is resolved through `getArchiveEntryContext()`, but route/content templates should own that resolution.
+- Headings belong inside `PrimarySection` / `SecondarySection`, not outside `ContentFrame`.
+- `ArchiveShellLayout` is the archive shell.
+- `ArchiveDefaultLayout` is the standard archive text-entry layout: shell plus one `ContentFrame`.
+- `ArchiveSecretLayout` is the standard secret text-entry layout: secret shell plus one secret `ContentFrame`.
+- Do not recreate a default/custom layout fork for ordinary archive pages.
+- Decorative overhang must not push the chrome stage horizontally.

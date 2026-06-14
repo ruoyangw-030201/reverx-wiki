@@ -11,7 +11,7 @@ const {
 } = Astro.props;
 
 const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
-const isPrimary = variant === "primary";
+const isPrimary = variant === "primary" || variant === "secret";
 const hasControl = Astro.slots.has("control");
 ---
 

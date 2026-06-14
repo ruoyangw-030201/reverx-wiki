@@ -1,0 +1,49 @@
+.frame-side-glyph {
+  --frame-side-glyph-color: var(--russet-line);
+  --frame-side-glyph-width: var(--space-wide);
+  --frame-side-glyph-height: 120px;
+  --frame-side-glyph-line-y-1: 0px;
+  --frame-side-glyph-line-y-2: 60px;
+  --frame-side-glyph-line-y-3: 120px;
+  position: relative;
+  display: block;
+  width: var(--frame-side-glyph-width);
+  height: var(--frame-side-glyph-height);
+  pointer-events: none;
+}
+
+.frame-side-glyph-line {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.frame-side-glyph-line-top,
+.frame-side-glyph-line-middle,
+.frame-side-glyph-line-bottom {
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-top: 1px solid var(--frame-side-glyph-color);
+}
+
+.frame-side-glyph-line-top {
+  top: var(--frame-side-glyph-line-y-1);
+}
+
+.frame-side-glyph-line-middle {
+  top: var(--frame-side-glyph-line-y-2);
+}
+
+.frame-side-glyph-line-bottom {
+  top: var(--frame-side-glyph-line-y-3);
+}
+
+.frame-side-glyph-line-vertical {
+  left: 0;
+  top: var(--frame-side-glyph-line-y-1);
+  width: 0;
+  height: var(--frame-side-glyph-height);
+  border-left: 1px solid var(--frame-side-glyph-color);
+}

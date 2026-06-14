@@ -1,0 +1,115 @@
+.content-frame-icon-interaction {
+  position: absolute;
+  right: var(--content-frame-icon-slot-right);
+  top: var(--content-frame-icon-slot-top);
+  width: var(--content-frame-icon-slot-width);
+  height: var(--content-frame-icon-slot-height);
+  pointer-events: none;
+}
+
+.content-frame-icon-interaction::after {
+  content: "";
+  position: absolute;
+  inset: 32px -16px -14px 36px;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 80% 18%, var(--gold-wash), transparent 34%),
+    linear-gradient(135deg, var(--gold-wash), transparent 58%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.content-frame-gallery-trigger {
+  appearance: none;
+  position: absolute;
+  inset: 32px -16px -14px 36px;
+  z-index: 6;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.content-frame-icon-interaction:has(.content-frame-gallery-trigger:hover)::after,
+.content-frame-icon-interaction:has(.content-frame-gallery-trigger:focus-visible)::after {
+  opacity: 1;
+  box-shadow:
+    inset 0 0 38px var(--gold-wash),
+    0 0 24px var(--gold-wash);
+}
+
+.content-frame-gallery-trigger:focus-visible {
+  outline: 1px solid var(--gold-light);
+  outline-offset: 8px;
+}
+
+.content-frame-gallery-badge {
+  position: absolute;
+  top: 42px;
+  right: 2px;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.content-frame-gallery-badge img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@media (max-width: 980px) {
+  .content-frame-icon-interaction::after {
+    inset: 22px 0 -8px 0;
+  }
+
+  .content-frame-icon-interaction {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: 0;
+    width: clamp(150px, 42vw, 210px);
+    height: var(--content-frame-mobile-icon-slot-height, clamp(145px, 40vw, 198px));
+    transform: translateX(-50%);
+  }
+
+  .content-frame-gallery-trigger {
+    inset: 22px 0 -8px 0;
+  }
+
+  .content-frame-gallery-badge {
+    top: 22px;
+    right: 12px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .content-frame-gallery-badge img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 620px) {
+  .content-frame-gallery-badge {
+    top: 22px;
+    right: 12px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .content-frame-gallery-badge img {
+    width: 25px;
+    height: 25px;
+  }
+}

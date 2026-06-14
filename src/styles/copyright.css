@@ -68,7 +68,7 @@
 }
 
 .copyright-return-link {
-  --content-frame-next-right: 0px;
+  --next-link-button-right: 0px;
   margin-top: clamp(32px, 5svh, 56px);
 }
 

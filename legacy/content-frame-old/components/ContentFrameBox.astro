@@ -1,0 +1,112 @@
+---
+import ContentFrameNextLink from "./ContentFrameNextLink.astro";
+import ContentFramePanel from "./ContentFramePanel.astro";
+import "../../styles/content/content-frame.css";
+import "../../styles/content/content.css";
+
+const {
+  class: className,
+  minHeight = "250px",
+  decorVisualHeight,
+  variant = "ornate",
+  tone = "light",
+  showPaper = true,
+  showLines = true,
+  nextPageLink,
+  extraFrameVars,
+} = Astro.props;
+
+const isSimple = variant === "simple";
+const decorVisualHeightValue = decorVisualHeight ? String(decorVisualHeight) : undefined;
+
+const minHeightValue = String(minHeight);
+const minHeightNumber = Number.parseFloat(minHeightValue);
+const frameTop = 126;
+const frameHeight = minHeightValue.endsWith("px") && Number.isFinite(minHeightNumber)
+  ? minHeightNumber
+  : 250;
+const visualHeight = frameTop + frameHeight;
+const glyphTop = frameTop + frameHeight * (118 / 872);
+const glyphMiddle = frameTop + frameHeight * (328 / 872);
+const glyphBottom = frameTop + frameHeight * (538 / 872);
+const glyphHeight = glyphBottom - glyphTop;
+
+const frameVars = [
+  `--content-frame-box-height: ${minHeightValue}`,
+  `--content-frame-simple-min-height: ${minHeightValue}`,
+  `--content-frame-visual-height: ${visualHeight}px`,
+  decorVisualHeightValue && `--content-frame-decor-visual-height: ${decorVisualHeightValue}`,
+  `--content-frame-glyph-y-1: ${glyphTop}px`,
+  `--content-frame-glyph-y-2: ${glyphMiddle}px`,
+  `--content-frame-glyph-y-3: ${glyphBottom}px`,
+  `--content-frame-glyph-height: ${glyphHeight}px`,
+  extraFrameVars,
+].filter(Boolean).join("; ");
+---
+
+<div
+  class:list={[
+    "content-frame-unit",
+    isSimple ? "is-simple" : "is-ornate",
+    className,
+  ]}
+  style={frameVars}
+>
+  <div
+    class:list={[
+      "content-frame",
+      isSimple ? "content-frame-simple" : "content-frame-ornate",
+      `is-${tone}`,
+    ]}
+    style={frameVars}
+  >
+    {isSimple ? (
+      <ContentFramePanel variant={variant} tone={tone}>
+        <Fragment slot="before-body">
+          <slot name="before-body" />
+        </Fragment>
+        <slot />
+      </ContentFramePanel>
+    ) : (
+      <>
+        <div class="content-frame-decor-underlay" aria-hidden="true">
+          <div class="content-frame-decor-canvas">
+            <slot name="decor-underlay" />
+          </div>
+        </div>
+
+        <div class="content-frame-measure-layer" aria-hidden="true">
+          <slot name="icon-frame" />
+        </div>
+
+        <div class="content-frame-mobile-before-body">
+          <slot name="mobile-before-body" />
+        </div>
+
+        <ContentFramePanel
+          variant={variant}
+          tone={tone}
+          showPaper={showPaper}
+          showLines={showLines}
+        >
+          <Fragment slot="before-body">
+            <slot name="before-body" />
+          </Fragment>
+          <slot />
+        </ContentFramePanel>
+
+        <div class="content-frame-interaction-layer">
+          <slot name="interaction" />
+        </div>
+      </>
+    )}
+  </div>
+
+  {nextPageLink && (
+    <ContentFrameNextLink
+      {...nextPageLink}
+      tone={tone}
+      class="content-frame-next-link-in-frame"
+    />
+  )}
+</div>

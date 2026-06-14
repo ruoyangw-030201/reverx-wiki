@@ -149,7 +149,7 @@
 
   /* Shared archive/index layout metrics; keep component geometry local. */
   /* Gap between sidebar and main stage, between main stage and right end */
-  --layout-shell-gap: clamp(28px, 2.5vw, 42px);
+  --layout-shell-gap: clamp(22px, 2.45vw, 34px);
   /* Gap between sidebar and top elements */
   --layout-shell-pad-top: 24px;
   /* To be cleaned */

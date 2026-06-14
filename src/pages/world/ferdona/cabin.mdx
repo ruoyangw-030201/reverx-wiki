@@ -1,0 +1,43 @@
+import ArchiveInfoCardList from "../../../components/content/ArchiveInfoCardList.astro";
+import { resolveWorldEntity } from "../../../data/worldEntities.js";
+import ArchiveDefaultLayout from "../../../layouts/ArchiveDefaultLayout.astro";
+import PrimarySection from "../../../components/content-frame/PrimarySection.astro";
+import SecondarySection from "../../../components/content-frame/SecondarySection.astro";
+
+export const cabin = resolveWorldEntity("cabin");
+export const fifthStreet = resolveWorldEntity("5thstreet");
+
+export const cabinInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2027年", },
+  { heading: "组织性质", icon: "/big-icon-dark/cabin.webp", title: "恶能者收容机构", description: "官方合作组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "切泽·伯恩", },
+];
+export const fifthStreetInfoCards = [
+  { heading: "创立时间", icon: "/icon-dark/reality.png", title: "2026年", },
+  { heading: "组织性质", icon: "/big-icon-dark/5thstreet.webp", title: "恶能者收容机构", description: "官方合作组织" },
+  { heading: "创立者", icon: "/icon-dark/human.png", title: "伊莱贾·帕克", },
+];
+
+<ArchiveDefaultLayout>
+    <PrimarySection
+      iconAlt={cabin.label}
+    >
+    <ArchiveInfoCardList items={cabinInfoCards} />
+    <p>
+      福尔瑙伊州位于凡多纳西部沿海，在恶能者社会早期是希景公司的殖民地。后经希景公司出逃的改造成品——切泽·伯恩带领的变革斗争后，逐渐发展为遍布凡多纳西部的独立势力，也获得了总部的承认。最高管理者是名为「小屋」的猎魔者机构。
+    </p>
+    <p>
+      不设集中基地，福州的恶能者们生活在网状分布的安全屋中，与普通人的接触比总部更多，总人口约8万人。保证安全的模式是小屋的响应机制，在恶能者成员遇到危险的时候，小屋有一套成熟的快速支援系统。
+    </p>
+    </PrimarySection>
+
+    <SecondarySection id="5thstreet">
+    <ArchiveInfoCardList items={fifthStreetInfoCards} />
+    <p>
+     最初仅为某市五号街的一栋普通民房，收容凡多纳西北部的佩特拉州及周边地区恶能者。随着规模扩张，学习了总部的基地模式，搬迁发展为恶能者聚居小镇。在福尔瑙伊州小屋建成后，加入了小屋的系统，至今受其管辖。总人口约2万人。
+    </p>
+    <p>
+     是小屋的战略盟友，拥有自己独立的恶能者工业企业-边缘计划公司/EP（Edge Project Co.）。
+    </p>
+    </SecondarySection>
+</ArchiveDefaultLayout>

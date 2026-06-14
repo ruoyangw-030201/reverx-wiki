@@ -1,0 +1,185 @@
+@import "../primitives/symbols.css";
+
+/* 负责画图像框。图像框只有自己的min-height，没有固定宽高，宽度交给父级content-frame定，高度交给内容容器icon-display-panel定。*/
+.icon-frame {
+  /* 宽高 */
+  /* --icon-frame-width: clamp(210px, 18vw, 260px); */
+  --icon-frame-min-height: clamp(160px, 16vw, 300px);
+  /* 装饰线 */
+  --icon-frame-line-russet-inset: 0 -16px -24px 0px;
+  --icon-frame-line-gold-inset: -24px 0 0 -16px;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  /* width: var(--icon-frame-width); */
+  min-height: var(--icon-frame-min-height);
+  isolation: isolate;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-main) 58%, var(--white-paper) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
+}
+
+.icon-frame.is-secret {
+  background:
+    linear-gradient(180deg, var(--black-deep), var(--black-panel)),
+    radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
+}
+
+.icon-frame.is-secret .frame-corner-mark {
+  border-color: var(--blue-main);
+}
+
+/* ========== 装饰线 ========== */
+.icon-frame::before,
+.icon-frame::after {
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: var(--z-raised);
+}
+
+.icon-frame::before {
+  inset: var(--icon-frame-line-russet-inset);
+  border: 1px solid var(--russet-line);
+}
+
+.icon-frame::after {
+  inset: var(--icon-frame-line-gold-inset);
+  border: 1px solid var(--gold-line);
+}
+
+/* ========== 点击 action layer ========== */
+.icon-frame.has-action {
+  pointer-events: auto;
+}
+
+.icon-frame-action-glow {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  display: block;
+  background:
+    radial-gradient(circle at 80% 18%, var(--gold-wash), transparent 34%),
+    linear-gradient(135deg, var(--gold-wash), transparent 58%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.icon-frame.has-action:has(.icon-frame-action-trigger:hover) .icon-frame-action-glow,
+.icon-frame.has-action:has(.icon-frame-action-trigger:focus-visible) .icon-frame-action-glow,
+.icon-frame.has-action:has(.icon-frame-action-trigger:active) .icon-frame-action-glow {
+  opacity: 1;
+  box-shadow:
+    inset 0 0 38px var(--gold-wash),
+    0 0 24px var(--gold-wash);
+}
+
+/* 图片图标 */
+.icon-frame-badge-slot {
+  --icon-symbol-badge-size: var(--icon-median);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: var(--z-sticky);
+}
+
+/* 覆盖在所有最上面的点击图层 */
+.icon-frame-action-trigger {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-floating);
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.icon-frame-action-trigger:focus-visible {
+  outline: none;
+}
+
+/* ========== 角上蓝色方框装饰 ========== */
+.icon-frame-decor {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-chrome);
+  pointer-events: none;
+}
+
+/* 在figure状态下不要被挡住 */
+.icon-frame.is-figure .icon-frame-decor {
+  z-index: var(--z-decor);
+}
+
+.icon-frame-decor > .icon-frame-corner {
+  position: absolute;
+}
+
+.icon-frame-corner-top {
+  left: -50px;
+  top: -20px;
+}
+
+.icon-frame-corner-bottom {
+  left: -42px;
+  bottom: -56px;
+}
+
+/* ========== body容器 ========== */
+.icon-frame-body {
+  position: relative;
+  z-index: var(--z-main);
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: var(--icon-frame-min-height);
+}
+
+.icon-frame.is-figure {
+  overflow: visible;
+}
+
+.icon-frame.is-figure .icon-frame-body {
+  overflow: visible;
+}
+
+@media (max-width: 980px) {
+  .icon-frame {
+    --icon-frame-width: clamp(150px, 42vw, 210px);
+    --icon-frame-min-height: clamp(150px, 42vw, 210px);
+    --icon-frame-line-russet-inset: 0 -10px -16px 0;
+    --icon-frame-line-gold-inset: -16px 0 0 -10px;
+    width: var(--icon-frame-width);
+  }
+
+  .icon-frame-badge-slot {
+    --icon-symbol-badge-size: var(--icon-median-mobile);
+    top: 4px;
+    right: 4px;
+  }
+
+  .icon-frame-corner-top {
+    left: -36px;
+    top: -20px;
+  }
+
+  .icon-frame-corner-bottom {
+    left: -32px;
+    bottom: -32px;
+  }
+}
+
+@media (max-width: 620px) {
+  .icon-frame-badge-slot {
+    --icon-symbol-badge-size: 25px;
+  }
+}

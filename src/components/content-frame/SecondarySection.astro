@@ -1,0 +1,103 @@
+---
+import EntryHeading from "../primitives/EntryHeading.astro";
+import ContentBox from "./ContentBox.astro";
+import IconFrame from "./IconFrame.astro";
+import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+
+const {
+  archive: archiveProp,
+  id: idProp,
+  title: titleProp,
+  subtitle: subtitleProp,
+  titleTag,
+  variant = "ornate",
+  showLines = true,
+  showIconFrame = true,
+  icon: iconProp,
+  iconAlt = "",
+  iconCaption: iconCaptionProp,
+  iconItems,
+  iconFrameDisplay: iconFrameDisplayProp,
+  iconFrameVariant: iconFrameVariantProp,
+  iconFrameGalleryId,
+  iconFrameGalleryLabel,
+  iconFrameGalleryBadge,
+  showIconFrameJunction = true,
+  showIconFrameDisplayPanel = true,
+  class: className,
+} = Astro.props;
+
+const archive = archiveProp ?? getArchiveEntryContext(Astro.url.pathname, Astro.props);
+const sectionData = idProp
+  ? archive?.secondarySectionsById?.[idProp]
+  : archive?.secondarySections?.[0];
+const id = idProp ?? sectionData?.id;
+const title = titleProp ?? sectionData?.label;
+const subtitle = subtitleProp ?? sectionData?.labelEn;
+const icon = iconProp ?? sectionData?.icon;
+const iconCaption = iconCaptionProp ?? sectionData?.label;
+const iconFrameDisplay = iconFrameDisplayProp ?? "default";
+const iconFrameVariant =
+  iconFrameVariantProp
+    ? iconFrameVariantProp
+    : variant === "secret"
+      ? "secret"
+      : "default";
+const resolvedIconItems = Array.isArray(iconItems)
+  ? iconItems
+  : icon
+    ? [{ icon, iconAlt, caption: iconCaption }]
+    : [];
+const hasIconFrame = showIconFrame && resolvedIconItems.length > 0;
+const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameGalleryId.length > 0;
+const hasHeading = Boolean(title || subtitle);
+const headingVariant = variant === "secret" ? "secret" : "secondary";
+---
+
+<section class:list={["content-frame-section", "content-frame-secondary-section", className]}>
+  {hasHeading && (
+    <EntryHeading
+      id={id}
+      variant={headingVariant}
+      titleTag={titleTag}
+      title={title}
+      subtitle={subtitle}
+    />
+  )}
+
+  {hasIconFrame && (
+    <div class="content-frame-overlay" aria-hidden={hasIconFrameGallery ? undefined : "true"}>
+      <div class="content-frame-icon-frame">
+        <IconFrame
+          items={resolvedIconItems}
+          display={iconFrameDisplay}
+          variant={iconFrameVariant}
+          galleryId={iconFrameGalleryId}
+          galleryLabel={iconFrameGalleryLabel}
+          galleryBadge={iconFrameGalleryBadge}
+          showJunction={showIconFrameJunction}
+          showDisplayPanel={showIconFrameDisplayPanel}
+        />
+      </div>
+    </div>
+  )}
+
+  {hasIconFrame && (
+    <div class="content-frame-mobile-icon-frame" aria-hidden={hasIconFrameGallery ? undefined : "true"}>
+      <IconFrame
+        items={resolvedIconItems}
+        display={iconFrameDisplay}
+        variant={iconFrameVariant}
+        galleryId={iconFrameGalleryId}
+        galleryLabel={iconFrameGalleryLabel}
+        galleryBadge={iconFrameGalleryBadge}
+        showJunction={showIconFrameJunction}
+        showDisplayPanel={showIconFrameDisplayPanel}
+      />
+    </div>
+  )}
+
+  <ContentBox variant={variant} showLines={showLines}>
+    <slot />
+  </ContentBox>
+</section>

@@ -1,0 +1,44 @@
+---
+import DirectionArrow from "./primitives/DirectionArrow.astro";
+import "../styles/active-direction-action.css";
+
+const {
+  direction = "right",
+  label,
+  mobileLabel,
+  class: className = "",
+  href,
+  ariaLabel,
+  button = false,
+  animated = false,
+} = Astro.props;
+
+const actionClass = [
+  "active-direction-action",
+  `is-${direction}`,
+  mobileLabel && "has-mobile-label",
+  className,
+].filter(Boolean).join(" ");
+---
+
+{
+  button ? (
+    <button class={actionClass} type="button" aria-label={ariaLabel ?? label}>
+      {label && <span class="active-direction-action__label active-direction-action__label--desktop">{label}</span>}
+      {mobileLabel && <span class="active-direction-action__label active-direction-action__label--mobile">{mobileLabel}</span>}
+      <DirectionArrow direction={direction} animated={animated} class="active-direction-action__arrow" />
+    </button>
+  ) : href ? (
+    <a class={actionClass} href={href} aria-label={ariaLabel ?? label}>
+      {label && <span class="active-direction-action__label active-direction-action__label--desktop">{label}</span>}
+      {mobileLabel && <span class="active-direction-action__label active-direction-action__label--mobile">{mobileLabel}</span>}
+      <DirectionArrow direction={direction} animated={animated} class="active-direction-action__arrow" />
+    </a>
+  ) : (
+    <div class={actionClass} aria-hidden="true">
+      {label && <span class="active-direction-action__label active-direction-action__label--desktop">{label}</span>}
+      {mobileLabel && <span class="active-direction-action__label active-direction-action__label--mobile">{mobileLabel}</span>}
+      <DirectionArrow direction={direction} animated={animated} class="active-direction-action__arrow" />
+    </div>
+  )
+}

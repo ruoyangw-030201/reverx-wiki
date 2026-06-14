@@ -221,9 +221,17 @@ body.gallery-is-open {
 
 /* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旈敍姘愁洬閿?active marker 閻ㄥ嫰绮拋銈呮祼鐎规矮缍呴敓?*/
 .image-gallery-arrow {
-  --active-direction-size: 54px;
-  --active-direction-color: var(--blue-light);
+  --direction-arrow-size: 54px;
+  --direction-arrow-color: var(--blue-light);
+  appearance: none;
+  position: fixed;
   z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue-light);
   pointer-events: auto;
   cursor: pointer;
   transition:
@@ -249,7 +257,7 @@ body.gallery-is-open {
 /* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旀禍銈勭鞍閿涙碍鍋撻崑婊€绗岄悞锔惧仯閸掑洦宕查柌鎴ｅ */
 .image-gallery-arrow:hover,
 .image-gallery-arrow:focus-visible {
-  --active-direction-color: var(--gold-light);
+  --direction-arrow-color: var(--gold-light);
   color: var(--gold-light);
   filter: drop-shadow(0 0 12px var(--gold-line));
 }
@@ -331,7 +339,7 @@ body.gallery-is-open {
   /* 缁夎濮╃粩顖氱秼閸撳秴娴橀悧鍥风窗娴ｈ法鏁ら崝銊︹偓浣筋潒閸欙綁妾洪崚璺烘禈閻楀洤鏄傞敓?*/
   /* 缁夎濮╃粩顖涙煙閸氭垹顔勬径杈剧窗鐠愮绔熼獮鍓佹殣瀵邦喚缂夐敓?*/
   .image-gallery-arrow {
-    --active-direction-size: 44px;
+    --direction-arrow-size: 44px;
   }
 
   /* 缁夎濮╃粩顖氫箯缁狀厼銇旈敍姘舵浆瀹革箒绔熺紓妯虹湷閿?*/

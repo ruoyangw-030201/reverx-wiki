@@ -5,7 +5,7 @@
   min-height: 100svh;
   background: var(--background-surface, var(--white-main));
   color: var(--black-main);
-  overflow-x: clip;
+  overflow: clip;
 }
 
 .chrome-layout-main {
@@ -27,7 +27,6 @@
 
 .chrome-layout-main.has-no-sidebar {
   grid-template-columns: minmax(0, 1fr);
-  padding-left: var(--chrome-layout-gap);
 }
 
 .chrome-sidebar-slot {

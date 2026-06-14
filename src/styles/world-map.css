@@ -1,4 +1,4 @@
-.world-map-page {
+﻿.world-map-page {
   height: 200svh;
   min-height: 100svh;
 }
@@ -83,22 +83,36 @@ html:has(.world-map-page) {
 
 .world-map-archive .world-map-scroll-marker {
   position: absolute;
+  left: 50%;
+  bottom: clamp(0px, 0.5vh, 8px);
+  transform: translateX(-50%);
   z-index: 60;
   opacity: 0;
+  animation: world-map-scroll-marker-in 360ms ease forwards;
   animation-delay: var(--world-map-scroll-marker-ready-delay, 1500ms);
 }
 
-.world-map-archive .world-map-scroll-marker::before {
+.world-map-archive .world-map-scroll-marker .active-direction-action__label {
   width: max-content;
   max-width: min(78vw, 340px);
   color: currentColor;
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: var(--content-prose-line-height, var(--prose-line-height));
+  line-height: var(--prose-line-height);
   letter-spacing: 0;
   text-align: center;
   white-space: normal;
+}
+
+@keyframes world-map-scroll-marker-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .world-map-heading {
@@ -126,7 +140,7 @@ html:has(.world-map-page) {
   margin-left: var(--world-map-content-outset-x);
 }
 
-.world-map-details > .content-frame-unit {
+.world-map-details > .content-frame {
   margin-top: var(--world-map-heading-frame-offset);
 }
 
@@ -526,7 +540,7 @@ html:has(.world-map-page) {
     font-size: var(--text-title-lg);
   }
 
-  .world-map-details > .content-frame-unit {
+  .world-map-details > .content-frame {
     margin-top: 18px;
   }
 

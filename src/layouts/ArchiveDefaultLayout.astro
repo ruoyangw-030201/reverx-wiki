@@ -1,93 +1,18 @@
 ---
-import ChromeLayout from "./ChromeLayout.astro";
-import ArchiveDefaultFrame from "../components/archive/ArchiveDefaultFrame.astro";
-import ScrollDecor from "../components/background/ScrollDecor.astro";
-import ImageGallery from "../components/gallery/ImageGallery.astro";
-import { getCharacterGalleryImages } from "../data/characterGalleries.js";
-import {
-  findNavigationItemByPath,
-  getArchivePageNextLinkForPath,
-  getSectionFromPath,
-  topTabs,
-} from "../data/navigation.js";
-
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-const currentSection = getSectionFromPath(currentPath);
+import ContentFrame from "../components/content-frame/ContentFrame.astro";
+import ArchiveShellLayout from "./ArchiveShellLayout.astro";
+import { getArchiveEntryContext } from "../data/archiveEntryContext.js";
 
 const {
-  title,
-  subtitle,
+  archive: archiveProp,
+  ...archiveProps
 } = Astro.props;
 
-const navigationItem = findNavigationItemByPath(currentPath);
-const sectionTab = topTabs.find((tab) => tab.key === currentSection);
-const sectionKicker =
-  currentSection === "characters" ? "FILES" : sectionTab?.labelEn ?? currentSection.toUpperCase();
-const frameTitle = title ?? navigationItem?.label ?? "Archive Entry";
-const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? "introduction";
-const hasPageModeSwitch = currentSection === "characters" && currentPath !== "/characters";
-const pageModeSwitchCurrent = hasPageModeSwitch
-  ? { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" }
-  : undefined;
-const pageModeSwitchOptions = hasPageModeSwitch
-  ? [
-      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2031\u5e74", mode: "normal" },
-      { label: "\u8bbe\u5b9a\u5e74\u4efd\uff1a2039\u5e74", mode: "spoiler" },
-    ]
-  : undefined;
-const contentFrameIcon =
-  currentSection === "characters"
-    ? navigationItem?.frameIcon
-    : currentSection === "world" || currentSection === "system"
-      ? navigationItem?.icon
-      : undefined;
-const contentFrameIconCaption = currentSection === "system" ? navigationItem?.label : undefined;
-const contentFrameIconVariant = currentSection === "characters" ? "figure" : "default";
-const nextPageLink = getArchivePageNextLinkForPath(currentPath);
-const characterGalleryImages =
-  currentSection === "characters" && navigationItem?.frameIcon
-    ? getCharacterGalleryImages(navigationItem)
-    : [];
-const characterGallerySlug = (
-  navigationItem?.galleryRef
-  ?? currentPath.split("/").filter(Boolean).at(-1)
-  ?? "character"
-).replace(/[^a-z0-9_-]/gi, "-");
-const characterGalleryId = characterGalleryImages.length > 0
-  ? `character-gallery-${characterGallerySlug}`
-  : undefined;
-const characterGalleryLabel = `${frameTitle} image gallery`;
+const archive = archiveProp ?? getArchiveEntryContext(Astro.url.pathname, archiveProps);
 ---
 
-<ChromeLayout
-  pageClass={["archive-page", "archive-default-page", `is-${currentSection}`]}
-  heroVariant={currentSection}
-  pageMode={hasPageModeSwitch ? "normal" : undefined}
-  mobileSidebarIdPrefix="chrome-archive-sidebar-mobile"
->
-  <ScrollDecor slot="decor" />
-
-  <ArchiveDefaultFrame
-    kicker={sectionKicker}
-    title={frameTitle}
-    subtitle={frameSubtitle}
-    yearSwitchCurrent={pageModeSwitchCurrent}
-    yearSwitchOptions={pageModeSwitchOptions}
-    contentFrameIcon={contentFrameIcon}
-    contentFrameIconCaption={contentFrameIconCaption}
-    contentFrameIconVariant={contentFrameIconVariant}
-    contentFrameGalleryId={characterGalleryId}
-    nextPageLink={nextPageLink}
-  >
+<ArchiveShellLayout archive={archive} defaultPage>
+  <ContentFrame nextPageLink={archive.nextPageLink}>
     <slot />
-  </ArchiveDefaultFrame>
-
-  {characterGalleryId && (
-    <ImageGallery
-      slot="after-stage"
-      id={characterGalleryId}
-      images={characterGalleryImages}
-      label={characterGalleryLabel}
-    />
-  )}
-</ChromeLayout>
+  </ContentFrame>
+</ArchiveShellLayout>

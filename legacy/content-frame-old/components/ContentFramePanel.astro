@@ -1,0 +1,48 @@
+---
+import "../../styles/content/content-frame-box.css";
+
+const {
+  variant = "ornate",
+  tone = "light",
+  showPaper = true,
+  showLines = true,
+} = Astro.props;
+
+const isSimple = variant === "simple";
+---
+
+<div
+  class:list={[
+    "content-frame-panel",
+    isSimple ? "content-frame-panel-simple" : "content-frame-panel-ornate",
+    `is-${tone}`,
+  ]}
+>
+  {isSimple ? (
+    <div class="content-frame-body content-prose">
+      <slot name="before-body" />
+      <slot />
+    </div>
+  ) : (
+    <>
+      {showPaper && <div class="content-frame-paper" aria-hidden="true"></div>}
+
+      {showLines && (
+        <div class="content-frame-lines" aria-hidden="true">
+          <span class="content-frame-line-box content-frame-line-main"></span>
+          <span class="content-frame-line-box content-frame-line-blue"></span>
+          <span class="content-frame-line-box content-frame-line-russet"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-top"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-middle"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-bottom"></span>
+          <span class="content-frame-line-left-glyph content-frame-line-left-glyph-vertical"></span>
+        </div>
+      )}
+
+      <div class="content-frame-body content-prose">
+        <slot name="before-body" />
+        <slot />
+      </div>
+    </>
+  )}
+</div>

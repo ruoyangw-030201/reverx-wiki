@@ -1,0 +1,41 @@
+---
+import DirectionArrow from "../primitives/DirectionArrow.astro";
+import "../../styles/actions/next-link.css";
+
+const {
+  href,
+  label,
+  action = "\u8fdb\u5165",
+  separator = "\uff1a",
+  class: className,
+  mode,
+  "aria-label": ariaLabel,
+  ...rest
+} = Astro.props;
+
+const displayText = action ? `${action}${separator}${label}` : label;
+const isSecret = mode === "secret";
+---
+
+{
+  href && (
+    <a
+      {...rest}
+      class:list={[
+        "next-link-button",
+        "frame-decor",
+        "is-gold",
+        isSecret && "is-secret",
+        className,
+      ]}
+      href={href}
+      aria-label={ariaLabel ?? displayText}
+    >
+      <span class="next-link-button-label">{displayText}</span>
+      <DirectionArrow
+        direction="right"
+        class="next-link-button-marker"
+      />
+    </a>
+  )
+}

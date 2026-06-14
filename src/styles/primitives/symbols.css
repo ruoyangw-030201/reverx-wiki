@@ -33,3 +33,20 @@
   background-size: 7px 7px;
   opacity: 0.45;
 }
+
+/* Symbol: image badge used to mark an available gallery action. */
+.icon-symbol-badge {
+  display: grid;
+  place-items: center;
+  width: var(--icon-symbol-badge-size, var(--icon-median));
+  height: var(--icon-symbol-badge-size, var(--icon-median));
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.icon-symbol-badge-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

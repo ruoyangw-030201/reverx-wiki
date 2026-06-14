@@ -1,0 +1,141 @@
+import CharacterArchiveProfile from "../../components/characters/CharacterArchiveProfile.astro";
+import ArchiveDefaultLayout from "../../layouts/ArchiveDefaultLayout.astro";
+import PrimarySection from "../../components/content-frame/PrimarySection.astro";
+
+export const note = [
+  "淡灰色短发，左侧略长，双眸为金色，面容帅气，气质风流。讲究外表，会涂眼影、穿坡跟鞋。性格热情，风趣幽默、爱耍帅和搭讪，有些臭屁和高傲但人缘很好。内心有和花心外表不匹配的深情一面。",
+  "现居福尔瑙伊州中部安全屋，从事教学与个人研究，学生遍布凡多纳全国，广受爱戴。实为“创立者们”之一，曾与伙伴共同建立福尔瑙伊州早期恶能者基地；但在希景公司的强势占领后，伙伴被杀，计划破产，他也退出了权力斗争，隐瞒身份生活至今。",
+];
+
+export const abilities2031 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，戈赫州",
+  },
+  {
+    heading: "年龄 / AGE",
+    icon: "/icon-dark/reality.png",
+    title: "41岁",
+    description: "生日：1990年6月21日",
+  },
+  {
+    heading: "物种 / SPECIES",
+    icon: "/icon-dark/hybrid.png",
+    title: "混血人类",
+    description: "1/2维维尔魔物血统",
+  },
+  {
+    heading: "能力谱系 / SPECTRUM",
+    icon: "/icon-dark/light.png",
+    title: "光线操控",
+    description: "本源-光",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon/decon-rank.png",
+    title: "解构级",
+  },
+  {
+    heading: "危险等级 / D-RANK",
+    icon: "/icon-dark/malit-hunter-2.png",
+    title: "D5",
+  },
+];
+
+export const abilities2039 = [
+  {
+    heading: "所属势力 / ENTITIES",
+    icon: "/big-icon-dark/cabin.webp",
+    title: "福尔瑙伊州小屋",
+    description: "出生地：凡多纳，戈赫州",
+  },
+  {
+    heading: "年龄 / AGE",
+    icon: "/icon-dark/reality.png",
+    title: "49岁",
+    description: "生日：1990年6月21日",
+  },
+  {
+    heading: "物种 / SPECIES",
+    icon: "/icon-dark/hybrid.png",
+    title: "混血人类",
+    description: "1/2维维尔魔物血统",
+  },
+  {
+    heading: "能力谱系 / SPECTRUM",
+    icon: "/icon-dark/light.png",
+    title: "光线操控",
+    description: "本源-光",
+  },
+  {
+    heading: "品阶 / LEVEL",
+    icon: "/icon/decon-rank.png",
+    title: "解构级",
+  },
+  {
+    heading: "危险等级 / D-RANK",
+    icon: "/icon-dark/malit-hunter-2.png",
+    title: "D5",
+  },
+];
+
+export const fusionWeapons = [
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    name: "「罗莎」",
+    fields: [
+      { label: "外形", value: "花剑" },
+      { label: "谱系", value: "本源-光" },
+      { label: "核心品阶", value: "解构级" },
+    ],
+    description: "有一定将恶能转化为光能的能力。",
+  },
+  {
+    typeLabel: "融合武器",
+    typeLabelEn: "FUSION WEAPON",
+    icon: "/icon-dark/fusion-weapon.png",
+    name: "洛里模组",
+    fields: [
+      { label: "外形", value: "“罗莎”手柄上的贴片" },
+      { label: "谱系", value: "本源-暗" },
+      { label: "核心品阶", value: "解构级" },
+    ],
+    description: "承袭自帕沙其模组的早期暗隧穿模组，无攻击性，可以让使用者连续多次短距离瞬移。",
+  },
+];
+
+export const nonFusionWeapons = [
+  {
+    typeLabel: "非融合武器",
+    typeLabelEn: "NON-FUSION WEAPON",
+    icon: "/icon-dark/non-fusion-weapon.png",
+    emptyText: "信息不完全",
+  },
+];
+
+export const normalProfile = {
+  abilities: abilities2031,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+
+export const spoilerProfile = {
+  abilities: abilities2039,
+  note,
+  fusionWeapons,
+  nonFusionWeapons,
+};
+
+
+<ArchiveDefaultLayout>
+    <PrimarySection
+    >
+  <CharacterArchiveProfile mode="normal" {...normalProfile} />
+  <CharacterArchiveProfile mode="spoiler" {...spoilerProfile} />
+    </PrimarySection>
+</ArchiveDefaultLayout>

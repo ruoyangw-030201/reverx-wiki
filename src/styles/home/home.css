@@ -1,5 +1,3 @@
-@import "../active-marker.css";
-
 html:has(.home-page) {
   scroll-snap-type: y mandatory;
   overflow-y: auto;
@@ -60,6 +58,10 @@ body:has(.home-page) {
 }
 
 .home-page .home-next-page-arrow {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(0px, 0.5vh, 8px);
+  transform: translateX(-50%);
   z-index: var(--z-chrome);
   opacity: 0;
   visibility: visible;
@@ -67,7 +69,7 @@ body:has(.home-page) {
   cursor: pointer;
   text-decoration: none;
   transition: color var(--duration-base) var(--ease-standard);
-  animation-delay: var(--arrow-delay, 8000ms);
+  animation: home-next-arrow-reveal 0.9s ease var(--arrow-delay, 8000ms) forwards;
 }
 
 .home-page .home-next-page-arrow:hover,
@@ -87,8 +89,9 @@ body:has(.home-page) {
 }
 
 .home-skip-intro-button {
-  --active-direction-size: 34px;
-  --active-direction-color: var(--white-main);
+  --active-direction-action-arrow-size: 34px;
+  --active-direction-action-color: var(--white-main);
+  position: fixed;
   top: calc(78px + clamp(12px, 1.2vw, 18px));
   right: clamp(18px, 2.2vw, 34px);
   z-index: 35;
@@ -103,7 +106,7 @@ body:has(.home-page) {
   transition: color var(--duration-base) var(--ease-standard);
 }
 
-.home-skip-intro-button::before {
+.home-skip-intro-button .active-direction-action__label {
   display: block;
   font-size: var(--text-xs);
   letter-spacing: 0.16em;
@@ -141,6 +144,16 @@ body:has(.home-page) {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+}
+
+@keyframes home-next-arrow-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
@@ -1021,7 +1034,7 @@ body:has(.home-page) {
   }
 
   .home-skip-intro-button {
-    --active-direction-size: 30px;
+    --active-direction-action-arrow-size: 30px;
     top: calc(58px + 10px);
     right: 14px;
     gap: 6px;
@@ -1218,12 +1231,12 @@ body:has(.home-page) {
 
 @media (max-width: 620px) {
   .home-skip-intro-button {
-    --active-direction-size: 28px;
+    --active-direction-action-arrow-size: 28px;
     top: calc(52px + 9px);
     right: 9px;
   }
 
-  .home-skip-intro-button::before {
+  .home-skip-intro-button .active-direction-action__label {
     font-size: var(--text-xs);
     letter-spacing: 0.13em;
   }

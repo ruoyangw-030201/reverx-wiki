@@ -1,0 +1,74 @@
+---
+import ChromeLayout from "./ChromeLayout.astro";
+import EntryHeading from "../components/primitives/EntryHeading.astro";
+import ScrollDecor from "../components/background/ScrollDecor.astro";
+import ImageGallery from "../components/gallery/ImageGallery.astro";
+import NextLinkButton from "../components/actions/NextLinkButton.astro";
+import { getArchiveEntryContext } from "../data/archiveEntryContext.js";
+import "../styles/archive/layout.css";
+import "../styles/content/content.css";
+
+const {
+  archive: archiveProp,
+  defaultPage = false,
+  pageClass,
+  surfaceTone = "white",
+  heroVariant,
+  scrollDecorVariant,
+  mobileSidebarIdPrefix = "chrome-archive-sidebar-mobile",
+  showHeading = false,
+  showStandaloneNextLink = false,
+  contentArea = false,
+  ...archiveProps
+} = Astro.props;
+
+const archive = archiveProp ?? getArchiveEntryContext(Astro.url.pathname, archiveProps);
+const pageClasses = Array.isArray(pageClass) ? pageClass : [pageClass];
+---
+
+<ChromeLayout
+  pageClass={[
+    "archive-page",
+    defaultPage && "archive-default-page",
+    `is-${archive.currentSection}`,
+    ...pageClasses,
+  ]}
+  surfaceTone={surfaceTone}
+  heroVariant={heroVariant ?? archive.currentSection}
+  pageMode={archive.hasPageModeSwitch ? "normal" : undefined}
+  mobileSidebarIdPrefix={mobileSidebarIdPrefix}
+>
+  <ScrollDecor slot="decor" variant={scrollDecorVariant} />
+
+  {contentArea ? (
+    <section class="archive-content-area">
+      {showHeading && (
+        <EntryHeading
+          kicker={archive.sectionKicker}
+          title={archive.frameTitle}
+          subtitle={archive.frameSubtitle}
+        />
+      )}
+
+      <slot />
+
+      {showStandaloneNextLink && archive.nextPageLink && (
+        <NextLinkButton
+          {...archive.nextPageLink}
+          class="next-link-button-standalone"
+        />
+      )}
+    </section>
+  ) : (
+    <slot />
+  )}
+
+  {archive.characterGalleryId && (
+    <ImageGallery
+      slot="after-stage"
+      id={archive.characterGalleryId}
+      images={archive.characterGalleryImages}
+      label={archive.characterGalleryLabel}
+    />
+  )}
+</ChromeLayout>

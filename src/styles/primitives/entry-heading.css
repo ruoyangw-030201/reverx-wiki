@@ -127,6 +127,16 @@
   font-size: var(--text-title-lg);
 }
 
+.entry-heading.is-secret,
+.entry-heading.is-secret .entry-heading-title {
+  color: var(--white-readable);
+}
+
+.entry-heading.is-secret .entry-heading-kicker,
+.entry-heading.is-secret .entry-heading-subtitle {
+  color: var(--white-soft);
+}
+
 @media (max-width: 980px) {
   .entry-heading-row {
     display: grid;

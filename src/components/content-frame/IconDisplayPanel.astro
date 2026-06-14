@@ -1,0 +1,30 @@
+---
+import "../../styles/content-frame/icon-display-panel.css";
+
+const {
+  items = [],
+  variant = "single",
+} = Astro.props;
+
+const isSingle = variant === "single";
+const isMultiple = variant === "multiple";
+const isFigure = variant === "figure";
+---
+
+<div
+  class:list={[
+    "icon-display-panel",
+    isSingle && "is-single",
+    isMultiple && "is-multiple",
+    isFigure && "is-figure",
+  ]}
+>
+  {items.map((item) => (
+    <figure class="icon-display-panel-item">
+      <img class="icon-display-panel-image" src={item.icon} alt={item.iconAlt ?? ""} />
+      {isMultiple && item.caption && (
+        <figcaption class="icon-display-panel-caption">{item.caption}</figcaption>
+      )}
+    </figure>
+  ))}
+</div>

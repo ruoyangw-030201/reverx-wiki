@@ -239,7 +239,7 @@
 }
 
 /* 鐠嬭京閮存い鍏哥瑓娑撯偓妞ら潧鍙嗛崣锝忕窗custom 濡€崇础娑撳濡告い鍨汞閹稿鎸抽幒銊ュ煂閺堚偓閸氬骸顔愰崳銊ょ瑓閺傜櫢鎷?*/
-.spectrum-classification + .content-frame-next-link-standalone {
+.spectrum-classification + .next-link-button-standalone {
   margin-top: clamp(34px, 4vw, 62px);
   margin-bottom: clamp(28px, 3vw, 46px);
 }
@@ -533,19 +533,19 @@
 }
 
 /* 閺堫剟銆夊锝嗘瀮鐟曞棛娲婇敍姘朵缉閿?archive 濮濓絾鏋冮弽宄扮础缂佹瑥宕遍悧鍥唽閽€钘夊缂傗晞绻橀敓?*/
-.content-prose .spectrum-classification p {
+.prose .spectrum-classification p {
   text-indent: 0;
 }
 
 /* 閻犲洤鐡ㄥΣ鎴濐浖閸℃﹩鍞介柦鈧弬銈囩獥闁革负鍔嶅﹢鐗堛亜闂堟稑寮块悘鐐╁亾 p 闂佹彃绉堕悿鍡樼▕鐎ｎ亝鍊甸柨娑樻湰娴狀喗寰勫鍕溄闁绘せ鏅滈々褎娼婚幍顔界暠闁煎浜為崝褍鈻撻崹顐ゅ閿?*/
-.content-prose .spectrum-classification .spectrum-overview-note .character-note-copy p {
+.prose .spectrum-classification .spectrum-overview-note .character-note-copy p {
   margin: 0;
   max-width: 100%;
   text-indent: var(--prose-indent);
 }
 
 /* 閻犲洤鐡ㄥΣ鎴濐浖閸℃ɑ浠橀柛姘椤斿矂鎷冮弬銈囩獥濞ｅ洦绻冪€垫棃鏌岄幋锝咁棌婵℃妫楅崬鎾儍閸曨剚鏆悘蹇斿劤缁旈浠﹂埀顒勫Υ?*/
-.content-prose .spectrum-classification .spectrum-overview-note .character-note-copy p:last-child {
+.prose .spectrum-classification .spectrum-overview-note .character-note-copy p:last-child {
   margin-bottom: 0;
 }
 

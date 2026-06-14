@@ -1,0 +1,74 @@
+@import "../primitives/frame-decor.css";
+
+.next-link-button {
+  --next-link-button-paper:
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper));
+
+  position: relative;
+  z-index: var(--z-content);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-tight);
+  width: fit-content;
+  max-width: 100%;
+  min-height: 48px;
+  padding: var(--space-tight) var(--space-small);
+  background: var(--next-link-button-paper);
+  color: var(--blue-main);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 28px var(--gold-wash);
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.next-link-button-label {
+  display: block;
+  font: inherit;
+  color: var(--ink-strong);
+}
+
+.next-link-button-marker {
+  --direction-arrow-color: currentColor;
+  --direction-arrow-size: var(--icon-small);
+  flex: 0 0 auto;
+}
+
+.next-link-button:hover,
+.next-link-button:focus-visible,
+.next-link-button:active {
+  color: var(--gold-main);
+}
+
+.next-link-button:hover .next-link-button-label,
+.next-link-button:focus-visible .next-link-button-label,
+.next-link-button:active .next-link-button-label {
+  color: currentColor;
+}
+
+.next-link-button:focus-visible {
+  outline: 0;
+}
+
+.next-link-button.is-secret {
+  --next-link-button-paper:
+    linear-gradient(180deg, var(--black-deep), var(--ink-strong)),
+    radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
+  color: var(--white-readable);
+}
+
+.next-link-button.is-secret .next-link-button-label {
+  color: currentColor;
+}
+
+.next-link-button.is-secret:hover,
+.next-link-button.is-secret:focus-visible,
+.next-link-button.is-secret:active {
+  color: var(--gold-light);
+}

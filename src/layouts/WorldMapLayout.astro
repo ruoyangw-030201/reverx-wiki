@@ -2,14 +2,13 @@
 import BaseLayout from "./BaseLayout.astro";
 import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
 import ChromeEndbar from "../components/chrome/ChromeEndbar.astro";
-import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
+import ActiveDirectionAction from "../components/ActiveDirectionAction.astro";
 import ChromeSidebarMobile from "../components/chrome/ChromeSidebarMobile.astro";
 import ChromeSidebar from "../components/chrome/ChromeSidebar.astro";
 import BackgroundSurface from "../components/background/BackgroundSurface.astro";
 import ScrollDecor from "../components/background/ScrollDecor.astro";
-import ContentFrameBox from "../components/content-frame/ContentFrameBox.astro";
+import ContentBox from "../components/content-frame/ContentBox.astro";
 import "../styles/archive/layout.css";
-import "../styles/active-marker.css";
 import "../styles/world-map.css";
 import { getArchivePageNextLinkForPath } from "../data/navigation.js";
 
@@ -99,16 +98,17 @@ function hasClickableCityLabel(city) {
               <p>{mapConfig.subtitle}</p>
             </header>
 
-            <ContentFrameBox minHeight="250px" nextPageLink={nextPageLink}>
-              {hasContent ? <slot /> : <p class="archive-placeholder">地图说明内容待补充。</p>}
-            </ContentFrameBox>
+            <ContentBox minHeight="250px" nextPageLink={nextPageLink}>
+              {hasContent && <slot />}
+            </ContentBox>
           </div>
         </section>
 
-        <ActiveDirectionMarker
+        <ActiveDirectionAction
           direction="down"
           label="继续下滑进入可交互地图"
           mobileLabel="上滑进入横屏交互地图"
+          animated
           class="world-map-scroll-marker"
         />
       </section>

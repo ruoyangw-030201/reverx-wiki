@@ -1,0 +1,111 @@
+@import "../primitives/frame-decor.css";
+
+.archive-entry-year-menu {
+  position: relative;
+  z-index: var(--z-popover);
+  display: inline-flex;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+
+
+.archive-entry-year-switch {
+  /* 高度不固定，大约是上下8+8+icon28 = 44px */
+  display: inline-flex;
+  align-items: center;
+  /* 文字和图标的间隔 */
+  gap: var(--space-tight);
+  /* 内间距 */
+  padding: 8px 9px 8px var(--space-small);
+  background: var(--archive-entry-year-paper,
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper))
+  );
+  color: var(--ink-strong);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: inset 0 0 28px var(--gold-wash);
+}
+
+.archive-entry-year-switch:hover,
+.archive-entry-year-switch:focus-visible,
+.archive-entry-year-menu.is-open .archive-entry-year-switch {
+  color: var(--gold-main);
+}
+
+.archive-entry-year-switch:focus-visible {
+  outline: 0;
+}
+
+.archive-entry-year-dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-tight));
+  z-index: 2;
+  display: grid;
+  min-width: 100%;
+  padding: 0;
+  border: 1px solid var(--gold-border);
+  background: var(--archive-entry-year-paper,
+    radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),
+    linear-gradient(180deg, var(--white-main), var(--white-paper))
+  );
+  box-shadow: 0 12px 28px var(--ink-faint);
+}
+
+.archive-entry-year-dropdown[hidden],
+.archive-entry-year-option[hidden] {
+  display: none;
+}
+
+.archive-entry-year-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: max-content;
+  min-height: 40px;
+  /* 左起间距12px，和上面对齐 */
+  padding: 0 var(--space-small);
+  border: 0;
+  background: transparent;
+  color: var(--ink-strong);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.archive-entry-year-option:hover,
+.archive-entry-year-option:focus-visible {
+  background: var(--gold-wash);
+  color: var(--gold-main);
+  outline: none;
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-menu {
+  --archive-entry-year-paper:
+    linear-gradient(180deg, var(--black-deep), var(--ink-strong)),
+    radial-gradient(circle at 80% 0%, var(--blue-wash), transparent 34%);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-switch,
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option {
+  color: var(--white-readable);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option:hover,
+.archive-page.is-characters[data-page-mode="spoiler"] .archive-entry-year-option:focus-visible {
+  background: linear-gradient(90deg, var(--gold-line), var(--gold-wash));
+  color: var(--gold-light);
+}
+

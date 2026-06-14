@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
-import ActiveDirectionMarker from "../components/ActiveDirectionMarker.astro";
+import ActiveDirectionAction from "../components/ActiveDirectionAction.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import MasterIndexCluster from "../components/home/MasterIndexCluster.astro";
@@ -99,9 +99,10 @@ const masterIndexItems = topTabs
     data-home-ready-delay-ms={arrowDelay}
     style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms; --home-skip-delay: ${PARAGRAPH_START_DELAY}ms;`}
   >
-    <ActiveDirectionMarker
+    <ActiveDirectionAction
       direction="down"
       label="SCROLL"
+      animated
       class="home-next-page-arrow home-intro-next-arrow"
       href="#home-master-index"
       ariaLabel="Enter MASTER INDEX"
@@ -109,9 +110,10 @@ const masterIndexItems = topTabs
 
     <main class="home-main" aria-label="Home">
       <section class="home-panel home-intro-panel" aria-label="ReverX home cover">
-        <ActiveDirectionMarker
+        <ActiveDirectionAction
           direction="right"
           label="SKIP INTRO"
+          animated
           class="home-skip-intro-button"
           button={true}
           ariaLabel="Skip home intro"

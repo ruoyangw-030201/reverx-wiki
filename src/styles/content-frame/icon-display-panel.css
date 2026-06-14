@@ -1,0 +1,96 @@
+/* icon frame里的展示框。决定单个、多个、figure的展示方式。 */
+.icon-display-panel {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  line-height: var(--ui-line-height);
+  text-align: center;
+}
+
+/* 图片和caption的组合 */
+.icon-display-panel-item {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.icon-display-panel-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.icon-display-panel-caption {
+  display: block;
+  /* 图片和文字之间的距离 */
+  margin-top: var(--space-hair);
+  color: var(--ink-readable);
+}
+
+/* 单个图片的规则 */
+.icon-display-panel.is-single {
+  place-items: center;
+}
+
+.icon-display-panel.is-single .icon-display-panel-image {
+  width: 100%;
+}
+
+/* 多个图片的规则 */
+.icon-display-panel.is-multiple {
+  /* 上下、中间各有24px的间距 */
+  gap: var(--space-large);
+  padding-block: var(--space-large);
+}
+
+.icon-display-panel.is-multiple .icon-display-panel-image {
+  width: 38%;
+}
+
+/* 角色图片的规则 */
+.icon-display-panel.is-figure {
+  position: absolute;
+  left: 50%;
+  top: -32px;
+  width: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.icon-display-panel.is-figure .icon-display-panel-item {
+  display: block;
+  width: auto;
+}
+
+.icon-display-panel.is-figure .icon-display-panel-image {
+  width: auto;
+  height: clamp(650px, 64vw, 1000px);
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center top;
+  pointer-events: none;
+}
+
+@media (max-width: 980px) {
+  .icon-display-panel {
+    font-size: var(--text-label);
+  }
+
+  .icon-display-panel.is-multiple .icon-display-panel-image {
+    width: 50%;
+  }
+
+  .icon-display-panel.is-figure {
+    top: -20px;
+  }
+
+  .icon-display-panel.is-figure .icon-display-panel-image {
+    height: clamp(560px, 162vw, 980px);
+  }
+}

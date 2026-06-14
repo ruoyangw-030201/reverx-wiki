@@ -1,5 +1,5 @@
 ---
-import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import ArchiveShellLayout from "../../layouts/ArchiveShellLayout.astro";
 import IntensityDiagram from "../../components/system/intensity/IntensityDiagram.astro";
 
 const placeholderIcons = {
@@ -157,7 +157,7 @@ const badge = {
 };
 ---
 
-<ArchiveLayout contentMode="custom">
+<ArchiveShellLayout contentArea showHeading showStandaloneNextLink>
   <IntensityDiagram
     classCard={classCard}
     capacityCard={capacityCard}
@@ -165,4 +165,4 @@ const badge = {
     badge={badge}
     dangerRows={dangerRows}
   />
-</ArchiveLayout>
+</ArchiveShellLayout>

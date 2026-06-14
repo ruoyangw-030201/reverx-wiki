@@ -1,0 +1,56 @@
+---
+import FrameSideGlyph from "../primitives/FrameSideGlyph.astro";
+import NextLinkButton from "../actions/NextLinkButton.astro";
+import "../../styles/content/prose.css";
+import "../../styles/content/content.css";
+import "../../styles/content-frame/content-box.css";
+
+const {
+  class: className,
+  variant = "ornate",
+  minHeight,
+  nextPageLink,
+  nextLinkMode,
+  showLines = true,
+} = Astro.props;
+
+const isSimple = variant === "simple";
+const isSecret = variant === "secret";
+const style = minHeight ? `--content-box-min-height: ${minHeight};` : undefined;
+---
+
+<>
+  <div
+    class:list={[
+      "content-box",
+      isSimple && "is-simple",
+      isSecret && "is-secret",
+      className,
+    ]}
+    style={style}
+  >
+    {showLines && (
+      <div class="content-box-lines" aria-hidden="true">
+        <span class="content-box-line-russet"></span>
+        <span class="content-box-line-gold"></span>
+        <span class="content-box-line-blue"></span>
+      </div>
+    )}
+
+    {showLines && !isSimple && <FrameSideGlyph class="content-box-side-glyph" />}
+
+    <div class="content-box-body">
+      <div class="content-box-body-text prose">
+        <slot />
+      </div>
+    </div>
+  </div>
+
+  {nextPageLink && (
+    <NextLinkButton
+      {...nextPageLink}
+      mode={nextLinkMode}
+      class="content-box-next-link"
+    />
+  )}
+</>

@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import EntryHeading from "../../components/primitives/EntryHeading.astro";
 import BackgroundLayer from "../../components/background/BackgroundLayer.astro";
 import BackgroundSurface from "../../components/background/BackgroundSurface.astro";
-import ContentFrameNextLink from "../../components/content-frame/ContentFrameNextLink.astro";
+import NextLinkButton from "../../components/actions/NextLinkButton.astro";
 import "../../styles/archive/layout.css";
 import "../../styles/content/content.css";
 import "../../styles/copyright.css";
@@ -142,7 +142,7 @@ const fallbackReturnHref = "/";
         </p>
       </article>
 
-      <ContentFrameNextLink
+      <NextLinkButton
         href={fallbackReturnHref}
         action=""
         label="回到页面"

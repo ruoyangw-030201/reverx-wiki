@@ -1,0 +1,67 @@
+.right-decor {
+  position: relative;
+  pointer-events: none;
+  width: 300px;
+  height: 600px;
+}
+
+/* 白色方块通用层 */
+.right-decor-white-block {
+  position: absolute;
+  z-index: var(--z-raised);
+  display: block;
+  border: 1px solid var(--gold-border);
+  background: var(--white-soft);
+}
+
+.right-decor-white-block-right {
+  right: 0;
+  top: 0;
+  width: 120px;
+  height: 360px;
+}
+
+.right-decor-white-block-lower {
+  right: 168px;
+  top: 336px;
+  width: 72px;
+  height: 168px;
+}
+
+/* 纹理通用层 */
+.right-decor-texture {
+  position: absolute;
+  z-index: var(--z-raised);
+  display: block;
+  object-fit: contain;
+  user-select: none;
+  opacity: 0.88;
+}
+
+.right-decor-texture-blue {
+  right: 208px;
+  top: 312px;
+  width: 80px;
+}
+
+.right-decor-texture-gold-top {
+  right: 88px;
+  top: -32px;
+  width: 72px;
+}
+
+.right-decor-texture-gold-left {
+  right: 136px;
+  top: 56px;
+  width: 88px;
+}
+
+@media (max-width: 980px) {
+  .right-decor-texture-blue,
+  .right-decor-texture-gold-a,
+  .right-decor-texture-gold-b,
+  .right-decor-white-block-right,
+  .right-decor-white-block-lower {
+    display: none;
+  }
+}

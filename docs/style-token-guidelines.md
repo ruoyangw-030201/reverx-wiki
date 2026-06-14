@@ -9,7 +9,7 @@ All global style tokens live in `src/styles/global.css`.
 Use global tokens directly when a value is part of the site-wide design language. Use component-local variables when the name describes a role or geometry inside that component, such as:
 
 ```css
---content-frame-simple-border: var(--gold-border);
+--content-box-body-padding: 42px 6% 42px 4%;
 --world-map-label-font-size: clamp(9px, 0.82vw, 17px);
 ```
 

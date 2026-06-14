@@ -1,4 +1,4 @@
-.archive-index-page {
+﻿.archive-index-page {
   --index-side-rail-width: var(--layout-side-rail-width);
   --index-bottom-rail-height: var(--layout-bottom-rail-height);
   --index-content-inset-x: var(--layout-content-outset-x);
@@ -45,7 +45,7 @@
   z-index: 1;
 }
 
-/* 缁旀牜鍤庨崣鍏呮櫠閸栧搫鐓?
+/* 缂佹梹鐗滈崵搴ㄥ矗閸忓懏娅犻柛鏍ф惈閻?
 .index-fixed-mask-right {
   top: 78px;
   right: 0;
@@ -53,7 +53,7 @@
   width: 120px;
 }
 
-/* 濡亞鍤庢稉瀣煙閸栧搫鐓欓敍娉乮ght: 120px 闁灝鍘ら崪灞藉礁娓氀囦紕缂冣晛褰旈崝鐘插綁閹存劖娲块敓?
+/* 婵☆垼浜為崵搴㈢▔鐎ｎ偅鐓欓柛鏍ф惈閻撴瑩鏁嶅▔涔甮ht: 120px 闂侇剙鐏濋崢銈夊椽鐏炶棄绀佸〒姘€鍥︾磿缂傚啠鏅涜ぐ鏃堝礉閻樻彃缍侀柟瀛樺姈濞插潡鏁?
 .index-fixed-mask-bottom {
   left: 0;
   right: 120px;
@@ -76,8 +76,8 @@
 }
 
 /*
-  閺佹澘鐡х憗浣稿瀼閻╂帒鐡欓敓?
-  娴犮儱鎮楅垾婊冨瀼閸欙絺鈧繂娴愮€规艾婀潻娆庨嚋閻╂帒鐡欐稉濠忕礉閼板奔绗夐弰顖氭祼鐎规艾婀弫鏉跨摟閺傚洤鐡ч張顒冮煩娑撳鎷?
+  闁轰焦婢橀悺褏鎲楁担绋跨€奸柣鈺傚笒閻℃瑩鏁?
+  濞寸姰鍎遍幃妤呭灳濠婂啫鐎奸柛娆欑岛閳ь剚绻傚ù鎰偓瑙勮壘濠€顏呮交濞嗗酣鍤嬮柣鈺傚笒閻℃瑦绋夋繝蹇曠闁兼澘濂旂粭澶愬及椤栨碍绁奸悗瑙勮壘濠€顏堝极閺夎法鎽熼柡鍌氭搐閻⊙囧嫉椤掑啴鐓╁☉鎾愁煭閹?
 */
 .index-side-mark-number-box {
   position: absolute;
@@ -90,9 +90,9 @@
   z-index: 1;
 
   /*
-    閸欘亜鍨忛崣鍏呯瑓鐟欐帪绱?
-    鏉╂瑦娼弬婊嗙珶閸滃奔绗呴棃銏㈡畱 slash 娴ｈ法鏁ら崥灞肩婵傛顫嬬憴澶庮潡鎼达讣鎷?
-    婵″倹鐏夌憰浣镐簳鐠嬪啫鍨忛崣锝呫亣鐏忓骏绱濇稉鏄忣洣閿?100% 19% 閿?39% 100%閿?
+    闁告瑯浜滈崹蹇涘矗閸忓懐鐟撻悷娆愬釜缁?
+    閺夆晜鐟﹀顖炲棘濠婂棛鐝堕柛婊冨缁楀懘妫冮姀銏＄暠 slash 濞达綀娉曢弫銈夊触鐏炶偐顏卞┑鍌涱殙椤鎲存径搴健閹艰揪璁ｉ幏?
+    濠碘€冲€归悘澶屾啺娴ｉ晲绨抽悹瀣暙閸ㄥ繘宕ｉ敐鍛海閻忓繐楠忕槐婵囩▔閺勫浚娲ｉ柨?100% 19% 闁?39% 100%闁?
   */
   clip-path: polygon(
     0 0,
@@ -103,7 +103,7 @@
   );
 }
 
-/* 闁叉垼澹婇弫鏉跨摟閺堫兛缍嬮敍姘涧鐠愮喕鐭楅弰鍓с仛閿涘奔绗夐崘宥堢鐠愶綀顥嗛敓?*/
+/* 闂佸弶鍨兼竟濠囧极閺夎法鎽熼柡鍫厸缂嶅鏁嶅顒€娑ч悹鎰枙閻寮伴崜褋浠涢柨娑樺缁楀宕樺鍫㈩槹閻犳劧缍€椤ュ棝鏁?*/
 .index-side-mark-number {
   position: absolute;
   left: 14px;
@@ -118,8 +118,8 @@
 }
 
 /*
-  姒涙垼澹?slash閿?
-  鏉╂瑦娼痪鍨嫲 number-box 閻ㄥ嫯顥嗛崚鍥珶鐎靛綊缍堥敓?
+  濮掓稒鍨兼竟?slash闁?
+  閺夆晜鐟﹀顖滅棯閸喗瀚?number-box 闁汇劌瀚ˉ鍡涘礆閸ヮ亞鐝堕悗闈涚秺缂嶅牓鏁?
 */
 .index-side-mark-slash {
   position: absolute;
@@ -133,7 +133,7 @@
   z-index: 3;
 }
 
-/* 閼昏鲸鏋?label */
+/* 闁兼槒椴搁弸?label */
 .index-side-mark-label {
   position: absolute;
   left: 50px;
@@ -195,8 +195,7 @@
 .archive-index-intro-box {
   width: min(1160px, calc(100% - var(--index-intro-gutter-x)));
   margin: 14px 0 0 var(--index-content-inset-x);
-  --content-frame-simple-padding: 24px 34px;
-  --content-frame-simple-line-height: var(--prose-line-height);
+  --content-box-simple-body-padding: 24px 34px;
 }
 
 .index-animate-heading-intro > .entry-heading {
@@ -522,12 +521,12 @@
   animation-fill-mode: forwards;
 }
 
-/* heading + intro 娑撯偓鐠у嘲鍤敓?*/
+/* heading + intro 濞戞挴鍋撻悹褍鍢查崵顓㈡晸?*/
 .index-animate-heading-intro {
   animation-delay: 750ms;
 }
 
-/* grid section 缁楊兛绨╁▓闈涘毉閿?*/
+/* grid section 缂佹鍏涚花鈺佲枔闂堟稑姣夐柨?*/
 .index-animate-grid {
   animation-delay: 1500ms;
 }
@@ -544,9 +543,11 @@
   }
 }
 
-/* 缁狀厼銇?*/
+/* 缂佺媭鍘奸妵?*/
 .archive-index-page .index-tab-arrow,
 .archive-index-page .index-page-arrow {
+  position: fixed;
+  z-index: var(--z-floating);
   pointer-events: auto;
   cursor: pointer;
   text-decoration: none;
@@ -568,14 +569,26 @@
   outline-offset: 8px;
 }
 
-.archive-index-page .active-direction-marker--right.index-animate-marker {
+.archive-index-page .index-tab-arrow {
+  top: 60%;
+  right: clamp(0px, 1.5vw, 26px);
+  transform: translateY(-50%);
+}
+
+.archive-index-page .index-page-arrow {
+  left: 50%;
+  bottom: clamp(0px, 0.5vh, 8px);
+  transform: translateX(-50%);
+}
+
+.archive-index-page .index-tab-arrow.index-animate-marker {
   opacity: 0;
   animation: index-marker-enter 360ms ease 2020ms forwards;
 }
 
-.archive-index-page .active-direction-marker--down.index-animate-marker {
+.archive-index-page .index-page-arrow.index-animate-marker {
   opacity: 0;
-  animation-delay: 2020ms;
+  animation: index-marker-enter 360ms ease 2020ms forwards;
 }
 
 @keyframes index-marker-enter {
@@ -595,7 +608,7 @@
     animation: none;
   }
 
-  .archive-index-page .active-direction-marker.index-animate-marker {
+  .archive-index-page .index-animate-marker {
     opacity: 1;
     animation: none;
   }
@@ -643,8 +656,7 @@
   .archive-index-intro-box {
     width: 100%;
     margin: 16px 0 0;
-    --content-frame-simple-padding: 18px 20px;
-    --content-frame-simple-line-height: var(--prose-line-height);
+    --content-box-simple-body-padding: 18px 20px;
   }
 
   .index-animate-heading-intro > .entry-heading {

@@ -1,0 +1,96 @@
+---
+import "../../styles/content-frame/icon-frame.css";
+import FrameCornerMark from "../primitives/FrameCornerMark.astro";
+import IconDisplayPanel from "./IconDisplayPanel.astro";
+
+const {
+  icon,
+  iconAlt = "",
+  caption,
+  items,
+  variant = "default",
+  display = "default",
+  showJunction = true,
+  showDisplayPanel = true,
+  galleryId,
+  galleryLabel = "Open image gallery",
+  galleryBadge = "/icon/picture.png",
+} = Astro.props;
+
+const iconItems = Array.isArray(items)
+  ? items
+  : icon
+    ? [{ icon, iconAlt, caption }]
+    : [];
+
+const originalOnlyBigIcons = new Set([
+  "/big-icon/rattown.webp",
+  "/big-icon/shalom.webp",
+  "/big-icon/taran.webp",
+  "/big-icon/sarra.webp",
+]);
+
+const isFigure = display === "figure";
+const isSecret = variant === "secret";
+
+function resolveFrameIcon(iconPath, { secret = false } = {}) {
+  if (typeof iconPath !== "string") return iconPath;
+  if (secret) return iconPath;
+  if (originalOnlyBigIcons.has(iconPath)) return iconPath;
+  if (iconPath.startsWith("/big-icon/") && iconPath.endsWith(".webp")) {
+    return iconPath.replace("/big-icon/", "/big-icon-dark/");
+  }
+  if (iconPath.startsWith("/icon/") && iconPath.endsWith(".png")) {
+    return iconPath.replace("/icon/", "/icon-dark/");
+  }
+  return iconPath;
+}
+
+const displayIconItems = iconItems.map((item) => ({
+  ...item,
+  icon: resolveFrameIcon(item.icon, { secret: isSecret }),
+}));
+
+const hasGallery = typeof galleryId === "string" && galleryId.length > 0;
+const displayVariant = isFigure
+  ? "figure"
+  : displayIconItems.length > 1
+    ? "multiple"
+    : "single";
+---
+
+<div
+  class:list={[
+    "icon-frame",
+    isFigure && "is-figure",
+    isSecret && "is-secret",
+    hasGallery && "has-action",
+  ]}
+  aria-hidden={hasGallery ? undefined : "true"}
+>
+  {hasGallery && <span class="icon-frame-action-glow" aria-hidden="true"></span>}
+  {showJunction && (
+    <div class="icon-frame-decor" aria-hidden="true">
+      <FrameCornerMark class="icon-frame-corner icon-frame-corner-top" mirror />
+      <FrameCornerMark class="icon-frame-corner icon-frame-corner-bottom" />
+    </div>
+  )}
+  {showDisplayPanel && iconItems.length > 0 && (
+    <div class="icon-frame-body">
+      <IconDisplayPanel items={displayIconItems} variant={displayVariant} />
+    </div>
+  )}
+  {hasGallery && (
+    <>
+      <span class="icon-frame-badge-slot icon-symbol-badge" aria-hidden="true">
+        <img class="icon-symbol-badge-image" src={galleryBadge} alt="" />
+      </span>
+      <button
+        class="icon-frame-action-trigger"
+        type="button"
+        aria-label={galleryLabel}
+        data-gallery-open={galleryId}
+      ></button>
+    </>
+  )}
+</div>

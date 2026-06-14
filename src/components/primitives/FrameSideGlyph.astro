@@ -1,0 +1,12 @@
+---
+import "../../styles/primitives/frame-side-glyph.css";
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={["frame-side-glyph", className]} aria-hidden="true">
+  <span class="frame-side-glyph-line frame-side-glyph-line-top"></span>
+  <span class="frame-side-glyph-line frame-side-glyph-line-middle"></span>
+  <span class="frame-side-glyph-line frame-side-glyph-line-bottom"></span>
+  <span class="frame-side-glyph-line frame-side-glyph-line-vertical"></span>
+</span>

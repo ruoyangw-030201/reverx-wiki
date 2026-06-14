@@ -1,0 +1,12 @@
+---
+import "../../styles/primitives/frame-corner-mark.css";
+
+const {
+  mirror = false,
+  class: className,
+} = Astro.props;
+---
+
+<span class:list={["frame-corner-mark", mirror && "is-mirror", className]} aria-hidden="true">
+  <span class="frame-corner-mark-square"></span>
+</span>

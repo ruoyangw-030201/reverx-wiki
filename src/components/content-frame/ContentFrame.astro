@@ -1,85 +1,39 @@
 ---
-import ContentFrameBox from "./ContentFrameBox.astro";
-import ContentFrameGalleryInteraction from "./ContentFrameGalleryInteraction.astro";
-import ContentFrameIconFrame from "./ContentFrameIconFrame.astro";
-import ContentFrameLeftDecor from "./ContentFrameLeftDecor.astro";
-import ContentFrameRightDecor from "./ContentFrameRightDecor.astro";
+import LeftDecor from "../primitives/LeftDecor.astro";
+import RightDecor from "../primitives/RightDecor.astro";
+import NextLinkButton from "../actions/NextLinkButton.astro";
+import "../../styles/content-frame/content-frame.css";
 
 const {
-  minHeight = "250px",
-  showPaper = true,
-  showLines = true,
+  variant,
   showLeftDecor = true,
   showRightDecor = true,
-  showIconFrame = true,
-  showJunction = true,
-  icon,
-  iconAlt = "",
-  iconCaption,
-  iconItems,
-  iconFrameVariant = "default",
-  iconFrameGalleryId,
-  iconFrameGalleryLabel,
-  iconFrameGalleryBadge,
-  decorVisualHeight = "1000px",
   nextPageLink,
+  nextLinkMode,
 } = Astro.props;
 
+const isSecret = variant === "secret";
 const showDecor = showLeftDecor || showRightDecor;
-const resolvedIconItems = Array.isArray(iconItems)
-  ? iconItems
-  : icon
-    ? [{ icon, iconAlt, caption: iconCaption }]
-    : [];
-const hasIconFrameGallery = typeof iconFrameGalleryId === "string" && iconFrameGalleryId.length > 0;
 ---
 
-<ContentFrameBox
-  class:list={[
-    showIconFrame && "has-icon-frame",
-    showIconFrame && `is-icon-${iconFrameVariant}`,
-  ]}
-  minHeight={minHeight}
-  decorVisualHeight={decorVisualHeight}
-  showPaper={showPaper}
-  showLines={showLines}
-  extraFrameVars={showIconFrame ? `--content-frame-icon-count: ${resolvedIconItems.length};` : undefined}
-  nextPageLink={nextPageLink}
->
+<div class:list={["content-frame", isSecret && "is-secret"]}>
   {showDecor && (
-    <Fragment slot="decor-underlay">
-      {showLeftDecor && <ContentFrameLeftDecor />}
-      {showRightDecor && <ContentFrameRightDecor />}
-    </Fragment>
+    <div class="content-frame-underlay-decor" aria-hidden="true">
+      {showLeftDecor && <LeftDecor />}
+      {showRightDecor && <RightDecor />}
+    </div>
   )}
 
-  {showIconFrame && (
-    <Fragment slot="measure">
-      <ContentFrameIconFrame
-        icon={icon}
-        iconAlt={iconAlt}
-        caption={iconCaption}
-        items={iconItems}
-        variant={iconFrameVariant}
-        showJunction={showJunction}
-      />
-    </Fragment>
-  )}
-
-  {hasIconFrameGallery && (
-    <Fragment slot="interaction">
-      <ContentFrameGalleryInteraction
-        galleryId={iconFrameGalleryId}
-        galleryLabel={iconFrameGalleryLabel}
-        galleryBadge={iconFrameGalleryBadge}
-        variant={iconFrameVariant}
-      />
-    </Fragment>
-  )}
-
-  <Fragment slot="mobile-before-body">
-    <slot name="mobile-before-body" />
-  </Fragment>
-
-  <slot />
-</ContentFrameBox>
+  <div class="content-frame-main">
+    <div class="content-frame-sections">
+      <slot />
+      {nextPageLink && (
+        <NextLinkButton
+          {...nextPageLink}
+          mode={nextLinkMode}
+          class="content-frame-flow-next-link"
+        />
+      )}
+    </div>
+  </div>
+</div>
