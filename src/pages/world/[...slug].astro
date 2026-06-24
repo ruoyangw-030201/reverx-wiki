@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import ArchiveContentRenderer from "../../components/archive/ArchiveContentRenderer.astro";
+import ArchiveDefaultLayout from "../../layouts/ArchiveDefaultLayout.astro";
+import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("archive", (entry) => entry.data.section === "world");
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/^world\//, "") },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const archive = getArchiveEntryContext(Astro.url.pathname);
+---
+
+<ArchiveDefaultLayout archive={archive}>
+  <ArchiveContentRenderer archive={archive} entry={entry.data} />
+</ArchiveDefaultLayout>

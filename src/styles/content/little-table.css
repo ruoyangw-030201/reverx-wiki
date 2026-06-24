@@ -1,0 +1,26 @@
+/* 不定义宽高，宽度由父级定义。高度自然撑高 */
+.little-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: var(--little-table-background, var(--white-faint));
+  font-size: var(--text-body-sm);
+  line-height: var(--card-line-height);
+}
+
+.little-table th,
+.little-table td {
+  border: 1px solid var(--little-table-border-color, var(--gold-line));
+  /* 格子的内间距上下左右4px*/
+  padding: var(--space-micro);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.little-table th {
+  /* 标题列占38%的总长度 */
+  width: 38%;
+  background: var(--little-table-label-background, var(--gold-wash));
+  color: var(--little-table-label-color, var(--ink-readable));
+  font-weight: 400;
+}

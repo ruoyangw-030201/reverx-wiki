@@ -1,0 +1,232 @@
+/* weapon-card没有具体宽度，交给父级容器决定。高度只有最小高度254px */
+.weapon-card {
+  position: relative;
+  min-height: 254px;
+  /* 上下左右间距：8-12px */
+  padding: clamp(8px, 1.4cqw, 12px);
+  border: 1px solid var(--gold-strong);
+  border-radius: var(--radius-card);
+  /* 可设置卡片背景色，或默认白纸 */
+  background: var(--content-card-background, var(--white-soft));
+  overflow: hidden;
+  font-size: var(--text-body);
+  line-height: var(--card-line-height);
+  transition:
+    background var(--duration-content) var(--ease-standard),
+    border-color var(--duration-content) var(--ease-standard),
+    color var(--duration-content) var(--ease-standard);
+  container-type: inline-size;
+}
+
+/* 后面的武器图片 */
+.weapon-card-artwork {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-base);
+  width: 90%;
+  max-width: none;
+  max-height: none;
+  pointer-events: none;
+  transform-origin: right center;
+  transform: translateX(-12px) rotate(10deg);
+}
+
+/* 上半主grid，包含banner、右边content两列 */
+.weapon-card-main {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  /* 第一列宽banner的宽度，或默认banner宽48px */
+  grid-template-columns: var(--blue-banner-width, 48px) minmax(0, 1fr);
+  /* 列间距，6-8px */
+  gap: clamp(6px, 0.95cqw, 8px);
+  align-items: stretch;
+}
+
+/* content的grid，包含2行，上面的type，下面的标题行 */
+.weapon-card-content {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  /* 行间距，type和表格间距离4px */
+  gap: var(--space-micro);
+}
+
+.weapon-card-type {
+  min-width: 0;
+  color: var(--ink-readable);
+  font-size: var(--text-label);
+  font-weight: 400;
+}
+
+/* 中间的detail区，分为2列，第一列标题，第二列右边小table */
+.weapon-card-detail {
+  display: grid;
+  grid-template-columns: minmax(76px, 36%) minmax(132px, 1fr);
+  /* 列间距，6-8px */
+  gap: clamp(6px, 0.95cqw, 8px);
+  align-items: start;
+}
+
+.weapon-card-name {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  color: var(--blue-dark);
+  font-size: var(--weapon-card-name-font, var(--text-title));
+  text-align: center;
+}
+
+/* 下方的description section */
+.weapon-card-description {
+  position: relative;
+  z-index: var(--z-raised);
+  /* 距离main的间距，上10px */
+  margin-top: 10px;
+  /* 距离顶部金线8px */
+  padding-top: var(--space-tight);
+  border-top: 1px solid var(--gold-strong);
+  color: var(--black-main);
+  font-weight: 400;
+  line-height: var(--prose-line-height);
+  text-indent: 0;
+}
+
+/* ========== 空白卡规则 ========== */
+/* 空白卡叠层：absolute叠层容器 */
+.weapon-card-empty {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* 内容放置 */
+.weapon-card-empty-content {
+  display: grid;
+  justify-items: center;
+}
+
+.weapon-card-empty-text {
+  margin: 0;
+  color: var(--black-main);
+  font-weight: 400;
+  line-height: var(--prose-line-height);
+  text-align: center;
+  text-indent: 0;
+}
+
+.weapon-card-empty-icon {
+  display: block;
+  width: 92px;
+  height: 92px;
+}
+
+.weapon-card-empty-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 先把is-spoiler的渲染藏起来 */
+.weapon-card-empty-icon .is-spoiler {
+  display: none;
+}
+
+/* 根据状态切换 */
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-empty-icon .is-normal {
+  display: none;
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-empty-icon .is-spoiler {
+  display: block;
+}
+
+/* spoiler的字体颜色切换，etc */
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed {
+  background: var(--black-deep);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-description,
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-empty-text,
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .little-table td,
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .little-table th {
+  color: var(--white-readable);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-name {
+  color: var(--blue-light);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .weapon-card.is-changed .weapon-card-type {
+  color: var(--gold-light);
+}
+
+@media (max-width: 980px) {
+  .weapon-card {
+    font-size: var(--text-body-sm);
+  }
+
+  .weapon-card-artwork {
+    height: 100%;
+    width: auto;
+    transform: rotate(15deg);
+  }
+
+  .weapon-card-main {
+    grid-template-columns: var(--blue-banner-width, 48px) minmax(0, 1fr);
+    grid-template-areas:
+      "banner type"
+      "banner name"
+      "fields fields";
+    align-items: start;
+  }
+
+  .weapon-card-banner {
+    grid-area: banner;
+  }
+
+  .weapon-card-content {
+    display: contents;
+  }
+
+  .weapon-card-type {
+    grid-area: type;
+    align-self: start;
+    padding-top: 0;
+  }
+
+  .weapon-card-detail {
+    display: contents;
+  }
+
+  .weapon-card-name {
+    grid-area: name;
+    justify-self: stretch;
+    align-self: center;
+    min-height: 0;
+    margin-top: 0;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .weapon-card-fields {
+    grid-area: fields;
+    /* 在现有gap6-8px的基础下，小表格额外加一个上8px的余量 */
+    margin-top: var(--space-tight);
+  }
+}
+
+@media (max-width: 620px) {
+  .weapon-card-artwork {
+    width: 100%;
+    height: auto;
+    right: 0;
+    top: 0;
+    transform: translateY(-20%) rotate(15deg);
+  }
+}

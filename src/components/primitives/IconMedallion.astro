@@ -1,0 +1,14 @@
+---
+import "../../styles/primitives/icon-medallion.css";
+
+const {
+  src,
+  alt = "",
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<span {...attrs} class:list={["icon-medallion", className]}>
+  <img src={src} alt={alt} />
+</span>

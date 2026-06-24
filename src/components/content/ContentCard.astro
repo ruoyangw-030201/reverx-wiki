@@ -1,0 +1,44 @@
+---
+import IconMedallion from "../primitives/IconMedallion.astro";
+import "../../styles/content/content-card.css";
+
+const {
+  icon,
+  iconAlt = "",
+  label,
+  title,
+  subtitle,
+  description,
+  changed = false,
+  reserveDescriptionSpace = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const hasDescription = description !== undefined && description !== null && description !== "";
+const shouldRenderDescription = hasDescription || reserveDescriptionSpace;
+---
+
+<article {...attrs} class:list={["content-card", changed && "is-changed", className]}>
+  {icon && (
+    <IconMedallion
+      class="content-card-icon"
+      src={icon}
+      alt={iconAlt}
+      aria-hidden={iconAlt ? undefined : "true"}
+    />
+  )}
+  {label && (
+    <div class="content-card-label">
+      <span>{label}</span>
+    </div>
+  )}
+  <div class="content-card-text">
+    {title && <h3 class="content-card-title">{title}</h3>}
+    {subtitle && <p class="content-card-subtitle">{subtitle}</p>}
+    {shouldRenderDescription && (
+      <p class:list={["content-card-description", !hasDescription && "is-empty"]}>{description}</p>
+    )}
+  </div>
+  <span class="icon-symbol-chevron-triplet content-card-corner-symbol" aria-hidden="true"></span>
+</article>

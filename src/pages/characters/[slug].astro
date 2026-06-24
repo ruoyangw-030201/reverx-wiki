@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import ArchiveDefaultLayout from "../../layouts/ArchiveDefaultLayout.astro";
+import CharacterProfile from "../../components/characters/CharacterProfile.astro";
+import PrimarySection from "../../components/content-frame/PrimarySection.astro";
+import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("archive", (entry) => entry.data.section === "characters");
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/^characters\//, "") },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const archive = getArchiveEntryContext(Astro.url.pathname);
+const character = entry.data.character;
+
+if (!character) {
+  throw new Error(`Missing character profile data for ${entry.id}`);
+}
+
+const profiles = [
+  { mode: "normal", data: character.normalProfile },
+  { mode: "spoiler", data: character.spoilerProfile },
+];
+---
+
+<ArchiveDefaultLayout archive={archive}>
+  <PrimarySection archive={archive} bodyType="panel">
+    {profiles.map(({ mode, data }) => (
+      <CharacterProfile mode={mode} profile={data} />
+    ))}
+  </PrimarySection>
+</ArchiveDefaultLayout>

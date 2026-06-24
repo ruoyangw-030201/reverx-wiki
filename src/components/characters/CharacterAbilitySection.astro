@@ -1,0 +1,17 @@
+---
+import ContentCardGrid from "../content/ContentCardGrid.astro";
+import SectionRailHeading from "../primitives/SectionRailHeading.astro";
+import { characterText } from "../../data/characterText.js";
+
+const {
+  headingId,
+  abilities = [],
+} = Astro.props;
+
+const { ability } = characterText.profile;
+---
+
+<section aria-labelledby={headingId}>
+  <SectionRailHeading id={headingId} title={ability.title} subtitle={ability.subtitle} />
+  <ContentCardGrid class="character-ability-grid" items={abilities} />
+</section>

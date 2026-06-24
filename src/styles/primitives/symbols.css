@@ -34,6 +34,32 @@
   opacity: 0.45;
 }
 
+/* Symbol: 3-dot grid mark */
+.icon-symbol-dot-triplet {
+  display: block;
+  width: var(--icon-median);
+  height: 6px;
+  background:
+    radial-gradient(circle, var(--russet-line) 0 2.5px, transparent 2.6px) left center / 6px 6px no-repeat,
+    radial-gradient(circle, var(--russet-line) 0 2.5px, transparent 2.6px) center / 6px 6px no-repeat,
+    radial-gradient(circle, var(--russet-line) 0 2.5px, transparent 2.6px) right center / 6px 6px no-repeat;
+}
+
+/* Symbol: 3-arrow grid mark */
+.icon-symbol-chevron-triplet {
+  display: block;
+  color: var(--russet-line);
+  font-family: var(--font-latin);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: var(--basic-line-height);
+  letter-spacing: 0.08em;
+}
+
+.icon-symbol-chevron-triplet::before {
+  content: ">>>";
+}
+
 /* Symbol: image badge used to mark an available gallery action. */
 .icon-symbol-badge {
   display: grid;

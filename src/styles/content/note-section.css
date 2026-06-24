@@ -1,0 +1,91 @@
+.note-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(56px, 5.6vw, 76px) minmax(0, 1fr);
+  /* 图标和文字部分的间距 */
+  gap: var(--space-tight);
+  min-height: 96px;
+  /* 上下左右内间距 */
+  padding: clamp(12px, 1.4vw, 18px);
+  border: 1px solid var(--gold-strong);
+  border-radius: var(--radius-card);
+  background: linear-gradient(135deg, var(--white-main), var(--white-paper));
+  transition:
+    background var(--duration-content) var(--ease-standard),
+    border-color var(--duration-content) var(--ease-standard),
+    color var(--duration-content) var(--ease-standard);
+}
+
+.note-section-icon {
+  --icon-medallion-border-color: transparent;
+  --icon-medallion-background: var(--gold-wash);
+}
+
+.note-section.has-no-icon {
+  grid-template-columns: 1fr;
+}
+
+/* dot装饰的位置。用绝对值百分比定位 */
+.note-section-dots {
+  position: absolute;
+  right: 2%;
+  bottom: 4%;
+}
+
+/* 标题+正文 */
+.note-section-content {
+  min-width: 0;
+}
+
+.note-section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0;
+  /* title和正文的间距 */
+  margin: 0 0 var(--space-tight);
+  color: var(--russet-text);
+  font-family: var(--font-latin);
+  font-size: var(--text-lead);
+  font-weight: 900;
+  line-height: var(--prose-line-height);
+  letter-spacing: 0;
+}
+
+.note-section-text {
+  /* 右边留空间 */
+  padding-right: clamp(0px, 4vw, 72px);
+}
+
+
+.archive-page.is-characters[data-page-mode="spoiler"] .note-section.is-changed {
+  background: var(--black-deep);
+}
+
+.archive-page.is-characters[data-page-mode="spoiler"] .note-section.is-changed .note-section-text {
+  color: var(--white-readable);
+}
+
+@media (max-width: 980px) {
+  .note-section {
+    grid-template-columns: 1fr;
+  }
+
+  .note-section-icon {
+    justify-self: center;
+    margin-bottom: var(--space-tight);
+  }
+
+  .note-section .note-section-dots {
+    display: none;
+  }
+
+  .note-section-title {
+    font-size: var(--text-body);
+    justify-self: center;
+  }
+
+  .note-section-text {
+    padding-right: 0;
+  }
+}

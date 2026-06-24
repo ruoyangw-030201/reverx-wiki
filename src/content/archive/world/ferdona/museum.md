@@ -1,0 +1,21 @@
+---
+section: world
+layout: default
+archive:
+  sections:
+    - type: primary
+      cards:
+        - label: 创立时间
+          icon: /icon-dark/reality.png
+          title: 2028年
+        - label: 组织性质
+          icon: /big-icon-dark/museum.webp
+          title: 恶能者收容机构
+          description: 非官方组织
+        - label: 创立者
+          icon: /icon-dark/human.png
+          title: 安多尔·帕沙其
+      paragraphs:
+        - “创立者们”之一的安多尔·帕沙其与国王领博物馆展开合作，建立了魔物研究博物馆分馆。此处收藏并整理与魔物及恶能研究相关的资料与成果。
+        - 安多尔卸任总部主席后隐居于此，并以此为据点延伸影响力，构建了一个微型基地，使其成为凡多纳北部独立于总部体系之外的一支势力。
+---

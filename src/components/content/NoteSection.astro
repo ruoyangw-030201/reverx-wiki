@@ -1,0 +1,48 @@
+---
+import IconMedallion from "../primitives/IconMedallion.astro";
+import "../../styles/primitives/symbols.css";
+import "../../styles/content/note-section.css";
+
+const {
+  headingId,
+  title,
+  subtitle,
+  icon,
+  iconAlt = "",
+  changed = false,
+  showDots = true,
+  class: className,
+  "aria-label": ariaLabel,
+  ...attrs
+} = Astro.props;
+
+const hasIcon = Boolean(icon);
+const hasTitle = Boolean(title || subtitle);
+---
+
+<section
+  {...attrs}
+  class:list={["note-section", hasIcon && "has-icon", !hasIcon && "has-no-icon", changed && "is-changed", className]}
+  aria-labelledby={hasTitle && headingId ? headingId : undefined}
+  aria-label={!hasTitle ? ariaLabel : undefined}
+>
+  {hasIcon && (
+    <IconMedallion
+      class="note-section-icon"
+      src={icon}
+      alt={iconAlt}
+      aria-hidden={iconAlt ? undefined : "true"}
+    />
+  )}
+  <div class="note-section-content">
+    {hasTitle && (
+      <h2 class="note-section-title" id={headingId}>
+        {title}{subtitle && ` / ${subtitle}`}
+      </h2>
+    )}
+    <div class="note-section-text prose">
+      <slot />
+    </div>
+  </div>
+  {showDots && <span class="icon-symbol-dot-triplet note-section-dots" aria-hidden="true"></span>}
+</section>

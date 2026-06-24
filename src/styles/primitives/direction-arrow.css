@@ -1,10 +1,8 @@
-/* Primitive: SVG direction arrow with optional motion. */
+/* Primitive: static SVG direction arrow. */
 .direction-arrow {
   --direction-arrow-color: currentColor;
-  --direction-arrow-size: 48px;
+  --direction-arrow-size: var(--icon-median-mobile);
   --direction-arrow-symbol: url("/symbol/Right-arrow.svg");
-  --direction-arrow-animation-x: 0px;
-  --direction-arrow-animation-y: 12px;
 
   display: block;
   width: var(--direction-arrow-size);
@@ -28,41 +26,4 @@
 
 .direction-arrow.is-down {
   --direction-arrow-symbol: url("/symbol/Down-arrow.svg");
-}
-
-.direction-arrow.is-animated {
-  animation: direction-arrow-loop 1.35s cubic-bezier(0.35, 0, 0.2, 1) infinite;
-}
-
-@keyframes direction-arrow-loop {
-  0% {
-    opacity: 1;
-    translate: 0 0;
-  }
-
-  55% {
-    opacity: 1;
-    translate: var(--direction-arrow-animation-x) var(--direction-arrow-animation-y);
-  }
-
-  75% {
-    opacity: 0;
-    translate: var(--direction-arrow-animation-x) var(--direction-arrow-animation-y);
-  }
-
-  76% {
-    opacity: 0;
-    translate: 0 0;
-  }
-
-  100% {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .direction-arrow.is-animated {
-    animation: none;
-  }
 }

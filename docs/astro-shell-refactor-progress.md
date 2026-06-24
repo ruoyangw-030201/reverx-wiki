@@ -65,19 +65,29 @@ Archive shell and content frame are now separated:
 
 The old default/custom split has been removed for ordinary archive text pages.
 
-Ordinary default/secret text pages have been migrated from `.astro` route files to `.mdx` route files under `src/pages`. This is an intermediate state. The next structural target is content collections, documented in `docs/archive-content-collection-migration-plan.md`.
+Ordinary world, system, and character archive text pages have been migrated to the archive content collection under `src/content/archive`. Dynamic routes now own layout selection and content rendering.
 
 Special archive pages still remain outside the standard text-frame model:
 
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
 
+## Stable Content Layer
+
+The reusable archive content layer is complete enough to treat as stable:
+
+- `prose.css` owns standard body text rhythm.
+- `HiddenText.astro` owns reusable hidden/revealed inline text.
+- `NoteSection.astro` owns reusable note-panel structure.
+- `ContentCard.astro` and `ContentCardGrid.astro` own archive info-card rendering.
+- `WeaponCard.astro` and `LittleTable.astro` own reusable weapon/card detail surfaces.
+- `ArchiveContentRenderer.astro` renders world/system content collection entries.
+- `CharacterProfile.astro` renders normalized character profile data.
+
 ## Still In Progress
 
 Do not treat these as complete reusable modules yet:
 
-- `ArchiveInfoCardList` and its CSS still need cleanup before content collection migration.
-- `src/styles/content/content.css` still contains mixed prose/content module rules.
 - `src/styles/archive/layout.css` still contains shared archive shell/content-area compatibility rules.
 - Classification and intensity still use special page-level layout/CSS.
 - WorldMap, Home, and Index remain custom visual stages.
@@ -94,7 +104,6 @@ Do not treat these as complete reusable modules yet:
 
 ## Next Likely Steps
 
-1. Finish `ArchiveInfoCardList` / info-card CSS cleanup.
-2. Move archive MDX route files from `src/pages` to a content collection.
-3. Add dynamic archive routes that render content entries through `ArchiveDefaultLayout` / `ArchiveSecretLayout`.
-4. Keep classification and intensity on `ArchiveShellLayout` until their special content-area rules are cleaned.
+1. Clean `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
+2. Clean classification and intensity special page layout/CSS.
+3. Continue index/world-map visual architecture cleanup.

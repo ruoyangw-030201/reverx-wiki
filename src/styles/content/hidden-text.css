@@ -1,0 +1,52 @@
+.hidden-text {
+  position: relative;
+  display: inline-grid;
+  grid-template-areas: "text";
+  align-items: center;
+  justify-items: center;
+  margin: 0 0.08em;
+  padding: 0 0.28em;
+  border: 0;
+  border-radius: 2px;
+  background: var(--black-deep);
+  color: var(--white-main);
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+.hidden-text-face {
+  grid-area: text;
+  min-width: 100%;
+  color: currentColor;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.hidden-text-face.is-visible {
+  opacity: 1;
+}
+
+.hidden-text-face.is-hidden {
+  opacity: 0;
+}
+
+.hidden-text:hover .hidden-text-face.is-visible,
+.hidden-text:focus-visible .hidden-text-face.is-visible,
+.hidden-text[aria-pressed="true"] .hidden-text-face.is-visible {
+  opacity: 0;
+}
+
+.hidden-text:hover .hidden-text-face.is-hidden,
+.hidden-text:focus-visible .hidden-text-face.is-hidden,
+.hidden-text[aria-pressed="true"] .hidden-text-face.is-hidden {
+  opacity: 1;
+}
+
+.hidden-text:focus-visible {
+  outline: 1px solid var(--gold-light);
+  outline-offset: 2px;
+}

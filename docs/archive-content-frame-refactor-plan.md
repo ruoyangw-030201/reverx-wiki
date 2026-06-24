@@ -1,6 +1,6 @@
 # Archive Content Frame Refactor Plan
 
-This note records the current archive content-frame boundary after the default/custom merge and the first MDX page migration.
+This note records the current archive content-frame boundary after the default/custom merge and the archive content collection migration.
 
 ## Current State
 
@@ -28,13 +28,13 @@ It can optionally expose the legacy `.archive-content-area` wrapper for special 
 
 `ArchiveDefaultFrame.astro`, `default-layout.css`, `ArchiveLayout.astro`, the old `SecretLayout.astro`, and `secret.css` have been removed.
 
-Ordinary archive text pages are currently `.mdx` route files under `src/pages`. They explicitly compose:
+Ordinary archive text pages now live as content collection entries under `src/content/archive`. Dynamic route files compose:
 
 - `ArchiveDefaultLayout` or `ArchiveSecretLayout`
 - one `PrimarySection`
 - optional `SecondarySection` children
 
-These pages no longer pass `archive={archive}` or call `getArchiveEntryContext()` directly. `PrimarySection` and `SecondarySection` can resolve archive context from the current path.
+World/system entries are rendered through `ArchiveContentRenderer.astro`. Character entries are rendered through `CharacterProfile.astro` from normalized frontmatter data. `PrimarySection` and `SecondarySection` still receive archive context from the route/template layer.
 
 Special pages still use page-specific Astro routes:
 
@@ -81,17 +81,20 @@ Special pages still use page-specific Astro routes:
 
 `figure` is a structural display variant, not a character-only visual variant. Secret mode is a visual variant.
 
-## Current MDX Status
+## Current Content Status
 
-The first MDX migration is complete for ordinary default/secret text pages, excluding special pages. Current MDX pages still live under `src/pages`, so each file is still a route component. This means they still import layout/section/content helpers when needed.
+The content collection migration is complete for ordinary world, system, and character archive text entries. The content layer now has reusable component boundaries for:
 
-This is an intermediate state. The better long-term direction is recorded in `docs/archive-content-collection-migration-plan.md`: move archive MDX to content collections and let dynamic Astro routes own layouts and section mappings.
+- prose text
+- hidden text
+- note sections
+- content card grids
+- content cards
+- weapon cards
+- little tables
 
 ## Remaining Work
 
-- Clean `ArchiveInfoCardList` and info-card CSS before moving world entries to content collections.
-- Move ordinary archive text MDX from `src/pages` to `src/content/archive`.
-- Add dynamic Astro routes for world/system/character archive entries.
 - Keep classification and intensity on `ArchiveShellLayout` until their page-specific content-area rules are cleaned.
 - Revisit `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
 

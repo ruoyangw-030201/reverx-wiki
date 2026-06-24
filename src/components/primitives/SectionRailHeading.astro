@@ -1,0 +1,16 @@
+---
+import "../../styles/primitives/section-rail-heading.css";
+
+const {
+  id,
+  title,
+  subtitle,
+} = Astro.props;
+---
+
+<div class="section-rail-heading">
+  <div class="section-rail-heading-line" aria-hidden="true"></div>
+  <h2 class="section-rail-heading-title" id={id}>
+    <span>{subtitle ? `${title} / ${subtitle}` : title}</span>
+  </h2>
+</div>

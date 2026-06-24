@@ -1,0 +1,64 @@
+---
+import CharacterAbilitySection from "./CharacterAbilitySection.astro";
+import CharacterWeaponsSection from "./CharacterWeaponsSection.astro";
+import HiddenText from "../content/HiddenText.astro";
+import NoteSection from "../content/NoteSection.astro";
+import { normalizeCharacterProfile } from "../../data/characterProfileTransforms.js";
+import { characterText } from "../../data/characterText.js";
+import "../../styles/characters/character-profile.css";
+
+const {
+  mode = "normal",
+  profile = {},
+} = Astro.props;
+
+const profileHeadingId = `character-profile-heading-${mode}`;
+const noteHeadingId = `note-section-heading-${mode}`;
+const weaponsHeadingId = `character-weapons-heading-${mode}`;
+const normalizedProfile = normalizeCharacterProfile(profile);
+const { note } = characterText.profile;
+
+const getParagraphParts = (paragraph) => {
+  if (Array.isArray(paragraph)) return paragraph;
+  if (Array.isArray(paragraph?.parts)) return paragraph.parts;
+  return [paragraph];
+};
+
+const isHiddenTextPart = (part) =>
+  part && typeof part === "object" && ("hidden" in part || "reveal" in part);
+---
+
+<div
+  class="character-profile"
+  data-page-mode-panel={mode}
+  aria-hidden={mode === "normal" ? "false" : "true"}
+>
+  <CharacterAbilitySection headingId={profileHeadingId} abilities={normalizedProfile.abilities} />
+  <NoteSection
+    headingId={noteHeadingId}
+    title={note.title}
+    subtitle={note.subtitle}
+    icon={note.icon}
+    changed={normalizedProfile.noteChanged}
+  >
+    {normalizedProfile.note?.map((paragraph) => (
+      <p>
+        {getParagraphParts(paragraph).map((part) => (
+          isHiddenTextPart(part) ? (
+            <HiddenText
+              visible={part.visible ?? part.text}
+              hidden={part.hidden ?? part.reveal}
+            />
+          ) : (
+            <Fragment>{part}</Fragment>
+          )
+        ))}
+      </p>
+    ))}
+  </NoteSection>
+  <CharacterWeaponsSection
+    headingId={weaponsHeadingId}
+    fusionWeapons={normalizedProfile.fusionWeapons}
+    nonFusionWeapons={normalizedProfile.nonFusionWeapons}
+  />
+</div>

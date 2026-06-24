@@ -1,0 +1,20 @@
+---
+import "../../styles/content/little-table.css";
+
+const {
+  fields = [],
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<table {...attrs} class:list={["little-table", className]}>
+  <tbody>
+    {fields.map((field) => (
+      <tr>
+        <th scope="row">{field.label}</th>
+        <td>{field.value}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

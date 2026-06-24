@@ -1,0 +1,22 @@
+/* character页的展示panel。分为三个section，grid堆放 */
+.character-profile {
+  display: grid;
+  /* 三个section之间的间距18px */
+  gap: var(--space-medium);
+  width: 100%;
+  color: var(--black-main);
+  overflow-wrap: normal;
+  word-break: normal;
+  transition: color var(--duration-content) var(--ease-standard);
+}
+
+.character-profile[data-page-mode-panel][aria-hidden="true"] {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .character-profile {
+    width: 100%;
+    font-size: var(--text-body-sm);
+  }
+}

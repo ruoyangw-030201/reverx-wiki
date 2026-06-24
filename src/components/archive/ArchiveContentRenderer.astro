@@ -1,0 +1,26 @@
+---
+import ContentCardGrid from "../content/ContentCardGrid.astro";
+import PrimarySection from "../content-frame/PrimarySection.astro";
+import SecondarySection from "../content-frame/SecondarySection.astro";
+
+const {
+  archive,
+  entry,
+} = Astro.props;
+
+const sections = entry?.archive?.sections ?? [];
+---
+
+{sections.map((section) => (
+  section.type === "secondary" ? (
+    <SecondarySection archive={archive} {...(section.props ?? {})}>
+      {section.cards && <ContentCardGrid items={section.cards} />}
+      {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+    </SecondarySection>
+  ) : (
+    <PrimarySection archive={archive} {...(section.props ?? {})}>
+      {section.cards && <ContentCardGrid items={section.cards} />}
+      {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+    </PrimarySection>
+  )
+))}

@@ -171,7 +171,7 @@
   /* Radius scale for frames, cards, pills, and circular marks. */
   --radius-sharp: 2px;
   --radius-frame: 6px;
-  --radius-card: 7px;
+  --radius-card: 8px;
   --radius-pill: 999px;
   --radius-circle: 50%;
 
@@ -207,6 +207,7 @@
   --z-modal: 1000;
 
   /* Icon Size*/
+  --icon-large: 64px;
   --icon-median: 38px;
   --icon-median-mobile: 30px;
   --icon-small: 19px;

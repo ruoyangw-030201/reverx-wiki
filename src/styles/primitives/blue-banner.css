@@ -1,0 +1,30 @@
+.blue-banner {
+  position: relative;
+  display: block;
+  /* 可选宽度或默认48px */
+  width: var(--blue-banner-width, 48px);
+  /* 可选高度或默认96px */
+  height: var(--blue-banner-height, 96px);
+  flex: 0 0 var(--blue-banner-width, 48px);
+  padding: 0;
+  background: var(--blue-banner-background, linear-gradient(180deg, var(--blue-main), var(--blue-dark)));
+  /* 凹口在82% */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  overflow: hidden;
+}
+
+.blue-banner img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* 可以和banner一起调宽度 */
+  width: var(--blue-banner-width, 48px);
+  height: var(--blue-banner-width, 48px);
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  /* 可选filter，默认全白 */
+  filter: var(--blue-banner-image-filter, brightness(0) invert(1));
+  /* 具体大小由scale决定 */
+  transform: translate(-50%, -50%) scale(var(--blue-banner-image-scale, 1.2));
+}

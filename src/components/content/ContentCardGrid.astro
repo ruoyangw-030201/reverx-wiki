@@ -1,0 +1,26 @@
+---
+import ContentCard from "./ContentCard.astro";
+import "../../styles/content/content-card-grid.css";
+
+const {
+  items = [],
+  class: className,
+  reserveDescriptionSpace = true,
+  ...attrs
+} = Astro.props;
+---
+
+<div {...attrs} class:list={["content-card-grid", className]}>
+  {items.map((item) => (
+    <ContentCard
+      icon={item.icon}
+      iconAlt={item.iconAlt ?? ""}
+      label={item.label}
+      title={item.title}
+      subtitle={item.subtitle}
+      description={item.description}
+      changed={item.changed ?? false}
+      reserveDescriptionSpace={item.reserveDescriptionSpace ?? reserveDescriptionSpace}
+    />
+  ))}
+</div>

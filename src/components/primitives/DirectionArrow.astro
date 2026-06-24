@@ -3,7 +3,6 @@ import "../../styles/primitives/direction-arrow.css";
 
 const {
   direction = "right",
-  animated = false,
   class: className = "",
 } = Astro.props;
 ---
@@ -12,7 +11,6 @@ const {
   class:list={[
     "direction-arrow",
     `is-${direction}`,
-    animated && "is-animated",
     className,
   ]}
   aria-hidden="true"

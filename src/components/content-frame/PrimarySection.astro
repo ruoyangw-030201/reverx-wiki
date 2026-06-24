@@ -25,6 +25,7 @@ const {
   iconFrameGalleryBadge = "/icon/picture.png",
   showIconFrameJunction = true,
   showIconFrameDisplayPanel = true,
+  bodyType = "text",
   class: className,
 } = Astro.props;
 
@@ -110,7 +111,7 @@ const hasYearSwitch = Boolean(archive?.hasPageModeSwitch && archive?.pageModeSwi
     </div>
   )}
 
-  <ContentBox variant={variant} showLines={showLines}>
+  <ContentBox variant={variant} showLines={showLines} bodyType={bodyType}>
     <slot />
   </ContentBox>
 </section>

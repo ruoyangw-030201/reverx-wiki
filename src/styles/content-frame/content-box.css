@@ -80,7 +80,14 @@
   box-sizing: border-box;
   max-width: 100%;
   /* text 内间距 */
-  padding: var(--content-box-body-padding, 42px 6% 42px 4%);
+  padding: 32px 6% 32px 4%;
+  overflow-wrap: anywhere;
+}
+
+.content-box .content-box-body-panel {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 24px 4% 32px 2.5%;
   overflow-wrap: anywhere;
 }
 
@@ -140,6 +147,10 @@
     inset: 24px -8px 10px 16px;
   }
 
+  .content-box:has(.content-box-body-panel) .content-box-line-gold {
+    display: none;
+  }
+
   .content-box-line-blue {
     inset: 12px 8px -10px 8px;
   }
@@ -159,7 +170,11 @@
 
   .content-box .content-box-body-text {
     /* text 内间距 */
-    padding: var(--content-box-body-padding-mobile, var(--content-box-body-padding, 36px 30px));
+    padding: 24px 30px;
+  }
+
+  .content-box .content-box-body-panel {
+    padding: 24px 24px;
   }
 
   .content-box.is-simple .content-box-body-text {

@@ -1,0 +1,31 @@
+---
+import WeaponCard from "../content/WeaponCard.astro";
+import SectionRailHeading from "../primitives/SectionRailHeading.astro";
+import { characterText } from "../../data/characterText.js";
+import "../../styles/characters/character-weapons-section.css";
+
+const {
+  headingId,
+  fusionWeapons = [],
+  nonFusionWeapons = [],
+} = Astro.props;
+
+const { weapons } = characterText.profile;
+---
+
+<section class="character-weapons-section" aria-labelledby={headingId}>
+  <SectionRailHeading id={headingId} title={weapons.title} subtitle={weapons.subtitle} />
+
+  <div class="character-weapons-grid">
+    <div class="character-weapons-column">
+      {fusionWeapons.map((weapon) => (
+        <WeaponCard {...weapon} />
+      ))}
+    </div>
+    <div class="character-weapons-column">
+      {nonFusionWeapons.map((weapon) => (
+        <WeaponCard {...weapon} />
+      ))}
+    </div>
+  </div>
+</section>

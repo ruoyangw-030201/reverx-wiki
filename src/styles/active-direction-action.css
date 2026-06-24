@@ -2,6 +2,8 @@
 .active-direction-action {
   --direction-arrow-color: currentColor;
   --direction-arrow-size: var(--active-direction-action-arrow-size, 48px);
+  --active-direction-action-animation-x: 0px;
+  --active-direction-action-animation-y: 12px;
 
   display: flex;
   flex-direction: column;
@@ -11,12 +13,37 @@
   user-select: none;
 }
 
+.active-direction-action.is-right {
+  --active-direction-action-animation-x: 12px;
+  --active-direction-action-animation-y: 0px;
+}
+
+.active-direction-action.is-left {
+  --active-direction-action-animation-x: -12px;
+  --active-direction-action-animation-y: 0px;
+}
+
+.active-direction-action.is-up {
+  --active-direction-action-animation-x: 0px;
+  --active-direction-action-animation-y: -12px;
+}
+
 button.active-direction-action {
   appearance: none;
   border: 0;
   background: transparent;
   padding: 0;
   font: inherit;
+}
+
+.active-direction-action__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.active-direction-action.is-animated .active-direction-action__body {
+  animation: active-direction-action-loop 1.35s cubic-bezier(0.35, 0, 0.2, 1) infinite;
 }
 
 .active-direction-action__label {
@@ -33,15 +60,45 @@ button.active-direction-action {
   display: none;
 }
 
+@keyframes active-direction-action-loop {
+  0% {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  55% {
+    opacity: 1;
+    translate: var(--active-direction-action-animation-x) var(--active-direction-action-animation-y);
+  }
+
+  75% {
+    opacity: 0;
+    translate: var(--active-direction-action-animation-x) var(--active-direction-action-animation-y);
+  }
+
+  76% {
+    opacity: 0;
+    translate: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
 @media (max-width: 980px) {
   .active-direction-action {
     --active-direction-action-arrow-size: 40px;
   }
 
   .active-direction-action.is-down {
+    --active-direction-action-animation-y: -12px;
+  }
+
+  .active-direction-action.is-down .active-direction-action__body {
     flex-direction: column-reverse;
     gap: 2px;
-    --direction-arrow-animation-y: -12px;
   }
 
   .active-direction-action.is-down .active-direction-action__label {
@@ -54,5 +111,11 @@ button.active-direction-action {
 
   .active-direction-action.is-down.has-mobile-label .active-direction-action__label--desktop {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-direction-action.is-animated .active-direction-action__body {
+    animation: none;
   }
 }

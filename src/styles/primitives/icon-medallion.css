@@ -1,0 +1,28 @@
+.icon-medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--icon-medallion-size, var(--icon-large));
+  height: var(--icon-medallion-size, var(--icon-large));
+  aspect-ratio: 1;
+  flex: 0 0 var(--icon-medallion-size, 64px);
+  border: 1px solid var(--icon-medallion-border-color, var(--blue-border));
+  border-radius: var(--radius-circle);
+  background: var(--icon-medallion-background, transparent);
+  overflow: visible;
+  transition: border-color var(--duration-content) var(--ease-standard);
+}
+
+.icon-medallion img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: var(--z-raised);
+  width: var(--icon-medallion-size, var(--icon-large));
+  height: var(--icon-medallion-size, var(--icon-large));
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transform: translate(-50%, -50%) scale(var(--icon-medallion-image-scale, 1.1));
+  transform-origin: center;
+}

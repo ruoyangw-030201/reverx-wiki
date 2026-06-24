@@ -1,0 +1,14 @@
+---
+import "../../styles/primitives/blue-banner.css";
+
+const {
+  src,
+  alt = "",
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<span {...attrs} class:list={["blue-banner", className]} aria-hidden={alt ? undefined : "true"}>
+  <img src={src} alt={alt} />
+</span>

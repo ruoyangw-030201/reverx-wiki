@@ -2,7 +2,6 @@
 import FrameSideGlyph from "../primitives/FrameSideGlyph.astro";
 import NextLinkButton from "../actions/NextLinkButton.astro";
 import "../../styles/content/prose.css";
-import "../../styles/content/content.css";
 import "../../styles/content-frame/content-box.css";
 
 const {
@@ -12,10 +11,12 @@ const {
   nextPageLink,
   nextLinkMode,
   showLines = true,
+  bodyType = "text",
 } = Astro.props;
 
 const isSimple = variant === "simple";
 const isSecret = variant === "secret";
+const isPanelBody = bodyType === "panel";
 const style = minHeight ? `--content-box-min-height: ${minHeight};` : undefined;
 ---
 
@@ -40,9 +41,15 @@ const style = minHeight ? `--content-box-min-height: ${minHeight};` : undefined;
     {showLines && !isSimple && <FrameSideGlyph class="content-box-side-glyph" />}
 
     <div class="content-box-body">
-      <div class="content-box-body-text prose">
-        <slot />
-      </div>
+      {isPanelBody ? (
+        <div class="content-box-body-panel">
+          <slot />
+        </div>
+      ) : (
+        <div class="content-box-body-text prose">
+          <slot />
+        </div>
+      )}
     </div>
   </div>
 

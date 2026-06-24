@@ -221,7 +221,6 @@ body.gallery-is-open {
 
 /* 閸ラ箖娉﹂弬鐟版倻缁狀厼銇旈敍姘愁洬閿?active marker 閻ㄥ嫰绮拋銈呮祼鐎规矮缍呴敓?*/
 .image-gallery-arrow {
-  --direction-arrow-size: 54px;
   --direction-arrow-color: var(--blue-light);
   appearance: none;
   position: fixed;

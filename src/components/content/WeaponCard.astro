@@ -1,0 +1,68 @@
+---
+import BlueBanner from "../primitives/BlueBanner.astro";
+import LittleTable from "./LittleTable.astro";
+import "../../styles/content/weapon-card.css";
+
+const {
+  typeLabel,
+  typeLabelEn,
+  name,
+  icon,
+  artwork,
+  artworkAlt = "",
+  fields = [],
+  description,
+  emptyText,
+  changed = false,
+} = Astro.props;
+
+const isEmpty = Boolean(emptyText);
+const hasName = Boolean(name);
+const isIncomplete = emptyText === "信息不完全";
+---
+
+<article class:list={["weapon-card", isEmpty && "is-empty", changed && "is-changed"]}>
+  {artwork && !isEmpty && (
+    <img
+      class="weapon-card-artwork"
+      src={artwork}
+      alt={artworkAlt}
+      aria-hidden={artworkAlt ? undefined : "true"}
+    />
+  )}
+
+  <div class="weapon-card-main">
+    <BlueBanner src={icon} class="weapon-card-banner" />
+
+    <div class="weapon-card-content">
+      <div class="weapon-card-type">
+        {typeLabelEn ? `${typeLabel} / ${typeLabelEn}` : typeLabel}
+      </div>
+
+      {!isEmpty && (
+        <div class="weapon-card-detail">
+          {hasName && <strong class="weapon-card-name">{name}</strong>}
+          <LittleTable class="weapon-card-fields" fields={fields} />
+        </div>
+      )}
+    </div>
+  </div>
+
+  {isEmpty ? (
+    <div class="weapon-card-empty">
+      <div class="weapon-card-empty-content">
+        {isIncomplete && (
+          <span class="weapon-card-empty-icon" aria-hidden="true">
+            <img class="is-normal" src="/icon-dark/danger.png" alt="" />
+            <img class="is-spoiler" src="/icon/danger.png" alt="" />
+          </span>
+        )}
+        <p class="weapon-card-empty-text">{emptyText}</p>
+      </div>
+    </div>
+  ) : (
+    <p class="weapon-card-description">
+      {description}
+    </p>
+  )}
+</article>

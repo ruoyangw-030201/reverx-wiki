@@ -7,11 +7,6 @@
 }
 
 .spectrum-classification {
-  --character-profile-blue: var(--blue-main);
-  --character-profile-blue-deep: var(--blue-dark);
-  --character-profile-gold: var(--gold-strong);
-  --character-profile-gold-soft: var(--gold-wash);
-  --character-profile-paper: var(--white-soft);
   --spectrum-card-description-font-size: var(--text-body);
   --spectrum-overview-title-font-size: var(--text-body);
   --spectrum-mobile-class-title-font-size: var(--text-heading);
@@ -205,14 +200,14 @@
 }
 
 /* 鐠囧瓨妲戝鍡窗婢跺秶鏁?character note 閻ㄥ嫰鍣鹃懝鍙夘攱閿涘奔绲惧锝嗘瀮閼奉亞鍔у锕€顕鎰舵嫹?*/
-.character-note-card.spectrum-overview-note {
+.note-section.spectrum-overview-note {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin-top: clamp(8px, 1vw, 12px);
 }
 
 /* 鐠囧瓨妲戝鍡樻瀮鐎涙顔愰崳顭掔窗閸樼粯甯€娴滆櫣澧挎い鐢电崕閺傚洦婀伴崚妤€鐢弶銉ф畱婢堆冩健瀹革妇鈹栭惂鏂ゆ嫹?*/
-.character-note-card.spectrum-overview-note .character-note-copy {
+.note-section.spectrum-overview-note .note-section-text {
   grid-column: 1 / -1;
   width: 100%;
   max-width: none;
@@ -226,7 +221,7 @@
 }
 
 /* 鐠囧瓨妲戝鍡橆唽閽€鏂ょ窗婢跺秶鏁ょ憴鎺曞濡楋絾顢嶆禍铏瑰⒖濮掑倽鍫惃鍕殰閻掕埖顔岄弽鐓庣础閿?*/
-.spectrum-overview-note .character-note-copy p {
+.spectrum-overview-note .note-section-text p {
   margin: 0;
   max-width: 100%;
   text-align: left;
@@ -234,7 +229,7 @@
 }
 
 /* 鐠囧瓨妲戝鍡樻付閸氬簼绔村▓纰夌窗婢跺秶鏁ょ憴鎺曞濡楋絾顢嶆禍铏瑰⒖濮掑倽鍫惃鍕暪鐏忕偓鐗稿蹇ユ嫹?*/
-.spectrum-overview-note .character-note-copy p:last-child {
+.spectrum-overview-note .note-section-text p:last-child {
   margin-bottom: 0;
 }
 
@@ -538,14 +533,14 @@
 }
 
 /* 閻犲洤鐡ㄥΣ鎴濐浖閸℃﹩鍞介柦鈧弬銈囩獥闁革负鍔嶅﹢鐗堛亜闂堟稑寮块悘鐐╁亾 p 闂佹彃绉堕悿鍡樼▕鐎ｎ亝鍊甸柨娑樻湰娴狀喗寰勫鍕溄闁绘せ鏅滈々褎娼婚幍顔界暠闁煎浜為崝褍鈻撻崹顐ゅ閿?*/
-.prose .spectrum-classification .spectrum-overview-note .character-note-copy p {
+.prose .spectrum-classification .spectrum-overview-note .note-section-text p {
   margin: 0;
   max-width: 100%;
   text-indent: var(--prose-indent);
 }
 
 /* 閻犲洤鐡ㄥΣ鎴濐浖閸℃ɑ浠橀柛姘椤斿矂鎷冮弬銈囩獥濞ｅ洦绻冪€垫棃鏌岄幋锝咁棌婵℃妫楅崬鎾儍閸曨剚鏆悘蹇斿劤缁旈浠﹂埀顒勫Υ?*/
-.prose .spectrum-classification .spectrum-overview-note .character-note-copy p:last-child {
+.prose .spectrum-classification .spectrum-overview-note .note-section-text p:last-child {
   margin-bottom: 0;
 }
 
@@ -843,8 +838,8 @@
     height: auto;
   }
 
-  .character-note-card.spectrum-overview-note .character-note-copy,
-  .character-note-card.spectrum-overview-note .character-note-copy p {
+  .note-section.spectrum-overview-note .note-section-text,
+  .note-section.spectrum-overview-note .note-section-text p {
     max-width: none;
   }
 }

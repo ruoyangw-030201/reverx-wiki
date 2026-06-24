@@ -1,5 +1,7 @@
 ---
 import SpectrumCard from "./SpectrumCard.astro";
+import SectionRailHeading from "../primitives/SectionRailHeading.astro";
+import NoteSection from "../content/NoteSection.astro";
 import SystemConnectorNode from "./connectors/SystemConnectorNode.astro";
 import SystemConnectorSvg from "./connectors/SystemConnectorSvg.astro";
 import { spectrumClasses, spectrumOverviewText, spectrumRoot } from "../../data/spectrum.js";
@@ -72,14 +74,9 @@ const overviewStackedPaths = [
 ];
 ---
 
-<div class="spectrum-classification character-profile-archive">
-  <section class="character-profile-section is-profile spectrum-section" aria-labelledby="spectrum-overview-heading">
-    <div class="character-profile-divider" aria-hidden="true"></div>
-    <h2 class="character-profile-heading" id="spectrum-overview-heading">
-      <span>概览</span>
-      <span class="character-title-separator" aria-hidden="true">/</span>
-      <span class="character-latin-text">OVERVIEW</span>
-    </h2>
+<div class="spectrum-classification">
+  <section class="spectrum-section" aria-labelledby="spectrum-overview-heading">
+    <SectionRailHeading id="spectrum-overview-heading" title="概览" subtitle="OVERVIEW" />
     <img class="spectrum-overview-small-decor" src="/bg/bg-small-1-blue.webp" alt="" aria-hidden="true" />
 
     <div class="spectrum-overview-panel">
@@ -124,20 +121,13 @@ const overviewStackedPaths = [
       </div>
     </div>
 
-    <section class="character-note-card spectrum-overview-note" aria-label="现代谱系分类法说明">
-      <div class="character-note-copy">
-        {spectrumOverviewText.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
-    </section>
+    <NoteSection class="spectrum-overview-note" aria-label="现代谱系分类法说明">
+      {spectrumOverviewText.map((paragraph) => <p>{paragraph}</p>)}
+    </NoteSection>
   </section>
 
-  <section class="character-profile-section is-profile spectrum-section" aria-labelledby="spectrum-full-heading">
-    <div class="character-profile-divider" aria-hidden="true"></div>
-    <h2 class="character-profile-heading" id="spectrum-full-heading">
-      <span>详细谱系</span>
-      <span class="character-title-separator" aria-hidden="true">/</span>
-      <span class="character-latin-text">FULL SPECTRUM</span>
-    </h2>
+  <section class="spectrum-section" aria-labelledby="spectrum-full-heading">
+    <SectionRailHeading id="spectrum-full-heading" title="详细谱系" subtitle="FULL SPECTRUM" />
 
     <div class="spectrum-tree-panel">
       <div
@@ -212,3 +202,4 @@ const overviewStackedPaths = [
     </div>
   </section>
 </div>
+

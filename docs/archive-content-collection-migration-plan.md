@@ -1,26 +1,26 @@
 # Archive Content Collection Migration Plan
 
-This note records the next archive content direction after the first MDX page migration. The current `.mdx` files still live under `src/pages`, so each MDX file is still a route component. The better long-term model is to move archive MDX into content collections and let dynamic Astro routes render the page shell and sections.
+This note records the archive content collection migration. The migration is now complete for ordinary world, system, and character archive text entries: content lives under `src/content/archive`, and dynamic Astro routes render the page shell and sections.
 
 ## Problem With Page MDX
 
-Current page MDX files are cleaner than the old Astro pages, but they still own page composition:
+Old page MDX files were cleaner than the old Astro pages, but they still owned page composition:
 
 - import archive layouts and section components
 - choose `ArchiveDefaultLayout` or `ArchiveSecretLayout`
 - place `PrimarySection` and `SecondarySection`
-- import local helper components such as `ArchiveInfoCardList`
+- import local helper components such as the old `ArchiveInfoCardList`
 
-This means the content file is still partly a page template. Reducing imports with a shared MDX components map would only hide imports; it would not remove the need for pages to write section structure.
+This made the content file partly a page template. Reducing imports with a shared MDX components map would only have hidden imports; it would not have removed the need for pages to write section structure.
 
 ## Target Direction
 
-Move ordinary archive text entries from route files to content entries:
+Ordinary archive text entries have moved from route files to content entries:
 
 ```text
-src/content/archive/world/ferdona/hq.mdx
-src/content/archive/system/weapons.mdx
-src/content/archive/characters/ornette.mdx
+src/content/archive/world/ferdona/hq.md
+src/content/archive/system/weapons.md
+src/content/archive/characters/ornette.md
 
 src/pages/world/[...slug].astro
 src/pages/system/[slug].astro
@@ -29,49 +29,41 @@ src/pages/characters/[slug].astro
 
 In this model:
 
-- MDX is content data, not the route.
+- Markdown frontmatter is content data, not the route.
 - Dynamic Astro pages own route generation.
-- Dynamic Astro pages import `ArchiveDefaultLayout`, `ArchiveSecretLayout`, `PrimarySection`, and `SecondarySection` once.
-- The route calls `render(entry)` and passes MDX component mappings through `<Content components={...} />`.
+- Dynamic Astro pages import `ArchiveDefaultLayout`, `ArchiveSecretLayout`, and content renderers once.
+- World/system routes use `ArchiveContentRenderer.astro`.
+- Character routes use `CharacterProfile.astro`.
 - Navigation/archive context is resolved in the route/template layer from the generated path.
 
-The content entry should only express body content and section boundaries.
+The content entry expresses data, body text, and section boundaries.
 
-## Desired MDX Shape
+## Implemented Data Shape
 
-Short term, content entries can still use section boundary components, but with content-facing names:
+World/system entries use frontmatter `archive.sections`:
 
-```mdx
+```yaml
 ---
 section: world
 layout: default
+archive:
+  sections:
+    - type: primary
+      props:
+        showIconFrame: false
+      cards: []
+      paragraphs:
+        - Main entry text.
 ---
-
-<Primary>
-Main entry text.
-</Primary>
-
-<Secondary id="shalom-base">
-Secondary section text.
-</Secondary>
 ```
 
-The dynamic route maps these to real components:
+Character entries use frontmatter `character.normalProfile` and `character.spoilerProfile`. `characterProfileTransforms.js` normalizes repeated labels, weapon type labels, weapon icons, and little-table fields before rendering.
 
-```astro
-<Content
-  components={{
-    Primary: PrimarySection,
-    Secondary: SecondarySection,
-  }}
-/>
-```
-
-The page template still wraps everything:
+The page template wraps everything:
 
 ```astro
 <ArchiveDefaultLayout archive={archive}>
-  <Content components={archiveContentComponents} />
+  <ArchiveContentRenderer archive={archive} entry={entry.data} />
 </ArchiveDefaultLayout>
 ```
 
@@ -103,39 +95,24 @@ The collection schema can start thin:
 
 Do not duplicate navigation labels in frontmatter unless the page intentionally diverges from navigation data.
 
-## Info Card Prerequisite
+## Info Card Result
 
-Several world entries still import `ArchiveInfoCardList` and define local `*InfoCards` arrays inside page MDX. This should be cleaned before the collection migration, otherwise content entries will still need implementation imports.
+The old info-card prerequisite is complete.
 
 Current state:
 
-- `ArchiveInfoCardList.astro` lives under `src/components/content`
-- it renders `AbilityCard`, which is a character-profile component
-- info-card layout rules still live inside `src/styles/content/content.css`
+- `ArchiveInfoCardList.astro` has been replaced by `ContentCardGrid.astro`.
+- The old character-only `AbilityCard` dependency has been removed.
+- `src/styles/content/content.css` has been removed.
+- Info-card data now lives in frontmatter arrays and is rendered by `ArchiveContentRenderer.astro` or `CharacterProfile.astro`.
 
-Target direction before collection migration:
+## Migration Result
 
-- create a real archive info-card component boundary, not a wrapper around `AbilityCard`
-- move its CSS out of `content.css` into a component CSS file
-- make info-card data content-facing and stable
-- decide whether info cards are:
-  - frontmatter/data arrays rendered by the dynamic route, or
-  - a content-facing MDX component such as `<InfoCards items={...} />`
-
-The most collection-friendly option is to keep info-card data in frontmatter or a sidecar data field and let the route/section component render it. That would keep MDX body focused on prose. If the data is too page-specific, `<InfoCards>` can remain as a content-facing component, but it should be imported through the dynamic route `components` map, not per MDX file.
-
-## Migration Steps
-
-1. Finish the archive info-card component cleanup.
-2. Add an archive content collection and schema.
-3. Build one pilot dynamic route for a simple primary-only page.
-4. Move one page from `src/pages/.../*.mdx` to `src/content/archive/.../*.mdx`.
-5. Render it through `render(entry)` and `<Content components={...} />`.
-6. Verify route path, navigation context, primary section, next link, and build output.
-7. Pilot one page with secondary sections.
-8. Pilot one page with info cards after the info-card cleanup.
-9. Batch move default/secret text pages.
-10. Leave special pages such as classification and intensity on dedicated Astro routes until their page-specific layouts are cleaned.
+1. Added the `archive` content collection and schema.
+2. Added dynamic routes for world, system, and characters.
+3. Moved ordinary world/system/character text entries to `src/content/archive`.
+4. Replaced page-local info-card helpers with reusable content components.
+5. Kept special pages such as classification and intensity on dedicated Astro routes.
 
 ## Decisions
 
