@@ -1,43 +1,115 @@
-# Astro Starter Kit: Minimal
+# ReverX Wiki
 
-```sh
-npm create astro@latest -- --template minimal
-```
+ReverX Wiki is an Astro static site for the ReverX archive. It combines a custom chrome shell, archive content frames, content collection entries, character profiles, world maps, and special system pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Requirements
 
-## 🚀 Project Structure
+- Node.js `>=22.12.0`
+- npm
 
-Inside of your Astro project, you'll see the following folders and files:
+## Commands
+
+Run commands from the project root:
+
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start the local dev server |
+| `npm run build` | Build the static site to `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run astro -- --help` | Show Astro CLI help |
+
+## Current Architecture
+
+The site is organized around explicit layers:
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+layout -> shell/frame -> component -> content data
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Important folders:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```text
+src/layouts/                 Page shells and archive layouts
+src/components/chrome/        Shared navigation chrome
+src/components/content-frame/ Archive frame, sections, content boxes, icon frames
+src/components/content/       Reusable content pieces such as cards, notes, hidden text, weapon cards
+src/components/characters/    Character profile composition
+src/components/primitives/    Small visual primitives
+src/content/archive/          Content collection entries for world, system, and characters
+src/data/                     Navigation, maps, copy, galleries, and data transforms
+src/styles/                   Layered component CSS
+public/                       Static images, icons, symbols, and weapon art
+docs/                         Refactor notes and maintenance guidance
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Archive Content
 
-## 🧞 Commands
+Ordinary archive entries now live in the Astro content collection:
 
-All commands are run from the root of the project, from a terminal:
+```text
+src/content/archive/world/...
+src/content/archive/system/...
+src/content/archive/characters/...
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Dynamic routes render these entries:
 
-## 👀 Want to learn more?
+```text
+src/pages/world/[...slug].astro
+src/pages/system/[slug].astro
+src/pages/characters/[slug].astro
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+World and system entries are rendered by `ArchiveContentRenderer.astro`.
+Character entries are rendered by `CharacterProfile.astro` after normalization through `characterProfileTransforms.js`.
+
+Special visual pages still have dedicated routes:
+
+```text
+src/pages/system/classification.astro
+src/pages/system/intensity.astro
+src/pages/world/ferdona/index.astro
+src/pages/world/hespera/index.astro
+```
+
+## Content Components
+
+Reusable content pieces include:
+
+- `ContentCard.astro` and `ContentCardGrid.astro`
+- `NoteSection.astro`
+- `HiddenText.astro`
+- `WeaponCard.astro`
+- `LittleTable.astro`
+
+Character weapon card art is declared directly in character content entries with:
+
+```yaml
+artwork: /weapon/example.png
+```
+
+Weapon art assets live in `public/weapon/`.
+
+## Styling Notes
+
+- Global tokens live in `src/styles/global.css`.
+- Component geometry and visual behavior should stay close to the component CSS.
+- `src/styles/archive/layout.css` still contains archive compatibility rules and should be reduced carefully as special pages are cleaned.
+- Avoid reintroducing a single mixed `content.css`; content styles are split by component.
+
+## Editing Notes
+
+This project contains Chinese source text. Preserve UTF-8 exactly.
+
+- Prefer `apply_patch` for manual edits.
+- Avoid PowerShell `Set-Content` for UTF-8 source files.
+- Do not trust PowerShell `Get-Content` display when Chinese appears garbled; use `rg` or Node UTF-8 reads to verify actual file content.
+- See `docs/utf8-editing-guidelines.md` before bulk editing Chinese text.
+
+## Useful Docs
+
+- `docs/astro-shell-refactor-progress.md`
+- `docs/archive-content-frame-refactor-plan.md`
+- `docs/archive-content-collection-migration-plan.md`
+- `docs/utf8-editing-guidelines.md`
