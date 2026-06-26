@@ -1,4 +1,5 @@
 /* Primitive: decorative rotating refresh mark. */
+/* 刷新图标 */
 .refresh-icon {
   --refresh-icon-size: 28px;
   --refresh-icon-symbol-size: 16px;

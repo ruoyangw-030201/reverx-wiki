@@ -192,6 +192,7 @@
   --duration-enter: 520ms;
   --ease-standard: ease;
   --ease-enter: cubic-bezier(0.18, 0.82, 0.28, 1);
+  --duration-arrow-loop: 1.35s;
 
   /* Z-index layers; local stacks may still use 0-8 for internal ordering. */
   --z-base: 0;

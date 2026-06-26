@@ -1,24 +1,20 @@
 /* Primitive: reusable one-pixel line divider. */
+/* 一根金色的横竖分隔线 */
 .divider-line {
-  --divider-line-color: var(--gold-line);
-  --divider-line-thickness: 1px;
-  --divider-line-length: 100%;
-  --divider-line-width: var(--divider-line-thickness);
-  --divider-line-height: var(--divider-line-length);
   flex: 0 0 auto;
-  width: var(--divider-line-width);
-  height: var(--divider-line-height);
-  background: var(--divider-line-color);
+  width: var(--divider-line-width, var(--divider-line-thickness, 1px));
+  height: var(--divider-line-height, var(--divider-line-length, 100%));
+  background: var(--divider-line-color, var(--gold-line));
 }
 
 /* Orientation shortcut: vertical divider for static rails and grouped actions. */
 .divider-line.is-vertical {
-  --divider-line-width: var(--divider-line-thickness);
-  --divider-line-height: var(--divider-line-length);
+  width: var(--divider-line-width, var(--divider-line-thickness, 1px));
+  height: var(--divider-line-height, var(--divider-line-length, 100%));
 }
 
 /* Orientation shortcut: horizontal divider for static dropdowns, panels, and stacked groups. */
 .divider-line.is-horizontal {
-  --divider-line-width: var(--divider-line-length);
-  --divider-line-height: var(--divider-line-thickness);
+  width: var(--divider-line-width, var(--divider-line-length, 100%));
+  height: var(--divider-line-height, var(--divider-line-thickness, 1px));
 }

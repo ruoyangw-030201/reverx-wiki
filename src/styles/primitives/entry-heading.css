@@ -1,13 +1,13 @@
 @import "./frame-decor.css";
 
-/* 包含 entry heading 和 year switch */
+/* 包含 entry heading标题组件 */
 .entry-heading {
   /* kicker的宽度 */
   --entry-heading-rail-width: var(--space-section);
   /* kicker线到标题列左边的距离 */
   --entry-heading-rail-gap: var(--space-compact);
   /* 最大允许高度：金线长度仍由英文控制 */
-  --entry-heading-rail-height: var(--space-wide);
+  --entry-heading-rail-height: 96px;
   --entry-heading-scroll-top: 112px;
   position: relative;
   z-index: var(--z-main);

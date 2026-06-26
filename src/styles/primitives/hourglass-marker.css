@@ -1,4 +1,5 @@
 /* Primitive marker: animated hourglass symbol. */
+/* 沙漏装饰 */
 .hourglass-marker {
   --hourglass-color: var(--gold-main);
   position: absolute;

@@ -3,7 +3,7 @@
   position: absolute;
   inset: 78px 0 0;
   width: 100%;
-  z-index: 6;
+  z-index: var(--z-base);
   contain: paint;
   pointer-events: none;
   overflow: hidden;

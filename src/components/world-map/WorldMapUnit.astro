@@ -1,0 +1,157 @@
+---
+import "../../styles/world-map/unit.css";
+
+const { mapConfig } = Astro.props;
+const { width, height } = mapConfig.size;
+const WORLD_MAP_LABEL_LEVELS = new Set(["state", "country"]);
+
+function positionStyle(pointOrX, y) {
+  const point = typeof pointOrX === "object"
+    ? pointOrX
+    : { x: pointOrX, y };
+  const mobileX = point.mobileX ?? point.x;
+  const mobileY = point.mobileY ?? point.y;
+
+  return [
+    `--map-x: ${(point.x / width) * 100}%`,
+    `--map-y: ${(point.y / height) * 100}%`,
+    `--map-mobile-x: ${(mobileX / width) * 100}%`,
+    `--map-mobile-y: ${(mobileY / height) * 100}%`,
+  ].join("; ");
+}
+
+function cityMarkerStyle(city) {
+  return positionStyle({ x: city.markerX, y: city.markerY });
+}
+
+function cityLabelStyle(city) {
+  const desktopOffsetX = (city.x ?? city.markerX) - city.markerX;
+  const desktopOffsetY = (city.y ?? city.markerY) - city.markerY;
+  const mobileBaseOffsetX = Math.round(desktopOffsetX * 0.5);
+  const mobileBaseOffsetY = Math.round(desktopOffsetY * 0.5);
+  const mobileOffsetX = mobileBaseOffsetX + (city.mobileLabelOffsetX ?? 0);
+  const mobileOffsetY = mobileBaseOffsetY + (city.mobileLabelOffsetY ?? 0);
+
+  return [
+    `--map-x: ${(city.markerX / width) * 100}%`,
+    `--map-y: ${(city.markerY / height) * 100}%`,
+    `--map-label-offset-x: ${(desktopOffsetX / width) * 100}%`,
+    `--map-label-offset-y: ${(desktopOffsetY / height) * 100}%`,
+    `--map-mobile-label-offset-x: ${mobileOffsetX}px`,
+    `--map-mobile-label-offset-y: ${mobileOffsetY}px`,
+  ].join("; ");
+}
+
+function labelLevelClass(label) {
+  const level = WORLD_MAP_LABEL_LEVELS.has(label.level) ? label.level : "state";
+  return `world-map-label is-${level}`;
+}
+
+function hasClickableCityLabel(city) {
+  return city.interactiveRegionKey && city.href;
+}
+---
+
+<div
+  class="world-map-map-viewport"
+  style={`--world-map-aspect: ${width} / ${height}; --world-map-aspect-ratio: ${width / height}; --world-map-inverse-aspect-ratio: ${height / width}; --map-mobile-rotated-size: ${(width / height) * 100}vw;`}
+>
+  <div class="world-map-rotation-frame">
+    <div class="world-map-panel">
+      <div class="world-map-stage">
+        <img class="world-map-image" src={mapConfig.image} alt={`${mapConfig.title}地图`} width={width} height={height} />
+        <div class="world-map-interaction-hint" aria-hidden="true">点击地图白色区域可查看势力范围</div>
+
+        <svg
+          class="world-map-regions"
+          viewBox={`0 0 ${width} ${height}`}
+          preserveAspectRatio="none"
+          aria-label={`${mapConfig.title}势力区域`}
+        >
+          <defs>
+            <filter id={`world-map-region-glow-${mapConfig.key}`} x="-8%" y="-8%" width="116%" height="116%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="var(--gold-light)" flood-opacity="0.72" />
+              <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="var(--gold-main)" flood-opacity="0.34" />
+            </filter>
+          </defs>
+
+          {mapConfig.regions.map((region) => (
+            region.href ? (
+              <a
+                class="world-map-region is-clickable"
+                href={region.href}
+                style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
+                aria-label={region.label}
+                data-region-key={region.key}
+                data-region-label={region.label}
+                data-region-label-en={region.labelEn}
+                data-region-icon={region.icon ?? "/icon/document.png"}
+                data-card-x={region.cardX}
+                data-card-y={region.cardY}
+              >
+                <title>{region.label}</title>
+                <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
+              </a>
+            ) : (
+              <g
+                class="world-map-region"
+                style={`--region-glow-filter: url(#world-map-region-glow-${mapConfig.key});`}
+                aria-label={region.label}
+                data-region-key={region.key}
+                data-region-label={region.label}
+                data-region-label-en={region.labelEn}
+                data-region-icon={region.icon ?? "/icon/document.png"}
+                data-card-x={region.cardX}
+                data-card-y={region.cardY}
+              >
+                <title>{region.label}</title>
+                <path class="world-map-region-shape" d={region.paths.join(" ")} fill-rule="evenodd" clip-rule="evenodd"></path>
+              </g>
+            )
+          ))}
+        </svg>
+
+        <div class="world-map-label-layer">
+          {mapConfig.labels.map((label) => (
+            <span class={labelLevelClass(label)} style={positionStyle(label)} aria-hidden="true">
+              {label.text}
+            </span>
+          ))}
+
+          {mapConfig.cities.map((city) => (
+            <>
+              <span class="world-map-city-marker" style={cityMarkerStyle(city)} aria-hidden="true"></span>
+              {hasClickableCityLabel(city) ? (
+                <a
+                  class="world-map-label is-city is-clickable"
+                  style={cityLabelStyle(city)}
+                  href={city.href}
+                  aria-label={`查看${city.text}`}
+                  data-region-key={city.interactiveRegionKey}
+                >
+                  {city.text}
+                </a>
+              ) : (
+                <span class="world-map-label is-city" style={cityLabelStyle(city)} aria-hidden="true">
+                  {city.text}
+                </span>
+              )}
+            </>
+          ))}
+        </div>
+
+        <div class="world-map-region-card" aria-hidden="true">
+          <img class="world-map-region-card-icon" src="/icon/document.png" alt="" />
+          <span class="world-map-region-card-copy">
+            <span class="world-map-region-card-label"></span>
+            <small class="world-map-region-card-label-en"></small>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import "../../scripts/worldMapUnit.js";
+</script>

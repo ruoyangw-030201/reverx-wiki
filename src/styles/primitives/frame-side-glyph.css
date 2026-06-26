@@ -1,3 +1,4 @@
+/* 文本框左侧的日字形装饰 */
 .frame-side-glyph {
   --frame-side-glyph-color: var(--russet-line);
   --frame-side-glyph-width: var(--space-wide);

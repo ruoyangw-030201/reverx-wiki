@@ -1,5 +1,6 @@
 @import "../primitives/frame-decor.css";
 
+/* 文本框页的“下一页”按钮 */
 .next-link-button {
   --next-link-button-paper:
     radial-gradient(circle at 50% 35%, var(--white-main) 0, var(--white-readable) 58%, var(--white-readable) 100%),

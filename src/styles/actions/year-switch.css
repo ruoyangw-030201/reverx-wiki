@@ -1,5 +1,6 @@
 @import "../primitives/frame-decor.css";
 
+/* 年代转换按钮 */
 .archive-entry-year-menu {
   position: relative;
   z-index: var(--z-popover);

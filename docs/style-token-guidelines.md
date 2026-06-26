@@ -15,6 +15,32 @@ Use global tokens directly when a value is part of the site-wide design language
 
 Do not recreate generic alias layers such as `--base-*`, `--color-*`, `--theme-*`, or `--font-en-condensed`.
 
+## Component Variable Defaults
+
+When extracting primitives, actions, or small reusable components, prefer fallback values at the property use site instead of defining every configurable variable on the component root.
+
+Prefer:
+
+```css
+.direction-arrow {
+  width: var(--direction-arrow-size, var(--icon-median-mobile));
+  background: var(--direction-arrow-color, currentColor);
+}
+```
+
+Avoid:
+
+```css
+.direction-arrow {
+  --direction-arrow-size: var(--icon-median-mobile);
+  --direction-arrow-color: currentColor;
+  width: var(--direction-arrow-size);
+  background: var(--direction-arrow-color);
+}
+```
+
+Root-level default variable declarations can block values inherited from a parent component, and same-element overrides can become dependent on CSS import order. Use root-level variable assignments only for real component states, variants, or presets, such as `.is-blue`, `.is-gold`, `.is-single`, direction classes, active states, or media-query-specific component behavior.
+
 Global tokens have two maturity levels:
 
 - **Foundation tokens** are approved for new pages and reusable components.

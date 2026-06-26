@@ -1,4 +1,5 @@
 /* Action: reusable disclosure menu toggle button. */
+/* 菜单三横杠按钮 */
 .menu-toggle-button {
   --menu-toggle-width: var(--icon-median);
   --menu-toggle-height: var(--icon-median);

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
-import ActiveDirectionAction from "../components/ActiveDirectionAction.astro";
+import ActiveArrowButton from "../components/actions/ActiveArrowButton.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import MasterIndexCluster from "../components/home/MasterIndexCluster.astro";
@@ -99,18 +99,27 @@ const masterIndexItems = topTabs
     data-home-ready-delay-ms={arrowDelay}
     style={`--home-overlay-delay: ${OVERLAY_START_DELAY}ms; --home-overlay-duration: ${OVERLAY_DURATION}ms; --home-headbar-delay: ${headbarDelay}ms; --arrow-delay: ${arrowDelay}ms; --home-skip-delay: ${PARAGRAPH_START_DELAY}ms;`}
   >
-    <ActiveDirectionAction
+    <ActiveArrowButton
       direction="down"
       label="SCROLL"
       animated
-      class="home-next-page-arrow home-intro-next-arrow"
+      class="home-next-page-arrow home-intro-next-arrow home-intro-next-arrow--desktop"
+      href="#home-master-index"
+      ariaLabel="Enter MASTER INDEX"
+    />
+
+    <ActiveArrowButton
+      direction="up"
+      label="SCROLL"
+      animated
+      class="home-next-page-arrow home-intro-next-arrow home-intro-next-arrow--mobile"
       href="#home-master-index"
       ariaLabel="Enter MASTER INDEX"
     />
 
     <main class="home-main" aria-label="Home">
       <section class="home-panel home-intro-panel" aria-label="ReverX home cover">
-        <ActiveDirectionAction
+        <ActiveArrowButton
           direction="right"
           label="SKIP INTRO"
           animated
@@ -515,7 +524,9 @@ const masterIndexItems = topTabs
         if (isHistoryRestore(event)) resetAfterHistoryRestore();
       });
 
-      page.querySelector(".home-intro-next-arrow")?.addEventListener("click", handleIntroArrowClick);
+      page.querySelectorAll(".home-intro-next-arrow").forEach((arrow) => {
+        arrow.addEventListener("click", handleIntroArrowClick);
+      });
       page.querySelector(".home-skip-intro-button")?.addEventListener("click", handleSkipIntroClick);
       page.querySelectorAll("[data-master-index-cluster]").forEach((cluster) => {
         cluster.addEventListener("click", handleClusterPreviewClick);

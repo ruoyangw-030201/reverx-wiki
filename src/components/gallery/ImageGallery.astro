@@ -1,6 +1,8 @@
 ---
-import DirectionArrow from "../primitives/DirectionArrow.astro";
-import "../../styles/gallery.css";
+import ImageGalleryArrowButton from "./ImageGalleryArrowButton.astro";
+import ImageGalleryControls from "./ImageGalleryControls.astro";
+import ImageGalleryStage from "./ImageGalleryStage.astro";
+import "../../styles/gallery/image-gallery.css";
 
 const {
   id,
@@ -15,258 +17,25 @@ const firstImage = galleryImages[0];
 ---
 
 {id && firstImage && (
-  <div
+  <dialog
     class="image-gallery"
     id={id}
-    role="dialog"
-    aria-modal="true"
     aria-label={label}
-    aria-hidden="true"
     data-image-gallery
     data-gallery-images={JSON.stringify(galleryImages)}
   >
-    <button class="image-gallery-backdrop" type="button" aria-label="关闭图片图集" data-gallery-close></button>
+    <button class="image-gallery-backdrop" type="button" aria-label="关闭图片图集" tabindex="-1" data-gallery-close></button>
 
-    <div class="image-gallery-stage">
-      <div class="image-gallery-image-wrap">
-        <img
-          class="image-gallery-image"
-          src={firstImage.src}
-          alt={firstImage.alt ?? ""}
-          draggable="false"
-          data-gallery-image
-        />
-      </div>
+    <div class="image-gallery-main">
+      <ImageGalleryControls caption={firstImage.caption} imageCount={galleryImages.length} />
+      <ImageGalleryStage image={firstImage} />
     </div>
 
-    <div class = "image-gallery-caption">
-      <span class="image-gallery-caption-text" data-gallery-caption hidden={!firstImage.caption}>
-        {firstImage.caption}
-      </span>
-    </div> 
-
-    <div class="image-gallery-toolbar">
-      <span class="image-gallery-counter" data-gallery-counter aria-live="polite">
-        1 / {galleryImages.length}
-      </span>
-      <button class="image-gallery-close" type="button" aria-label="关闭图片图集" data-gallery-close data-gallery-close-button>
-        <span aria-hidden="true">X</span>
-      </button>
-    </div>
-
-    <button class="image-gallery-arrow image-gallery-arrow-left" type="button" aria-label="上一张图片">
-      <DirectionArrow direction="left" class="image-gallery-arrow-symbol" />
-    </button>
-    <button class="image-gallery-arrow image-gallery-arrow-right" type="button" aria-label="下一张图片">
-      <DirectionArrow direction="right" class="image-gallery-arrow-symbol" />
-    </button>
+    <ImageGalleryArrowButton direction="left" />
+    <ImageGalleryArrowButton direction="right" />
 
     <script>
-      const galleryState = {
-        activeGallery: null,
-        activeTrigger: null,
-        scrollY: 0,
-        htmlScrollBehavior: "",
-      };
-
-      const parseGalleryImages = (gallery) => {
-        try {
-          const images = JSON.parse(gallery.dataset.galleryImages ?? "[]");
-          return Array.isArray(images) ? images.filter((image) => image?.src) : [];
-        } catch {
-          return [];
-        }
-      };
-
-      const updateGalleryImage = (gallery, index) => {
-        const images = parseGalleryImages(gallery);
-        if (images.length === 0) return;
-
-        const normalizedIndex = ((index % images.length) + images.length) % images.length;
-        gallery.dataset.galleryIndex = String(normalizedIndex);
-
-        const imageData = images[normalizedIndex];
-        const image = gallery.querySelector("[data-gallery-image]");
-        const caption = gallery.querySelector("[data-gallery-caption]");
-        const counter = gallery.querySelector("[data-gallery-counter]");
-
-        if (image instanceof HTMLImageElement) {
-          image.src = imageData.src;
-          image.alt = imageData.alt ?? "";
-          image.draggable = false;
-        }
-
-        if (caption) {
-          const captionText = imageData.caption ?? "";
-          caption.textContent = captionText;
-          caption.hidden = captionText.length === 0;
-        }
-
-        if (counter) {
-          counter.textContent = `${normalizedIndex + 1} / ${images.length}`;
-        }
-      };
-
-      const lockPageScroll = () => {
-        galleryState.scrollY =
-          window.scrollY
-          || window.pageYOffset
-          || document.documentElement.scrollTop
-          || document.body.scrollTop
-          || 0;
-        galleryState.htmlScrollBehavior = document.documentElement.style.scrollBehavior;
-        document.documentElement.style.scrollBehavior = "auto";
-        document.documentElement.classList.add("gallery-is-open");
-        document.body.classList.add("gallery-is-open");
-        document.body.style.position = "fixed";
-        document.body.style.left = "0";
-        document.body.style.right = "0";
-        document.body.style.top = `-${galleryState.scrollY}px`;
-        document.body.style.width = "100%";
-      };
-
-      const unlockPageScroll = () => {
-        const restoredScrollY = galleryState.scrollY;
-
-        document.documentElement.classList.remove("gallery-is-open");
-        document.body.classList.remove("gallery-is-open");
-        document.body.style.position = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.top = "";
-        document.body.style.width = "";
-
-        try {
-          window.scrollTo({
-            top: restoredScrollY,
-            left: 0,
-            behavior: "instant",
-          });
-        } catch {
-          window.scrollTo(0, restoredScrollY);
-        }
-
-        document.documentElement.scrollTop = restoredScrollY;
-        document.body.scrollTop = restoredScrollY;
-        document.documentElement.style.scrollBehavior = galleryState.htmlScrollBehavior;
-      };
-
-      const focusWithoutScroll = (element) => {
-        if (!element?.focus) return;
-
-        try {
-          element.focus({ preventScroll: true });
-        } catch {
-          element.focus();
-        }
-      };
-
-      const closeGallery = () => {
-        const gallery = galleryState.activeGallery;
-        if (!gallery) return;
-
-        gallery.removeAttribute("data-gallery-active");
-        gallery.setAttribute("aria-hidden", "true");
-        unlockPageScroll();
-
-        const trigger = galleryState.activeTrigger;
-        galleryState.activeGallery = null;
-        galleryState.activeTrigger = null;
-        focusWithoutScroll(trigger);
-      };
-
-      const openGallery = (gallery, trigger) => {
-        if (!gallery) return;
-
-        if (galleryState.activeGallery && galleryState.activeGallery !== gallery) {
-          closeGallery();
-        }
-
-        galleryState.activeGallery = gallery;
-        galleryState.activeTrigger = trigger;
-
-        updateGalleryImage(gallery, 0);
-        gallery.setAttribute("data-gallery-active", "true");
-        gallery.setAttribute("aria-hidden", "false");
-        lockPageScroll();
-        focusWithoutScroll(gallery.querySelector("[data-gallery-close-button]"));
-      };
-
-      const moveGallery = (step) => {
-        const gallery = galleryState.activeGallery;
-        if (!gallery) return;
-
-        const currentIndex = Number(gallery.dataset.galleryIndex) || 0;
-        updateGalleryImage(gallery, currentIndex + step);
-      };
-
-      const bindImageGalleries = () => {
-        document.querySelectorAll("[data-gallery-open]").forEach((trigger) => {
-          if (trigger.dataset.galleryTriggerBound === "true") return;
-          trigger.dataset.galleryTriggerBound = "true";
-
-          trigger.addEventListener("click", (event) => {
-            event.preventDefault();
-            const gallery = document.getElementById(trigger.dataset.galleryOpen);
-            openGallery(gallery, trigger);
-          });
-        });
-
-        document.querySelectorAll("[data-image-gallery]").forEach((gallery) => {
-          if (gallery.dataset.galleryBound === "true") return;
-          gallery.dataset.galleryBound = "true";
-
-          gallery.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-          });
-
-          gallery.addEventListener("dragstart", (event) => {
-            event.preventDefault();
-          });
-
-          gallery.querySelectorAll("[data-gallery-close]").forEach((button) => {
-            button.addEventListener("click", (event) => {
-              event.preventDefault();
-              closeGallery();
-            });
-          });
-
-          gallery.querySelector(".image-gallery-arrow-left")?.addEventListener("click", (event) => {
-            event.preventDefault();
-            moveGallery(-1);
-          });
-
-          gallery.querySelector(".image-gallery-arrow-right")?.addEventListener("click", (event) => {
-            event.preventDefault();
-            moveGallery(1);
-          });
-        });
-      };
-
-      if (!window.__imageGalleryKeyboardBound) {
-        window.__imageGalleryKeyboardBound = true;
-        document.addEventListener("keydown", (event) => {
-          if (!galleryState.activeGallery) return;
-
-          if (event.key === "Escape") {
-            event.preventDefault();
-            closeGallery();
-          }
-
-          if (event.key === "ArrowRight") {
-            event.preventDefault();
-            moveGallery(1);
-          }
-
-          if (event.key === "ArrowLeft") {
-            event.preventDefault();
-            moveGallery(-1);
-          }
-        });
-      }
-
-      bindImageGalleries();
-      document.addEventListener("astro:page-load", bindImageGalleries);
+      import "../../scripts/image-gallery.js";
     </script>
-  </div>
+  </dialog>
 )}

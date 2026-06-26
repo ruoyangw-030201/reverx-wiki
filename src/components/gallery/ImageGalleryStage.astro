@@ -1,0 +1,17 @@
+---
+import "../../styles/gallery/image-gallery-stage.css";
+
+const {
+  image,
+} = Astro.props;
+---
+
+<div class="image-gallery-stage">
+  <img
+    class="image-gallery-image"
+    src={image.src}
+    alt={image.alt ?? ""}
+    draggable="false"
+    data-gallery-image
+  />
+</div>

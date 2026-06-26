@@ -1,0 +1,118 @@
+/* gallery主css */
+html.gallery-is-open,
+body.gallery-is-open {
+  overscroll-behavior: none;
+}
+
+body.gallery-is-open {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-gallery {
+  /* gallery内容的x padding 12px */
+  --gallery-edge-x: var(--space-small);
+  /* gallery内容的y padding 16px */
+  --gallery-edge-y: var(--space-compact);
+  /* gallery控制栏高度42px */
+  --gallery-control-height: var(--space-shell);
+  /* 桌面端箭头额外内缩42px */
+  --gallery-arrow-edge: var(--space-shell);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: block;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--blue-light);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-fast) var(--ease-standard),
+    visibility var(--duration-fast) var(--ease-standard);
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.image-gallery:not([open]) {
+  display: none;
+}
+
+.image-gallery::backdrop {
+  background: transparent;
+}
+
+.image-gallery[open] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.image-gallery-backdrop {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-base);
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--ink-strong);
+  cursor: zoom-out;
+}
+
+/* 控制栏+图片舞台的grid */
+.image-gallery-main {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  grid-template-rows: var(--gallery-control-height) minmax(0, 1fr);
+  /* 控制栏和图片舞台之间不再有额外gap，间隔由舞台自己的padding控制 */
+  row-gap: 0;
+  width: 100%;
+  height: 100dvh;
+  min-width: 0;
+  min-height: 0;
+  /* padding参数 */
+  padding: var(--gallery-edge-y) var(--gallery-edge-x);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.image-gallery-arrow-left {
+  left: var(--gallery-arrow-edge);
+}
+
+.image-gallery-arrow-right {
+  right: var(--gallery-arrow-edge);
+}
+
+@media (max-width: 980px) {
+  .image-gallery {
+    /* gallery内容的x padding 8px */
+    --gallery-edge-x: var(--space-tight);
+    /* y padding 12px */
+    --gallery-edge-y: var(--space-small);
+    /* 桌面端箭头额外内缩12px */
+    --gallery-arrow-edge: var(--space-small);
+  }
+}
+
+@media (max-width: 620px) {
+  .image-gallery {
+    /* gallery控制栏高度32px */
+    --gallery-control-height: var(--space-section);
+  }
+}

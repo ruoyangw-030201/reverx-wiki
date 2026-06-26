@@ -1,0 +1,183 @@
+/* map页的layout。 */
+.world-map-page {
+  --world-map-scroll-marker-ready-delay: 1500ms;
+  height: 200svh;
+  min-height: 100svh;
+}
+
+html:has(.world-map-page) {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 0;
+}
+
+.world-map-page > .chrome-headbar {
+  scroll-snap-align: start;
+}
+
+/* 调整map页main的高度，保证+headbar=一整页 */
+.world-map-page .chrome-layout-main {
+  box-sizing: border-box;
+  height: calc(100svh - var(--chrome-headbar-height));
+  min-height: 0;
+  overflow: hidden;
+}
+
+.world-map-page .chrome-stage {
+  height: 100%;
+  min-height: 0;
+}
+
+/* ========== 下滑标 =========== */
+.world-map-intro-marker-layer {
+  position: absolute;
+  inset: var(--chrome-headbar-height) 0 auto;
+  z-index: var(--z-floating);
+  height: calc(100svh - var(--chrome-headbar-height));
+  pointer-events: none;
+}
+
+.world-map-scroll-marker {
+  --active-arrow-button-label-width: max-content;
+  --active-arrow-button-label-font: var(--font-sans);
+  --active-arrow-button-label-size: var(--text-body);
+  --active-arrow-button-label-weight: 700;
+  --active-arrow-button-label-letter-spacing: 0;
+
+  position: absolute;
+  left: 50%;
+  /* 距离第一页底部42px */
+  bottom: var(--space-shell);
+  opacity: 0;
+  transform: translateX(-50%);
+  animation: world-map-scroll-marker-in 360ms ease forwards;
+  animation-delay: var(--world-map-scroll-marker-ready-delay, 1500ms);
+}
+
+.world-map-scroll-marker.world-map-scroll-marker--mobile {
+  display: none;
+}
+
+@keyframes world-map-scroll-marker-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== map的第二页，装进after-stage ========== */
+.world-map-cover {
+  --world-map-endbar-height: var(--chrome-endbar-height);
+  position: relative;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) var(--world-map-endbar-height);
+  min-width: 0;
+  height: 100svh;
+  min-height: 0;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* 给地图unit本身的容器位置 */
+.world-map-cover-unit-slot {
+  box-sizing: border-box;
+  display: grid;
+  place-items: stretch;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  /* 上下留12px，左右留16px间距 */
+  padding: var(--space-small) var(--space-compact);
+}
+
+.world-map-cover > .chrome-endbar {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--world-map-endbar-height);
+  min-height: 0;
+  margin-top: 0;
+}
+
+@media (max-width: 980px) {
+  html:has(.world-map-page) {
+    scroll-snap-type: none;
+  }
+
+  .world-map-page {
+    height: auto;
+    min-height: 100svh;
+    overflow-y: clip;
+  }
+
+  .world-map-page .chrome-layout-main {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    /* 遵循chrome layout的padding，但是不需要底部end of page padding */
+    padding: var(--space-medium) var(--space-medium) 0;
+  }
+
+  .world-map-page .chrome-stage {
+    height: auto;
+  }
+
+  /* 下滑标进入正常文档流 */
+  .world-map-intro-marker-layer {
+    position: relative;
+    inset: auto;
+    display: flex;
+    justify-content: center;
+    height: auto;
+    /* 距离上一个section结束的顶部间距42px */
+    margin: var(--space-shell) 0 0;
+  }
+
+  .world-map-scroll-marker {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: 0;
+    opacity: 0;
+    transform: none;
+    animation-delay: 0ms;
+  }
+
+  .world-map-scroll-marker.world-map-scroll-marker--desktop {
+    display: none;
+  }
+
+  .world-map-scroll-marker.world-map-scroll-marker--mobile {
+    display: inline-grid;
+  }
+
+  .world-map-cover {
+    --world-map-endbar-height: var(--chrome-endbar-height);
+    display: block;
+    height: auto;
+    overflow: visible;
+    scroll-snap-align: none;
+  }
+
+  .world-map-cover-unit-slot {
+    display: block;
+    height: auto;
+    overflow: visible;
+    /* 手机端文档流中距离箭头18px */
+    padding: var(--space-medium) 0;
+  }
+
+  .world-map-cover > .chrome-endbar {
+    height: auto;
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-map-scroll-marker {
+    opacity: 1;
+  }
+}

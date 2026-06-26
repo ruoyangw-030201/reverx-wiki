@@ -1,0 +1,11 @@
+/* map第一页的部分。文本框部分内容已有格式，此处无需赘述。非常简洁。 */
+.world-map-intro-panel {
+  position: relative;
+  min-height: 100%;
+}
+
+@media (max-width: 980px) {
+  .world-map-intro-panel {
+    min-height: 0;
+  }
+}

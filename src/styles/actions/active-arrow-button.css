@@ -1,0 +1,122 @@
+/* Action: label plus direction arrow. Placement belongs to each page. */
+/* 箭头带字，可以带动画 */
+.active-arrow-button {
+  --direction-arrow-color: currentColor;
+  display: inline-grid;
+  color: var(--blue-main);
+  pointer-events: none;
+  user-select: none;
+}
+
+a.active-arrow-button,
+button.active-arrow-button {
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button.active-arrow-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+}
+
+/* 带字和箭头 */
+.active-arrow-button__content {
+  display: grid;
+  grid-template-areas: var(--active-arrow-button-grid-areas, "label" "icon");
+  grid-auto-flow: var(--active-arrow-button-grid-flow, row);
+  align-items: center;
+  justify-items: center;
+  /* 字和箭头的间隔，默认8px */
+  gap: var(--active-arrow-button-gap, var(--space-tight));
+}
+
+/* 上下左右四种排列方式 */
+.active-arrow-button.is-down {
+  --active-arrow-button-grid-areas: "label" "icon";
+  --active-arrow-button-grid-flow: row;
+  --active-arrow-button-shift-x: 0px;
+  --active-arrow-button-shift-y: 12px;
+}
+
+.active-arrow-button.is-right {
+  --active-arrow-button-grid-areas: "label icon";
+  --active-arrow-button-grid-flow: column;
+  --active-arrow-button-shift-x: 12px;
+  --active-arrow-button-shift-y: 0px;
+}
+
+.active-arrow-button.is-left {
+  --active-arrow-button-grid-areas: "icon label";
+  --active-arrow-button-grid-flow: column;
+  --active-arrow-button-shift-x: -12px;
+  --active-arrow-button-shift-y: 0px;
+}
+
+.active-arrow-button.is-up {
+  --active-arrow-button-grid-areas: "icon" "label";
+  --active-arrow-button-grid-flow: row;
+  --active-arrow-button-shift-x: 0px;
+  --active-arrow-button-shift-y: -12px;
+}
+
+.active-arrow-button.is-animated .active-arrow-button__content {
+  animation: active-arrow-button-pulse var(--duration-arrow-loop) cubic-bezier(0.35, 0, 0.2, 1) infinite;
+}
+
+/* 文字属性 */
+.active-arrow-button__label {
+  grid-area: label;
+  display: block;
+  /* 默认宽auto */
+  width: var(--active-arrow-button-label-width, auto);
+  overflow-wrap: anywhere;
+  color: currentColor;
+  /* 可设置字体或默认英文latin */
+  font-family: var(--active-arrow-button-label-font, var(--font-latin));
+  /* 可设置字号或默认xs */
+  font-size: var(--active-arrow-button-label-size, var(--text-xs));
+  /* 可设置粗细或默认900 */
+  font-weight: var(--active-arrow-button-label-weight, 900);
+  /* 可设置字间距或默认0.24 */
+  letter-spacing: var(--active-arrow-button-label-letter-spacing, 0.24em);
+  line-height: var(--basic-line-height);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.active-arrow-button__icon {
+  grid-area: icon;
+}
+
+@keyframes active-arrow-button-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  55% {
+    opacity: 1;
+    translate: var(--active-arrow-button-shift-x) var(--active-arrow-button-shift-y);
+  }
+
+  75% {
+    opacity: 0;
+    translate: var(--active-arrow-button-shift-x) var(--active-arrow-button-shift-y);
+  }
+
+  76% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-arrow-button.is-animated .active-arrow-button__content {
+    animation: none;
+  }
+}

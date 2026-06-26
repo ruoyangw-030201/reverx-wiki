@@ -54,6 +54,19 @@ Current reusable actions/primitives include:
 
 Action components own interaction and internal visual states. Host components own placement.
 
+## Stable Gallery Modal
+
+The gallery layer is now split into a stable modal component boundary:
+
+- `ImageGallery.astro` is the public gallery entry. It filters gallery image data, renders the native `<dialog>`, and imports only the modal shell CSS.
+- `ImageGalleryControls.astro` owns the top control row: caption, counter, and close button. It uses a three-column grid and keeps desktop caption text centered to the viewport while mobile text returns to the caption box.
+- `ImageGalleryStage.astro` owns the image stage and directly centers the active image without an extra wrapper element.
+- `ImageGalleryArrowButton.astro` owns the gallery-specific previous/next buttons while continuing to reuse the `DirectionArrow` primitive.
+- `src/scripts/image-gallery.js` owns gallery behavior: opening with `showModal()`, closing through native dialog `cancel`/`close`, image updates, keyboard left/right navigation, scroll locking, and focus return to the trigger.
+- Each gallery component imports its own CSS file under `src/styles/gallery/`; the old aggregate `src/styles/gallery.css` has been removed.
+
+`ImageGallery` is currently mounted through the archive shell `after-stage` slot, but its internal modal, controls, stage, arrows, styles, and behavior are gallery-owned.
+
 ## Archive State
 
 Archive shell and content frame are now separated:

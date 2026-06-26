@@ -9,10 +9,12 @@ This note records the current archive content-frame boundary after the default/c
 - `ChromeLayout`
 - `ScrollDecor`
 - archive page classes and page mode
-- character `ImageGallery` after-stage rendering
+- character `ImageGallery` after-stage mounting
 - default slot passthrough
 
 It can optionally expose the legacy `.archive-content-area` wrapper for special pages that do not use `ContentFrame`.
+
+`ImageGallery` itself is now a self-contained modal component. Archive shell only decides whether to mount it from archive context; gallery layout, controls, native dialog behavior, image switching, arrow controls, and component-local CSS live under `src/components/gallery`, `src/styles/gallery`, and `src/scripts/image-gallery.js`.
 
 `ArchiveDefaultLayout.astro` is the standard archive text-entry layout. Here "default" means any archive page whose main content is one or more standard content-frame sections. It composes:
 
@@ -101,6 +103,7 @@ The content collection migration is complete for ordinary world, system, and cha
 ## Decisions To Preserve
 
 - Archive entry data is resolved through `getArchiveEntryContext()`, but route/content templates should own that resolution.
+- Archive shell may mount character gallery data, but must not own gallery internal layout or behavior.
 - Headings belong inside `PrimarySection` / `SecondarySection`, not outside `ContentFrame`.
 - `ArchiveShellLayout` is the archive shell.
 - `ArchiveDefaultLayout` is the standard archive text-entry layout: shell plus one `ContentFrame`.

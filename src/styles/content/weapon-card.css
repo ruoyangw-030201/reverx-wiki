@@ -21,15 +21,18 @@
 /* 后面的武器图片 */
 .weapon-card-artwork {
   position: absolute;
+  /* 定位至右下角 */
   right: 0;
   bottom: 0;
   z-index: var(--z-base);
+  /* 宽度缩小 */
   width: 90%;
   max-width: none;
   max-height: none;
   pointer-events: none;
   transform-origin: right center;
-  transform: translateX(-12px) rotate(10deg);
+  /* 角度调整 */
+  transform: rotate(10deg);
 }
 
 /* 上半主grid，包含banner、右边content两列 */
@@ -171,6 +174,7 @@
     font-size: var(--text-body-sm);
   }
 
+  /* 移动窄屏类pad按照高度处理 */
   .weapon-card-artwork {
     height: 100%;
     width: auto;
@@ -222,6 +226,7 @@
 }
 
 @media (max-width: 620px) {
+  /* 手机端定位右上，让图片位于标题后 */
   .weapon-card-artwork {
     width: 100%;
     height: auto;

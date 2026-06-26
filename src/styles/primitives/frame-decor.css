@@ -1,20 +1,17 @@
 /* Primitive: double-line frame decoration. */
+/* 单/双金/蓝框 */
 .frame-decor {
-  --frame-decor-border: var(--gold-border);
-  --frame-decor-outer-border: var(--gold-line);
-  --frame-decor-offset: -7px 8px 7px -8px;
-  --frame-decor-outer-display: block;
   position: relative;
-  border: 1px solid var(--frame-decor-border);
+  border: 1px solid var(--frame-decor-border, var(--gold-border));
   transition: border-color var(--duration-base) var(--ease-standard);
 }
 
 .frame-decor::before {
   content: "";
   position: absolute;
-  display: var(--frame-decor-outer-display);
-  inset: var(--frame-decor-offset);
-  border: 1px solid var(--frame-decor-outer-border);
+  display: var(--frame-decor-outer-display, block);
+  inset: var(--frame-decor-offset, -7px 8px 7px -8px);
+  border: 1px solid var(--frame-decor-outer-border, var(--gold-line));
   pointer-events: none;
   transition: border-color var(--duration-base) var(--ease-standard);
 }

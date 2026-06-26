@@ -1,4 +1,5 @@
 /* Primitive symbol: chevron indicating a closed or open disclosure. */
+/* 展开/收起箭头 */
 .disclosure-chevron {
   --disclosure-chevron-size: 9px;
   --disclosure-chevron-stroke: 2px;

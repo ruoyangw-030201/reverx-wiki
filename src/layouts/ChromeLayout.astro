@@ -14,6 +14,7 @@ const {
   heroVariant,
   showHero = true,
   showSidebar = true,
+  showEndbar = true,
   sidebarCollapseInactiveGroups = false,
   sidebarIdPrefix = "chrome-sidebar-group",
   mobileSidebarIdPrefix = "chrome-sidebar-mobile",
@@ -62,6 +63,8 @@ const pageClassList = Array.isArray(pageClass)
 
     <slot name="after-stage" />
 
-    <ChromeEndbar />
+    {showEndbar && <ChromeEndbar />}
+
+    <slot name="overlay" />
   </div>
 </BaseLayout>

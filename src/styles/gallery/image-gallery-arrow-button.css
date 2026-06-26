@@ -1,0 +1,39 @@
+.image-gallery-arrow {
+  --direction-arrow-color: var(--blue-light);
+
+  appearance: none;
+  position: absolute;
+  top: 50%;
+  z-index: var(--z-content);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue-light);
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    filter var(--duration-base) var(--ease-standard);
+}
+
+.image-gallery-arrow:hover,
+.image-gallery-arrow:focus-visible {
+  --direction-arrow-color: var(--gold-light);
+
+  color: var(--gold-light);
+  filter: drop-shadow(0 0 12px var(--gold-line));
+}
+
+.image-gallery-arrow:focus-visible {
+  outline: 1px solid var(--gold-light);
+  outline-offset: 8px;
+}
+
+@media (max-width: 620px) {
+  .image-gallery-arrow {
+    --direction-arrow-size: 24px;
+  }
+}

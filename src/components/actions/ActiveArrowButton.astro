@@ -1,0 +1,34 @@
+---
+import DirectionArrow from "../primitives/DirectionArrow.astro";
+import "../../styles/actions/active-arrow-button.css";
+
+const {
+  direction = "right",
+  label,
+  class: className = "",
+  href,
+  ariaLabel,
+  button = false,
+  animated = false,
+} = Astro.props;
+
+const Tag = button ? "button" : href ? "a" : "span";
+const tagProps = button
+  ? { type: "button", "aria-label": ariaLabel ?? label }
+  : href
+    ? { href, "aria-label": ariaLabel ?? label }
+    : { "aria-hidden": "true" };
+const actionClass = [
+  "active-arrow-button",
+  `is-${direction}`,
+  animated && "is-animated",
+  className,
+].filter(Boolean).join(" ");
+---
+
+<Tag class={actionClass} {...tagProps}>
+  <span class="active-arrow-button__content">
+    {label && <span class="active-arrow-button__label">{label}</span>}
+    <DirectionArrow direction={direction} class="active-arrow-button__icon" />
+  </span>
+</Tag>

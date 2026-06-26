@@ -1,0 +1,29 @@
+---
+import ContentFrame from "../content-frame/ContentFrame.astro";
+import PrimarySection from "../content-frame/PrimarySection.astro";
+import "../../styles/world-map/intro-panel.css";
+
+const {
+  mapConfig,
+  nextPageLink,
+} = Astro.props;
+
+---
+
+<section class="world-map-intro-panel" aria-labelledby="world-map-title">
+  <ContentFrame
+    showLeftDecor={false}
+    showRightDecor={false}
+    nextPageLink={nextPageLink}
+  >
+    <PrimarySection
+      id="world-map-title"
+      kicker="WORLD MAP"
+      title={mapConfig.title}
+      subtitle={mapConfig.subtitle}
+      showIconFrame={false}
+    >
+      <slot />
+    </PrimarySection>
+  </ContentFrame>
+</section>

@@ -1,5 +1,6 @@
 @import "../primitives/frame-decor.css";
 
+/* 双语tab */
 .bilingual-tab {
   /* 中文主题字颜色 */
   --bilingual-tab-color: var(--blue-light);

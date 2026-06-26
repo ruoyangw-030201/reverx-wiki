@@ -1,4 +1,5 @@
 /* Action: reusable button for expanding and collapsing a related panel. */
+/* 压缩展开按钮 */
 .disclosure-toggle-button {
   --disclosure-toggle-size: var(--icon-median-mobile);
   --disclosure-toggle-mark-size: 12px;

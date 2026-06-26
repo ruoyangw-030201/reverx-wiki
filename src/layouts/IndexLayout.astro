@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
-import ActiveDirectionAction from "../components/ActiveDirectionAction.astro";
+import ActiveArrowButton from "../components/actions/ActiveArrowButton.astro";
 import NextPageTrigger from "../components/NextPageTrigger.astro";
 import EntryHeading from "../components/primitives/EntryHeading.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
@@ -52,7 +52,7 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
 
     {
       indexScrollNextPage && (
-        <ActiveDirectionAction
+        <ActiveArrowButton
           direction="down"
           label="SCROLL"
           animated
@@ -65,7 +65,7 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
 
     {
       nextIndexTab && (
-        <ActiveDirectionAction
+        <ActiveArrowButton
           direction="right"
           animated
           class="index-animate-marker index-tab-arrow index-tab-arrow--next"

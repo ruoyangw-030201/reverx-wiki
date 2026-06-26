@@ -1,0 +1,135 @@
+/* gallery顶部控制区条。不设高度，高度由主css设定 */
+.image-gallery-controls {
+  /* 每个蓝色方框的间距：8px */
+  --gallery-control-gap: var(--space-tight);
+  /* counter的长度：64px */
+  --gallery-counter-width: var(--space-broad);
+  position: relative;
+  z-index: var(--z-decor);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(var(--gallery-counter-width), auto) var(--gallery-control-height);
+  align-items: stretch;
+  /* 设置间距 */
+  gap: var(--gallery-control-gap);
+  min-width: 0;
+  pointer-events: none;
+}
+
+/* 蓝色方框 */
+.image-gallery-caption,
+.image-gallery-counter,
+.image-gallery-close {
+  height: var(--gallery-control-height);
+  box-sizing: border-box;
+  background: var(--black-panel);
+  border: 1px solid var(--blue-main);
+  color: var(--blue-light);
+}
+
+/* cpation文字 */
+.image-gallery-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  /* padding上下4px，左右8px */
+  padding: var(--space-micro) var(--space-tight);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.image-gallery-caption[hidden] {
+  display: none;
+}
+
+/* 桌面端文字居中 */
+.image-gallery-caption-text {
+  position: fixed;
+  left: 50%;
+  top: calc(var(--gallery-edge-y) + var(--gallery-control-height) / 2);
+  transform: translate(-50%, -50%);
+
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image-gallery-caption-text[hidden] {
+  display: none;
+}
+
+/* 图片计数 */
+.image-gallery-counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--gallery-counter-width);
+  /* padding上下0px，左右8px */
+  padding: 0 var(--space-tight);
+  font-family: var(--font-latin);
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+/* “X”掉按钮 */
+.image-gallery-close {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 正方形方块 */
+  width: var(--gallery-control-height);
+  padding: 0;
+  font-family: var(--font-latin);
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: var(--basic-line-height);
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.image-gallery-close:hover,
+.image-gallery-close:focus-visible {
+  border-color: var(--gold-strong);
+  color: var(--gold-light);
+  box-shadow: 0 0 18px var(--gold-line);
+  outline: none;
+}
+
+/* 移动端文字恢复居方框中 */
+@media (max-width: 980px) {
+  .image-gallery-caption-text {
+    position: static;
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .image-gallery-controls {
+    /* counter的长度：48px */
+    --gallery-counter-width: var(--space-outset);
+  }
+
+  .image-gallery-counter {
+    font-size: var(--text-label);
+  }
+
+  .image-gallery-close {
+    font-size: var(--text-lead);
+  }
+}

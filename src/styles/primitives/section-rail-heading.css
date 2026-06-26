@@ -1,4 +1,4 @@
-/* Title block: 不定义高度，高度由引用它的父级定义。 */
+/* Title block: 蓝色方块带横线标题。不定义高度，高度由引用它的父级定义。 */
 .section-rail-heading {
   position: relative;
   min-width: 0;

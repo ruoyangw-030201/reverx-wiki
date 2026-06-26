@@ -1,0 +1,31 @@
+---
+import "../../styles/gallery/image-gallery-controls.css";
+
+const {
+  caption = "",
+  imageCount = 0,
+} = Astro.props;
+---
+
+<div class="image-gallery-controls">
+  <div class="image-gallery-caption" hidden={!caption}>
+    <span class="image-gallery-caption-text" data-gallery-caption>
+      {caption}
+    </span>
+  </div>
+
+  <span class="image-gallery-counter" data-gallery-counter aria-live="polite">
+    1 / {imageCount}
+  </span>
+
+  <button
+    class="image-gallery-close"
+    type="button"
+    aria-label="关闭图片图集"
+    autofocus
+    data-gallery-close
+    data-gallery-close-button
+  >
+    <span aria-hidden="true">X</span>
+  </button>
+</div>

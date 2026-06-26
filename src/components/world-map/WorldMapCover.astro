@@ -1,0 +1,14 @@
+---
+import ChromeEndbar from "../chrome/ChromeEndbar.astro";
+import WorldMapUnit from "./WorldMapUnit.astro";
+
+const { mapConfig } = Astro.props;
+---
+
+<section id="world-map-cover" class="world-map-cover" aria-label={`${mapConfig.title}地图`}>
+  <div class="world-map-cover-unit-slot">
+    <WorldMapUnit mapConfig={mapConfig} />
+  </div>
+
+  <ChromeEndbar />
+</section>

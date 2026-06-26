@@ -1,13 +1,12 @@
 /* Primitive: static SVG direction arrow. */
+/* 双号箭头静态装饰 */
 .direction-arrow {
-  --direction-arrow-color: currentColor;
-  --direction-arrow-size: var(--icon-median-mobile);
   --direction-arrow-symbol: url("/symbol/Right-arrow.svg");
 
   display: block;
-  width: var(--direction-arrow-size);
-  height: var(--direction-arrow-size);
-  background: var(--direction-arrow-color);
+  width: var(--direction-arrow-size, var(--icon-median-mobile));
+  height: var(--direction-arrow-size, var(--icon-median-mobile));
+  background: var(--direction-arrow-color, currentColor);
   mask: var(--direction-arrow-symbol) center / contain no-repeat;
   -webkit-mask: var(--direction-arrow-symbol) center / contain no-repeat;
 }
