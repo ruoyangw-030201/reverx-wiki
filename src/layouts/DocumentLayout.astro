@@ -1,0 +1,72 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import BackgroundLayer from "../components/background/BackgroundLayer.astro";
+import BackgroundSurface from "../components/background/BackgroundSurface.astro";
+import EntryHeading from "../components/primitives/EntryHeading.astro";
+import NextLinkButton from "../components/actions/NextLinkButton.astro";
+import "../styles/document/document-layout.css";
+import "../styles/document/document-prose.css";
+
+const {
+  document: documentProp,
+  surfaceTone = "white",
+  fallbackReturnHref = "/",
+} = Astro.props;
+
+const document = documentProp ?? {};
+const {
+  description,
+  kicker,
+  title,
+  subtitle,
+  returnLabel = "回到页面",
+} = document;
+---
+
+<BaseLayout description={description}>
+  <div class="document-page">
+    <BackgroundSurface tone={surfaceTone} />
+
+    <BackgroundLayer />
+
+    <main class="document-shell">
+      <EntryHeading
+        kicker={kicker}
+        title={title}
+        subtitle={subtitle}
+      />
+
+      <article class="document-content" aria-label={`${title}正文`}>
+        <slot />
+      </article>
+
+      <NextLinkButton
+        href={fallbackReturnHref}
+        action=""
+        label={returnLabel}
+        class="document-return-link"
+        data-document-return-link
+      />
+    </main>
+
+    <script is:inline>
+      (() => {
+        const link = document.querySelector("[data-document-return-link]");
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        const from = new URLSearchParams(window.location.search).get("from");
+        if (!from || !from.startsWith("/") || from.startsWith("//")) return;
+
+        try {
+          const target = new URL(from, window.location.origin);
+          if (target.origin !== window.location.origin) return;
+
+          const href = `${target.pathname}${target.search}${target.hash}` || "/";
+          link.href = href;
+        } catch {
+          link.href = "/";
+        }
+      })();
+    </script>
+  </div>
+</BaseLayout>

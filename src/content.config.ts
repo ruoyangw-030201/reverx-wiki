@@ -56,4 +56,19 @@ const worldMap = defineCollection({
   }),
 });
 
-export const collections = { archive, indexPage, worldMap };
+const document = defineCollection({
+  loader: glob({
+    base: "./src/content/document",
+    pattern: "*.md",
+  }),
+  schema: z.object({
+    slug: z.string().optional(),
+    title: z.string(),
+    subtitle: z.string().optional(),
+    kicker: z.string().optional(),
+    description: z.string().optional(),
+    returnLabel: z.string().default("回到页面"),
+  }),
+});
+
+export const collections = { archive, indexPage, worldMap, document };

@@ -2,6 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-base);
+  opacity: var(--background-layer-opacity, 1);
   pointer-events: none;
   overflow: hidden;
   background: var(--background-surface, var(--white-main));

@@ -37,6 +37,7 @@ src/components/content/       Reusable content pieces such as cards, notes, hidd
 src/components/characters/    Character profile composition
 src/components/primitives/    Small visual primitives
 src/content/archive/          Content collection entries for world, system, and characters
+src/content/document/         Markdown entries for standalone document/legal pages
 src/data/                     Navigation, maps, copy, galleries, and data transforms
 src/styles/                   Layered component CSS
 public/                       Static images, icons, symbols, and weapon art
@@ -72,6 +73,10 @@ src/pages/system/intensity.astro
 src/pages/world/ferdona/index.astro
 src/pages/world/hespera/index.astro
 ```
+
+## Document Pages
+
+Standalone document pages use `src/layouts/DocumentLayout.astro`, Markdown entries in `src/content/document/`, and document routes such as `src/pages/document/[slug].astro`. This keeps legal/document prose out of Astro page templates and avoids depending on archive layout CSS.
 
 ## Content Components
 

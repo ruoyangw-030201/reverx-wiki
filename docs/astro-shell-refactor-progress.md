@@ -102,6 +102,16 @@ Index pages have completed the current cleanup pass and can be treated as a stab
 - Data helpers for content entries live under `src/data/content/entries.js`.
 - Index decor, grid, layout, and section CSS are split under `src/styles/index/`.
 
+## Document State
+
+Standalone legal/document pages now use a small document layer instead of archive compatibility CSS:
+
+- `DocumentLayout.astro` owns the plain document shell, background, heading, Markdown body slot, and return-link behavior.
+- `src/styles/document/` owns document layout and prose rules.
+- `src/content/document/` stores document copy as Markdown entries.
+- `src/pages/document/[slug].astro` renders document entries such as `/document/copyright/`.
+- Document pages must not import `src/styles/archive/layout.css` or use `.archive-page`.
+
 ## Stable Content Layer
 
 The reusable archive content layer is complete enough to treat as stable:
