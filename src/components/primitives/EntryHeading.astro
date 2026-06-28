@@ -12,7 +12,6 @@ const {
 
 const HeadingTag = titleTag ?? (variant === "secondary" ? "h2" : "h1");
 const isPrimary = variant === "primary" || variant === "secret";
-const hasControl = Astro.slots.has("control");
 ---
 
 <header id={id} class:list={["entry-heading", `is-${variant}`]}>
@@ -24,10 +23,5 @@ const hasControl = Astro.slots.has("control");
       </div>
       {subtitle && <p class="entry-heading-subtitle">{subtitle}</p>}
     </div>
-    {hasControl && (
-      <div class="entry-heading-control">
-        <slot name="control" />
-      </div>
-    )}
   </div>
 </header>

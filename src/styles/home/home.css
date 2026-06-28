@@ -65,26 +65,11 @@ body:has(.home-page) {
   z-index: var(--z-chrome);
   opacity: 0;
   visibility: visible;
-  pointer-events: auto;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color var(--duration-base) var(--ease-standard);
   animation: home-next-arrow-reveal 0.9s ease var(--arrow-delay, 8000ms) forwards;
 }
 
 .home-page .home-intro-next-arrow--mobile {
   display: none;
-}
-
-.home-page .home-next-page-arrow:hover,
-.home-page .home-next-page-arrow:focus-visible,
-.home-page .home-next-page-arrow:active {
-  color: var(--gold-main);
-}
-
-.home-page .home-next-page-arrow:focus-visible {
-  outline: 1px solid var(--gold-light);
-  outline-offset: 8px;
 }
 
 .home-page[data-home-panel="master"] .home-intro-next-arrow {
@@ -95,6 +80,7 @@ body:has(.home-page) {
 .home-skip-intro-button {
   --active-arrow-button-arrow-size: 34px;
   --active-arrow-button-color: var(--white-main);
+  --active-arrow-button-focus-offset: 7px;
   --active-arrow-button-gap: 7px;
   --active-arrow-button-label-letter-spacing: 0.16em;
   --active-arrow-button-label-white-space: nowrap;
@@ -104,22 +90,8 @@ body:has(.home-page) {
   z-index: 35;
   opacity: 0;
   visibility: hidden;
-  pointer-events: auto;
-  cursor: pointer;
   transform: none;
   animation: home-skip-intro-reveal 0.9s ease var(--home-skip-delay, 3000ms) forwards;
-  transition: color var(--duration-base) var(--ease-standard);
-}
-
-.home-skip-intro-button:hover,
-.home-skip-intro-button:focus-visible,
-.home-skip-intro-button:active {
-  color: var(--gold-main);
-}
-
-.home-skip-intro-button:focus-visible {
-  outline: 1px solid var(--gold-light);
-  outline-offset: 7px;
 }
 
 .home-page[data-home-panel="master"] .home-skip-intro-button,

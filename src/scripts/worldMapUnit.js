@@ -6,38 +6,89 @@ function isMobileWorldMap() {
   return WORLD_MAP_MOBILE_QUERY.matches;
 }
 
+function coordinateFromData(element, key) {
+  const rawValue = element.dataset[key];
+  if (rawValue === undefined || rawValue === "") return null;
+
+  const value = Number(rawValue);
+  return Number.isFinite(value) ? value : null;
+}
+
+function setLabelCoordinate(label, axis, value) {
+  if (value === null) return;
+  label.setAttribute(axis, String(value));
+}
+
+function applyResponsiveLabelPositions(panel) {
+  const isMobile = isMobileWorldMap();
+
+  panel.querySelectorAll(".world-map-responsive-label").forEach((label) => {
+    const desktopX = coordinateFromData(label, "desktopX");
+    const desktopY = coordinateFromData(label, "desktopY");
+    const mobileX = coordinateFromData(label, "mobileX");
+    const mobileY = coordinateFromData(label, "mobileY");
+
+    setLabelCoordinate(label, "x", isMobile && mobileX !== null ? mobileX : desktopX);
+    setLabelCoordinate(label, "y", isMobile && mobileY !== null ? mobileY : desktopY);
+  });
+}
+
+function buildLabelsByRegionKey(labelLinks) {
+  const labelsByRegionKey = new Map();
+
+  labelLinks.forEach((label) => {
+    const key = label.dataset.regionKey;
+    if (!key) return;
+
+    const labels = labelsByRegionKey.get(key) ?? [];
+    labels.push(label);
+    labelsByRegionKey.set(key, labels);
+  });
+
+  return labelsByRegionKey;
+}
+
 function setupWorldMapRegionCards() {
-  document.querySelectorAll(".world-map-stage").forEach((stage) => {
-    if (stage instanceof HTMLElement && stage.dataset.worldMapRegionCardsReady === "true") return;
+  document.querySelectorAll(".world-map-panel").forEach((panel) => {
+    if (panel instanceof HTMLElement && panel.dataset.worldMapRegionCardsReady === "true") return;
 
-    const svg = stage.querySelector(".world-map-regions");
-    const card = stage.querySelector(".world-map-region-card");
-    const cardIcon = stage.querySelector(".world-map-region-card-icon");
-    const cardLabel = stage.querySelector(".world-map-region-card-label");
-    const cardLabelEn = stage.querySelector(".world-map-region-card-label-en");
+    const svg = panel.querySelector(".world-map-canvas");
+    const cardFrame = panel.querySelector(".world-map-region-card-foreign");
+    const card = panel.querySelector(".region-card");
+    const cardIcon = panel.querySelector(".region-card__icon");
+    const cardLabel = panel.querySelector(".region-card__label");
+    const cardLabelEn = panel.querySelector(".region-card__label-en");
 
-    if (!(svg instanceof SVGSVGElement) || !card || !cardIcon || !cardLabel || !cardLabelEn) return;
-    if (stage instanceof HTMLElement) stage.dataset.worldMapRegionCardsReady = "true";
+    if (!(svg instanceof SVGSVGElement) || !(cardFrame instanceof SVGElement) || !card || !cardIcon || !cardLabel || !cardLabelEn) return;
+    if (panel instanceof HTMLElement) panel.dataset.worldMapRegionCardsReady = "true";
 
+    const controller = new AbortController();
+    const { signal } = controller;
     const viewBox = svg.viewBox.baseVal;
     let selectedRegion = null;
     let selectedAt = 0;
     let navigationLockedUntil = 0;
-    const regions = Array.from(stage.querySelectorAll(".world-map-region"));
+    const regions = Array.from(panel.querySelectorAll(".world-map-region"));
     const regionByKey = new Map(
       regions
         .filter((region) => region.dataset.regionKey)
         .map((region) => [region.dataset.regionKey, region])
     );
-    const labelLinks = Array.from(stage.querySelectorAll(".world-map-label.is-city.is-clickable[data-region-key]"));
+    const labelLinks = Array.from(panel.querySelectorAll(".world-map-city-link[data-region-key]"));
+    const labelsByRegionKey = buildLabelsByRegionKey(labelLinks);
 
     function linkedLabels(region) {
-      return labelLinks.filter((label) => label.dataset.regionKey === region.dataset.regionKey);
+      return labelsByRegionKey.get(region.dataset.regionKey) ?? [];
     }
 
     function setInteractionActive(region, isActive) {
       region.classList.toggle("is-related-active", isActive);
       linkedLabels(region).forEach((label) => label.classList.toggle("is-region-active", isActive));
+    }
+
+    function isRegionInteractionTarget(target) {
+      return target instanceof Element
+        && Boolean(target.closest(".world-map-region, .world-map-city-link"));
     }
 
     function showCard(region) {
@@ -55,20 +106,25 @@ function setupWorldMapRegionCards() {
         && region.dataset.cardY !== undefined
         && Number.isFinite(cardX)
         && Number.isFinite(cardY);
-      const centerX = ((hasCardPosition ? cardX : box.x + box.width / 2) / viewBox.width) * 100;
-      const centerY = ((hasCardPosition ? cardY : box.y + box.height / 2) / viewBox.height) * 100;
+      const centerX = hasCardPosition ? cardX : box.x + box.width / 2;
+      const centerY = hasCardPosition ? cardY : box.y + box.height / 2;
+      const frameWidth = Number(cardFrame.getAttribute("width")) || 320;
+      const frameHeight = Number(cardFrame.getAttribute("height")) || 92;
+      const frameGap = 18;
+      const frameX = Math.max(0, Math.min(viewBox.width - frameWidth, centerX - frameWidth / 2));
+      const frameY = Math.max(0, Math.min(viewBox.height - frameHeight, centerY - frameHeight - frameGap));
 
-      card.style.setProperty("--card-x", `${centerX}%`);
-      card.style.setProperty("--card-y", `${centerY}%`);
+      cardFrame.setAttribute("x", String(frameX));
+      cardFrame.setAttribute("y", String(frameY));
       cardIcon.setAttribute("src", icon);
       cardLabel.textContent = label;
       cardLabelEn.textContent = labelEn;
       cardLabelEn.toggleAttribute("hidden", !labelEn);
-      card.classList.add("is-visible");
+      cardFrame.classList.add("is-visible");
     }
 
     function hideCard() {
-      card.classList.remove("is-visible");
+      cardFrame.classList.remove("is-visible");
     }
 
     function clearMobileSelection() {
@@ -99,25 +155,25 @@ function setupWorldMapRegionCards() {
           setInteractionActive(region, true);
           showCard(region);
         }
-      });
+      }, { signal });
       target.addEventListener("pointerleave", () => {
         if (!isMobileWorldMap()) {
           setInteractionActive(region, false);
           hideCard();
         }
-      });
+      }, { signal });
       target.addEventListener("focusin", () => {
         if (!isMobileWorldMap()) {
           setInteractionActive(region, true);
           showCard(region);
         }
-      });
+      }, { signal });
       target.addEventListener("focusout", () => {
         if (!isMobileWorldMap()) {
           setInteractionActive(region, false);
           hideCard();
         }
-      });
+      }, { signal });
       target.addEventListener("click", (event) => {
         if (!isMobileWorldMap()) return;
 
@@ -140,7 +196,7 @@ function setupWorldMapRegionCards() {
         }
 
         selectMobileRegion(region);
-      });
+      }, { signal });
     }
 
     regions.forEach((region) => {
@@ -152,15 +208,27 @@ function setupWorldMapRegionCards() {
       if (region) bindRegionInteraction(label, region);
     });
 
+    function handleViewportModeChange() {
+      applyResponsiveLabelPositions(panel);
+      if (!isMobileWorldMap()) clearMobileSelection();
+    }
+
+    applyResponsiveLabelPositions(panel);
+
+    panel.addEventListener("click", (event) => {
+      if (!isMobileWorldMap()) return;
+      if (isRegionInteractionTarget(event.target)) return;
+      clearMobileSelection();
+    }, { signal });
+
     document.addEventListener("click", (event) => {
       if (!isMobileWorldMap()) return;
-      if (event.target instanceof Node && stage.contains(event.target)) return;
+      if (event.target instanceof Node && panel.contains(event.target)) return;
       clearMobileSelection();
-    });
-
-    window.addEventListener("resize", () => {
-      if (!isMobileWorldMap()) clearMobileSelection();
-    });
+    }, { signal });
+    window.addEventListener("resize", handleViewportModeChange, { signal });
+    WORLD_MAP_MOBILE_QUERY.addEventListener("change", handleViewportModeChange, { signal });
+    document.addEventListener("astro:before-swap", () => controller.abort(), { once: true, signal });
   });
 }
 

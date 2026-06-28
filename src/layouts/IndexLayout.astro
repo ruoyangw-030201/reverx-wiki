@@ -1,14 +1,12 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import ChromeHeadbar from "../components/chrome/ChromeHeadbar.astro";
+import ChromeLayout from "./ChromeLayout.astro";
 import ActiveArrowButton from "../components/actions/ActiveArrowButton.astro";
 import NextPageTrigger from "../components/NextPageTrigger.astro";
 import EntryHeading from "../components/primitives/EntryHeading.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
-import BackgroundSurface from "../components/background/BackgroundSurface.astro";
 import ContentBox from "../components/content-frame/ContentBox.astro";
-import "../styles/archive/layout.css";
-import "../styles/index.css";
+import IndexDecor from "../components/index/IndexDecor.astro";
+import "../styles/index/index-layout.css";
 import {
   findNavigationItemByPath,
   getNextArchivePageForPath,
@@ -39,17 +37,31 @@ const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn
 const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "00";
 ---
 
-<BaseLayout>
-  <div
-    class:list={["archive-page", "archive-index-page", `is-${currentSection}`]}
-    data-index-next-page={indexScrollNextPage?.href}
-  >
-    <BackgroundSurface tone="white" />
-
+<ChromeLayout
+  pageClass={["index-page", `is-${currentSection}`]}
+  surfaceTone="white"
+  showHero={false}
+  showSidebar={false}
+  showEndbar={false}
+>
+  <Fragment slot="decor">
     <BackgroundLayer />
+    <IndexDecor number={frameNumber} label={frameSubtitle} />
+  </Fragment>
 
-    <ChromeHeadbar />
+  <div class="index-intro-area index-animate index-animate-heading-intro">
+    <EntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
 
+    <ContentBox class="index-intro-box" variant="simple" minHeight="118px">
+      <slot name="intro" />
+    </ContentBox>
+  </div>
+
+  <div class="index-animate index-animate-grid">
+    <slot />
+  </div>
+
+  <Fragment slot="overlay">
     {
       indexScrollNextPage && (
         <ActiveArrowButton
@@ -75,36 +87,6 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
       )
     }
 
-    <div class="index-fixed-crosshair" aria-hidden="true">
-      <span class="index-fixed-line index-fixed-line-vertical"></span>
-      <span class="index-fixed-line index-fixed-line-horizontal"></span>
-
-      <div class="index-side-mark">
-        <span class="index-side-mark-number-box">
-        <span class="index-side-mark-number">{frameNumber}</span>
-        </span>
-        <span class="index-side-mark-slash"></span>
-        <span class="index-side-mark-label">{frameSubtitle}</span>
-      </div>
-    </div>
-
-    <main class="archive-shell archive-index-shell">
-      <section class="archive-content-area archive-index-content">
-        <div class="index-animate index-animate-heading-intro">
-          <EntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
-
-          <ContentBox class="archive-index-intro-box" variant="simple" minHeight="118px">
-            <slot name="intro" />
-          </ContentBox>
-        </div>
-
-        <div class="index-animate index-animate-grid">
-          <slot />
-        </div>
-      </section>
-    </main>
-
     {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} readyDelayMs={2020} disableBelowWidth={980} />}
-
-  </div>
-</BaseLayout>
+  </Fragment>
+</ChromeLayout>

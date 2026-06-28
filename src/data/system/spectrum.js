@@ -1,3 +1,4 @@
+// Defines the system spectrum taxonomy and presentation data for the classification page.
 const themes = {
   essence: {
     accent: "var(--black-panel-base)",

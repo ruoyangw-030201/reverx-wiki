@@ -1,46 +1,41 @@
 ---
-import IndexIconCard from "../../components/index/IndexIconCard.astro";
+import IconCard from "../../components/actions/IconCard.astro";
+import IconList from "../../components/actions/IconList.astro";
+import IndexGrid from "../../components/index/IndexGrid.astro";
 import IndexSection from "../../components/index/IndexSection.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
+import { getRequiredIndexPageEntry, renderContentEntry } from "../../data/intro/entries.js";
+import { getSidebarItemsForPath } from "../../data/navigation.js";
+
+const entry = await getRequiredIndexPageEntry("system");
+const { Content } = await renderContentEntry(entry);
+const systemItemsByHref = new Map(
+  getSidebarItemsForPath("/system").map((item) => [item.href, item])
+);
+
+const resolveSystemIndexItems = (hrefs) =>
+  hrefs.map((href) => systemItemsByHref.get(href)).filter(Boolean);
 ---
 
 <IndexLayout>
-  <div slot="intro" class="archive-index-intro-copy">
-    <p>
-      在凡多纳都市传说中，有一群拥有异能的人，会给身边的人带来诅咒。和他们接触容易让人们生病、厄运缠身甚至离奇去世。传说中，奇异的眼睛颜色，比如红色，是这种诅咒的征兆之一。
-    </p>
-    <p>
-      在普通人眼中，这些只是都市传说，并不真的确定是否有这一群体存在。
-    </p>
-    <p>
-      但其实确有其事——这些人被称为恶能者。他们会使用异能，或是武器、或是操控元素、或是心理暗示。这种能力对普通人不可见，但能对普通人造成影响和伤害。因为这类人群会给身边的人带来诅咒，这种异能被称作“恶能”，或者“恶意”。
-    </p>
-    <p>
-      接下来，可以点击下方不同的概念，了解能力体系。
-    </p>
-  </div>
+  <Fragment slot="intro">
+    <Content />
+  </Fragment>
 
-  <section class="system-index-grid" aria-label="能力体系分区">
-    <IndexSection title="世界的本质" subtitle="The Real World">
-      <div class="index-icon-list">
-        <IndexIconCard href="/system/hypodimension" icon="/icon/hypodimension.png" caption="次维度" alt="次维度图标" />
-        <IndexIconCard href="/system/vestige-lumira-field" icon="/icon/field.png" caption="痕迹，“灵”与“场”" alt="痕迹，灵与场图标" />
-        <IndexIconCard href="/system/innerworld" caption="？？？" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="魔物" subtitle="Malit">
-      <div class="index-icon-list">
-        <IndexIconCard href="/system/malit" icon="/icon/malit.png" caption="魔物" alt="魔物图标" />
-      </div>
-    </IndexSection>
-
-    <IndexSection title="恶能体系" subtitle="Malice System">
-      <div class="index-icon-list">
-        <IndexIconCard href="/system/classification" icon="/icon/essence.png" caption="现代谱系分类法" alt="现代谱系分类法图标" />
-        <IndexIconCard href="/system/intensity" icon="/icon/danger.png" caption="强度" alt="强度图标" />
-        <IndexIconCard href="/system/weapons" icon="/icon/fusion-weapon.png" caption="恶能武器" alt="恶能武器图标" />
-      </div>
-    </IndexSection>
-  </section>
+  <IndexGrid layout={entry.data.gridLayout} label={entry.data.gridLabel}>
+    {entry.data.sections.map((group) => (
+      <IndexSection title={group.title} subtitle={group.subtitle}>
+        <IconList>
+          {resolveSystemIndexItems(group.hrefs ?? []).map((item) => (
+            <IconCard
+              href={item.href}
+              icon={item.icon}
+              caption={item.label}
+              alt={`${item.label}图标`}
+            />
+          ))}
+        </IconList>
+      </IndexSection>
+    ))}
+  </IndexGrid>
 </IndexLayout>

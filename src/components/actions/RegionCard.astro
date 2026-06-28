@@ -1,0 +1,18 @@
+---
+import "../../styles/actions/region-card.css";
+
+const {
+  icon = "/icon/document.png",
+  label = "",
+  labelEn = "",
+  class: className = "",
+} = Astro.props;
+---
+
+<div xmlns="http://www.w3.org/1999/xhtml" class:list={["region-card", "frame-decor", "is-gold", className]} aria-hidden="true">
+  <img class="region-card__icon" src={icon} alt="" />
+  <span class="region-card__text">
+    <span class="region-card__label">{label}</span>
+    <small class="region-card__label-en" hidden={!labelEn}>{labelEn}</small>
+  </span>
+</div>

@@ -1,0 +1,18 @@
+---
+import "../../styles/index/index-decor.css";
+
+const {
+  number,
+  label,
+} = Astro.props;
+---
+
+<div class="index-fixed-crosshair" aria-hidden="true">
+  <span class="index-fixed-line-vertical"></span>
+  <span class="index-fixed-line-horizontal"></span>
+</div>
+
+<div class="index-side-mark" aria-hidden="true">
+  <span class="index-side-mark-number">{number}</span>
+  <span class="index-side-mark-label">{label}</span>
+</div>

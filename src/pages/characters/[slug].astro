@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import ArchiveDefaultLayout from "../../layouts/ArchiveDefaultLayout.astro";
 import CharacterProfile from "../../components/characters/CharacterProfile.astro";
 import PrimarySection from "../../components/content-frame/PrimarySection.astro";
-import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+import { getArchiveEntryContext } from "../../data/archive/entryContext.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("archive", (entry) => entry.data.section === "characters");

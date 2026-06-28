@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import ArchiveContentRenderer from "../../components/archive/ArchiveContentRenderer.astro";
 import ArchiveDefaultLayout from "../../layouts/ArchiveDefaultLayout.astro";
 import ArchiveSecretLayout from "../../layouts/ArchiveSecretLayout.astro";
-import { getArchiveEntryContext } from "../../data/archiveEntryContext.js";
+import { getArchiveEntryContext } from "../../data/archive/entryContext.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("archive", (entry) => entry.data.section === "system");

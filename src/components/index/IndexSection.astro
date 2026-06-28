@@ -1,19 +1,20 @@
 ---
 import EntryHeading from "../primitives/EntryHeading.astro";
+import "../../styles/index/index-section.css";
 
 const {
   title,
   subtitle,
   description,
-  contentWidth = "100%",
+  layout = "default",
 } = Astro.props;
 
 const descriptionText = description
-  ? `${description.replace(/[。.!！?？\s]+$/u, "")}。`
+  ? `${description.trim().replace(/[。！？.!?]+$/u, "")}。`
   : "";
 ---
 
-<article class="index-section" style={`--index-section-content-width: ${contentWidth};`}>
+<article class:list={["index-section", layout !== "default" && `is-${layout}`]}>
   <div class="index-section-heading-row">
     <EntryHeading variant="secondary" title={title} subtitle={subtitle} />
     {descriptionText && <p class="index-section-description">{descriptionText}</p>}

@@ -1,3 +1,4 @@
+// Stores optional per-image captions for character gallery assets.
 export const defaultFigureGalleryCaption = "概念图";
 
 export const characterGalleryCaptions = {

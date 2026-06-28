@@ -2,10 +2,12 @@
 /* 箭头带字，可以带动画 */
 .active-arrow-button {
   --direction-arrow-color: currentColor;
+  --direction-arrow-size: var(--active-arrow-button-arrow-size, var(--icon-median-mobile));
   display: inline-grid;
-  color: var(--blue-main);
+  color: var(--active-arrow-button-color, var(--blue-main));
   pointer-events: none;
   user-select: none;
+  transition: color var(--duration-base) var(--ease-standard);
 }
 
 a.active-arrow-button,
@@ -21,6 +23,21 @@ button.active-arrow-button {
   background: transparent;
   padding: 0;
   font: inherit;
+}
+
+a.active-arrow-button:hover,
+a.active-arrow-button:focus-visible,
+a.active-arrow-button:active,
+button.active-arrow-button:hover,
+button.active-arrow-button:focus-visible,
+button.active-arrow-button:active {
+  color: var(--active-arrow-button-active-color, var(--gold-main));
+}
+
+a.active-arrow-button:focus-visible,
+button.active-arrow-button:focus-visible {
+  outline: 1px solid var(--active-arrow-button-focus-color, var(--gold-light));
+  outline-offset: var(--active-arrow-button-focus-offset, 8px);
 }
 
 /* 带字和箭头 */
@@ -85,7 +102,7 @@ button.active-arrow-button {
   letter-spacing: var(--active-arrow-button-label-letter-spacing, 0.24em);
   line-height: var(--basic-line-height);
   text-align: center;
-  white-space: nowrap;
+  white-space: var(--active-arrow-button-label-white-space, nowrap);
 }
 
 .active-arrow-button__icon {

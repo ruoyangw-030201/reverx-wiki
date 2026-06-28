@@ -1,3 +1,4 @@
+// Defines shared world entities used by navigation, archive context, and world-map data.
 export const worldEntities = {
   ferdona: {
     label: "凡多纳",

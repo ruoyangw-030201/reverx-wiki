@@ -1,3 +1,4 @@
+// Defines top-level navigation, sidebar groups, anchor targets, and archive page sequencing.
 import { resolveWorldEntity } from "./worldEntities.js";
 
 export const topTabs = [

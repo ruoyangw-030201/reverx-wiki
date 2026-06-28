@@ -30,7 +30,7 @@ The reusable chrome shell is complete enough to treat as a stable base:
 - `ChromeStage.astro` remains intentionally thin and only marks the main stage boundary.
 - `src/styles/chrome/chrome-layout.css` owns the standard sidebar/stage grid, shell gaps, responsive column switch, and page-end spacing.
 - Headbar, hero, sidebar, mobile sidebar, and endbar have been split into chrome components with local CSS.
-- Chrome UI copy is sourced from `src/data/chromeText.js`.
+- Chrome UI copy is sourced from `src/data/chrome/text.js`.
 
 Chrome consumers can still have custom stages. This is expected for archive special pages, world map, home, and index.
 
@@ -85,6 +85,23 @@ Special archive pages still remain outside the standard text-frame model:
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
 
+## World Map State
+
+World map has been split into page layout, map unit, and reusable action boundaries. The current structure and remaining notes are tracked in `docs/world-map-refactor-progress.md`.
+
+## Index State
+
+Index pages have completed the current cleanup pass and can be treated as a stable custom visual stage:
+
+- `IndexLayout.astro` now uses `ChromeLayout` directly and no longer depends on archive layout or archive content-frame compatibility wrappers.
+- Index composition is split into explicit boundaries: intro area, `IndexGrid`, `IndexSection`, and `IndexDecor`.
+- Reusable card/list actions live under `src/components/actions`: `IconCard`, `IconList`, and `MapCard`.
+- Index page copy and section metadata live in the `indexPage` content collection under `src/content/index-page`.
+- World map intro copy lives in the `worldMap` content collection under `src/content/world-map`.
+- Cards remain derived from navigation/world-map data instead of being duplicated in md files.
+- Data helpers for content entries live under `src/data/content/entries.js`.
+- Index decor, grid, layout, and section CSS are split under `src/styles/index/`.
+
 ## Stable Content Layer
 
 The reusable archive content layer is complete enough to treat as stable:
@@ -103,8 +120,7 @@ Do not treat these as complete reusable modules yet:
 
 - `src/styles/archive/layout.css` still contains shared archive shell/content-area compatibility rules.
 - Classification and intensity still use special page-level layout/CSS.
-- WorldMap, Home, and Index remain custom visual stages.
-- Index grid and `IndexIconCard` still need a full component boundary cleanup.
+- Home remains a custom visual stage.
 
 ## Current Workflow
 
@@ -119,4 +135,4 @@ Do not treat these as complete reusable modules yet:
 
 1. Clean `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
 2. Clean classification and intensity special page layout/CSS.
-3. Continue index/world-map visual architecture cleanup.
+3. Continue home visual architecture cleanup.

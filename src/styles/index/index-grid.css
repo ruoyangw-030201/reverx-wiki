@@ -1,0 +1,29 @@
+/* Arranges index sections within the page content area. */
+.index-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  /* grid的间距统一为32px */
+  gap: var(--space-section);
+  /* 上离文本框32px */
+  margin: var(--space-section) 0 0;
+}
+
+.index-grid.is-columns {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+/* world页因为1页压缩 */
+.world-index-grid {
+  gap: clamp(12px, 1.5vh, 18px);
+}
+
+@media (max-width: 980px) {
+  .index-grid,
+  .index-grid.is-columns {
+    gap: var(--space-section);
+    grid-template-columns: 1fr;
+    margin: var(--space-section) 0 0;
+  }
+}

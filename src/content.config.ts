@@ -20,4 +20,40 @@ const archive = defineCollection({
   }),
 });
 
-export const collections = { archive };
+const indexPage = defineCollection({
+  loader: glob({
+    base: "./src/content/index-page",
+    pattern: "*.md",
+  }),
+  schema: z.object({
+    section: z.enum(["world", "system", "characters", "history"]),
+    gridLabel: z.string(),
+    gridLayout: z.enum(["stack", "columns"]).default("stack"),
+    gridClass: z.string().optional(),
+    sections: z
+      .array(
+        z.object({
+          title: z.string(),
+          subtitle: z.string(),
+          description: z.string().optional(),
+          layout: z.enum(["default", "split"]).default("default"),
+          mapKey: z.string().optional(),
+          iconGroup: z.string().optional(),
+          hrefs: z.array(z.string()).optional(),
+        })
+      )
+      .default([]),
+  }),
+});
+
+const worldMap = defineCollection({
+  loader: glob({
+    base: "./src/content/world-map",
+    pattern: "*.md",
+  }),
+  schema: z.object({
+    mapKey: z.string(),
+  }),
+});
+
+export const collections = { archive, indexPage, worldMap };

@@ -153,12 +153,8 @@
   /* Gap between sidebar and top elements */
   --layout-shell-pad-top: 24px;
   /* To be cleaned */
-  --layout-content-outset-x: clamp(48px, 4.586vw, 72px);
+  --layout-content-outset-x: clamp(48px, 4.5vw, 72px);
   --layout-content-outset-width: clamp(58px, 5.478vw, 86px);
-  --layout-side-rail-width: clamp(88px, 7.643vw, 120px);
-  --layout-bottom-rail-height: clamp(60px, 8.889vh, 80px);
-  --layout-mobile-side-rail-width: clamp(42px, 12vw, 58px);
-  --layout-mobile-bottom-rail-height: clamp(54px, 9svh, 78px);
 
   /* Chrome frame metrics for Figma-like page assembly. */
   --chrome-headbar-height: 78px;

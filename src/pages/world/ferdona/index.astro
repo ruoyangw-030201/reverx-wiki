@@ -1,10 +1,12 @@
 ---
 import WorldMapLayout from "../../../layouts/WorldMapLayout.astro";
-import { worldMaps } from "../../../data/worldMaps.js";
+import { getRequiredWorldMapEntry, renderContentEntry } from "../../../data/intro/entries.js";
+import { worldMaps } from "../../../data/world/maps.js";
+
+const entry = await getRequiredWorldMapEntry("ferdona");
+const { Content } = await renderContentEntry(entry);
 ---
 
 <WorldMapLayout mapConfig={worldMaps.ferdona}>
-  <p>
-    平行世界的美国（北美），恶能时代的先驱、故事的主要舞台。
-  </p>
+  <Content />
 </WorldMapLayout>

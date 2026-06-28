@@ -1,10 +1,12 @@
 ---
 import WorldMapLayout from "../../../layouts/WorldMapLayout.astro";
-import { worldMaps } from "../../../data/worldMaps.js";
+import { getRequiredWorldMapEntry, renderContentEntry } from "../../../data/intro/entries.js";
+import { worldMaps } from "../../../data/world/maps.js";
+
+const entry = await getRequiredWorldMapEntry("hespera");
+const { Content } = await renderContentEntry(entry);
 ---
 
 <WorldMapLayout mapConfig={worldMaps.hespera}>
-  <p>
-    全称海西培拉，平行世界的欧洲大陆。因平行世界设定为海平面减退的世界，地理看起来有所不同。一战失利的维拉尼亚-罗兰（英法）联合国退居岛屿，海西由庞提瓦尔（意大利）、危雷齐（德国）、奎尔德（荷兰）和奥塞拉（西班牙）主导话语权。
-  </p>
+  <Content />
 </WorldMapLayout>

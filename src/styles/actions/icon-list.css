@@ -1,0 +1,9 @@
+/* icon-card组成的list */
+.icon-list {
+  --icon-list-row-gap: var(--space-tight);
+  --icon-list-column-gap: var(--space-tight);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--icon-list-row-gap) var(--icon-list-column-gap);
+  align-items: flex-start;
+}

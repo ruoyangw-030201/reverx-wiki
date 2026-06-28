@@ -1,36 +1,38 @@
 ---
-import IndexIconCard from "../../components/index/IndexIconCard.astro";
+import IconCard from "../../components/actions/IconCard.astro";
+import IconList from "../../components/actions/IconList.astro";
+import IndexGrid from "../../components/index/IndexGrid.astro";
 import IndexSection from "../../components/index/IndexSection.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
+import { getRequiredIndexPageEntry, renderContentEntry } from "../../data/intro/entries.js";
 import { characterGroups } from "../../data/navigation.js";
+
+const entry = await getRequiredIndexPageEntry("characters");
+const { Content } = await renderContentEntry(entry);
 ---
 
 <IndexLayout>
-  <div slot="intro" class="archive-index-intro-copy">
-    <p>
-      本标签收录了主要角色档案，包括人物身份、所属势力、能力设定等。
-    </p>
-    <p>
-      接下来，可以点击下方的人物头像，了解角色档案。
-    </p>
-  </div>
+  <Fragment slot="intro">
+    <Content />
+  </Fragment>
 
-  <section class="characters-index-grid" aria-label="角色档案分区">
+  <IndexGrid label={entry.data.gridLabel}>
     {characterGroups.map((group) => (
       <IndexSection title={group.label} subtitle={group.labelEn}>
         {group.items.length > 0 && (
-          <div class="index-icon-list">
+          <IconList>
             {group.items.map((character) => (
-              <IndexIconCard
+              <IconCard
                 href={character.href}
                 icon={character.indexIcon}
                 caption={character.label}
                 alt={`${character.label}人物图标`}
+                variant="light"
               />
             ))}
-          </div>
+          </IconList>
         )}
       </IndexSection>
     ))}
-  </section>
+  </IndexGrid>
 </IndexLayout>

@@ -2,7 +2,7 @@
 import "../../styles/chrome/endbar.css";
 import HourglassMarker from "../primitives/HourglassMarker.astro";
 import ChromeAuxLink from "./ChromeAuxLink.astro";
-import { chromeText } from "../../data/chromeText.js";
+import { chromeText } from "../../data/chrome/text.js";
 
 const currentPathWithSearch = `${Astro.url.pathname}${Astro.url.search}`;
 const copyrightHref = `/copyright/?from=${encodeURIComponent(currentPathWithSearch)}`;

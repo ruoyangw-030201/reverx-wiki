@@ -1,0 +1,76 @@
+/* 小的icon card */
+.icon-card {
+  display: inline-grid;
+  justify-items: center;
+  /* 图片和caption的间距，默认8px */
+  gap: var(--icon-card-gap, var(--space-tight));
+  width: var(--icon-card-size, 96px);
+  color: var(--blue-main);
+  font-family: var(--font-latin);
+  /* 字体默认14px */
+  font-size: var(--icon-card-font-size, var(--text-label));
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.icon-card:hover,
+.icon-card:focus-visible,
+.icon-card:active {
+  color: var(--gold-main);
+  outline: none;
+}
+
+.icon-card-frame {
+  --icon-card-frame-bg: var(--black-panel-base);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--icon-frame-size, 80px);
+  aspect-ratio: 1;
+  background: var(--icon-card-frame-bg);
+  box-shadow:
+    0 0 14px var(--blue-line),
+    inset 0 0 12px var(--blue-wash);
+  transition:
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.icon-card:hover .icon-card-frame,
+.icon-card:focus-visible .icon-card-frame,
+.icon-card:active .icon-card-frame {
+  box-shadow:
+    0 0 16px var(--gold-line),
+    inset 0 0 12px var(--gold-wash);
+}
+
+.icon-card-frame img {
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
+}
+
+.icon-card-caption {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: var(--ui-line-height);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.icon-card.is-light .icon-card-frame {
+  --icon-card-frame-bg: linear-gradient(180deg, var(--white-main), var(--white-paper));
+}
+
+@media (max-width: 1360px) {
+  .icon-card {
+    --frame-decor-offset: -5px 6px 5px -6px;
+    width: var(--icon-card-size, clamp(72px, 7vw, 96px));
+    font-size: var(--icon-card-font-size, var(--text-sm));
+  }
+
+  .icon-card-frame {
+    width: var(--icon-frame-size, clamp(64px, 5.8vw, 80px));
+  }
+}

@@ -1,11 +1,12 @@
-import { getCharacterGalleryImages } from "./characterGalleries.js";
+// Builds the archive-page view context from the current route and navigation data.
+import { getCharacterGalleryImages } from "../characters/galleries.js";
 import {
   findNavigationItemByPath,
   getArchivePageNextLinkForPath,
   getSectionFromPath,
   getSidebarAnchorsForPath,
   topTabs,
-} from "./navigation.js";
+} from "../navigation.js";
 
 export function getArchiveEntryContext(pathname, props = {}) {
   const currentPath = pathname.replace(/\/$/, "") || "/";

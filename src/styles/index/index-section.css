@@ -1,0 +1,92 @@
+/* index section规则 */
+.index-section {
+  display: grid;
+  /* 标题行到内容的距离统一为24px */
+  row-gap: var(--space-large);
+  min-width: 0;
+}
+
+.index-section-heading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  /* 标题和description中间间隔8px */
+  row-gap: var(--space-tight);
+  min-width: 0;
+}
+
+.index-section-description {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  color: var(--ink-readable);
+  font-family: var(--font-latin);
+  font-size: var(--text-label);
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* 如果需要标题和内容分开展示的规则 */
+.index-section.is-split {
+  grid-template-columns: 12% minmax(0, 1fr);
+  align-items: start;
+  column-gap: 2%;
+}
+
+.index-section.is-split .index-section-heading-row {
+  grid-column: 1;
+}
+
+.index-section.is-split .index-section-content {
+  grid-column: 2;
+  width: 100%;
+  min-width: 0;
+}
+
+/* world页专属：给了map-card的规则 */
+.world-index-section-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 2%;
+  min-width: 0;
+}
+
+.world-index-section-flow > .map-card {
+  flex: 0 0 clamp(260px, 20vw, 360px);
+  width: clamp(260px, 20vw, 360px);
+}
+
+.world-index-section-icons {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 980px) {
+  .index-section.is-split {
+    grid-template-columns: 1fr;
+  }
+
+  .index-section.is-split .index-section-heading-row,
+  .index-section.is-split .index-section-content {
+    grid-column: 1;
+  }
+
+  .world-index-section-flow {
+    flex-direction: column;
+    width: 100%;
+    /* 有mapcard的时候单列的间距。和section保持一致 */
+    gap: var(--space-large);
+  }
+
+  .world-index-section-flow > .map-card {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .world-index-section-icons {
+    width: 100%;
+  }
+}

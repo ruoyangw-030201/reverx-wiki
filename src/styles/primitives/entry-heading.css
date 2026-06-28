@@ -18,8 +18,6 @@
   scroll-margin-top: var(--entry-heading-scroll-top);
 }
 
-/* entry heading 和 year switch组成的row */
-/* Pairs the heading stack with an optional trailing control. */
 .entry-heading-row {
   display: flex;
   align-items: center;
@@ -41,13 +39,6 @@
   max-width: 100%;
   /* 标题内容列的内间距：上0 右一点点 下0 左留出kicker宽度 */
   padding: 0 var(--space-micro) 0 calc(var(--entry-heading-rail-width) + var(--entry-heading-rail-gap));
-}
-
-.entry-heading-control {
-  position: relative;
-  z-index: var(--z-popover);
-  width: max-content;
-  max-width: 100%;
 }
 
 .entry-heading-kicker {
@@ -91,19 +82,20 @@
   padding: 0 14px 8px 10px;
   font-size: var(--text-heading);
   line-height: var(--ui-line-height);
-  overflow-wrap: anywhere;
-  white-space: normal;
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 .entry-heading-subtitle {
   grid-column: 1;
   grid-row: 2;
   margin: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   color: var(--ink-readable);
   font-family: var(--font-latin);
   font-size: var(--text-label);
   letter-spacing: 0.14em;
+  white-space: nowrap;
 }
 
 .entry-heading.is-secondary {
@@ -143,9 +135,10 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .entry-heading-control {
-    display: none;
+  .entry-heading-kicker {
+    font-size: var(--text-xs);
   }
+
 
   .entry-heading-title {
     font-size: var(--text-title-lg);

@@ -1,0 +1,98 @@
+/* ========== 两根竖线 ========== */
+.index-fixed-crosshair {
+  --index-side-rail-width: 7%;
+  --index-bottom-rail-height: 7.5%;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: block;
+  z-index: var(--z-decor);
+}
+
+.index-fixed-crosshair > span {
+  position: absolute;
+  background-color: var(--neutral-ui);
+}
+
+.index-fixed-line-vertical {
+  top: 0;
+  bottom: 0;
+  right: var(--index-side-rail-width);
+  width: 1px;
+}
+
+.index-fixed-line-horizontal {
+  left: 0;
+  right: 0;
+  bottom: var(--index-bottom-rail-height);
+  height: 1px;
+}
+
+/* ========== sidemark.宽度由文字决定，left40+宽72=112px。 ========== */
+.index-side-mark {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  display: inline-grid;
+  grid-template-columns: max-content;
+  justify-items: start;
+  overflow: visible;
+  color: var(--black-main);
+  font-family: var(--font-latin);
+  pointer-events: none;
+  transform: translateY(-50%);
+  z-index: var(--z-decor);
+}
+
+.index-side-mark::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 96px;
+  display: block;
+  width: 98px;
+  height: 4px;
+  background-color: var(--black-main);
+  transform: rotate(-45deg);
+  transform-origin: left center;
+}
+
+.index-side-mark-number {
+  display: block;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: var(--text-display);
+  line-height: var(--basic-line-height);
+  letter-spacing: -0.08em;
+  color: var(--gold-main);
+  font-weight: 900;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 100%);
+}
+
+.index-side-mark-label {
+  position: relative;
+  display: block;
+  width: 72px;
+  margin-top: 2px;
+  margin-left: 40px;
+  font-family: var(--font-latin);
+  font-size: var(--text-label);
+  line-height: var(--basic-line-height);
+  letter-spacing: -0.02em;
+  color: var(--black-main);
+  font-weight: 900;
+  z-index: var(--z-raised);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 980px) {
+  .index-fixed-crosshair {
+    --index-side-rail-width: 12%;
+    --index-bottom-rail-height: 9%;
+  }
+
+  .index-side-mark {
+    display: none;
+  }
+}

@@ -1,5 +1,6 @@
-import { generatedWorldMapPaths } from "./generatedWorldMapPaths.js";
-import { resolveWorldEntity } from "./worldEntities.js";
+// Defines world-map configurations, regions, labels, and city markers.
+import { generatedWorldMapPaths } from "./generatedMapPaths.js";
+import { resolveWorldEntity } from "../worldEntities.js";
 
 const MAP_SIZE = {
   width: 2872,
@@ -157,7 +158,7 @@ export const worldMaps = {
       { text: "西门瑟姆州", x: 1761, y: 575 },
       { text: "图特布梅州", x: 1172, y: 718 },
       { text: "忒卡西诺州", x: 1272, y: 844, mobileX: 1272, mobileY: 824 },
-      { text: "总部管理区", x: 1894, y: 705, mobileX: 1884, mobileY: 769 },
+      { text: "总部管理区", x: 1894, y: 705, mobileX: 1884, mobileY: 789 },
       { text: "卡瑟州", x: 1694, y: 885 },
       { text: "北福尔瑙伊州", x: 837, y: 898 },
       { text: "南福尔瑙伊州", x: 952, y: 1124 },
@@ -167,18 +168,18 @@ export const worldMaps = {
       { text: "凡多纳", x: 1436, y: 632, level: "country" },
     ],
     cities: withMapCities([
-      { entityKey: "museum", interactiveRegionKey: "museum", markerX: 147, markerY: 108, x: 147, y: 80, mobileLabelOffsetY: 2 },
-      { entityKey: "5thstreet", markerX: 557, markerY: 677, x: 557, y: 649, mobileLabelOffsetY: 2 },
-      { text: "小屋", markerX: 703, markerY: 883, x: 703, y: 858, mobileLabelOffsetY: 2 },
-      { text: "忒卡西诺城", markerX: 1292, markerY: 906, x: 1292, y: 884, mobileLabelOffsetY: 2 },
-      { text: "芝士牛排城", markerX: 1472, markerY: 833, x: 1554, y: 833, mobileLabelOffsetX: -8 },
-      { text: "汽车城", markerX: 1370, markerY: 972, x: 1427, y: 972, mobileLabelOffsetX: -5 },
-      { text: "酒城", markerX: 1750, markerY: 1010, x: 1794, y: 1010, mobileLabelOffsetX: -5 },
-      { entityKey: "taran", markerX: 2011, markerY: 226, x: 2011, y: 198, mobileLabelOffsetY: 2 },
-      { entityKey: "rattown", markerX: 1512, markerY: 454, x: 1512, y: 427, mobileLabelOffsetY: 2 },
-      { entityKey: "blueprint", interactiveRegionKey: "blueprint", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: -5 },
-      { entityKey: "shalom", markerX: 2337, markerY: 543, x: 2337, y: 515, mobileLabelOffsetY: 2 },
-      { entityKey: "sarra", markerX: 1752, markerY: 767, x: 1752, y: 739, mobileLabelOffsetY: 2 },
+      { entityKey: "museum", interactiveRegionKey: "museum", markerX: 147, markerY: 108, x: 147, y: 80 },
+      { entityKey: "5thstreet", markerX: 557, markerY: 677, x: 557, y: 649 },
+      { text: "小屋", markerX: 703, markerY: 883, x: 703, y: 858 },
+      { text: "忒卡西诺城", markerX: 1292, markerY: 906, x: 1292, y: 884 },
+      { text: "芝士牛排城", markerX: 1472, markerY: 833, x: 1554, y: 833, mobileLabelOffsetX: 30 },
+      { text: "汽车城", markerX: 1370, markerY: 972, x: 1427, y: 972, mobileLabelOffsetX: 10 },
+      { text: "酒城", markerX: 1750, markerY: 1010, x: 1794, y: 1010, mobileLabelOffsetX: 10 },
+      { entityKey: "taran", markerX: 2011, markerY: 226, x: 2011, y: 198 },
+      { entityKey: "rattown", markerX: 1512, markerY: 454, x: 1512, y: 427 },
+      { entityKey: "blueprint", interactiveRegionKey: "blueprint", markerX: 1929, markerY: 284, x: 1968, y: 284, mobileLabelOffsetX: 10},
+      { entityKey: "shalom", markerX: 2337, markerY: 543, x: 2337, y: 515 },
+      { entityKey: "sarra", markerX: 1752, markerY: 767, x: 1752, y: 739 },
     ]),
   }),
   hespera: withMapEntity({

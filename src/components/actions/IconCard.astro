@@ -1,0 +1,28 @@
+---
+import "../../styles/primitives/frame-decor.css";
+import "../../styles/actions/icon-card.css";
+
+const {
+  href,
+  icon,
+  caption,
+  alt = "",
+  variant,
+} = Astro.props;
+
+const hasIcon = Boolean(icon);
+const variantClass = variant ? `is-${variant}` : null;
+---
+
+<a class:list={["icon-card", "frame-decor-trigger", variantClass]} href={href} aria-label={caption}>
+  <span
+    class:list={[
+      "icon-card-frame",
+      "frame-decor",
+      "is-blue",
+    ]}
+  >
+    {hasIcon && <img src={icon} alt={alt} />}
+  </span>
+  {caption && <span class="icon-card-caption">{caption}</span>}
+</a>

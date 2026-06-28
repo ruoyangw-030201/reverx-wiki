@@ -1,3 +1,4 @@
+// Stores reusable UI copy for the shared chrome shell.
 export const chromeText = {
   headbar: {
     brandTitle: "世界概览快速入坑包",

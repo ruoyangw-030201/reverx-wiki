@@ -1,9 +1,16 @@
 ---
-import IndexIconCard from "../../components/index/IndexIconCard.astro";
-import IndexMapCard from "../../components/index/IndexMapCard.astro";
+import IconCard from "../../components/actions/IconCard.astro";
+import IconList from "../../components/actions/IconList.astro";
+import IndexGrid from "../../components/index/IndexGrid.astro";
+import MapCard from "../../components/actions/MapCard.astro";
 import IndexSection from "../../components/index/IndexSection.astro";
 import IndexLayout from "../../layouts/IndexLayout.astro";
+import { getRequiredIndexPageEntry, renderContentEntry } from "../../data/intro/entries.js";
 import { getSidebarItemsForPath } from "../../data/navigation.js";
+import { worldMaps } from "../../data/world/maps.js";
+
+const entry = await getRequiredIndexPageEntry("world");
+const { Content } = await renderContentEntry(entry);
 
 const worldSidebarGroups = [];
 
@@ -21,52 +28,40 @@ const findEntityGroupItems = (entityKey) =>
 const findKeyGroupItems = (key) =>
   worldSidebarGroups.find((group) => group.heading.key === key)?.items ?? [];
 
-const ferdonaEntities = findEntityGroupItems("ferdona");
-const hesperaEntities = findEntityGroupItems("hespera");
-const otherEntities = findKeyGroupItems("other");
+const getIconGroupItems = (groupKey) =>
+  findEntityGroupItems(groupKey).length > 0
+    ? findEntityGroupItems(groupKey)
+    : findKeyGroupItems(groupKey);
 ---
 
 <IndexLayout>
-  <div slot="intro" class="archive-index-intro-copy">
-    <p>
-      本概览介绍的世界建立在现实的平行世界基础之上。由于海平面相较现实略有下降，陆地版图发生了细微变化，也推动历史进程走向了不同的分支。同样，因为恶能——这种超能力的存在，诞生了隐秘的恶能者势力。本标签主要介绍该世界的现代地理格局、主要势力分布与宗教体系。
-    </p>
-    <p>
-      接下来，可以点击下方地图，先获得对世界版图与区域关系的直观印象；或者直接点击各个势力，了解这个世界。
-    </p>
-  </div>
+  <Fragment slot="intro">
+    <Content />
+  </Fragment>
 
-  <section class="world-index-grid" aria-label="世界概览分区">
-    <IndexSection title="凡多纳" subtitle="FERDONA" description="故事的主舞台">
-      <div class="world-index-section-flow">
-        <IndexMapCard href="/world/ferdona" src="/map/ferdona/ferdona_raw.webp" alt="凡多纳地图" />
-        <div class="index-icon-list world-index-section-icons">
-          {ferdonaEntities.map((entity) => (
-            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
-          ))}
+  <IndexGrid class={entry.data.gridClass} label={entry.data.gridLabel}>
+    {entry.data.sections.map((section) => (
+      <IndexSection
+        layout={section.layout}
+        title={section.title}
+        subtitle={section.subtitle}
+        description={section.description}
+      >
+        <div class="world-index-section-flow">
+          {section.mapKey && (
+            <MapCard
+              href={worldMaps[section.mapKey].href}
+              src={worldMaps[section.mapKey].image}
+              alt={`${worldMaps[section.mapKey].title}地图`}
+            />
+          )}
+          <IconList class="world-index-section-icons">
+            {getIconGroupItems(section.iconGroup).map((entity) => (
+              <IconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
+            ))}
+          </IconList>
         </div>
-      </div>
-    </IndexSection>
-
-    <IndexSection title="海西" subtitle="HESPERA" description="古老的传承">
-      <div class="world-index-section-flow">
-        <IndexMapCard href="/world/hespera" src="/map/hespera/hespera_raw.webp" alt="海西地图" />
-        <div class="index-icon-list world-index-section-icons">
-          {hesperaEntities.map((entity) => (
-            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
-          ))}
-        </div>
-      </div>
-    </IndexSection>
-
-    <IndexSection title="其他势力" subtitle="OTHERS" description="分散于各地的势力">
-      <div class="world-index-section-flow">
-        <div class="index-icon-list world-index-section-icons">
-          {otherEntities.map((entity) => (
-            <IndexIconCard href={entity.href} icon={entity.icon} caption={entity.label} alt={`${entity.label}图标`} />
-          ))}
-        </div>
-      </div>
-    </IndexSection>
-  </section>
+      </IndexSection>
+    ))}
+  </IndexGrid>
 </IndexLayout>

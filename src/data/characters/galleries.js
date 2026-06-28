@@ -1,9 +1,10 @@
+// Discovers and normalizes character gallery images and captions for archive pages.
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import {
   characterGalleryCaptions,
   defaultFigureGalleryCaption,
-} from "./characterGalleryCaptions.js";
+} from "./galleryCaptions.js";
 
 const cgRootPath = join(process.cwd(), "public", "cg");
 const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;

@@ -1,3 +1,4 @@
+// Stores reusable UI copy for character profile sections.
 export const characterText = {
   profile: {
     ability: {

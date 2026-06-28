@@ -1,0 +1,15 @@
+---
+import "../../styles/index/index-grid.css";
+
+const {
+  layout = "stack",
+  label,
+  class: className,
+} = Astro.props;
+
+const layoutClass = layout !== "stack" ? `is-${layout}` : "";
+---
+
+<section class:list={["index-grid", layoutClass, className]} aria-label={label}>
+  <slot />
+</section>

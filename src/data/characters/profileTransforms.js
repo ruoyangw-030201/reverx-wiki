@@ -1,3 +1,4 @@
+// Normalizes character profile frontmatter into the shape expected by profile components.
 const abilitySlots = [
   { key: "entity", label: "所属势力 / ENTITIES" },
   { key: "age", label: "年龄 / AGE" },

@@ -1,4 +1,6 @@
 ---
+import "../../styles/actions/map-card.css";
+
 const {
   href,
   src,
@@ -6,6 +8,6 @@ const {
 } = Astro.props;
 ---
 
-<a class="index-map-card" href={href} aria-label={alt}>
+<a class="map-card" href={href} aria-label={alt}>
   <img src={src} alt={alt} />
 </a>
