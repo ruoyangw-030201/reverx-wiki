@@ -1,0 +1,116 @@
+.classification-layout,
+.classification-layout * {
+  box-sizing: border-box;
+}
+
+.classification-layout {
+  position: relative;
+  display: grid;
+  /* overview、note、tree三个section的间距 */
+  gap: var(--space-shell);
+  width: 100%;
+  color: var(--black-main);
+  /* 距离标题的间距32px */
+  margin-top: var(--space-section);
+}
+
+/* ========== overview， note，tree三个section ========== */
+.classification-section {
+  display: grid;
+  /* section标题和panel的间距。实际上加上section自己的margin-bottom是12+18=30px */
+  gap: var(--space-medium);
+  min-width: 0;
+}
+
+.classification-overview-section {
+  position: relative;
+  isolation: isolate;
+}
+
+/* 放树的容器panel */
+.classification-overview-panel,
+.classification-tree-panel {
+  position: relative;
+  z-index: var(--z-raised);
+  width: 100%;
+  border: 1px solid var(--blue-line);
+  border-radius: var(--radius-frame);
+  background: var(--white-readable);
+  box-shadow:
+    inset 0 0 48px var(--gold-wash);
+  container-type: inline-size;
+}
+
+/* 这部分之后可以合并简化 */
+.classification-overview-panel {
+  min-height: 240px;
+}
+
+.classification-tree-panel {
+  min-height: 480px;
+  overflow: visible;
+}
+
+.classification-note {
+  width: 100%;
+}
+
+/* ========== 装饰图层 ========== */
+.classification-overview-underlay {
+  position: absolute;
+  left: 50%;
+  top: var(--space-broad);
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+  transform: translateX(-50%);
+}
+
+.classification-overview-decor-layer {
+  z-index: var(--z-base);
+}
+
+.classification-overview-core-layer {
+  z-index: var(--z-content);
+}
+
+.classification-overview-decor,
+.classification-overview-core {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  display: block;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+}
+
+.classification-overview-decor {
+  width: 38%;
+}
+
+.classification-overview-core {
+  width: 15%;
+}
+
+@media (max-width: 980px) {
+  .classification-layout {
+    /* section间距缩小为32px */
+    gap: var(--space-section);
+  }
+
+  /* 移动端装饰图层 */
+  .classification-overview-underlay {
+    top: var(--space-wide);
+  }
+
+  .classification-overview-decor-layer {
+    display: none;
+  }
+
+  .classification-overview-core {
+    width: min(35%, 200px);
+  }
+}

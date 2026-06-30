@@ -81,7 +81,7 @@ The old default/custom split has been removed for ordinary archive text pages.
 
 Ordinary world, system, and character archive text pages have been migrated to the archive content collection under `src/content/archive`. Dynamic routes now own layout selection and content rendering.
 
-Special archive pages still remain outside the standard text-frame model, but now render directly into the chrome stage:
+Special archive pages still remain outside the standard text-frame model. Classification and intensity currently keep only empty archive shell routes for a future rebuild; their old visual implementations are archived under `legacy/system-special-pages-old/`:
 
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
@@ -131,7 +131,7 @@ The reusable archive content layer is complete enough to treat as stable:
 
 Do not treat these as complete reusable modules yet:
 
-- Classification and intensity still use special page-level visual CSS, but no longer depend on `archive-content-area`.
+- Classification and intensity are empty chrome-stage rebuild targets. Do not reuse the archived connector or diagram APIs unless they are deliberately rebuilt.
 - Home remains a custom visual stage.
 
 ## Current Workflow
@@ -145,5 +145,5 @@ Do not treat these as complete reusable modules yet:
 
 ## Next Likely Steps
 
-1. Continue refining classification and intensity special page visual CSS.
+1. Rebuild classification and intensity from fresh component boundaries inside the chrome stage.
 2. Continue home visual architecture cleanup.

@@ -1,0 +1,34 @@
+---
+import ClassificationTree from "./ClassificationTree.astro";
+import NoteSection from "../../content/NoteSection.astro";
+import SectionRailHeading from "../../primitives/SectionRailHeading.astro";
+import "../../../styles/system/classification/classification-layout.css";
+---
+
+<div class="classification-layout">
+  <section class="classification-section classification-overview-section" aria-labelledby="classification-overview-heading">
+    <div class="classification-overview-underlay classification-overview-decor-layer" aria-hidden="true">
+      <img class="classification-overview-decor" src="/bg/bg-small-1-blue.webp" alt="" />
+    </div>
+
+    <div class="classification-overview-underlay classification-overview-core-layer" aria-hidden="true">
+      <img class="classification-overview-core" src="/cluster/malice-ball.webp" alt="" />
+    </div>
+
+    <SectionRailHeading id="classification-overview-heading" title="概览" subtitle="OVERVIEW" />
+
+    <div class="classification-overview-panel" aria-hidden="true"></div>
+  </section>
+
+  <NoteSection class="classification-note" aria-label="现代谱系分类法说明">
+    <slot name="note" />
+  </NoteSection>
+
+  <section class="classification-section classification-tree-section" aria-labelledby="classification-tree-heading">
+    <SectionRailHeading id="classification-tree-heading" title="详细谱系" subtitle="FULL SPECTRUM" />
+
+    <div class="classification-tree-panel">
+      <ClassificationTree />
+    </div>
+  </section>
+</div>

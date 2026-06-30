@@ -21,10 +21,6 @@
   --icon-medallion-background: var(--gold-wash);
 }
 
-.note-section.has-no-icon {
-  grid-template-columns: 1fr;
-}
-
 /* dot装饰的位置。用绝对值百分比定位 */
 .note-section-dots {
   position: absolute;
@@ -54,9 +50,18 @@
 
 .note-section-text {
   /* 右边留空间 */
-  padding-right: clamp(0px, 4vw, 72px);
+  --note-section-text-padding: clamp(0px, 4vw, 72px);
+  padding-right: var(--note-section-text-padding);
 }
 
+/* 无icon的形态，补上左边间距 */
+.note-section.has-no-icon {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.note-section.has-no-icon .note-section-text {
+  padding-left: var(--note-section-text-padding);
+}
 
 .archive-page.is-characters[data-page-mode="spoiler"] .note-section.is-changed {
   background: var(--black-deep);
@@ -86,6 +91,11 @@
   }
 
   .note-section-text {
-    padding-right: 0;
+    --note-section-text-padding: 0;
+  }
+
+  .note-section.has-no-icon .note-section-content {
+    width: min(100%, var(--note-section-no-icon-mobile-text-width, 30em));
+    justify-self: center;
   }
 }

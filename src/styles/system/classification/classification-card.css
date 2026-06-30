@@ -1,0 +1,65 @@
+.classification-card {
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.classification-card-inner {
+  /* 取消卡的margin-top\min-height */
+  --content-card-text-margin-top: 0;
+  --content-card-min-height: 0;
+  /* 半透明纸张 */
+  --content-card-background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--white-readable) 72%, var(--white-paper)) 88%,
+    transparent
+  );
+  /* 字体调整；正文14-16px浮动 */
+  --content-card-subtitle-font-weight: 600;
+  --content-card-description-font-size: clamp(var(--text-label), 5cqw, var(--text-body));
+  /* icon变量调整 */
+  --icon-medallion-size: clamp(48px, 18cqw, var(--icon-large));
+  --icon-medallion-image-scale: 1.2;
+  /* 本卡专用阴影色 */
+  --card-shadow-color: var(--ink-faint);
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--card-shadow-color) 55%, transparent);
+}
+
+/* 大类卡：icon列略宽，标题20px，副标题12px */
+.classification-card.is-primary .classification-card-inner {
+  --content-card-icon-track: 20cqw;
+  --content-card-title-font-size: var(--text-title-sm);
+  --content-card-subtitle-font-size: var(--text-sm);
+}
+
+/* 小类卡：icon列略窄，标题18px，副标题16px */
+.classification-card.is-secondary .classification-card-inner {
+  --content-card-icon-track: 18cqw;
+  --content-card-title-font-size: var(--text-lead);
+  --content-card-subtitle-font-size: var(--text-body);
+}
+
+/* ========== 三大类分类颜色 ========== */
+.classification-card.is-essence .classification-card-inner {
+  --content-card-border-color: var(--ink-muted);
+  --content-card-title-color: var(--black-main);
+  --content-card-subtitle-color: var(--ink-readable);
+  --icon-symbol-chevron-color: var(--ink-readable);
+}
+
+.classification-card.is-reality .classification-card-inner {
+  --content-card-border-color: var(--gold-line);
+  --content-card-title-color: var(--gold-dark);
+  --content-card-subtitle-color: var(--gold-main);
+  --card-shadow-color: var(--gold-wash);
+}
+
+.classification-card.is-information .classification-card-inner {
+  --content-card-border-color: var(--blue-bright);
+  --content-card-title-color: var(--blue-main);
+  --content-card-subtitle-color: var(--blue-border);
+  --card-shadow-color: var(--blue-wash);
+  --icon-symbol-chevron-color: var(--blue-main);
+}

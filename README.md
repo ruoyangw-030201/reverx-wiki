@@ -74,6 +74,10 @@ src/pages/world/ferdona/index.astro
 src/pages/world/hespera/index.astro
 ```
 
+The old classification and intensity visual implementations are archived under
+`legacy/system-special-pages-old/`. Their active routes currently keep only the
+archive shell/stage identity for a future rebuild.
+
 ## Document Pages
 
 Standalone document pages use `src/layouts/DocumentLayout.astro`, Markdown entries in `src/content/document/`, and document routes such as `src/pages/document/[slug].astro`. This keeps legal/document prose out of Astro page templates and avoids depending on archive layout CSS. The copyright page now lives at `/document/copyright/`.

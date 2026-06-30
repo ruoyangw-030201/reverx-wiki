@@ -1,0 +1,35 @@
+---
+import ClassificationCard from "./ClassificationCard.astro";
+import { classificationGroups } from "../../../data/system/classification.js";
+import "../../../styles/system/classification/classification-tree.css";
+---
+
+<div class="classification-tree" aria-label="现代谱系分类法占位布局">
+  {classificationGroups.map((group) => (
+    <section class="classification-tree-group">
+      <div class="classification-tree-primary">
+        <ClassificationCard
+          variant="primary"
+          theme={group.id}
+          icon={group.icon}
+          title={group.title}
+          subtitle={group.titleEn}
+          description={group.description}
+        />
+      </div>
+
+      <div class="classification-tree-secondary-list">
+        {group.lineages.map((lineage) => (
+          <ClassificationCard
+            variant="secondary"
+            theme={group.id}
+            icon={lineage.icon}
+            title={lineage.title}
+            subtitle={`谱系本质：${lineage.essence}`}
+            description={lineage.description}
+          />
+        ))}
+      </div>
+    </section>
+  ))}
+</div>

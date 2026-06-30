@@ -1,0 +1,100 @@
+.classification-tree {
+  /* 一级卡宽高 */
+  --classification-tree-card-primary-width: 28cqw;
+  --classification-tree-card-primary-height: 216px;
+  /* 二级卡宽高 */
+  --classification-tree-card-secondary-width: 28cqw;
+  --classification-tree-card-secondary-height: 172px;
+
+  /* 横向数据 */
+  /* 一级卡离左边距离，这个数据居中 */
+  --classification-tree-left-inset: 16cqw;
+  /* 一二级卡距离 */
+  --classification-tree-primary-to-secondary-gap: 12cqw;
+  /* 右边距离padding */
+  --classification-tree-right-inset: 2cqw;
+
+  /* 纵向数据 */
+  /* 上下padding */
+  --classification-tree-vertical-inset: 2cqw;
+  /* 同组间距 */
+  --classification-tree-secondary-gap: 1cqw;
+  /* 不同组间距 */
+  --classification-tree-group-gap: 4cqw;
+  position: relative;
+  display: grid;
+  gap: var(--classification-tree-group-gap);
+  width: 100%;
+  min-height: 100%;
+  padding:
+    var(--classification-tree-vertical-inset)
+    var(--classification-tree-right-inset)
+    var(--classification-tree-vertical-inset)
+    var(--classification-tree-left-inset);
+}
+
+.classification-tree-group {
+  display: grid;
+  grid-template-columns:
+    var(--classification-tree-card-primary-width)
+    var(--classification-tree-primary-to-secondary-gap)
+    var(--classification-tree-card-secondary-width);
+  align-items: center;
+  min-width: 0;
+}
+
+.classification-tree-primary {
+  grid-column: 1;
+}
+
+.classification-tree-secondary-list {
+  grid-column: 3;
+  display: grid;
+  gap: var(--classification-tree-secondary-gap);
+  min-width: 0;
+}
+
+.classification-tree-primary > .classification-card {
+  height: var(--classification-tree-card-primary-height);
+}
+
+.classification-tree-secondary-list > .classification-card {
+  height: var(--classification-tree-card-secondary-height);
+}
+
+@media (max-width: 980px) {
+  .classification-tree {
+    --classification-tree-card-primary-width: 48cqw;
+    --classification-tree-card-primary-height: 18cqw;
+    --classification-tree-card-secondary-width: 64cqw;
+    --classification-tree-card-secondary-height: 16cqw;
+    --classification-tree-left-inset: 8cqw;
+    --classification-tree-primary-to-secondary-gap: 4cqw;
+    --classification-tree-right-inset: 8cqw;
+    --classification-tree-top-inset: 8cqw;
+    --classification-tree-secondary-gap: 3cqw;
+    --classification-tree-group-gap: 8cqw;
+    --classification-tree-bottom-inset: 8cqw;
+  }
+
+  .classification-tree-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--classification-tree-primary-to-secondary-gap);
+  }
+
+  .classification-tree-primary,
+  .classification-tree-secondary-list {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .classification-tree-primary {
+    width: var(--classification-tree-card-primary-width);
+    justify-self: center;
+  }
+
+  .classification-tree-secondary-list {
+    justify-self: center;
+    width: var(--classification-tree-card-secondary-width);
+  }
+}

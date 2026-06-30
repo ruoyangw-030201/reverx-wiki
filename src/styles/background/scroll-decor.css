@@ -13,8 +13,8 @@
   inset-block-start: 0;
 }
 
-.archive-page:has(.intensity-diagram) .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small,
-.archive-page:has(.spectrum-classification) .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small {
+.system-classification-page .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small,
+.system-intensity-page .scroll-decor-layer .scroll-decor__group:first-child .scroll-decor__image--small {
   display: none;
 }
 

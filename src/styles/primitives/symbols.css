@@ -48,7 +48,7 @@
 /* Symbol: 3-arrow grid mark */
 .icon-symbol-chevron-triplet {
   display: block;
-  color: var(--russet-line);
+  color: var(--icon-symbol-chevron-color, var(--russet-line));
   font-family: var(--font-latin);
   font-size: var(--text-sm);
   font-weight: 700;

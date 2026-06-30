@@ -43,6 +43,8 @@ Special pages still use page-specific Astro routes:
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
 
+Classification and intensity are currently empty `ArchiveShellLayout` routes. Their previous page components, page CSS, data, and shared connector layer are archived under `legacy/system-special-pages-old/` for reference only.
+
 ## Content Frame Boundary
 
 `ContentFrame.astro` is the single content-frame composition entry. It owns:
@@ -97,7 +99,7 @@ The content collection migration is complete for ordinary world, system, and cha
 
 ## Remaining Work
 
-- Classification and intensity remain on `ArchiveShellLayout`, but their page-specific layout rules now target direct chrome-stage content instead of `.archive-content-area`.
+- Rebuild classification and intensity from fresh chrome-stage component boundaries.
 - `src/styles/archive/layout.css` has been retired to `legacy/archive-layout.css`; active layouts should not import it.
 
 ## Decisions To Preserve

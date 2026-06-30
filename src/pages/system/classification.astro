@@ -1,8 +1,17 @@
 ---
 import ArchiveShellLayout from "../../layouts/ArchiveShellLayout.astro";
-import SpectrumClassification from "../../components/system/SpectrumClassification.astro";
+import ClassificationLayout from "../../components/system/classification/ClassificationLayout.astro";
 ---
 
-<ArchiveShellLayout pageClass="system-classification-page" showHeading showStandaloneNextLink>
-  <SpectrumClassification />
+<ArchiveShellLayout pageClass="system-classification-page" showHeading>
+  <ClassificationLayout>
+    <Fragment slot="note">
+      <p>
+        恶能的能力表现多种多样。在2036年之前，依据科学，现代分类法通常将恶能分为三大类：本源类、现实类和信息类。每一大类内部都被认为存在极多且尚未完全探明的谱系。这些谱系命名零散，常常依据能力表现、历史称呼或使用者习惯被临时归类，缺乏统一标准。
+      </p>
+      <p>
+        2036年后，以利亚德·帕克为首的研究者们，根据能力的本质、每种粒子活性状态下细微的大小区别，详细地测定并分类了谱系：本源类拥有2个，现实类拥有5个，信息类拥有3个，总共有10个谱系。
+      </p>
+    </Fragment>
+  </ClassificationLayout>
 </ArchiveShellLayout>
