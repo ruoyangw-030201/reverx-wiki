@@ -12,7 +12,7 @@ This note records the current archive content-frame boundary after the default/c
 - character `ImageGallery` after-stage mounting
 - default slot passthrough
 
-It can optionally expose the legacy `.archive-content-area` wrapper for special pages that do not use `ContentFrame`.
+Special pages that do not use `ContentFrame` render directly into `ChromeStage`; the legacy `.archive-content-area` wrapper has been removed from active layouts.
 
 `ImageGallery` itself is now a self-contained modal component. Archive shell only decides whether to mount it from archive context; gallery layout, controls, native dialog behavior, image switching, arrow controls, and component-local CSS live under `src/components/gallery`, `src/styles/gallery`, and `src/scripts/image-gallery.js`.
 
@@ -97,8 +97,8 @@ The content collection migration is complete for ordinary world, system, and cha
 
 ## Remaining Work
 
-- Keep classification and intensity on `ArchiveShellLayout` until their page-specific content-area rules are cleaned.
-- Revisit `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
+- Classification and intensity remain on `ArchiveShellLayout`, but their page-specific layout rules now target direct chrome-stage content instead of `.archive-content-area`.
+- `src/styles/archive/layout.css` has been retired to `legacy/archive-layout.css`; active layouts should not import it.
 
 ## Decisions To Preserve
 

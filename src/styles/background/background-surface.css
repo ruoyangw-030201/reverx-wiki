@@ -1,25 +1,20 @@
-.chrome-page,
-.archive-page {
+.chrome-page {
   --background-surface: var(--white-main);
 }
 
-.chrome-page:has(> .background-surface.is-white),
-.archive-page:has(> .background-surface.is-white) {
+.chrome-page:has(> .background-surface.is-white) {
   --background-surface: var(--white-main);
 }
 
-.chrome-page:has(> .background-surface.is-paper),
-.archive-page:has(> .background-surface.is-paper) {
+.chrome-page:has(> .background-surface.is-paper) {
   --background-surface: var(--white-paper);
 }
 
-.chrome-page:has(> .background-surface.is-cool),
-.archive-page:has(> .background-surface.is-cool) {
+.chrome-page:has(> .background-surface.is-cool) {
   --background-surface: var(--white-cool);
 }
 
-.chrome-page:has(> .background-surface.is-secret),
-.archive-page:has(> .background-surface.is-secret) {
+.chrome-page:has(> .background-surface.is-secret) {
   --background-surface:
     radial-gradient(circle at 72% 18%, var(--blue-wash), transparent 34%),
     radial-gradient(circle at 26% 46%, var(--gold-wash), transparent 28%),

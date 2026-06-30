@@ -29,6 +29,7 @@ The reusable chrome shell is complete enough to treat as a stable base:
 - `ChromeLayout.astro` composes background surface, headbar, optional hero, sidebar, mobile sidebar, stage, after-stage slot, and endbar.
 - `ChromeStage.astro` remains intentionally thin and only marks the main stage boundary.
 - `src/styles/chrome/chrome-layout.css` owns the standard sidebar/stage grid, shell gaps, responsive column switch, and page-end spacing.
+- Archive special pages can render directly into `ChromeStage` through `ArchiveShellLayout` without the retired archive content-area wrapper.
 - Headbar, hero, sidebar, mobile sidebar, and endbar have been split into chrome components with local CSS.
 - Chrome UI copy is sourced from `src/data/chrome/text.js`.
 
@@ -80,7 +81,7 @@ The old default/custom split has been removed for ordinary archive text pages.
 
 Ordinary world, system, and character archive text pages have been migrated to the archive content collection under `src/content/archive`. Dynamic routes now own layout selection and content rendering.
 
-Special archive pages still remain outside the standard text-frame model:
+Special archive pages still remain outside the standard text-frame model, but now render directly into the chrome stage:
 
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
@@ -104,13 +105,15 @@ Index pages have completed the current cleanup pass and can be treated as a stab
 
 ## Document State
 
-Standalone legal/document pages now use a small document layer instead of archive compatibility CSS:
+Standalone legal/document pages now use a completed document layer instead of archive compatibility CSS:
 
 - `DocumentLayout.astro` owns the plain document shell, background, heading, Markdown body slot, and return-link behavior.
-- `src/styles/document/` owns document layout and prose rules.
+- `src/styles/document/document-layout.css` owns page geometry, heading/body spacing, return-link placement, and document-local background opacity.
+- `src/styles/document/document-prose.css` owns only Markdown body typography, section headings, lists, and links.
 - `src/content/document/` stores document copy as Markdown entries.
 - `src/pages/document/[slug].astro` renders document entries such as `/document/copyright/`.
 - Document pages must not import `src/styles/archive/layout.css` or use `.archive-page`.
+- The old copyright page has been migrated into `src/content/document/copyright.md`; its route is now `/document/copyright/`.
 
 ## Stable Content Layer
 
@@ -128,8 +131,7 @@ The reusable archive content layer is complete enough to treat as stable:
 
 Do not treat these as complete reusable modules yet:
 
-- `src/styles/archive/layout.css` still contains shared archive shell/content-area compatibility rules.
-- Classification and intensity still use special page-level layout/CSS.
+- Classification and intensity still use special page-level visual CSS, but no longer depend on `archive-content-area`.
 - Home remains a custom visual stage.
 
 ## Current Workflow
@@ -143,6 +145,5 @@ Do not treat these as complete reusable modules yet:
 
 ## Next Likely Steps
 
-1. Clean `src/styles/archive/layout.css` after classification/intensity and index/world-map usage are separated.
-2. Clean classification and intensity special page layout/CSS.
-3. Continue home visual architecture cleanup.
+1. Continue refining classification and intensity special page visual CSS.
+2. Continue home visual architecture cleanup.

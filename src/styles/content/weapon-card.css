@@ -15,6 +15,7 @@
     background var(--duration-content) var(--ease-standard),
     border-color var(--duration-content) var(--ease-standard),
     color var(--duration-content) var(--ease-standard);
+  align-items: start;
   container-type: inline-size;
 }
 

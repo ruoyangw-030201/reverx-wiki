@@ -5,6 +5,7 @@ import ActiveArrowButton from "../components/actions/ActiveArrowButton.astro";
 import HomeCoverCanvas from "../components/HomeCoverCanvas.astro";
 import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import MasterIndexCluster from "../components/home/MasterIndexCluster.astro";
+import IndexDecor from "../components/index/IndexDecor.astro";
 import { topTabs } from "../data/navigation.js";
 import "../styles/home/home.css";
 
@@ -154,18 +155,7 @@ const masterIndexItems = topTabs
           <ChromeHeadbar />
         </div>
 
-        <div class="home-master-crosshair" aria-hidden="true">
-          <span class="home-master-line home-master-line-vertical"></span>
-          <span class="home-master-line home-master-line-horizontal"></span>
-
-          <div class="home-master-side-mark">
-            <span class="home-master-side-mark-number-box">
-              <span class="home-master-side-mark-number">00</span>
-            </span>
-            <span class="home-master-side-mark-slash"></span>
-            <span class="home-master-side-mark-label">MASTER INDEX</span>
-          </div>
-        </div>
+        <IndexDecor number="00" label="MASTER INDEX" />
 
         <aside class="home-master-left-rail" aria-hidden="true">
           <span class="home-master-rail-label-en">MASTER INDEX</span>

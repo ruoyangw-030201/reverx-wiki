@@ -27,7 +27,7 @@
 .next-link-button.document-return-link {
   display: flex;
   width: fit-content;
-  margin: var(--space-shell) 0 0 auto;
+  margin: var(--space-wide) 0 0 auto;
 }
 
 @media (max-width: 980px) {

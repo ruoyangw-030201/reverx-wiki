@@ -5,11 +5,9 @@ import ScrollDecor from "../components/background/ScrollDecor.astro";
 import ImageGallery from "../components/gallery/ImageGallery.astro";
 import NextLinkButton from "../components/actions/NextLinkButton.astro";
 import { getArchiveEntryContext } from "../data/archive/entryContext.js";
-import "../styles/archive/layout.css";
 
 const {
   archive: archiveProp,
-  defaultPage = false,
   pageClass,
   surfaceTone = "white",
   heroVariant,
@@ -17,7 +15,6 @@ const {
   mobileSidebarIdPrefix = "chrome-archive-sidebar-mobile",
   showHeading = false,
   showStandaloneNextLink = false,
-  contentArea = false,
   ...archiveProps
 } = Astro.props;
 
@@ -28,7 +25,6 @@ const pageClasses = Array.isArray(pageClass) ? pageClass : [pageClass];
 <ChromeLayout
   pageClass={[
     "archive-page",
-    defaultPage && "archive-default-page",
     `is-${archive.currentSection}`,
     ...pageClasses,
   ]}
@@ -39,27 +35,21 @@ const pageClasses = Array.isArray(pageClass) ? pageClass : [pageClass];
 >
   <ScrollDecor slot="decor" variant={scrollDecorVariant} />
 
-  {contentArea ? (
-    <section class="archive-content-area">
-      {showHeading && (
-        <EntryHeading
-          kicker={archive.sectionKicker}
-          title={archive.frameTitle}
-          subtitle={archive.frameSubtitle}
-        />
-      )}
+  {showHeading && (
+    <EntryHeading
+      kicker={archive.sectionKicker}
+      title={archive.frameTitle}
+      subtitle={archive.frameSubtitle}
+    />
+  )}
 
-      <slot />
+  <slot />
 
-      {showStandaloneNextLink && archive.nextPageLink && (
-        <NextLinkButton
-          {...archive.nextPageLink}
-          class="next-link-button-standalone"
-        />
-      )}
-    </section>
-  ) : (
-    <slot />
+  {showStandaloneNextLink && archive.nextPageLink && (
+    <NextLinkButton
+      {...archive.nextPageLink}
+      class="next-link-button-standalone"
+    />
   )}
 
   {archive.characterGalleryId && (

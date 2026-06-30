@@ -11,7 +11,7 @@ const {
 const archive = archiveProp ?? getArchiveEntryContext(Astro.url.pathname, archiveProps);
 ---
 
-<ArchiveShellLayout archive={archive} defaultPage>
+<ArchiveShellLayout archive={archive} pageClass="archive-text-page">
   <ContentFrame nextPageLink={archive.nextPageLink}>
     <slot />
   </ContentFrame>

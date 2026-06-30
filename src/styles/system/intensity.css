@@ -6,15 +6,8 @@
 }
 
 /* 瀵搫瀹虫い闈涘敶鐎圭寤洪敓?*/
-.archive-content-area:has(.intensity-diagram) {
-  padding-bottom: clamp(28px, 4vw, 56px);
-}
 
 /* 瀵搫瀹虫い闈涘敶鐎圭寤洪敓?*/
-.archive-content-area:has(.intensity-diagram) > .intensity-diagram {
-  width: calc(100% - var(--archive-content-outset-width));
-  margin-left: var(--archive-content-outset-x);
-}
 
 /* 闂呮劘妫屾＃鏍矋濠婃艾濮╃憗鍛淬偘 */
 /* 瀵搫瀹虫い鍏稿瘜鐎圭懓娅?*/
@@ -79,6 +72,12 @@
   margin-top: clamp(24px, 2.8vw, 42px);
   color: var(--black-main);
   font-family: var(--font-sans);
+}
+
+.system-intensity-page .chrome-stage > .next-link-button-standalone {
+  display: flex;
+  width: fit-content;
+  margin: clamp(28px, 4vw, 56px) 0 0 auto;
 }
 
 /* 閺冪娀娈扮喊宥嗙垼閿?*/
@@ -1079,10 +1078,6 @@
 @media (max-width: 980px) {
 
   /* 瀵搫瀹虫い闈涘敶鐎圭寤洪敓?*/
-  .archive-content-area:has(.intensity-diagram) > .intensity-diagram {
-    width: 100%;
-    margin-left: 0;
-  }
 
   /* 瀵搫瀹虫い鍏稿瘜鐎圭懓娅?*/
   .intensity-diagram {

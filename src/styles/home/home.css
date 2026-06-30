@@ -11,8 +11,6 @@ body:has(.home-page) {
 .home-page {
   --home-paper: var(--white-cool);
   --home-paragraph-font-size: clamp(18px, 1.34vw, 25px);
-  --home-master-side-rail-width: var(--layout-side-rail-width);
-  --home-master-bottom-rail-height: var(--layout-bottom-rail-height);
   position: relative;
   min-height: 200svh;
   overflow: visible;
@@ -188,94 +186,9 @@ body:has(.home-page) {
   z-index: 0;
 }
 
-/* Master index fixed crosshair and 00 side mark. */
-.home-master-crosshair {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.home-master-line {
-  position: absolute;
-  display: block;
-  background: var(--neutral-ui);
-}
-
-.home-master-line-vertical {
-  top: 0;
-  bottom: 0;
-  right: var(--home-master-side-rail-width);
-  width: 1px;
-}
-
-.home-master-line-horizontal {
-  left: 0;
-  right: 0;
-  bottom: var(--home-master-bottom-rail-height);
-  height: 1px;
-}
-
-.home-master-side-mark {
-  position: absolute;
-  right: calc(var(--home-master-side-rail-width) * -0.292);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 154px;
-  height: 118px;
-  color: var(--black-main);
-  font-family: var(--font-latin);
-  pointer-events: none;
-}
-
-.home-master-side-mark-number-box {
-  position: absolute;
-  left: 0;
-  top: 4px;
-  display: block;
-  width: 118px;
-  height: 82px;
-  overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 19%, 39% 100%, 0 100%);
-}
-
-.home-master-side-mark-number {
-  position: absolute;
-  left: 14px;
-  top: -2px;
-  display: block;
-  font-family: var(--font-latin);
-  font-size: var(--text-display);
-  line-height: 0.86;
-  letter-spacing: -0.08em;
-  color: var(--gold-main);
-  font-weight: 1000;
-}
-
-.home-master-side-mark-slash {
-  position: absolute;
-  left: 46px;
-  top: 86px;
-  width: 90px;
-  height: 4px;
-  background: var(--black-main);
-  transform: rotate(-43deg);
-  transform-origin: left center;
-}
-
-.home-master-side-mark-label {
-  position: absolute;
-  left: 50px;
-  top: 81px;
-  display: block;
-  width: 82px;
-  font-family: var(--font-latin);
-  font-size: var(--text-label);
-  line-height: 0.95;
-  letter-spacing: 0;
-  color: var(--black-main);
-  font-weight: 900;
-  overflow-wrap: anywhere;
+.home-page[data-home-panel="intro"] .index-fixed-crosshair,
+.home-page[data-home-panel="intro"] .index-side-mark {
+  display: none;
 }
 
 /* Master index left rail: vertical label, faded line, hint copy, emblem, and archive footer. */
@@ -1020,8 +933,6 @@ body:has(.home-page) {
 
   .home-page {
     --home-paragraph-font-size: clamp(12px, min(3.7vw, 2.1svh), 20px);
-    --home-master-side-rail-width: var(--layout-mobile-side-rail-width);
-    --home-master-bottom-rail-height: var(--layout-mobile-bottom-rail-height);
     --home-master-stage-left: 0px;
     --home-master-stage-width: 100%;
     min-height: 200svh;
@@ -1060,10 +971,8 @@ body:has(.home-page) {
     overflow: hidden;
   }
 
-  .home-master-side-mark,
   .home-master-left-rail,
-  .home-master-line-vertical,
-  .home-master-line-horizontal {
+  .index-fixed-crosshair {
     display: none;
   }
 

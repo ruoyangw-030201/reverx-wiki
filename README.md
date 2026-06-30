@@ -76,7 +76,7 @@ src/pages/world/hespera/index.astro
 
 ## Document Pages
 
-Standalone document pages use `src/layouts/DocumentLayout.astro`, Markdown entries in `src/content/document/`, and document routes such as `src/pages/document/[slug].astro`. This keeps legal/document prose out of Astro page templates and avoids depending on archive layout CSS.
+Standalone document pages use `src/layouts/DocumentLayout.astro`, Markdown entries in `src/content/document/`, and document routes such as `src/pages/document/[slug].astro`. This keeps legal/document prose out of Astro page templates and avoids depending on archive layout CSS. The copyright page now lives at `/document/copyright/`.
 
 ## Content Components
 
@@ -100,7 +100,7 @@ Weapon art assets live in `public/weapon/`.
 
 - Global tokens live in `src/styles/global.css`.
 - Component geometry and visual behavior should stay close to the component CSS.
-- `src/styles/archive/layout.css` still contains archive compatibility rules and should be reduced carefully as special pages are cleaned.
+- The old archive compatibility stylesheet has been retired to `legacy/archive-layout.css`; active archive pages should not import it.
 - Avoid reintroducing a single mixed `content.css`; content styles are split by component.
 
 ## Editing Notes

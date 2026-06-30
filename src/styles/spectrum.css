@@ -1,21 +1,14 @@
 /* 鐠嬭京閮存い鐢告桨娑撹顔愰崳顭掔窗閹貉冨煑閺佺繝缍嬮崣宕囆╅妴浣割啍鎼达箑鎷伴張顒勩€夐懝鎻掑兊閸欐﹢鍣洪敓?*/
 /* 鐠嬭京閮撮敓?archive 閸愬懎顔愰崠鐚寸窗閸欐牗绉烽弲顕嗘嫹?content-frame 妞ょ敻娼版担璺ㄦ暏閻ㄥ嫬顦婚幍鈺侇啍鎼达讣绱濋柆鍨帳閺堫剟銆夐懛顏勭暰娑斿绔风仦鈧崘宥嗩偧閸欏磭些閸氬氦绉洪悾宀嬫嫹?*/
-.archive-content-area:has(.spectrum-classification) {
-  --archive-heading-offset-x: 0px;
-  width: 100%;
-  margin-left: 0;
-}
-
 .spectrum-classification {
   --spectrum-card-description-font-size: var(--text-body);
   --spectrum-overview-title-font-size: var(--text-body);
   --spectrum-mobile-class-title-font-size: var(--text-heading);
   --spectrum-mobile-class-subtitle-font-size: var(--text-lead);
   --spectrum-mobile-class-description-font-size: var(--text-body);
-  --spectrum-page-edge: clamp(12px, 2vw, 28px);
   position: relative;
   z-index: 8;
-  width: calc(100% - var(--spectrum-page-edge));
+  width: 100%;
   margin-top: 34px;
   margin-left: 0px;
   color: var(--black-main);
@@ -234,9 +227,10 @@
 }
 
 /* 鐠嬭京閮存い鍏哥瑓娑撯偓妞ら潧鍙嗛崣锝忕窗custom 濡€崇础娑撳濡告い鍨汞閹稿鎸抽幒銊ュ煂閺堚偓閸氬骸顔愰崳銊ょ瑓閺傜櫢鎷?*/
-.spectrum-classification + .next-link-button-standalone {
-  margin-top: clamp(34px, 4vw, 62px);
-  margin-bottom: clamp(28px, 3vw, 46px);
+.system-classification-page .chrome-stage > .next-link-button-standalone {
+  display: flex;
+  width: fit-content;
+  margin: clamp(34px, 4vw, 62px) 0 clamp(28px, 3vw, 46px) auto;
 }
 
 /* 鐠嬭京閮撮崡锛勫閸╄櫣顢呴敍姘复閿?ability card閿涘奔绲鹃悽銊ゅ瘜妫版ê褰夐柌蹇斿付閸掓儼绔熷鍡楁嫲閺嶅洭顣介懝璇ф嫹?*/
