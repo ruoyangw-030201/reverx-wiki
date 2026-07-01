@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+.system-classification-page {
+  container: classification-page / inline-size;
+}
+
 .classification-layout {
   position: relative;
   display: grid;
@@ -33,33 +37,29 @@
   position: relative;
   z-index: var(--z-raised);
   width: 100%;
+  min-height: 240px;
   border: 1px solid var(--blue-line);
   border-radius: var(--radius-frame);
   background: var(--white-readable);
   box-shadow:
     inset 0 0 48px var(--gold-wash);
   container-type: inline-size;
-}
-
-/* 这部分之后可以合并简化 */
-.classification-overview-panel {
-  min-height: 240px;
-}
-
-.classification-tree-panel {
-  min-height: 480px;
   overflow: visible;
+}
+
+.classification-overview-panel {
+  isolation: isolate;
 }
 
 .classification-note {
   width: 100%;
 }
 
+
 /* ========== 装饰图层 ========== */
 .classification-overview-underlay {
   position: absolute;
   left: 50%;
-  top: var(--space-broad);
   width: 100%;
   height: 0;
   pointer-events: none;
@@ -68,6 +68,7 @@
 }
 
 .classification-overview-decor-layer {
+  top: var(--space-broad);
   z-index: var(--z-base);
 }
 
@@ -95,17 +96,13 @@
   width: 15%;
 }
 
-@media (max-width: 980px) {
+@container classification-page (max-width: 1080px) {
   .classification-layout {
     /* section间距缩小为32px */
     gap: var(--space-section);
   }
 
   /* 移动端装饰图层 */
-  .classification-overview-underlay {
-    top: var(--space-wide);
-  }
-
   .classification-overview-decor-layer {
     display: none;
   }

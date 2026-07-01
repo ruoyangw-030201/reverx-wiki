@@ -6,7 +6,7 @@ import "../../../styles/system/classification/classification-tree.css";
 
 <div class="classification-tree" aria-label="现代谱系分类法占位布局">
   {classificationGroups.map((group) => (
-    <section class="classification-tree-group">
+    <section class:list={["classification-tree-group", `is-${group.id}`]}>
       <div class="classification-tree-primary">
         <ClassificationCard
           variant="primary"

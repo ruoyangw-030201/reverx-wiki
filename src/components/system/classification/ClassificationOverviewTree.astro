@@ -1,0 +1,31 @@
+---
+import ClassificationOverviewCard from "./ClassificationOverviewCard.astro";
+import { classificationGroups } from "../../../data/system/classification.js";
+import "../../../styles/system/classification/classification-overview-tree.css";
+
+const overviewRoot = {
+  title: "恶能",
+  icon: "/icon/vestige.png",
+};
+---
+
+<div class="classification-overview-tree" aria-label="恶能三大类别概览">
+  <div class="classification-overview-item classification-overview-root">
+    <ClassificationOverviewCard
+      root
+      theme="reality"
+      icon={overviewRoot.icon}
+      title={overviewRoot.title}
+    />
+  </div>
+
+  {classificationGroups.map((group) => (
+    <div class:list={["classification-overview-item", "classification-overview-node", `is-${group.id}`]}>
+      <ClassificationOverviewCard
+        theme={group.id}
+        icon={group.icon}
+        title={group.title}
+      />
+    </div>
+  ))}
+</div>

@@ -1,0 +1,18 @@
+---
+import ContentCard from "../../content/ContentCard.astro";
+import "../../../styles/system/classification/classification-overview-card.css";
+
+const {
+  theme,
+  root = false,
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<div class:list={["classification-overview-card", root && "is-root", theme && `is-${theme}`, className]}>
+  <ContentCard
+    {...props}
+    class="classification-overview-card-inner"
+  />
+</div>

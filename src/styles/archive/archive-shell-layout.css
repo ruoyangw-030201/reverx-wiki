@@ -1,0 +1,6 @@
+.next-link-button-standalone {
+  display: flex;
+  width: fit-content;
+  margin-block-start: var(--space-wide);
+  margin-inline-start: auto;
+}

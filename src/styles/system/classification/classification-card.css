@@ -63,3 +63,51 @@
   --card-shadow-color: var(--blue-wash);
   --icon-symbol-chevron-color: var(--blue-main);
 }
+
+@container classification-page (max-width: 1080px) {
+  .classification-card {
+    height: auto;
+  }
+
+  .classification-card-inner {
+    --content-card-description-font-size: var(--text-body-sm);
+    height: auto;
+    min-height: inherit;
+  }
+
+  .classification-card.is-primary .classification-card-inner {
+    --content-card-icon-track: 1fr;
+    /* 外部已设，这里取消padding */
+    --content-card-padding: 0;
+    --content-card-title-font-size: var(--text-title-lg);
+    --content-card-subtitle-font-size: var(--text-label);
+    --icon-medallion-size: clamp(70px, 24.6cqw, 100px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .classification-card.is-primary .content-card-icon {
+    justify-self: center;
+  }
+
+  .classification-card.is-primary .content-card-text {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .classification-card.is-primary .content-card-description {
+    justify-self: stretch;
+    /* 加一个padding-top */
+    margin-top: var(--space-tight);
+    text-align: center;
+  }
+
+  .classification-card.is-primary .content-card-corner-symbol {
+    display: none;
+  }
+}

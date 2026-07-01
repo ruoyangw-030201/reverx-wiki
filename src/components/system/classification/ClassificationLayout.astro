@@ -1,4 +1,5 @@
 ---
+import ClassificationOverviewTree from "./ClassificationOverviewTree.astro";
 import ClassificationTree from "./ClassificationTree.astro";
 import NoteSection from "../../content/NoteSection.astro";
 import SectionRailHeading from "../../primitives/SectionRailHeading.astro";
@@ -11,13 +12,15 @@ import "../../../styles/system/classification/classification-layout.css";
       <img class="classification-overview-decor" src="/bg/bg-small-1-blue.webp" alt="" />
     </div>
 
-    <div class="classification-overview-underlay classification-overview-core-layer" aria-hidden="true">
-      <img class="classification-overview-core" src="/cluster/malice-ball.webp" alt="" />
-    </div>
-
     <SectionRailHeading id="classification-overview-heading" title="概览" subtitle="OVERVIEW" />
 
-    <div class="classification-overview-panel" aria-hidden="true"></div>
+    <div class="classification-overview-panel">
+      <div class="classification-overview-underlay classification-overview-core-layer" aria-hidden="true">
+        <img class="classification-overview-core" src="/cluster/malice-ball.webp" alt="" />
+      </div>
+
+      <ClassificationOverviewTree />
+    </div>
   </section>
 
   <NoteSection class="classification-note" aria-label="现代谱系分类法说明">

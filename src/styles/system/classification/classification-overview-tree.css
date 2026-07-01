@@ -1,0 +1,80 @@
+.classification-overview-tree {
+  /* 卡宽高 */
+  --classification-overview-card-width: clamp(150px, 10.8cqw, 400px);
+  --classification-overview-card-height: 56px;
+  /* 在 panel 里的 padding */
+  --classification-overview-padding: 4cqw;
+  /* 行、列宽 */
+  --classification-overview-row-gap: 4cqw;
+  --classification-overview-column-gap: 20cqw;
+  position: relative;
+  z-index: var(--z-main);
+  display: grid;
+  grid-template-columns: repeat(3, var(--classification-overview-card-width));
+  grid-template-rows:
+    var(--classification-overview-card-height)
+    var(--classification-overview-card-height);
+  grid-template-areas:
+    ". root ."
+    "essence reality information";
+  row-gap: var(--classification-overview-row-gap);
+  column-gap: var(--classification-overview-column-gap);
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  min-height: inherit;
+  padding: var(--classification-overview-padding);
+}
+
+.classification-overview-item {
+  width: var(--classification-overview-card-width);
+  height: var(--classification-overview-card-height);
+  min-width: 0;
+}
+
+.classification-overview-root {
+  grid-area: root;
+}
+
+.classification-overview-node.is-essence {
+  grid-area: essence;
+}
+
+.classification-overview-node.is-reality {
+  grid-area: reality;
+}
+
+.classification-overview-node.is-information {
+  grid-area: information;
+}
+
+@container classification-page (max-width: 1080px) {
+  .classification-overview-tree {
+    /* 卡宽高 */
+    --classification-overview-card-width: clamp(100px, 20cqw, 150px);
+    /* 在 panel 里的 padding */
+    --classification-overview-padding: var(--space-small);
+    /* 行、列宽 */
+    --classification-overview-row-gap: var(--space-shell);
+    --classification-overview-column-gap: 8cqw;
+  }
+}
+
+@media (max-width: 620px) {
+  .classification-overview-tree {
+    /* 卡宽高 */
+    --classification-overview-card-height: 48px;
+    /* 行、列宽 */
+    --classification-overview-row-gap: var(--space-large);
+    --classification-overview-column-gap: 0;
+    grid-template-rows:
+      var(--classification-overview-card-height)
+      var(--classification-overview-card-height)
+      var(--classification-overview-card-height);
+    grid-template-areas:
+      ". root ."
+      "essence . reality"
+      ". information .";
+  }
+}

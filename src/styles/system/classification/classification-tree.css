@@ -62,24 +62,31 @@
   height: var(--classification-tree-card-secondary-height);
 }
 
-@media (max-width: 980px) {
+@container classification-page (max-width: 1080px) {
   .classification-tree {
-    --classification-tree-card-primary-width: 48cqw;
-    --classification-tree-card-primary-height: 18cqw;
-    --classification-tree-card-secondary-width: 64cqw;
-    --classification-tree-card-secondary-height: 16cqw;
-    --classification-tree-left-inset: 8cqw;
-    --classification-tree-primary-to-secondary-gap: 4cqw;
-    --classification-tree-right-inset: 8cqw;
-    --classification-tree-top-inset: 8cqw;
-    --classification-tree-secondary-gap: 3cqw;
-    --classification-tree-group-gap: 8cqw;
-    --classification-tree-bottom-inset: 8cqw;
-  }
+    --classification-tree-card-secondary-height: 152px;
+    --classification-tree-left-inset: 4cqw;
+    --classification-tree-primary-to-secondary-gap: 24px;
+    --classification-tree-right-inset: 4cqw;
+    --classification-tree-vertical-inset: 4cqw;
+    --classification-tree-secondary-gap: 16px;
+    --classification-tree-group-gap: 28px;
+    }
 
+  /* 手机端：把group变成真实框，里面的content-card取消框 */
   .classification-tree-group {
     grid-template-columns: minmax(0, 1fr);
+    /* 一级大卡末尾文字到第一张二级卡的距离 */
     gap: var(--classification-tree-primary-to-secondary-gap);
+    /* 大卡方框内的padding */
+    padding: var(--space-medium);
+    border: 1px solid var(--classification-tree-group-border-color, var(--ink-muted));
+    border-radius: var(--radius-card);
+    background: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--white-readable) 72%, var(--white-paper)) 88%,
+      transparent
+    );
   }
 
   .classification-tree-primary,
@@ -89,12 +96,31 @@
   }
 
   .classification-tree-primary {
-    width: var(--classification-tree-card-primary-width);
     justify-self: center;
   }
 
   .classification-tree-secondary-list {
     justify-self: center;
-    width: var(--classification-tree-card-secondary-width);
+  }
+
+  .classification-tree-primary > .classification-card,
+  .classification-tree-secondary-list > .classification-card {
+    height: auto;
+  }
+
+  .classification-tree-secondary-list > .classification-card {
+    min-height: var(--classification-tree-card-secondary-height);
+  }
+
+  .classification-tree-group.is-essence {
+    --classification-tree-group-border-color: var(--ink-muted);
+  }
+
+  .classification-tree-group.is-reality {
+    --classification-tree-group-border-color: var(--gold-line);
+  }
+
+  .classification-tree-group.is-information {
+    --classification-tree-group-border-color: var(--blue-bright);
   }
 }

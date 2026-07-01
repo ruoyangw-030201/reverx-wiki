@@ -1,0 +1,64 @@
+.classification-overview-card {
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.classification-overview-card-inner {
+  /* 取消卡的margin-top\min-height */
+  --content-card-text-margin-top: 0;
+  --content-card-min-height: 0;
+  --content-card-padding: 2cqw;
+  /* 半透明纸张 */
+  --content-card-background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--white-readable) 72%, var(--white-paper)) 88%,
+    transparent
+  );
+  /* 字体调整；正16-18px浮动 */
+  --content-card-title-font-size: clamp(var(--text-body), 12cqw, var(--text-lead));
+  /* icon变量调整 */
+  --content-card-icon-track: 30cqw;
+  --icon-medallion-size: clamp(30px, 28cqw, 40px);
+  --icon-medallion-image-scale: 1.2;
+  --card-shadow-color: var(--ink-faint);
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--card-shadow-color) 55%, transparent);
+}
+
+.classification-overview-card .content-card-corner-symbol {
+  display: none;
+}
+
+.classification-overview-card.is-root .classification-overview-card-inner {
+  --content-card-border-color: var(--gold-line);
+  --content-card-title-color: var(--gold-dark);
+  --card-shadow-color: var(--gold-wash);
+}
+
+.classification-overview-card.is-essence .classification-overview-card-inner {
+  --content-card-border-color: var(--ink-muted);
+  --content-card-title-color: var(--black-main);
+}
+
+.classification-overview-card.is-reality .classification-overview-card-inner {
+  --content-card-border-color: var(--gold-line);
+  --content-card-title-color: var(--gold-dark);
+  --card-shadow-color: var(--gold-wash);
+}
+
+.classification-overview-card.is-information .classification-overview-card-inner {
+  --content-card-border-color: var(--blue-bright);
+  --content-card-title-color: var(--blue-main);
+  --card-shadow-color: var(--blue-wash);
+}
+
+@container classification-page (max-width: 1080px) {
+  .classification-overview-card-inner {
+    /* 缩小gap值 */
+    --content-card-gap: var(--space-micro);
+    /* 缩小icon的大小 */
+    --icon-medallion-size: clamp(var(--icon-small), 25cqw, var(--icon-median));
+  }
+}
