@@ -1,6 +1,7 @@
 .classification-overview-card {
   width: 100%;
   height: 100%;
+  z-index: var(--z-raised);
   container-type: inline-size;
 }
 
@@ -10,11 +11,7 @@
   --content-card-min-height: 0;
   --content-card-padding: 2cqw;
   /* 半透明纸张 */
-  --content-card-background: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--white-readable) 72%, var(--white-paper)) 88%,
-    transparent
-  );
+  --content-card-background: color-mix(in srgb, var(--white-readable) 72%, var(--white-paper));
   /* 字体调整；正16-18px浮动 */
   --content-card-title-font-size: clamp(var(--text-body), 12cqw, var(--text-lead));
   /* icon变量调整 */

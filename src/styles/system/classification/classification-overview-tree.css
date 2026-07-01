@@ -28,6 +28,7 @@
 }
 
 .classification-overview-item {
+  position: relative;
   width: var(--classification-overview-card-width);
   height: var(--classification-overview-card-height);
   min-width: 0;
@@ -67,14 +68,14 @@
     --classification-overview-card-height: 48px;
     /* 行、列宽 */
     --classification-overview-row-gap: var(--space-large);
-    --classification-overview-column-gap: 0;
+    --classification-overview-column-gap: 0cqw;
     grid-template-rows:
       var(--classification-overview-card-height)
       var(--classification-overview-card-height)
       var(--classification-overview-card-height);
     grid-template-areas:
       ". root ."
-      "essence . reality"
-      ". information .";
+      "essence . information"
+      ". reality .";
   }
 }

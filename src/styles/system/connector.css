@@ -1,0 +1,35 @@
+.system-connector {
+  --system-connector-color: var(--russet-line);
+  --system-connector-node-color: var(--gold-dark);
+  --system-connector-node-size: var(--space-tight);
+  --system-connector-stroke-width: 1px;
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-decor);
+  pointer-events: none;
+}
+
+.system-connector-line,
+.system-connector-node {
+  position: relative;
+  pointer-events: none;
+}
+
+.system-connector-line {
+  z-index: var(--z-base);
+  background: var(--system-connector-color);
+}
+
+.system-connector-node {
+  z-index: var(--z-content);
+  width: var(--system-connector-node-size);
+  height: var(--system-connector-node-size);
+  border: var(--system-connector-stroke-width) solid var(--system-connector-node-color);
+  border-radius: var(--radius-circle);
+  background: var(--white-main);
+  box-shadow: 0 0 0 2px var(--gold-wash);
+}
+
+.system-connector-node.is-solid {
+  background: var(--system-connector-node-color);
+}

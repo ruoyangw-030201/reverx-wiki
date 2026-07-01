@@ -67,17 +67,18 @@
   transform: translateX(-50%);
 }
 
-.classification-overview-decor-layer {
+.classification-overview-underlay.is-decor {
   top: var(--space-broad);
   z-index: var(--z-base);
 }
 
-.classification-overview-core-layer {
+.classification-overview-underlay.is-core {
   z-index: var(--z-content);
 }
 
 .classification-overview-decor,
-.classification-overview-core {
+.classification-overview-core,
+.classification-tree-core {
   position: absolute;
   left: 50%;
   top: 0;
@@ -89,11 +90,27 @@
 }
 
 .classification-overview-decor {
-  width: 38%;
+  width: 32%;
 }
 
 .classification-overview-core {
-  width: 15%;
+  width: 12%;
+}
+
+.classification-tree-underlay {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  pointer-events: none;
+  user-select: none;
+}
+
+.classification-tree-core {
+  left: 3.6%;
+  top: 45.3%;
+  width: 20%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
 }
 
 @container classification-page (max-width: 1080px) {
@@ -103,7 +120,8 @@
   }
 
   /* 移动端装饰图层 */
-  .classification-overview-decor-layer {
+  .classification-overview-underlay.is-decor,
+  .classification-tree-underlay {
     display: none;
   }
 

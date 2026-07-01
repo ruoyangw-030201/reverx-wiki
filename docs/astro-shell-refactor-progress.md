@@ -81,10 +81,20 @@ The old default/custom split has been removed for ordinary archive text pages.
 
 Ordinary world, system, and character archive text pages have been migrated to the archive content collection under `src/content/archive`. Dynamic routes now own layout selection and content rendering.
 
-Special archive pages still remain outside the standard text-frame model. Classification and intensity currently keep only empty archive shell routes for a future rebuild; their old visual implementations are archived under `legacy/system-special-pages-old/`:
+Special archive pages still remain outside the standard text-frame model. Classification has been rebuilt from fresh chrome-stage component boundaries; intensity currently keeps only an empty archive shell route for a future rebuild. Their old visual implementations are archived under `legacy/system-special-pages-old/`:
 
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
+
+The rebuilt classification page is split into:
+
+- `ClassificationLayout.astro` for overview, note, tree sections, panel surfaces, and decor underlays.
+- `ClassificationOverviewTree.astro`, `ClassificationOverviewCard.astro`, and `ClassificationOverviewConnector.astro` for the overview diagram.
+- `ClassificationTree.astro`, `ClassificationCard.astro`, and `ClassificationConnector.astro` for the full spectrum tree.
+- `src/styles/system/connector.css` for reusable system connector line/node drawing shared by classification connector layers and future system diagrams.
+- `src/styles/system/classification/` for page-specific layout, card, tree, overview, and connector geometry.
+- `src/content/system-special/classification.md` for the page note copy.
+- `src/data/system/classification.js` for structured overview, group, lineage, and icon data.
 
 ## World Map State
 
@@ -131,7 +141,8 @@ The reusable archive content layer is complete enough to treat as stable:
 
 Do not treat these as complete reusable modules yet:
 
-- Classification and intensity are empty chrome-stage rebuild targets. Do not reuse the archived connector or diagram APIs unless they are deliberately rebuilt.
+- Intensity is still an empty chrome-stage rebuild target.
+- Classification is the current completed special-page rebuild reference. Do not reuse the archived connector or diagram APIs; use the new `system/connector.css` drawing primitives with page-owned connector geometry instead.
 - Home remains a custom visual stage.
 
 ## Current Workflow
@@ -145,5 +156,5 @@ Do not treat these as complete reusable modules yet:
 
 ## Next Likely Steps
 
-1. Rebuild classification and intensity from fresh component boundaries inside the chrome stage.
+1. Rebuild intensity from fresh component boundaries inside the chrome stage, using classification as the closest reference.
 2. Continue home visual architecture cleanup.

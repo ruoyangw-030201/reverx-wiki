@@ -8,14 +8,14 @@ import "../../../styles/system/classification/classification-layout.css";
 
 <div class="classification-layout">
   <section class="classification-section classification-overview-section" aria-labelledby="classification-overview-heading">
-    <div class="classification-overview-underlay classification-overview-decor-layer" aria-hidden="true">
+    <div class="classification-overview-underlay is-decor" aria-hidden="true">
       <img class="classification-overview-decor" src="/bg/bg-small-1-blue.webp" alt="" />
     </div>
 
     <SectionRailHeading id="classification-overview-heading" title="概览" subtitle="OVERVIEW" />
 
     <div class="classification-overview-panel">
-      <div class="classification-overview-underlay classification-overview-core-layer" aria-hidden="true">
+      <div class="classification-overview-underlay is-core" aria-hidden="true">
         <img class="classification-overview-core" src="/cluster/malice-ball.webp" alt="" />
       </div>
 
@@ -31,6 +31,10 @@ import "../../../styles/system/classification/classification-layout.css";
     <SectionRailHeading id="classification-tree-heading" title="详细谱系" subtitle="FULL SPECTRUM" />
 
     <div class="classification-tree-panel">
+      <div class="classification-tree-underlay" aria-hidden="true">
+        <img class="classification-tree-core" src="/cluster/malice-ball.webp" alt="" />
+      </div>
+
       <ClassificationTree />
     </div>
   </section>

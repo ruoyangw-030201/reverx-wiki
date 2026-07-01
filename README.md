@@ -38,6 +38,7 @@ src/components/characters/    Character profile composition
 src/components/primitives/    Small visual primitives
 src/content/archive/          Content collection entries for world, system, and characters
 src/content/document/         Markdown entries for standalone document/legal pages
+src/content/system-special/   Markdown copy for custom system visual pages
 src/data/                     Navigation, maps, copy, galleries, and data transforms
 src/styles/                   Layered component CSS
 public/                       Static images, icons, symbols, and weapon art
@@ -75,7 +76,10 @@ src/pages/world/hespera/index.astro
 ```
 
 The old classification and intensity visual implementations are archived under
-`legacy/system-special-pages-old/`. Their active routes currently keep only the
+`legacy/system-special-pages-old/`. Classification has been rebuilt from fresh
+chrome-stage component boundaries under `src/components/system/classification/`
+and `src/styles/system/classification/`, with page copy in
+`src/content/system-special/classification.md`; intensity still keeps only the
 archive shell/stage identity for a future rebuild.
 
 ## Document Pages

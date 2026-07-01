@@ -1,0 +1,104 @@
+.classification-overview-connector {
+  display: grid;
+  grid-template-columns: repeat(3, var(--classification-overview-card-width));
+  grid-template-rows:
+    var(--classification-overview-card-height)
+    var(--classification-overview-card-height);
+  grid-template-areas:
+    ". root ."
+    "essence reality information";
+  row-gap: var(--classification-overview-row-gap);
+  column-gap: var(--classification-overview-column-gap);
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  min-height: inherit;
+  padding: var(--classification-overview-padding);
+}
+
+.classification-overview-connector-node.is-root,
+.classification-overview-connector-line.is-root-drop {
+  grid-area: root;
+}
+
+.classification-overview-connector-node.is-essence,
+.classification-overview-connector-line.is-left-drop {
+  grid-area: essence;
+}
+
+.classification-overview-connector-node.is-reality {
+  grid-area: reality;
+}
+
+.classification-overview-connector-node.is-information,
+.classification-overview-connector-line.is-right-drop {
+  grid-area: information;
+}
+
+.classification-overview-connector-node.is-joint {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: center;
+}
+
+.classification-overview-connector-node.is-root {
+  align-self: end;
+  justify-self: center;
+  transform: translateY(50%);
+}
+
+.classification-overview-connector-node.is-essence,
+.classification-overview-connector-node.is-reality,
+.classification-overview-connector-node.is-information {
+  align-self: start;
+  justify-self: center;
+  transform: translateY(-50%);
+}
+
+.classification-overview-connector-line.is-root-drop {
+  align-self: end;
+  justify-self: center;
+  width: var(--system-connector-stroke-width);
+  height: var(--classification-overview-row-gap);
+  transform: translateY(100%);
+}
+
+.classification-overview-connector-line.is-bus {
+  grid-column: 1 / 4;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: center;
+  width: calc(
+    var(--classification-overview-card-width) * 2 +
+    var(--classification-overview-column-gap) * 2
+  );
+  height: var(--system-connector-stroke-width);
+}
+
+.classification-overview-connector-line.is-left-drop,
+.classification-overview-connector-line.is-right-drop {
+  align-self: start;
+  justify-self: center;
+  width: var(--system-connector-stroke-width);
+  height: calc(var(--classification-overview-row-gap) / 2);
+  transform: translateY(-100%);
+}
+
+@media (max-width: 620px) {
+  .classification-overview-connector {
+    grid-template-rows:
+      var(--classification-overview-card-height)
+      var(--classification-overview-card-height)
+      var(--classification-overview-card-height);
+    grid-template-areas:
+      ". root ."
+      "essence . information"
+      ". reality .";
+  }
+
+  .classification-overview-connector-line.is-root-drop {
+    height: calc(var(--classification-overview-row-gap) * 2 + var(--classification-overview-card-height));
+  }
+}

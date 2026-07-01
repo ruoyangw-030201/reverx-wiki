@@ -1,0 +1,159 @@
+.classification-connector {
+  display: grid;
+  gap: var(--classification-tree-group-gap);
+  width: 100%;
+  min-height: inherit;
+  padding:
+    var(--classification-tree-vertical-inset)
+    var(--classification-tree-right-inset)
+    var(--classification-tree-vertical-inset)
+    var(--classification-tree-left-inset);
+}
+
+.classification-connector-group {
+  /* group里所有list加在一起的高度 */
+  --classification-connector-secondary-list-height: calc(
+    var(--classification-connector-secondary-count) * var(--classification-tree-card-secondary-height) +
+    (var(--classification-connector-secondary-count) - 1) * var(--classification-tree-secondary-gap)
+  );
+  /* group高度；避免只有一张小卡的情况 */
+  --classification-connector-group-height: max(
+    var(--classification-tree-card-primary-height),
+    var(--classification-connector-secondary-list-height)
+  );
+  /* 大卡的node y坐标 */
+  --classification-connector-primary-y: calc(var(--classification-connector-group-height) * 0.5);
+  /* 小卡的node y坐标 */
+  --classification-connector-first-secondary-y: calc(
+    (var(--classification-connector-group-height) - var(--classification-connector-secondary-list-height)) * 0.5 +
+    var(--classification-tree-card-secondary-height) * 0.5
+  );
+  --classification-connector-last-secondary-y: calc(
+    var(--classification-connector-first-secondary-y) +
+    (var(--classification-connector-secondary-count) - 1) *
+    (var(--classification-tree-card-secondary-height) + var(--classification-tree-secondary-gap))
+  );
+  position: relative;
+  min-width: 0;
+  height: var(--classification-connector-group-height);
+}
+
+.classification-connector-line,
+.classification-connector-node {
+  position: absolute;
+}
+
+.classification-connector-node {
+  transform: translate(-50%, -50%);
+}
+
+/* ========== 左边的spine connector ========== */
+.classification-connector-left {
+  --classification-connector-left-bus-x: calc(var(--classification-tree-left-inset) * -0.5);
+  --classification-connector-left-drop-width: calc(var(--classification-tree-left-inset) * 0.5);
+  position: absolute;
+  inset: 0;
+}
+
+.classification-connector-left .is-left-bus {
+  left: var(--classification-connector-left-bus-x);
+  top: calc(var(--classification-tree-group-gap) * -0.5);
+  bottom: calc(var(--classification-tree-group-gap) * -0.5);
+  width: var(--system-connector-stroke-width);
+  transform: translateX(-50%);
+}
+
+.classification-connector-group.is-first .classification-connector-left .is-left-bus {
+  top: var(--classification-connector-primary-y);
+}
+
+.classification-connector-group.is-last .classification-connector-left .is-left-bus {
+  bottom: calc(var(--classification-connector-group-height) - var(--classification-connector-primary-y));
+}
+
+.classification-connector-left .is-left-drop {
+  left: var(--classification-connector-left-bus-x);
+  top: var(--classification-connector-primary-y);
+  width: var(--classification-connector-left-drop-width);
+  height: var(--system-connector-stroke-width);
+  transform: translateY(-50%);
+}
+
+.classification-connector-left .is-primary-left {
+  left: 0px;
+  top: var(--classification-connector-primary-y);
+}
+
+.classification-connector-left .is-left-joint {
+  left: var(--classification-connector-left-bus-x);
+  top: var(--classification-connector-primary-y);
+}
+
+/* ========== 右边的 connector ========== */
+.classification-connector-right {
+  --classification-connector-primary-right-x: var(--classification-tree-card-primary-width);
+  --classification-connector-right-bus-x: calc(
+    var(--classification-tree-card-primary-width) +
+    var(--classification-tree-primary-to-secondary-gap) * 0.5
+  );
+  --classification-connector-secondary-left-x: calc(
+    var(--classification-tree-card-primary-width) +
+    var(--classification-tree-primary-to-secondary-gap)
+  );
+  --classification-connector-right-drop-width: calc(var(--classification-tree-primary-to-secondary-gap) * 0.5);
+  position: absolute;
+  inset: 0;
+}
+
+.classification-connector-right .is-right-bus {
+  left: var(--classification-connector-right-bus-x);
+  top: var(--classification-connector-first-secondary-y);
+  width: var(--system-connector-stroke-width);
+  height: calc(
+    var(--classification-connector-last-secondary-y) -
+    var(--classification-connector-first-secondary-y)
+  );
+  transform: translateX(-50%);
+}
+
+.classification-connector-right .is-primary-drop {
+  left: var(--classification-connector-primary-right-x);
+  top: var(--classification-connector-primary-y);
+  width: var(--classification-connector-right-drop-width);
+  height: var(--system-connector-stroke-width);
+  transform: translateY(-50%);
+}
+
+.classification-connector-right .is-primary-right {
+  left: var(--classification-connector-primary-right-x);
+  top: var(--classification-connector-primary-y);
+}
+
+.classification-connector-right .is-primary-joint {
+  left: var(--classification-connector-right-bus-x);
+  top: var(--classification-connector-primary-y);
+}
+
+.classification-connector-right .is-secondary-drop {
+  left: var(--classification-connector-right-bus-x);
+  top: var(--classification-connector-secondary-y);
+  width: var(--classification-connector-right-drop-width);
+  height: var(--system-connector-stroke-width);
+  transform: translateY(-50%);
+}
+
+.classification-connector-right .is-secondary-joint {
+  left: var(--classification-connector-right-bus-x);
+  top: var(--classification-connector-secondary-y);
+}
+
+.classification-connector-right .is-secondary {
+  left: var(--classification-connector-secondary-left-x);
+  top: var(--classification-connector-secondary-y);
+}
+
+@container classification-page (max-width: 1080px) {
+  .classification-connector {
+    display: none;
+  }
+}

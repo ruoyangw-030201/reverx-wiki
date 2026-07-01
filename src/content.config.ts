@@ -56,6 +56,16 @@ const worldMap = defineCollection({
   }),
 });
 
+const systemSpecial = defineCollection({
+  loader: glob({
+    base: "./src/content/system-special",
+    pattern: "*.md",
+  }),
+  schema: z.object({
+    page: z.enum(["classification", "intensity"]),
+  }),
+});
+
 const document = defineCollection({
   loader: glob({
     base: "./src/content/document",
@@ -71,4 +81,4 @@ const document = defineCollection({
   }),
 });
 
-export const collections = { archive, indexPage, worldMap, document };
+export const collections = { archive, indexPage, worldMap, systemSpecial, document };

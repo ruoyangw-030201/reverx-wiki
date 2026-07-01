@@ -1,0 +1,56 @@
+---
+import { classificationGroups } from "../../../data/system/classification.js";
+import "../../../styles/system/connector.css";
+import "../../../styles/system/classification/classification-connector.css";
+
+const secondaryStyle = (index) => (
+  `--classification-connector-secondary-y: calc(var(--classification-connector-first-secondary-y) + ${index} * (var(--classification-tree-card-secondary-height) + var(--classification-tree-secondary-gap)));`
+);
+---
+
+<div class="system-connector classification-connector" aria-hidden="true">
+  {classificationGroups.map((group, groupIndex) => (
+    <div
+      class:list={[
+        "classification-connector-group",
+        `is-${group.id}`,
+        groupIndex === 0 && "is-first",
+        groupIndex === classificationGroups.length - 1 && "is-last",
+      ]}
+      style={`--classification-connector-secondary-count: ${group.lineages.length};`}
+    >
+      <div class="classification-connector-left">
+        <span class="system-connector-line classification-connector-line is-left-bus"></span>
+        <span class="system-connector-line classification-connector-line is-left-drop"></span>
+
+        <span class="system-connector-node classification-connector-node is-primary-left is-solid"></span>
+        <span class="system-connector-node classification-connector-node is-left-joint"></span>
+      </div>
+
+      <div class="classification-connector-right">
+        <span class="system-connector-line classification-connector-line is-right-bus"></span>
+        <span class="system-connector-line classification-connector-line is-primary-drop"></span>
+
+        <span class="system-connector-node classification-connector-node is-primary-right is-solid"></span>
+        <span class="system-connector-node classification-connector-node is-primary-joint"></span>
+
+        {group.lineages.map((lineage, index) => (
+          <>
+            <span
+              class="system-connector-line classification-connector-line is-secondary-drop"
+              style={secondaryStyle(index)}
+            ></span>
+            <span
+              class="system-connector-node classification-connector-node is-secondary-joint"
+              style={secondaryStyle(index)}
+            ></span>
+            <span
+              class="system-connector-node classification-connector-node is-secondary is-solid"
+              style={secondaryStyle(index)}
+            ></span>
+          </>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

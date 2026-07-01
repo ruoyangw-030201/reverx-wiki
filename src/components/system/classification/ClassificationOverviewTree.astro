@@ -1,21 +1,22 @@
 ---
+import ClassificationOverviewConnector from "./ClassificationOverviewConnector.astro";
 import ClassificationOverviewCard from "./ClassificationOverviewCard.astro";
-import { classificationGroups } from "../../../data/system/classification.js";
+import {
+  classificationGroups,
+  classificationOverviewRoot,
+} from "../../../data/system/classification.js";
 import "../../../styles/system/classification/classification-overview-tree.css";
-
-const overviewRoot = {
-  title: "恶能",
-  icon: "/icon/vestige.png",
-};
 ---
 
 <div class="classification-overview-tree" aria-label="恶能三大类别概览">
+  <ClassificationOverviewConnector />
+
   <div class="classification-overview-item classification-overview-root">
     <ClassificationOverviewCard
       root
       theme="reality"
-      icon={overviewRoot.icon}
-      title={overviewRoot.title}
+      icon={classificationOverviewRoot.icon}
+      title={classificationOverviewRoot.title}
     />
   </div>
 

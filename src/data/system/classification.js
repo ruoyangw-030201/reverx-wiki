@@ -1,3 +1,8 @@
+export const classificationOverviewRoot = {
+  title: "恶能",
+  icon: "/icon/vestige.png",
+};
+
 export const classificationGroups = [
   {
     id: "essence",

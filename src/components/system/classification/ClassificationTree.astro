@@ -1,10 +1,13 @@
 ---
+import ClassificationConnector from "./ClassificationConnector.astro";
 import ClassificationCard from "./ClassificationCard.astro";
 import { classificationGroups } from "../../../data/system/classification.js";
 import "../../../styles/system/classification/classification-tree.css";
 ---
 
 <div class="classification-tree" aria-label="现代谱系分类法占位布局">
+  <ClassificationConnector />
+
   {classificationGroups.map((group) => (
     <section class:list={["classification-tree-group", `is-${group.id}`]}>
       <div class="classification-tree-primary">
