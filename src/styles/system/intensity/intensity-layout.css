@@ -1,0 +1,249 @@
+.intensity-layout,
+.intensity-layout * {
+  box-sizing: border-box;
+}
+
+.system-intensity-page {
+  container: intensity-page / inline-size;
+}
+
+.intensity-layout {
+  position: relative;
+  width: 100%;
+  color: var(--black-main);
+  /* 不破坏页面布局的情况下往左、下平移一点 */
+  margin: var(--space-section) 0 0 calc(-1 * var(--space-section));
+}
+
+/* panel主class：container，所有cqw相对它 */
+.intensity-panel {
+  /* 上部分卡片底到下部分表格的高度 */
+  --intensity-panel-gap: 6cqw;
+  /* 上方大卡宽高 */
+  --intensity-factor-width: 26cqw;
+  --intensity-factor-height: 55cqw;
+  /* 圆球大小 */
+  --intensity-core-size: 24cqw;
+  --intensity-core-top: 8cqw;
+  /* 上方横向内收：2cqw；此时间距为：（100-8-52-24）/2 = 8cqw */
+  --formula-zone-horizontal-padding: 4cqw;
+  --formula-zone-gap: calc(calc(100cqw - var(--formula-zone-horizontal-padding) * 2 - var(--intensity-factor-width) * 2 - var(--intensity-core-size)) / 2);
+  /* badge数值 */
+  --intensity-badge-width: 16cqw;
+  --intensity-badge-height: 8cqw;
+  /* 让badge贴到table算出的高度 */
+  --intensity-badge-top: 49.8cqw;
+  /* 危险表格宽度 */
+  --intensity-table-width: 84cqw;
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  width: 100%;
+  container-type: inline-size;
+  overflow: visible;
+}
+
+/* 上半部分 */
+.intensity-formula-zone {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    var(--intensity-factor-width)
+    var(--intensity-core-size)
+    var(--intensity-factor-width);
+  grid-template-areas: "class core capacity";
+  column-gap: var(--formula-zone-gap);
+  align-items: start;
+  height: auto;
+  padding: 0cqw var(--formula-zone-horizontal-padding);
+}
+
+/* ========== 品阶、容积大卡 ========== */
+.intensity-factor-card-slot {
+  width: 100%;
+  height: var(--intensity-factor-height);
+  min-height: 0;
+}
+
+.intensity-factor-card-slot.is-class {
+  grid-area: class;
+}
+
+.intensity-factor-card-slot.is-capacity {
+  grid-area: capacity;
+}
+
+.intensity-mobile-operator {
+  display: none;
+}
+
+/* ========== 中间圆圈 ========== */
+.intensity-core-wrapper {
+  grid-area: core;
+  position: relative;
+  align-self: start;
+  justify-self: center;
+  top: var(--intensity-core-top);
+  width: var(--intensity-core-size);
+  height: var(--intensity-core-size);
+  overflow: visible;
+}
+
+.intensity-core-texture,
+.intensity-core-circle {
+  position: absolute;
+  inset: 0;
+  width: var(--intensity-core-size);
+  height: var(--intensity-core-size);
+}
+
+/* 圆圈图案：引用primitive */
+.intensity-core-texture {
+  max-width: none;
+  z-index: var(--z-raised);
+  --double-radiant-color: var(--gold-line);
+  --double-radiant-round-scale: 1.4;
+  --double-radiant-radiant-scale: 1.25;
+}
+
+/* 半透明背景和定位圆 */
+.intensity-core-circle {
+  z-index: var(--z-base);
+  border: 1px solid var(--blue-wash);
+  border-radius: var(--radius-circle);
+  background-color: var(--white-readable);
+}
+
+/* 圆圈中间的字 */
+.intensity-core-formula {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: var(--z-content);
+  width: 150%;
+  margin: 0;
+  color: var(--blue-dark);
+  font-size: 2.4cqw;
+  font-weight: 900;
+  line-height: var(--basic-line-height);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+/* ========== 危险图标的摆放 ========== */
+.intensity-danger-badge-slot {
+  position: absolute;
+  left: 50%;
+  top: var(--intensity-badge-top);
+  width: var(--intensity-badge-width);
+  height: var(--intensity-badge-height);
+  transform: translateX(-50%);
+}
+
+/* ========== 危险表格的wrapper ========== */
+.intensity-table-panel {
+  position: relative;
+  width: var(--intensity-table-width);
+  justify-self: center;
+  margin-top: var(--intensity-panel-gap);
+}
+
+.intensity-table-rail-slot {
+  position: absolute;
+  left: calc(100% + 0.5cqw);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* next-link跟随页面移动 */
+.system-intensity-page .next-link-button-standalone {
+  margin-inline-end: var(--space-wide);
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-layout {
+    /* 移动端给球留出更多位置 */
+    margin: var(--space-outset) 0;
+  }
+  
+  .intensity-panel {
+    /* 移动端品阶、移动大卡数值 */
+    --intensity-factor-width: 100%;
+    --intensity-factor-height: auto;
+    /* 移动端圆圈数值 */
+    --intensity-core-size: min(60cqw, 240px);
+    --intensity-core-top: 0cqw;
+    /* 移动端badge数值 */
+    --intensity-badge-width: min(50cqw, 200px);
+    --intensity-badge-height: 96px;
+    /* 上半部分、危险图标、table各间隔32px */
+    --intensity-panel-gap: var(--space-section);
+    --formula-zone-horizontal-padding: 0cqw;
+    gap: var(--intensity-panel-gap);
+    min-height: 0;
+  }
+
+  .intensity-formula-zone {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "core"
+      "class"
+      "multiply"
+      "capacity"
+      "equal";
+    /* grid间隔变成32px */
+    gap: var(--space-section);
+    min-height: 0;
+  }
+
+  .intensity-factor-card-slot {
+    height: auto;
+  }
+
+  /* 移动端球下面空出24px更多位置 */
+  .intensity-core-wrapper {
+    margin-bottom: var(--space-large);
+  }
+
+  .intensity-core-formula {
+    font-size: var(--text-title);
+  }
+
+  /* 移动端的x和=号 */
+  .intensity-mobile-operator {
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    width: var(--icon-large);
+    color: var(--blue-dark);
+    font-family: var(--font-sans);
+    font-size: var(--text-heading);
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .intensity-mobile-operator.is-multiply {
+    grid-area: multiply;
+  }
+
+  .intensity-mobile-operator.is-equal {
+    grid-area: equal;
+    transform: rotate(90deg);
+  }
+
+  .intensity-danger-badge-slot {
+    position: static;
+    justify-self: center;
+    transform: none;
+  }
+
+  .intensity-table-panel {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .system-intensity-page .next-link-button-standalone {
+    margin-inline-end: 0;
+  }
+}

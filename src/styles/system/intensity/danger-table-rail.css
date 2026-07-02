@@ -1,0 +1,52 @@
+.intensity-danger-table-rail {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "low ."
+    "arrow label"
+    "high .";
+  column-gap: 0cqw;
+  row-gap: 1cqw;
+  align-items: center;
+  justify-items: center;
+  color: var(--black-main);
+  font-size: 1.25cqw;
+  font-weight: 900;
+  line-height: var(--ui-line-height);
+  background: var(--white-soft);
+  text-align: center;
+}
+
+.intensity-danger-table-rail-edge,
+.intensity-danger-table-rail-label {
+  writing-mode: horizontal-tb;
+}
+
+.intensity-danger-table-rail-edge.is-low {
+  grid-area: low;
+}
+
+.intensity-danger-table-rail-edge.is-high {
+  grid-area: high;
+}
+
+.intensity-danger-table-rail-arrow {
+  grid-area: arrow;
+  width: 3cqw;
+  height: 20cqw;
+  max-width: none;
+  object-fit: fill;
+}
+
+.intensity-danger-table-rail-label {
+  grid-area: label;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-danger-table-rail {
+    display: none;
+  }
+}

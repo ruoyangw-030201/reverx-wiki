@@ -1,0 +1,30 @@
+.double-radiant {
+  position: relative;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.double-radiant-layer {
+  position: absolute;
+  inset: 0;
+  background: var(--double-radiant-color, currentColor);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.double-radiant-layer.is-round {
+  transform: scale(var(--double-radiant-round-scale, 1));
+  -webkit-mask-image: url("/texture/round_round.svg");
+  mask-image: url("/texture/round_round.svg");
+}
+
+.double-radiant-layer.is-radiant {
+  transform: scale(var(--double-radiant-radiant-scale, 1));
+  -webkit-mask-image: url("/texture/round_radiant.svg");
+  mask-image: url("/texture/round_radiant.svg");
+}

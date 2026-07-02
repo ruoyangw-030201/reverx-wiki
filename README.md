@@ -76,11 +76,12 @@ src/pages/world/hespera/index.astro
 ```
 
 The old classification and intensity visual implementations are archived under
-`legacy/system-special-pages-old/`. Classification has been rebuilt from fresh
-chrome-stage component boundaries under `src/components/system/classification/`
-and `src/styles/system/classification/`, with page copy in
-`src/content/system-special/classification.md`; intensity still keeps only the
-archive shell/stage identity for a future rebuild.
+`legacy/system-special-pages-old/`. Both pages have been rebuilt from fresh
+chrome-stage component boundaries under `src/components/system/classification/`,
+`src/styles/system/classification/`, `src/components/system/intensity/`, and
+`src/styles/system/intensity/`. Classification page copy lives in
+`src/content/system-special/classification.md`; intensity page data lives in
+`src/data/system/intensity.js`.
 
 ## Document Pages
 

@@ -1,0 +1,70 @@
+.intensity-class-card {
+  width: 100%;
+  height: auto;
+  container-type: inline-size;
+}
+
+.intensity-class-card-inner {
+  /* 卡高度 */
+  --content-card-min-height: 30cqw;
+  /* 清margin、内间距、图标与文字gap */
+  --content-card-text-margin-top: 0;
+  --content-card-padding: 2cqw;
+  --content-card-gap: 1cqw;
+  /* 基础数值颜色 */
+  --content-card-border-color: var(--blue-line);
+  --content-card-background: var(--white-faint);
+  --content-card-title-color: var(--blue-dark);
+  --content-card-description-color: var(--black-main);
+  /* 字体大小 */
+  --content-card-title-font-size: 6cqw;
+  --content-card-description-font-size: 4.75cqw;
+  --content-card-description-font-weight: 400;
+  /* icon数据 */
+  --content-card-icon-track: 24cqw;
+  --icon-medallion-size: 15cqw;
+  --icon-medallion-image-scale: 1.5;
+  width: 100%;
+  height: 100%;
+}
+
+.intensity-class-card .content-card-corner-symbol {
+  display: none;
+}
+
+.intensity-class-card.is-basic .intensity-class-card-inner {
+  --content-card-background: linear-gradient(135deg, var(--white-readable), var(--ladder-blue-e-bg));
+}
+
+.intensity-class-card.is-energy .intensity-class-card-inner {
+  --content-card-background: linear-gradient(135deg, var(--ladder-blue-d-bg-start), var(--ladder-blue-d-bg-end));
+}
+
+.intensity-class-card.is-semi .intensity-class-card-inner {
+  --content-card-background: linear-gradient(135deg, var(--ladder-blue-c-bg-start), var(--ladder-blue-c-bg-end));
+}
+
+.intensity-class-card.is-dismantle .intensity-class-card-inner {
+  --content-card-border-color: var(--ladder-blue-border);
+  --content-card-background: linear-gradient(135deg, var(--ladder-blue-b-bg-start), var(--ladder-blue-b-bg-end));
+  --content-card-title-color: var(--white-paper);
+  --content-card-description-color: var(--white-paper);
+}
+
+.intensity-class-card.is-overlimit .intensity-class-card-inner {
+  --content-card-border-color: var(--ladder-blue-border-strong);
+  --content-card-background: linear-gradient(135deg, var(--ladder-blue-a-bg-start), var(--ladder-blue-a-bg-end));
+  --content-card-title-color: var(--white-paper);
+  --content-card-description-color: var(--white-paper);
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-class-card-inner {
+    --content-card-min-height: var(--space-ultra);
+    --content-card-padding: var(--space-tight);
+    --content-card-title-font-size: var(--text-lead);
+    --content-card-description-font-size: var(--text-body-sm);
+    --content-card-icon-track: 72px;
+    --icon-medallion-size: 48px;
+  }
+}

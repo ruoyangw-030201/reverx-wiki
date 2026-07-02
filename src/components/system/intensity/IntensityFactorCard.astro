@@ -1,0 +1,43 @@
+---
+import "../../../styles/system/intensity/intensity-factor-card.css";
+
+const {
+  variant = "class",
+  icon,
+  iconAlt = "",
+  title,
+  subtitle,
+  description,
+  class: className,
+} = Astro.props;
+
+const descriptionParagraphs = Array.isArray(description)
+  ? description
+  : String(description ?? "").split(/\n\s*\n/).filter(Boolean);
+---
+
+<article class:list={["intensity-factor-card", `is-${variant}`, className]}>
+  <div class="intensity-factor-card-inner">
+    <header class="intensity-factor-card-header">
+      {icon && (
+        <span class="intensity-factor-card-icon" aria-hidden={iconAlt ? undefined : "true"}>
+          <img src={icon} alt={iconAlt} />
+        </span>
+      )}
+      <h2 class="intensity-factor-card-title">{title}</h2>
+      <p class="intensity-factor-card-subtitle">{subtitle}</p>
+    </header>
+
+    {descriptionParagraphs.length > 0 && (
+      <div class="intensity-factor-card-description">
+        {descriptionParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    )}
+
+    <div class="intensity-factor-card-content">
+      <slot />
+    </div>
+  </div>
+</article>

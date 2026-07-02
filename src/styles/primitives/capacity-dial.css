@@ -1,0 +1,34 @@
+.capacity-dial {
+  display: block;
+  width: var(--capacity-dial-size, 100%);
+  height: var(--capacity-dial-size, 100%);
+  background: var(--capacity-dial-color, currentColor);
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center;
+  animation: capacity-dial-spin var(--capacity-dial-duration, 22s) linear infinite;
+  -webkit-mask-image: url("/texture/capacity.svg");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: url("/texture/capacity.svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+@keyframes capacity-dial-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capacity-dial {
+    animation: none;
+  }
+}

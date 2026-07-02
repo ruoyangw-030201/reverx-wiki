@@ -1,0 +1,58 @@
+---
+import "../../../styles/system/intensity/danger-table.css";
+
+const {
+  rows = [],
+  class: className,
+} = Astro.props;
+
+const renderIconCell = (icon, alt, mark = "/") => ({ icon, alt, mark });
+---
+
+<section class:list={["intensity-danger-table", className]} role="table" aria-label="危险等级表">
+  <div class="intensity-danger-table-header" role="row">
+    <span class="intensity-danger-table-head is-grade" role="columnheader" aria-label="等级"></span>
+    <span class="intensity-danger-table-head is-text" role="columnheader" aria-label="说明"></span>
+    <span class="intensity-danger-table-head is-hunter" role="columnheader">猎魔者</span>
+    <span class="intensity-danger-table-head is-monster" role="columnheader">魔物</span>
+  </div>
+
+  <div class="intensity-danger-table-body" role="rowgroup">
+    {rows.map((row) => {
+      const hunter = renderIconCell(row.hunterIcon, row.hunterAlt, row.hunterMark);
+      const monster = renderIconCell(row.monsterIcon, row.monsterAlt, row.monsterMark);
+
+      return (
+        <div class:list={["intensity-danger-row", `is-${row.gradeClass}`]} role="row">
+          <div class="intensity-danger-cell is-grade" role="rowheader">
+            <span class="intensity-danger-grade-main">
+              <span class="intensity-danger-grade-symbol" aria-hidden="true">◆</span>
+              <span>{row.grade}</span>
+            </span>
+          </div>
+
+          <div class="intensity-danger-cell is-text" role="cell">
+            <strong class="intensity-danger-row-title">{row.title}</strong>
+            <span class="intensity-danger-row-description">{row.description}</span>
+          </div>
+
+          <div class="intensity-danger-cell is-icon is-hunter" role="cell">
+            {hunter.icon ? (
+              <img src={hunter.icon} alt={hunter.alt ?? ""} />
+            ) : (
+              <span class="intensity-danger-icon-mark" aria-label={hunter.alt ?? undefined}>{hunter.mark}</span>
+            )}
+          </div>
+
+          <div class="intensity-danger-cell is-icon is-monster" role="cell">
+            {monster.icon ? (
+              <img src={monster.icon} alt={monster.alt ?? ""} />
+            ) : (
+              <span class="intensity-danger-icon-mark" aria-label={monster.alt ?? undefined}>{monster.mark}</span>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>

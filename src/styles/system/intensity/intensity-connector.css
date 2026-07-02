@@ -1,0 +1,263 @@
+.intensity-connector {
+  z-index: var(--z-decor);
+  /* 圆左右空间和圆上点位置 */
+  --intensity-connector-side-gap: calc(var(--intensity-core-size) * 0.175);
+  --intensity-connector-side-node-inset: calc(var(--intensity-core-size) * 0.0075);
+  --intensity-core-left-x: calc(
+    var(--formula-zone-horizontal-padding) +
+    var(--intensity-factor-width) +
+    var(--formula-zone-gap)
+  );
+  --intensity-core-right-x: calc(var(--intensity-core-left-x) + var(--intensity-core-size));
+  --intensity-core-left-node-x: calc(var(--intensity-core-left-x) + var(--intensity-connector-side-node-inset));
+  --intensity-core-right-node-x: calc(var(--intensity-core-right-x) - var(--intensity-connector-side-node-inset));
+  --intensity-core-upper-node-y: calc(
+    var(--intensity-core-top) +
+    var(--intensity-core-size) / 2 -
+    var(--intensity-connector-side-gap) / 2
+  );
+  --intensity-core-lower-node-y: calc(
+    var(--intensity-core-top) +
+    var(--intensity-core-size) / 2 +
+    var(--intensity-connector-side-gap) / 2
+  );
+  /* 圆下方点 */
+  --intensity-core-bottom-node-y: calc(var(--intensity-core-top) + var(--intensity-core-size));
+  /* 大卡上的点位置 */
+  --intensity-class-node-x: calc(var(--formula-zone-horizontal-padding) + var(--intensity-factor-width));
+  --intensity-capacity-node-x: calc(100% - var(--formula-zone-horizontal-padding) - var(--intensity-factor-width));
+  --intensity-factor-upper-node-y: calc(var(--intensity-factor-height) * 0.25);
+  --intensity-factor-lower-node-y: calc(var(--intensity-factor-height) * 0.5);
+  /* 危险badge点的位置 */
+  --intensity-badge-node-x: 50%;
+  --intensity-badge-node-y: var(--intensity-badge-top);
+  /* 连线计算 */
+  --intensity-class-branch-half-width: calc(
+    (var(--intensity-core-left-node-x) - var(--intensity-class-node-x)) / 2
+  );
+  --intensity-class-branch-bus-x: calc(var(--intensity-class-node-x) + var(--intensity-class-branch-half-width));
+  --intensity-capacity-branch-half-width: calc(
+    (var(--intensity-capacity-node-x) - var(--intensity-core-right-node-x)) / 2
+  );
+  --intensity-capacity-branch-bus-x: calc(var(--intensity-core-right-node-x) + var(--intensity-capacity-branch-half-width));
+}
+
+/* 连线 */
+.intensity-connector-line {
+  position: absolute;
+}
+
+.intensity-connector-line.is-horizontal {
+  height: var(--system-connector-stroke-width);
+  transform: translateY(-50%);
+}
+
+.intensity-connector-line.is-vertical {
+  width: var(--system-connector-stroke-width);
+  transform: translateX(-50%);
+}
+
+.intensity-connector-line.is-class-top-factor-drop {
+  left: var(--intensity-class-node-x);
+  top: var(--intensity-factor-upper-node-y);
+  width: var(--intensity-class-branch-half-width);
+}
+
+.intensity-connector-line.is-class-top-bus {
+  left: var(--intensity-class-branch-bus-x);
+  top: var(--intensity-factor-upper-node-y);
+  height: calc(var(--intensity-core-upper-node-y) - var(--intensity-factor-upper-node-y));
+}
+
+.intensity-connector-line.is-class-top-core-drop {
+  left: var(--intensity-class-branch-bus-x);
+  top: var(--intensity-core-upper-node-y);
+  width: var(--intensity-class-branch-half-width);
+}
+
+.intensity-connector-line.is-class-bottom-factor-drop {
+  left: var(--intensity-class-node-x);
+  top: var(--intensity-factor-lower-node-y);
+  width: var(--intensity-class-branch-half-width);
+}
+
+.intensity-connector-line.is-class-bottom-bus {
+  left: var(--intensity-class-branch-bus-x);
+  top: var(--intensity-core-lower-node-y);
+  height: calc(var(--intensity-factor-lower-node-y) - var(--intensity-core-lower-node-y));
+}
+
+.intensity-connector-line.is-class-bottom-core-drop {
+  left: var(--intensity-class-branch-bus-x);
+  top: var(--intensity-core-lower-node-y);
+  width: var(--intensity-class-branch-half-width);
+}
+
+.intensity-connector-line.is-capacity-top-factor-drop {
+  left: var(--intensity-capacity-branch-bus-x);
+  top: var(--intensity-factor-upper-node-y);
+  width: var(--intensity-capacity-branch-half-width);
+}
+
+.intensity-connector-line.is-capacity-top-bus {
+  left: var(--intensity-capacity-branch-bus-x);
+  top: var(--intensity-factor-upper-node-y);
+  height: calc(var(--intensity-core-upper-node-y) - var(--intensity-factor-upper-node-y));
+}
+
+.intensity-connector-line.is-capacity-top-core-drop {
+  left: var(--intensity-core-right-node-x);
+  top: var(--intensity-core-upper-node-y);
+  width: var(--intensity-capacity-branch-half-width);
+}
+
+.intensity-connector-line.is-capacity-bottom-factor-drop {
+  left: var(--intensity-capacity-branch-bus-x);
+  top: var(--intensity-factor-lower-node-y);
+  width: var(--intensity-capacity-branch-half-width);
+}
+
+.intensity-connector-line.is-capacity-bottom-bus {
+  left: var(--intensity-capacity-branch-bus-x);
+  top: var(--intensity-core-lower-node-y);
+  height: calc(var(--intensity-factor-lower-node-y) - var(--intensity-core-lower-node-y));
+}
+
+.intensity-connector-line.is-capacity-bottom-core-drop {
+  left: var(--intensity-core-right-node-x);
+  top: var(--intensity-core-lower-node-y);
+  width: var(--intensity-capacity-branch-half-width);
+}
+
+.intensity-connector-line.is-core-badge {
+  left: var(--intensity-badge-node-x);
+  top: var(--intensity-core-bottom-node-y);
+  height: calc(var(--intensity-badge-node-y) - var(--intensity-core-bottom-node-y));
+}
+
+/* 圆 */
+.intensity-connector-core {
+  position: absolute;
+  left: var(--intensity-core-left-x);
+  top: var(--intensity-core-top);
+  width: var(--intensity-core-size);
+  height: var(--intensity-core-size);
+}
+
+.intensity-connector-core-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--system-connector-color);
+  -webkit-mask-image: url("/texture/intensity_core_ring.svg");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: url("/texture/intensity_core_ring.svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+/* 连接点 */
+.intensity-connector-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+/* 圆上连接点 */
+.intensity-connector-node.is-core-left-top {
+  left: var(--intensity-connector-side-node-inset);
+  top: calc(var(--intensity-core-size) / 2 - var(--intensity-connector-side-gap) / 2);
+}
+
+.intensity-connector-node.is-core-left-bottom {
+  left: var(--intensity-connector-side-node-inset);
+  top: calc(var(--intensity-core-size) / 2 + var(--intensity-connector-side-gap) / 2);
+}
+
+.intensity-connector-node.is-core-right-top {
+  left: calc(100% - var(--intensity-connector-side-node-inset));
+  top: calc(var(--intensity-core-size) / 2 - var(--intensity-connector-side-gap) / 2);
+}
+
+.intensity-connector-node.is-core-right-bottom {
+  left: calc(100% - var(--intensity-connector-side-node-inset));
+  top: calc(var(--intensity-core-size) / 2 + var(--intensity-connector-side-gap) / 2);
+}
+
+.intensity-connector-node.is-core-bottom {
+  left: 50%;
+  top: 100%;
+}
+
+/* 大卡上点 */
+.intensity-connector-node.is-class-top,
+.intensity-connector-node.is-class-bottom {
+  left: var(--intensity-class-node-x);
+}
+
+.intensity-connector-node.is-capacity-top,
+.intensity-connector-node.is-capacity-bottom {
+  left: var(--intensity-capacity-node-x);
+}
+
+.intensity-connector-node.is-class-top,
+.intensity-connector-node.is-capacity-top {
+  top: var(--intensity-factor-upper-node-y);
+}
+
+.intensity-connector-node.is-class-bottom,
+.intensity-connector-node.is-capacity-bottom {
+  top: var(--intensity-factor-lower-node-y);
+}
+
+/* 徽章上点 */
+.intensity-connector-node.is-badge-top {
+  left: var(--intensity-badge-node-x);
+  top: var(--intensity-badge-node-y);
+  --system-connector-node-color: var(--ladder-red-5);
+}
+
+/* 空心连接点 */
+.intensity-connector-node.is-class-top-factor-joint,
+.intensity-connector-node.is-class-top-core-joint,
+.intensity-connector-node.is-class-bottom-factor-joint,
+.intensity-connector-node.is-class-bottom-core-joint {
+  left: var(--intensity-class-branch-bus-x);
+}
+
+.intensity-connector-node.is-capacity-top-factor-joint,
+.intensity-connector-node.is-capacity-top-core-joint,
+.intensity-connector-node.is-capacity-bottom-factor-joint,
+.intensity-connector-node.is-capacity-bottom-core-joint {
+  left: var(--intensity-capacity-branch-bus-x);
+}
+
+.intensity-connector-node.is-class-top-factor-joint,
+.intensity-connector-node.is-capacity-top-factor-joint {
+  top: var(--intensity-factor-upper-node-y);
+}
+
+.intensity-connector-node.is-class-top-core-joint,
+.intensity-connector-node.is-capacity-top-core-joint {
+  top: var(--intensity-core-upper-node-y);
+}
+
+.intensity-connector-node.is-class-bottom-factor-joint,
+.intensity-connector-node.is-capacity-bottom-factor-joint {
+  top: var(--intensity-factor-lower-node-y);
+}
+
+.intensity-connector-node.is-class-bottom-core-joint,
+.intensity-connector-node.is-capacity-bottom-core-joint {
+  top: var(--intensity-core-lower-node-y);
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-connector-line,
+  .intensity-connector-node {
+    display: none;
+  }
+}

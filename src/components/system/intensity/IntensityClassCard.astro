@@ -1,0 +1,17 @@
+---
+import ContentCard from "../../content/ContentCard.astro";
+import "../../../styles/system/intensity/intensity-class-card.css";
+
+const {
+  tone = "basic",
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<div class:list={["intensity-class-card", `is-${tone}`, className]}>
+  <ContentCard
+    {...props}
+    class="intensity-class-card-inner"
+  />
+</div>

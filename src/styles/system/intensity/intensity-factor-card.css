@@ -1,0 +1,171 @@
+.intensity-factor-card {
+  --intensity-factor-card-border-color: var(--blue-bright);
+  --intensity-factor-card-shadow-color: var(--blue-wash);
+  position: relative;
+  z-index: var(--z-raised);
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  /* 相对外层的cqw，内边线的距离 */
+  padding: 0.5cqw;
+  border: 1px solid var(--intensity-factor-card-border-color);
+  border-radius: var(--radius-card);
+  background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--white-readable) 72%, var(--white-paper)) 88%,
+    transparent
+  );
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--intensity-factor-card-shadow-color) 55%, transparent);
+  /* 底下的cqw都是相对于卡本身 */
+  container-type: inline-size;
+}
+
+.intensity-factor-card.is-capacity {
+  --intensity-factor-card-border-color: var(--gold-line);
+  --intensity-factor-card-shadow-color: var(--gold-wash);
+}
+
+.intensity-factor-card-inner {
+  display: grid;
+  /* header、description、内容三段，每段间距4cqw */
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 4cqw;
+  height: 100%;
+  min-height: 0;
+  /* 相对内边线再间距4cqw */
+  padding: 4cqw;
+  border: 1px solid var(--intensity-factor-card-border-color);
+  border-radius: var(--radius-frame);
+  overflow: visible;
+}
+
+/* ========== header部分：icon+标题+副标题 ========== */
+.intensity-factor-card-header {
+  display: grid;
+  justify-items: center;
+  gap: 1cqw;
+  /* divider线离副标题的距离 */
+  padding-bottom: 1.5cqw;
+  border-bottom: 1px solid var(--blue-dark);
+  text-align: center;
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card-header {
+  border-bottom-color: var(--gold-strong);
+}
+
+.intensity-factor-card-icon {
+  display: grid;
+  place-items: center;
+  width: 16cqw;
+  height: 16cqw;
+}
+
+.intensity-factor-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.intensity-factor-card-title {
+  margin: 0;
+  color: var(--blue-dark);
+  font-size: 10cqw;
+  font-weight: 900;
+  line-height: var(--ui-line-height);
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card-title {
+  color: var(--gold-dark);
+}
+
+.intensity-factor-card-subtitle {
+  margin: 0;
+  color: var(--blue-dark);
+  font-family: var(--font-latin);
+  font-size: 4cqw;
+  line-height: var(--ui-line-height);
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card-subtitle {
+  color: var(--gold-main);
+}
+
+/* ========== 描述部分+段落规则 ========== */
+.intensity-factor-card-description {
+  display: grid;
+  gap: 1lh;
+  color: var(--blue-dark);
+  font-size: 5cqw;
+  font-weight: 800;
+  line-height: var(--card-line-height);
+  text-align: center;
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card-description {
+  color: var(--red-dark);
+}
+
+.intensity-factor-card-description p {
+  margin: 0;
+}
+
+/* 卡的内容 */
+.intensity-factor-card-content {
+  display: grid;
+  gap: 3cqw;
+  min-width: 0;
+  min-height: 0;
+}
+
+.intensity-factor-card.is-capacity .intensity-factor-card-content {
+  align-content: center;
+  justify-items: center;
+}
+
+.intensity-capacity-dial {
+  --capacity-dial-size: 85cqw;
+  --capacity-dial-color: linear-gradient(135deg, var(--gold-main), var(--gold-wash));
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-factor-card {
+    min-height: inherit;
+    height: auto;
+    /* 移动端内边线的距离 */
+    padding: var(--space-tight);
+  }
+
+  .intensity-factor-card-inner {
+    /* 移动端三段间距为16px；卡内间距16px */
+    gap: var(--space-compact);
+    height: auto;
+    min-height: inherit;
+    padding: var(--space-compact);
+  }
+
+  .intensity-factor-card-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .intensity-factor-card-title {
+    font-size: var(--text-heading);
+  }
+
+  .intensity-factor-card-subtitle {
+    font-size: var(--text-body);
+  }
+
+  .intensity-factor-card-description {
+    font-size: var(--text-lead);
+  }
+
+  .intensity-factor-card-content {
+    gap: var(--space-small);
+  }
+
+  .intensity-capacity-dial {
+    --capacity-dial-size: min(80cqw, 320px);
+  }
+}

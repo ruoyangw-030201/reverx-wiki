@@ -1,0 +1,249 @@
+.intensity-danger-table {
+  /* 行间距 */
+  --danger-table-row-gap: 0.5cqw;
+  /* 行高 */
+  --danger-table-row-height: 7cqw;
+  /* 左边grade、右边icon列的宽度 */
+  --danger-table-grade-width: 12cqw;
+  --danger-table-icon-width: var(--danger-table-row-height);
+  /* icon大小 */
+  --danger-table-icon-size: 5.2cqw;
+  /* 行里每一格元素的padding */
+  --danger-table-row-padding: 1cqw;
+  position: relative;
+  z-index: var(--z-raised);
+  width: 100%;
+  padding: 1.5cqw;
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius-frame);
+  background: var(--white-readable);
+  color: var(--black-main);
+  container-type: inline-size;
+}
+
+.intensity-danger-table-header,
+.intensity-danger-row {
+  display: grid;
+  grid-template-columns:
+    var(--danger-table-grade-width)
+    minmax(0, 1fr)
+    var(--danger-table-icon-width)
+    var(--danger-table-icon-width);
+  gap: 0;
+}
+
+.intensity-danger-table-header {
+  color: var(--blue-dark);
+  font-size: 1.5cqw;
+  font-weight: 600;
+  line-height: var(--ui-line-height);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.intensity-danger-table-head {
+  /* 留首行和table之间的空间 */
+  padding: 0 0 var(--danger-table-row-gap);
+}
+
+.intensity-danger-table-body {
+  display: grid;
+  gap: var(--danger-table-row-gap);
+}
+
+/* ========== 每一行的规则 ========== */
+.intensity-danger-row {
+  height: var(--danger-table-row-height);
+  background: var(--danger-row-background, var(--white-readable));
+  color: var(--danger-row-color, var(--black-main));
+}
+
+.intensity-danger-cell {
+  min-width: 0;
+  padding: var(--danger-table-row-padding);
+}
+
+/* ========== 左边的grade部分 ========== */
+.intensity-danger-cell.is-grade {
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-left: 8px solid var(--gold-line);
+  white-space: nowrap;
+}
+
+.intensity-danger-grade-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3cqw;
+  font-size: 3.5cqw;
+  font-weight: 900;
+  line-height: var(--basic-line-height);
+}
+
+.intensity-danger-grade-symbol {
+  font-size: 0.4em;
+}
+
+/* ========== 表格正文部分 ========== */
+.intensity-danger-cell.is-text {
+  display: grid;
+  align-content: center;
+  line-height: var(--card-line-height);
+}
+
+.intensity-danger-row-title {
+  display: block;
+  font-size: 1.8cqw;
+  font-weight: 900;
+}
+
+.intensity-danger-row-description {
+  display: block;
+  color: var(--danger-row-description-color, var(--black-main));
+  font-size: 1.3cqw;
+  opacity: 0.8;
+}
+
+/* ========== 右边icon部分 ========== */
+.intensity-danger-cell.is-icon {
+  display: grid;
+  place-items: center;
+  border-left: 1px solid var(--blue-line);
+}
+
+.intensity-danger-cell.is-icon img {
+  width: var(--danger-table-icon-size);
+  height: var(--danger-table-icon-size);
+  max-width: none;
+  object-fit: contain;
+}
+
+.intensity-danger-icon-mark {
+  display: inline-grid;
+  place-items: center;
+  color: currentColor;
+  font-family: var(--font-latin);
+  font-size: 2.4cqw;
+  font-weight: 700;
+  line-height: var(--basic-line-height);
+}
+
+/* ========== 颜色规则 ========== */
+.intensity-danger-row.is-jr {
+  --danger-row-background: var(--white-readable);
+}
+
+.intensity-danger-row.is-sr {
+  --danger-row-background: var(--ladder-red-1);
+}
+
+.intensity-danger-row.is-d1 {
+  --danger-row-background: var(--ladder-red-2);
+}
+
+.intensity-danger-row.is-d2 {
+  --danger-row-background: var(--ladder-red-3);
+}
+
+.intensity-danger-row.is-d3 {
+  --danger-row-background: var(--ladder-red-4);
+}
+
+.intensity-danger-row.is-d4 {
+  --danger-row-background: var(--ladder-red-5);
+  --danger-row-color: var(--white-paper);
+  --danger-row-description-color: var(--white-paper);
+}
+
+.intensity-danger-row.is-d5 {
+  --danger-row-background: var(--ladder-red-6);
+  --danger-row-color: var(--white-paper);
+  --danger-row-description-color: var(--white-paper);
+}
+
+.intensity-danger-row.is-d6,
+.intensity-danger-row.is-unknown {
+  --danger-row-background: var(--ladder-red-7);
+  --danger-row-color: var(--white-paper);
+  --danger-row-description-color: var(--white-paper);
+}
+
+.intensity-danger-row.is-unknown {
+  --danger-row-background: var(--black-deep);
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-danger-table {
+    /* 行间距变成4px */
+    --danger-table-row-gap: var(--space-micro);
+    /* 行高变成自动 */
+    --danger-table-row-height: auto;
+    /* 各cell都变成72px */
+    --danger-table-row-min-height: var(--space-wide);
+    --danger-table-grade-width: var(--space-wide);
+    --danger-table-icon-width: var(--space-wide);
+    padding: var(--space-small);
+  }
+
+  .intensity-danger-table-header {
+    font-size: var(--text-label);
+  }
+
+  .intensity-danger-row {
+    min-height: var(--danger-table-row-min-height);
+  }
+
+  .intensity-danger-cell {
+    padding: var(--space-tight);
+  }
+
+  .intensity-danger-cell.is-grade {
+    border-left: 6px solid var(--gold-line);
+  }
+
+  .intensity-danger-grade-main {
+    font-size: var(--text-heading);
+  }
+
+  .intensity-danger-row-title {
+    font-size: var(--text-lead);
+  }
+
+  .intensity-danger-row-description {
+    font-size: var(--text-body-sm);
+  }
+
+  .intensity-danger-cell.is-icon img,
+  .intensity-danger-icon-mark {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@container intensity-page (max-width: 620px) {
+  .intensity-danger-table {
+    --danger-table-grade-width: var(--space-broad);
+  }
+
+  .intensity-danger-table-header,
+  .intensity-danger-cell.is-icon {
+    display: none;
+  }
+
+  .intensity-danger-row {
+    grid-template-columns: var(--danger-table-grade-width) minmax(0, 1fr);
+  }
+
+  .intensity-danger-grade-main {
+    font-size: var(--text-title-lg);
+  }
+
+  .intensity-danger-row-title {
+    font-size: var(--text-body-sm);
+  }
+
+  .intensity-danger-row-description {
+    font-size: var(--text-label);
+  }
+}

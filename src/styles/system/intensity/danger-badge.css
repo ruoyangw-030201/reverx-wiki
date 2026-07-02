@@ -1,0 +1,79 @@
+.intensity-danger-badge {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  /* 上下左右padding：1cqw */
+  padding: 1cqw;
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius-card);
+  background: var(--ladder-red-5);
+  color: var(--white-paper);
+  text-align: center;
+}
+
+/* ========== 左右svg装饰 ========== */
+.intensity-danger-badge-decor {
+  position: absolute;
+  top: 8%;
+  display: block;
+  width: 22cqw;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.intensity-danger-badge-decor.is-left {
+  right: 95.5%;
+}
+
+.intensity-danger-badge-decor.is-right {
+  left: 95.5%;
+}
+
+/* 文字 */
+.intensity-danger-badge-title {
+  position: relative;
+  margin: 0;
+  font-size: 2.5cqw;
+  font-weight: 900;
+  line-height: var(--ui-line-height);
+}
+
+.intensity-danger-badge-subtitle {
+  position: relative;
+  margin: 0;
+  color: var(--white-soft);
+  font-family: var(--font-latin);
+  font-size: 1.1cqw;
+  line-height: var(--ui-line-height);
+}
+
+.intensity-danger-badge-description {
+  position: relative;
+  margin: 0;
+  font-size: 1.1cqw;
+  font-weight: 800;
+  line-height: var(--ui-line-height);
+}
+
+@container intensity-page (max-width: 1080px) {
+  .intensity-danger-badge {
+    padding: var(--space-small) var(--space-medium);
+  }
+
+  .intensity-danger-badge-decor {
+    display: none;
+  }
+
+  .intensity-danger-badge-title {
+    font-size: var(--text-title-lg);
+  }
+
+  .intensity-danger-badge-subtitle,
+  .intensity-danger-badge-description {
+    font-size: var(--text-label);
+  }
+}

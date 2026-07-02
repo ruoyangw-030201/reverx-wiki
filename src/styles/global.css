@@ -104,7 +104,7 @@
   --ladder-red-4: var(--russet-text); /* Danger grade 4. */
   --ladder-red-5: var(--red-deep); /* Danger grade 5. */
   --ladder-red-6: var(--red-dark); /* Danger grade 6. */
-  --ladder-red-7: var(--black-deep); /* Danger grade 7. */
+  --ladder-red-7: var(--black-main); /* Danger grade 7. */
 
   /* Text font metrics */
   --font-sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -139,10 +139,10 @@
   /* space definition of components*/
   --space-section: 32px;
   --space-shell: 42px;
-  /* need to be verified */
   --space-outset: 48px;
   --space-broad: 64px;
   --space-wide: 72px;
+  --space-ultra: 96px;
   /* page end metrics */
   --space-end-mobile: 128px;
   --space-end: 196px;

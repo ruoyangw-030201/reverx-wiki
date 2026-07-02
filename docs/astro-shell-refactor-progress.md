@@ -81,7 +81,7 @@ The old default/custom split has been removed for ordinary archive text pages.
 
 Ordinary world, system, and character archive text pages have been migrated to the archive content collection under `src/content/archive`. Dynamic routes now own layout selection and content rendering.
 
-Special archive pages still remain outside the standard text-frame model. Classification has been rebuilt from fresh chrome-stage component boundaries; intensity currently keeps only an empty archive shell route for a future rebuild. Their old visual implementations are archived under `legacy/system-special-pages-old/`:
+Special archive pages still remain outside the standard text-frame model. Classification and intensity have both been rebuilt from fresh chrome-stage component boundaries. Their old visual implementations are archived under `legacy/system-special-pages-old/`:
 
 - `src/pages/system/classification.astro`
 - `src/pages/system/intensity.astro`
@@ -95,6 +95,15 @@ The rebuilt classification page is split into:
 - `src/styles/system/classification/` for page-specific layout, card, tree, overview, and connector geometry.
 - `src/content/system-special/classification.md` for the page note copy.
 - `src/data/system/classification.js` for structured overview, group, lineage, and icon data.
+
+The rebuilt intensity page is split into:
+
+- `IntensityLayout.astro` for the chrome-stage panel, formula-zone flow, table panel placement, and page-local wrapper slots.
+- `IntensityFactorCard.astro`, `IntensityClassCard.astro`, `DangerBadge.astro`, `DangerTable.astro`, and `DangerTableRail.astro` for the page-owned visual units.
+- `IntensityConnector.astro` for the page-owned connector layer, reusing `src/styles/system/connector.css` line/node primitives with intensity-local geometry.
+- `src/styles/system/intensity/` for page-specific layout, factor cards, class rows, danger badge/table/rail, and connector geometry.
+- `src/data/system/intensity.js` for structured formula, factor-card, danger-badge, and danger-table data.
+- `public/texture/intensity_core_ring.svg` for the masked connector ring asset.
 
 ## World Map State
 
@@ -141,9 +150,9 @@ The reusable archive content layer is complete enough to treat as stable:
 
 Do not treat these as complete reusable modules yet:
 
-- Intensity is still an empty chrome-stage rebuild target.
-- Classification is the current completed special-page rebuild reference. Do not reuse the archived connector or diagram APIs; use the new `system/connector.css` drawing primitives with page-owned connector geometry instead.
 - Home remains a custom visual stage.
+- The home-owned master-index page/stage still needs cleanup.
+- Classification and intensity are the completed special-page rebuild references. Do not reuse the archived connector or diagram APIs; use the new `system/connector.css` drawing primitives with page-owned connector geometry instead.
 
 ## Current Workflow
 
@@ -156,5 +165,5 @@ Do not treat these as complete reusable modules yet:
 
 ## Next Likely Steps
 
-1. Rebuild intensity from fresh component boundaries inside the chrome stage, using classification as the closest reference.
-2. Continue home visual architecture cleanup.
+1. Continue home visual architecture cleanup.
+2. Optimize the home-owned master-index page/stage.

@@ -1,0 +1,13 @@
+---
+import "../../styles/primitives/double-radiant.css";
+
+const {
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<span {...attrs} class:list={["double-radiant", className]} aria-hidden="true">
+  <span class="double-radiant-layer is-round"></span>
+  <span class="double-radiant-layer is-radiant"></span>
+</span>

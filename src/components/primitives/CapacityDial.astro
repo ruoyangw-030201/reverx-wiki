@@ -1,0 +1,10 @@
+---
+import "../../styles/primitives/capacity-dial.css";
+
+const {
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<span {...attrs} class:list={["capacity-dial", className]} aria-hidden="true"></span>

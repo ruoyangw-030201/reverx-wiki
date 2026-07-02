@@ -1,0 +1,69 @@
+---
+import DangerBadge from "./DangerBadge.astro";
+import DangerTable from "./DangerTable.astro";
+import DangerTableRail from "./DangerTableRail.astro";
+import IntensityConnector from "./IntensityConnector.astro";
+import IntensityClassCard from "./IntensityClassCard.astro";
+import IntensityFactorCard from "./IntensityFactorCard.astro";
+import CapacityDial from "../../primitives/CapacityDial.astro";
+import DoubleRadiant from "../../primitives/DoubleRadiant.astro";
+import { intensityDangerBadge, intensityDangerRows, intensityFactorCards, intensityFormula } from "../../../data/system/intensity.js";
+import "../../../styles/system/intensity/intensity-layout.css";
+
+const classFactor = intensityFactorCards.class;
+const capacityFactor = intensityFactorCards.capacity;
+---
+
+<div class="intensity-layout">
+  <div class="intensity-panel">
+    <IntensityConnector />
+
+    <div class="intensity-formula-zone">
+      <div class="intensity-factor-card-slot is-class">
+        <IntensityFactorCard
+          variant="class"
+          icon={classFactor.icon}
+          title={classFactor.title}
+          subtitle={classFactor.subtitle}
+          description={classFactor.description}
+        >
+          {classFactor.rows.map((row) => (
+            <IntensityClassCard {...row} />
+          ))}
+        </IntensityFactorCard>
+      </div>
+
+      <span class="intensity-mobile-operator is-multiply" aria-hidden="true">×</span>
+
+      <div class="intensity-core-wrapper">
+        <DoubleRadiant class="intensity-core-texture" />
+        <div class="intensity-core-circle" aria-hidden="true"></div>
+        <p class="intensity-core-formula">{intensityFormula.title}</p>
+      </div>
+
+      <div class="intensity-factor-card-slot is-capacity">
+        <IntensityFactorCard
+          variant="capacity"
+          icon={capacityFactor.icon}
+          title={capacityFactor.title}
+          subtitle={capacityFactor.subtitle}
+          description={capacityFactor.description}
+        >
+          <CapacityDial class="intensity-capacity-dial" />
+        </IntensityFactorCard>
+      </div>
+
+      <span class="intensity-mobile-operator is-equal" aria-hidden="true">=</span>
+    </div>
+
+    <div class="intensity-danger-badge-slot">
+      <DangerBadge {...intensityDangerBadge} />
+    </div>
+    <div class="intensity-table-panel">
+      <DangerTable rows={intensityDangerRows} />
+      <div class="intensity-table-rail-slot">
+        <DangerTableRail />
+      </div>
+    </div>
+  </div>
+</div>

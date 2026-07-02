@@ -1,0 +1,19 @@
+---
+import "../../../styles/system/intensity/danger-badge.css";
+
+const {
+  title = "危险等级",
+  subtitle = "D-RANK",
+  description = "描述最终破坏规模",
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={["intensity-danger-badge", className]}>
+  <img class="intensity-danger-badge-decor is-left" src="/texture/danger_left_single.svg" alt="" aria-hidden="true" loading="lazy" />
+  <img class="intensity-danger-badge-decor is-right" src="/texture/danger_right_single.svg" alt="" aria-hidden="true" loading="lazy" />
+
+  <h2 class="intensity-danger-badge-title">{title}</h2>
+  <p class="intensity-danger-badge-subtitle">{subtitle}</p>
+  <p class="intensity-danger-badge-description">{description}</p>
+</div>
