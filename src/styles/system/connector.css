@@ -11,7 +11,6 @@
 
 .system-connector-line,
 .system-connector-node {
-  position: relative;
   pointer-events: none;
 }
 

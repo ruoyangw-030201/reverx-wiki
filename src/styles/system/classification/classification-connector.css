@@ -38,8 +38,8 @@
   height: var(--classification-connector-group-height);
 }
 
-.classification-connector-line,
-.classification-connector-node {
+.system-connector-line.classification-connector-line,
+.system-connector-node.classification-connector-node {
   position: absolute;
 }
 

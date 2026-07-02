@@ -43,7 +43,7 @@
 }
 
 /* 连线 */
-.intensity-connector-line {
+.system-connector-line.intensity-connector-line {
   position: absolute;
 }
 
@@ -161,7 +161,7 @@
 }
 
 /* 连接点 */
-.intensity-connector-node {
+.system-connector-node.intensity-connector-node {
   position: absolute;
   transform: translate(-50%, -50%);
 }
