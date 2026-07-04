@@ -1,0 +1,31 @@
+---
+import "../../../styles/system/connector.css";
+import "../../../styles/home/intro/home-intro-timeline.css";
+
+const timelineEvents = [1, 2, 3];
+---
+
+<div class="system-connector home-intro-timeline timeline" aria-hidden="true">
+  <span class="system-connector-line home-intro-timeline-line home-intro-timeline-bus-extension is-top"></span>
+
+  <svg class="home-intro-timeline-bus-arc" viewBox="0 0 2 2" preserveAspectRatio="none">
+    <path
+      class="home-intro-timeline-bus-arc-path is-main"
+      d="M 0 0 Q 2 1 0 2"
+    ></path>
+    <path
+      class="home-intro-timeline-bus-arc-path is-etch"
+      d="M 0 0 Q 2 1 0 2"
+    ></path>
+  </svg>
+
+  <span class="system-connector-line home-intro-timeline-line home-intro-timeline-bus-extension is-bottom"></span>
+
+  {timelineEvents.map((eventIndex) => (
+    <>
+      <span class:list={["system-connector-line", "home-intro-timeline-line", "is-event-drop", `is-event-${eventIndex}`]}></span>
+      <span class:list={["system-connector-node", "home-intro-timeline-node", "is-event-card", `is-event-${eventIndex}`]}></span>
+      <span class:list={["system-connector-node", "home-intro-timeline-node", "is-event-bus", `is-event-${eventIndex}`]}></span>
+    </>
+  ))}
+</div>

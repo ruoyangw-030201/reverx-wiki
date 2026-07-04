@@ -7,6 +7,7 @@ import BackgroundLayer from "../components/background/BackgroundLayer.astro";
 import ContentBox from "../components/content-frame/ContentBox.astro";
 import IndexDecor from "../components/index/IndexDecor.astro";
 import "../styles/index/index-layout.css";
+import { pageTimings } from "../data/pageTimings.js";
 import {
   findNavigationItemByPath,
   getNextArchivePageForPath,
@@ -35,6 +36,13 @@ const sectionKicker = "INDEX";
 const frameTitle = title ?? navigationItem?.label ?? sectionTab?.label ?? "档案";
 const frameSubtitle = subtitle ?? navigationItem?.labelEn ?? sectionTab?.labelEn ?? "index";
 const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "00";
+const indexTimingStyle = [
+  `--index-enter-duration: ${pageTimings.index.enterDurationMs}ms`,
+  `--index-heading-delay: ${pageTimings.index.headingDelayMs}ms`,
+  `--index-grid-delay: ${pageTimings.index.gridDelayMs}ms`,
+  `--index-marker-delay: ${pageTimings.index.markerDelayMs}ms`,
+  `--index-marker-enter-duration: ${pageTimings.index.markerEnterDurationMs}ms`,
+].join("; ");
 ---
 
 <ChromeLayout
@@ -49,19 +57,20 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
     <IndexDecor number={frameNumber} label={frameSubtitle} />
   </Fragment>
 
-  <div class="index-intro-area index-animate index-animate-heading-intro">
+  <div class="index-intro-area index-animate index-animate-heading-intro" style={indexTimingStyle}>
     <EntryHeading kicker={sectionKicker} title={frameTitle} subtitle={frameSubtitle} />
 
-    <ContentBox class="index-intro-box" variant="simple" minHeight="118px">
+    <ContentBox class="index-intro-box" variant="simple" minHeight="118px" proseVariant="tight">
       <slot name="intro" />
     </ContentBox>
   </div>
 
-  <div class="index-animate index-animate-grid">
+  <div class="index-animate index-animate-grid" style={indexTimingStyle}>
     <slot />
   </div>
 
   <Fragment slot="overlay">
+    <div style={indexTimingStyle}>
     {
       indexScrollNextPage && (
         <ActiveArrowButton
@@ -87,6 +96,8 @@ const frameNumber = number ?? navigationItem?.number ?? sectionTab?.number ?? "0
       )
     }
 
-    {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} readyDelayMs={2020} disableBelowWidth={980} />}
+    </div>
+
+    {indexScrollNextPage && <NextPageTrigger nextHref={indexScrollNextPage.href} readyDelayMs={pageTimings.index.nextPageReadyDelayMs} disableBelowWidth={980} />}
   </Fragment>
 </ChromeLayout>

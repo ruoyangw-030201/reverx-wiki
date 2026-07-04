@@ -1,0 +1,153 @@
+/* 用max保证16：9的原始图片宽度，方便css做方框还原。 */
+.home-cover-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: var(--z-base);
+  width: max(100vw, 177.879svh);
+  height: max(100svh, 56.254vw);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-cover-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-cover-layer.is-birds {
+  z-index: var(--z-base);
+}
+
+.home-cover-layer.is-frame {
+  z-index: var(--z-raised);
+}
+
+.home-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center center;
+  opacity: 0;
+  filter: blur(5px);
+  animation: home-birds-resolve 1.2s ease-out 0.12s forwards;
+}
+
+.home-frame-box {
+  --home-frame-line-width: 1px;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: var(--z-base);
+  display: block;
+  width: var(--w);
+  height: var(--h);
+  border: var(--home-frame-line-width) solid currentColor;
+  background: transparent;
+  opacity: 0;
+  animation: home-frame-error-pop 0.26s steps(1, end) var(--frame-delay, 560ms) forwards;
+}
+
+.home-frame-box.is-black-outline {
+  z-index: var(--z-raised);
+  color: var(--black-main);
+}
+
+.home-frame-box.is-blue-outline {
+  color: var(--blue-main);
+}
+
+.home-frame-box.is-blue-filled {
+  z-index: var(--z-decor);
+  color: var(--blue-main);
+  background: var(--white-cool);
+  animation-name: home-frame-soft-pop;
+  animation-duration: 0.18s;
+}
+
+.home-frame-box.is-gold-outline {
+  z-index: var(--z-content);
+  color: var(--gold-main);
+}
+
+@keyframes home-birds-resolve {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  46% {
+    opacity: 0.62;
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 0.95;
+    filter: blur(0);
+  }
+}
+
+@keyframes home-frame-error-pop {
+  0% {
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 0.15;
+  }
+
+  56% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes home-frame-soft-pop {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.82;
+  }
+
+  54% {
+    opacity: 0.28;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
+}
+
+.home-cover-canvas.is-static {
+  top: calc(50svh - var(--chrome-hero-home-crop-y, 78px));
+}
+
+.home-cover-canvas.is-static .home-cover-image,
+.home-cover-canvas.is-static .home-frame-box {
+  animation: none;
+}
+
+.home-cover-canvas.is-static .home-cover-image {
+  opacity: 0.95;
+  filter: none;
+}
+
+.home-cover-canvas.is-static .home-frame-box {
+  opacity: 0.95;
+}

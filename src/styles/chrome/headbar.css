@@ -67,6 +67,14 @@
   transform: translateY(-5px);
 }
 
+.chrome-brand:focus-visible {
+  outline: 2px solid var(--gold-line);
+  outline-offset: var(--space-micro);
+  box-shadow:
+    0 0 0 1px var(--black-main),
+    0 0 18px var(--gold-wash);
+}
+
 .chrome-brand-icon {
   display: block;
   width: var(--chrome-brand-icon-width);

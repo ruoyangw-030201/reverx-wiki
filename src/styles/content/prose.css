@@ -19,6 +19,10 @@
   text-indent: var(--prose-indent);
 }
 
+.prose.is-tight p {
+  margin-bottom: var(--prose-paragraph-gap-tight);
+}
+
 .is-secret .prose {
   color: var(--white-readable);
 }

@@ -1,7 +1,9 @@
+import { pageTimings } from "../data/pageTimings.js";
+
 const SCROLL_NAVIGATION_LOCK_KEY = "reverx-scroll-navigation-lock-until";
 
-export const SCROLL_NAVIGATION_LOCK_MS = 1600;
-export const SCROLL_NAVIGATION_QUIET_MS = 450;
+export const SCROLL_NAVIGATION_LOCK_MS = pageTimings.scroll.lockMs;
+export const SCROLL_NAVIGATION_QUIET_MS = pageTimings.scroll.quietMs;
 
 export function setScrollNavigationLock(durationMs = SCROLL_NAVIGATION_LOCK_MS) {
   try {

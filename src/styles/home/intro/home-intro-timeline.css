@@ -1,0 +1,272 @@
+.system-connector.home-intro-timeline {
+  --system-connector-color: var(--white-main);
+  --system-connector-node-color: var(--white-main);
+  --system-connector-node-fill: transparent;
+  --system-connector-node-shadow: transparent;
+  --system-connector-node-size: 10px;
+  --home-intro-timeline-etch-strong: var(--white-readable);
+  --home-intro-timeline-etch-soft: var(--white-soft);
+  --home-intro-timeline-etch-faint: var(--white-wash);
+  z-index: var(--z-raised);
+}
+
+.home-intro-timeline-line,
+.home-intro-timeline-node {
+  position: absolute;
+}
+
+.home-intro-timeline-line {
+  background: transparent;
+}
+
+.home-intro-timeline-line,
+.home-intro-timeline-node,
+.home-intro-timeline-bus-arc {
+  opacity: 0;
+  animation: home-intro-timeline-enter var(--home-intro-step-duration) ease forwards;
+}
+
+.home-intro-timeline-line::before,
+.home-intro-timeline-line::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.home-intro-timeline-line::after {
+  opacity: 0.45;
+}
+
+.home-intro-timeline-node {
+  transform: translate(-50%, -50%);
+}
+
+.home-intro-timeline-bus-arc {
+  position: absolute;
+  width: calc((var(--home-intro-event-2-bus-node-x) - var(--home-intro-timeline-bus-x)) * 2);
+  overflow: visible;
+  color: var(--white-main);
+  pointer-events: none;
+}
+
+.home-intro-timeline-bus-arc {
+  left: var(--home-intro-timeline-bus-x);
+  top: var(--home-intro-event-1-node-y);
+  height: calc(var(--home-intro-event-3-node-y) - var(--home-intro-event-1-node-y));
+}
+
+.home-intro-timeline-bus-extension {
+  position: absolute;
+  width: var(--system-connector-stroke-width);
+}
+
+.home-intro-timeline-bus-extension::before {
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      var(--home-intro-timeline-etch-soft) 0%,
+      var(--home-intro-timeline-etch-strong) 32%,
+      var(--home-intro-timeline-etch-faint) 58%,
+      var(--home-intro-timeline-etch-strong) 100%
+    );
+}
+
+.home-intro-timeline-bus-extension::after {
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 16px,
+      var(--home-intro-timeline-etch-soft) 16px 24px,
+      transparent 24px 40px
+    );
+}
+
+.home-intro-timeline-bus-extension.is-top {
+  left: calc(var(--home-intro-event-1-bus-node-x) - 0.5px);
+  top: -64px;
+  height: calc(var(--home-intro-event-1-node-y) + 64px);
+  transform: rotate(-34deg);
+  transform-origin: bottom center;
+  animation-delay: var(--home-intro-step-5-delay);
+}
+
+.home-intro-timeline-bus-extension.is-bottom {
+  left: calc(var(--home-intro-event-3-bus-node-x) - 0.5px);
+  top: var(--home-intro-event-3-node-y);
+  height: calc(100% - var(--home-intro-event-3-node-y) + 64px);
+  transform: rotate(34deg);
+  transform-origin: top center;
+  animation-delay: var(--home-intro-step-7-delay);
+}
+
+.home-intro-timeline-bus-arc {
+  animation-delay: var(--home-intro-step-6-delay);
+}
+
+.home-intro-timeline-bus-arc-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.home-intro-timeline-bus-arc-path.is-main {
+  stroke-width: var(--system-connector-stroke-width);
+  stroke-opacity: 0.82;
+}
+
+.home-intro-timeline-bus-arc-path.is-etch {
+  stroke-width: var(--system-connector-stroke-width);
+  stroke-opacity: 0.42;
+  stroke-dasharray: 18 14 7 22;
+}
+
+.home-intro-timeline-line.is-event-drop {
+  height: var(--system-connector-stroke-width);
+  transform: translateY(-50%);
+}
+
+.home-intro-timeline-line.is-event-drop::before {
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      var(--home-intro-timeline-etch-soft) 0%,
+      var(--home-intro-timeline-etch-strong) 26%,
+      var(--home-intro-timeline-etch-faint) 54%,
+      var(--home-intro-timeline-etch-strong) 82%,
+      var(--home-intro-timeline-etch-soft) 100%
+    );
+}
+
+.home-intro-timeline-line.is-event-drop::after {
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 14px,
+      var(--home-intro-timeline-etch-soft) 14px 22px,
+      transparent 22px 38px
+    );
+}
+
+.home-intro-timeline-line.is-event-1 {
+  left: var(--home-intro-event-1-bus-node-x);
+  top: var(--home-intro-event-1-node-y);
+  width: calc(var(--home-intro-event-1-node-x) - var(--home-intro-event-1-bus-node-x));
+  animation-delay: var(--home-intro-step-5-delay);
+}
+
+.home-intro-timeline-line.is-event-2 {
+  left: var(--home-intro-event-2-bus-node-x);
+  top: var(--home-intro-event-2-node-y);
+  width: calc(var(--home-intro-event-2-node-x) - var(--home-intro-event-2-bus-node-x));
+  animation-delay: var(--home-intro-step-6-delay);
+}
+
+.home-intro-timeline-line.is-event-3 {
+  left: var(--home-intro-event-3-bus-node-x);
+  top: var(--home-intro-event-3-node-y);
+  width: calc(var(--home-intro-event-3-node-x) - var(--home-intro-event-3-bus-node-x));
+  animation-delay: var(--home-intro-step-7-delay);
+}
+
+.home-intro-timeline-node.is-event-card.is-event-1 {
+  left: var(--home-intro-event-1-node-x);
+  top: var(--home-intro-event-1-node-y);
+  animation-delay: var(--home-intro-step-5-delay);
+}
+
+.home-intro-timeline-node.is-event-card.is-event-2 {
+  left: var(--home-intro-event-2-node-x);
+  top: var(--home-intro-event-2-node-y);
+  animation-delay: var(--home-intro-step-6-delay);
+}
+
+.home-intro-timeline-node.is-event-card.is-event-3 {
+  left: var(--home-intro-event-3-node-x);
+  top: var(--home-intro-event-3-node-y);
+  animation-delay: var(--home-intro-step-7-delay);
+}
+
+.home-intro-timeline-node.is-event-card {
+  width: 18px;
+  height: 18px;
+  border-color: var(--system-connector-node-color);
+  background: transparent;
+}
+
+.home-intro-timeline-node.is-event-card::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--system-connector-node-color);
+  border-radius: var(--radius-circle);
+}
+
+.home-intro-timeline-node.is-event-bus {
+  border-color: var(--system-connector-color);
+  background: transparent;
+}
+
+.home-intro-timeline-node.is-event-bus.is-event-1 {
+  left: var(--home-intro-event-1-bus-node-x);
+  top: var(--home-intro-event-1-node-y);
+  animation-delay: var(--home-intro-step-5-delay);
+}
+
+.home-intro-timeline-node.is-event-bus.is-event-2 {
+  left: var(--home-intro-event-2-bus-node-x);
+  top: var(--home-intro-event-2-node-y);
+  animation-delay: var(--home-intro-step-6-delay);
+}
+
+.home-intro-timeline-node.is-event-bus.is-event-3 {
+  left: var(--home-intro-event-3-bus-node-x);
+  top: var(--home-intro-event-3-node-y);
+  animation-delay: var(--home-intro-step-7-delay);
+}
+
+@keyframes home-intro-timeline-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.92;
+  }
+}
+
+.home-intro-is-skipped .home-intro-timeline-line,
+.home-intro-is-skipped .home-intro-timeline-node,
+.home-intro-is-skipped .home-intro-timeline-bus-arc {
+  opacity: 0.92;
+  animation: none;
+}
+
+@media (max-width: 1080px) {
+  .home-intro-timeline-bus-extension.is-top {
+    transform: rotate(-16deg);
+  }
+
+  .home-intro-timeline-bus-extension.is-bottom {
+    transform: rotate(16deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .home-intro-timeline {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro-timeline-line,
+  .home-intro-timeline-node,
+  .home-intro-timeline-bus-arc {
+    opacity: 0.92;
+    animation: none;
+  }
+}

@@ -1,0 +1,28 @@
+.home-master-index-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--white-main);
+}
+
+/* 装饰 */
+.home-master-index-stage .background-layer {
+  position: absolute;
+  z-index: var(--z-base);
+}
+
+.home-master-index-stage .index-fixed-crosshair {
+  position: absolute;
+}
+
+.home-master-index-stage .index-side-mark {
+  position: absolute;
+}
+
+/* 正文cluster等部分 */
+.master-index-main {
+  position: relative;
+  z-index: var(--z-content);
+  height: 100%;
+  padding-top: var(--chrome-headbar-height);
+  box-sizing: border-box;
+}

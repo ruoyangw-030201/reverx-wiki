@@ -108,7 +108,7 @@
 
   /* Text font metrics */
   --font-sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-serif: var(--font-sans);
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSong", serif;
   --font-latin: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
   /* Text size metrics */

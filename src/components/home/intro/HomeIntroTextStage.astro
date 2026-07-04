@@ -1,0 +1,43 @@
+---
+import {
+  homeIntroEvents,
+  homeIntroFragments,
+  homeIntroLead,
+} from "../../../data/home/introText.js";
+import HomeIntroTimeline from "./HomeIntroTimeline.astro";
+import "../../../styles/home/intro/home-intro-text.css";
+---
+
+<div class="home-intro-text-stage" aria-label="ReverX world introduction">
+  <section class="home-intro-lead">
+    <h1 class="home-intro-heading">
+      {homeIntroLead.groups.map((group) => (
+        <span class="home-intro-heading-group">
+          {group.map((line) => (
+            <span class:list={["home-intro-heading-line", `is-${line.tone}`]}>{line.text}</span>
+          ))}
+        </span>
+      ))}
+    </h1>
+  </section>
+
+  <HomeIntroTimeline />
+
+  <section class="home-intro-events" aria-label="Timeline highlights">
+    {homeIntroEvents.map((event) => (
+      <article class="home-intro-event">
+        <span class="home-intro-event-year-bg" aria-hidden="true">{event.year}</span>
+        <h2 class="home-intro-event-title">{event.year}</h2>
+        <p class="home-intro-event-body">{event.body}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="home-intro-fragments" aria-label="World fragments">
+    <p class="home-intro-fragments-body">
+      {homeIntroFragments.map((fragment) => (
+        <span>{fragment}</span>
+      ))}
+    </p>
+  </section>
+</div>

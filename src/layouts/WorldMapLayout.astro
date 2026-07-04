@@ -6,10 +6,15 @@ import WorldMapIntroPanel from "../components/world-map/WorldMapIntroPanel.astro
 import ChromeLayout from "./ChromeLayout.astro";
 import "../styles/world-map/world-map-layout.css";
 import { getArchivePageNextLinkForPath } from "../data/navigation.js";
+import { pageTimings } from "../data/pageTimings.js";
 
 const { mapConfig } = Astro.props;
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const nextPageLink = getArchivePageNextLinkForPath(currentPath);
+const worldMapTimingStyle = [
+  `--world-map-scroll-marker-ready-delay: ${pageTimings.worldMap.markerReadyDelayMs}ms`,
+  `--world-map-scroll-marker-enter-duration: ${pageTimings.worldMap.markerEnterDurationMs}ms`,
+].join("; ");
 ---
 
 <ChromeLayout
@@ -27,7 +32,7 @@ const nextPageLink = getArchivePageNextLinkForPath(currentPath);
   </WorldMapIntroPanel>
 
   <Fragment slot="after-stage">
-    <div class="world-map-intro-marker-layer" aria-hidden="true">
+    <div class="world-map-intro-marker-layer" style={worldMapTimingStyle} aria-hidden="true">
       <ActiveArrowButton
         direction="down"
         label="滑动进入横屏交互地图"

@@ -1,0 +1,361 @@
+.home-intro-text-stage {
+  /* 时间线计算变量 */
+  /* 时间线x */
+  --home-intro-timeline-bus-x: 56cqw;
+  /* 时间线事件top */
+  --home-intro-events-top: 2cqh;
+  /* 时间线事件往右 */
+  --home-intro-events-gap-from-bus: 6cqw;
+  /* 时间线事件宽高 */
+  --home-intro-events-left: calc(var(--home-intro-timeline-bus-x) + var(--home-intro-events-gap-from-bus));
+  --home-intro-events-width: calc(100cqw - var(--home-intro-events-left) - 4cqw);
+  --home-intro-events-height: 90cqh;
+  --home-intro-event-card-width: min(30cqw, 540px);
+  /* 错位 */
+  --home-intro-event-1-offset-x: 0px;
+  --home-intro-event-2-offset-x: 4cqw;
+  --home-intro-event-3-offset-x: 1cqw;
+  --home-intro-event-row-height: calc(var(--home-intro-events-height) / 3);
+  --home-intro-event-row-mid-y: calc(var(--home-intro-event-row-height) / 2);
+  /* 计算node位置 */
+  --home-intro-event-1-node-x: calc(var(--home-intro-events-left) + var(--home-intro-event-1-offset-x));
+  --home-intro-event-2-node-x: calc(var(--home-intro-events-left) + var(--home-intro-event-2-offset-x));
+  --home-intro-event-3-node-x: calc(var(--home-intro-events-left) + var(--home-intro-event-3-offset-x));
+  --home-intro-event-1-bus-node-x: var(--home-intro-timeline-bus-x);
+  --home-intro-event-2-bus-node-x: calc(
+    (var(--home-intro-timeline-bus-x) + var(--home-intro-event-2-node-x)) / 2
+  );
+  --home-intro-event-3-bus-node-x: var(--home-intro-timeline-bus-x);
+  --home-intro-event-1-node-y: calc(var(--home-intro-events-top) + var(--home-intro-event-row-mid-y));
+  --home-intro-event-2-node-y: calc(
+    var(--home-intro-events-top) +
+    var(--home-intro-event-row-height) +
+    var(--home-intro-event-row-mid-y)
+  );
+  --home-intro-event-3-node-y: calc(
+    var(--home-intro-events-top) +
+    var(--home-intro-event-row-height) +
+    var(--home-intro-event-row-height) +
+    var(--home-intro-event-row-mid-y)
+  );
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-serif);
+  color: var(--black-main);
+}
+
+.home-intro-lead,
+.home-intro-events,
+.home-intro-fragments {
+  position: absolute;
+  pointer-events: auto;
+}
+
+/* 第一段大标题文字 */
+.home-intro-lead {
+  top: 8cqh;
+  left: 5cqw;
+  width: min(50cqw, 1440px);
+}
+
+.home-intro-heading {
+  display: grid;
+  gap: clamp(24px, 3.8cqh, 40px);
+  margin: 0;
+  font-size: clamp(20px, 2.2cqw, 42px);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+}
+
+.home-intro-heading-group {
+  display: block;
+  opacity: 0;
+  animation: home-intro-text-enter var(--home-intro-step-duration) ease forwards;
+}
+
+.home-intro-heading-group:nth-child(1) {
+  animation-delay: var(--home-intro-step-1-delay);
+}
+
+.home-intro-heading-group:nth-child(2) {
+  animation-delay: var(--home-intro-step-2-delay);
+}
+
+.home-intro-heading-group:nth-child(3) {
+  animation-delay: var(--home-intro-step-3-delay);
+}
+
+.home-intro-heading-line {
+  display: block;
+}
+
+.home-intro-heading-line.is-ink {
+  -webkit-text-stroke: 1px var(--blue-line);
+}
+
+.home-intro-heading-line.is-blue {
+  color: var(--blue-main);
+}
+
+/* 右边的年份排列 */
+.home-intro-events {
+  top: var(--home-intro-events-top);
+  left: var(--home-intro-events-left);
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  width: var(--home-intro-events-width);
+  height: var(--home-intro-events-height);
+}
+
+.home-intro-event {
+  position: relative;
+  justify-self: start;
+  width: var(--home-intro-event-card-width);
+  min-height: 18cqh;
+  padding: clamp(26px, 4cqh, 48px) clamp(28px, 4.4cqw, 70px);
+  border: 1px solid var(--blue-line);
+  border-radius: var(--radius-frame);
+  background:
+    linear-gradient(180deg, var(--white-soft), var(--white-faint));
+  box-sizing: border-box;
+  opacity: 0;
+  animation: home-intro-text-enter var(--home-intro-step-duration) ease forwards;
+}
+
+.home-intro-event:nth-child(1) {
+  margin-left: var(--home-intro-event-1-offset-x);
+  animation-delay: var(--home-intro-step-5-delay);
+}
+
+.home-intro-event:nth-child(2) {
+  margin-left: var(--home-intro-event-2-offset-x);
+  animation-delay: var(--home-intro-step-6-delay);
+}
+
+.home-intro-event:nth-child(3) {
+  margin-left: var(--home-intro-event-3-offset-x);
+  animation-delay: var(--home-intro-step-7-delay);
+}
+
+/* 背景年份数字 */
+.home-intro-event-year-bg {
+  position: absolute;
+  top: -0.16em;
+  right: 0%;
+  z-index: var(--z-base);
+  color: var(--white-soft);
+  font-size: clamp(82px, 10cqw, 190px);
+  font-weight: 400;
+  line-height: var(--basic-line-height);
+  -webkit-text-stroke: 1px var(--blue-line);
+}
+
+.home-intro-event-title,
+.home-intro-event-body {
+  position: relative;
+  z-index: var(--z-raised);
+}
+
+.home-intro-event-title {
+  margin: 0;
+  color: var(--blue-dark);
+  font-size: clamp(22px, 2cqw, 34px);
+  font-weight: 700;
+  line-height: var(--ui-line-height);
+  letter-spacing: 0;
+}
+
+.home-intro-event-body {
+  width: min(24cqw, 420px);
+  margin: clamp(16px, 2.1cqh, 22px) 0 0;
+  color: var(--ink-strong);
+  font-size: clamp(14px, 1cqw, 18px);
+  line-height: var(--prose-line-height);
+  letter-spacing: 0;
+}
+
+/* 左下正文 */
+.home-intro-fragments {
+  left: 6cqw;
+  top: 56cqh;
+  width: min(40cqw, 1150px);
+}
+
+.home-intro-fragments-body {
+  display: grid;
+  gap: clamp(10px, 1.6cqh, 18px);
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: clamp(14px, 1.05cqw, 20px);
+  line-height: var(--prose-line-height);
+  letter-spacing: 0;
+}
+
+.home-intro-fragments-body span {
+  opacity: 0;
+  animation: home-intro-text-enter var(--home-intro-step-duration) ease forwards;
+}
+
+.home-intro-fragments-body span:nth-child(1) {
+  animation-delay: var(--home-intro-step-9-delay);
+}
+
+.home-intro-fragments-body span:nth-child(2) {
+  animation-delay: var(--home-intro-step-10-delay);
+}
+
+.home-intro-fragments-body span:nth-child(3) {
+  animation-delay: var(--home-intro-step-11-delay);
+}
+
+.home-intro-fragments-body span:nth-child(4) {
+  animation-delay: var(--home-intro-step-12-delay);
+}
+
+@keyframes home-intro-text-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-intro-is-skipped .home-intro-heading-group,
+.home-intro-is-skipped .home-intro-event,
+.home-intro-is-skipped .home-intro-fragments-body span {
+  opacity: 1;
+  animation: none;
+  transform: none;
+}
+
+@media (max-width: 1080px) {
+  .home-intro-heading {
+    font-size: min(3.2cqw, 4.4cqh);
+  }
+
+  .home-intro-event-year-bg {
+    font-size: min(14cqw, 18cqh);
+  }
+
+  .home-intro-event-title {
+    font-size: min(3cqw, 4cqh);
+  }
+
+  .home-intro-event-body {
+    font-size: min(1.8cqw, 2.8cqh);
+  }
+
+  .home-intro-fragments {
+    top: 48cqh;
+  }
+
+  .home-intro-fragments-body {
+    font-size: min(2cqw, 3cqh);
+  }
+}
+
+@media (max-width: 620px) {
+  .home-intro-text-stage {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    gap: clamp(10px, 2cqh, 18px);
+    height: auto;
+    min-height: 100%;
+    padding: 0cqh 7cqw;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .home-intro-lead,
+  .home-intro-events,
+  .home-intro-fragments {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+  }
+
+  .home-intro-lead {
+    width: 100%;
+  }
+
+  .home-intro-heading {
+    gap: 1cqh;
+    font-size: min(2.8cqh, 4.2cqw);
+  }
+
+  .home-intro-events {
+    display: grid;
+    grid-template-rows: none;
+    gap: clamp(8px, 1.5cqh, 12px);
+    width: 90%;
+    height: auto;
+  }
+
+  .home-intro-event {
+    display: grid;
+    grid-template-columns: 12cqw minmax(0, 1fr);
+    align-items: center;
+    gap: 2cqw;
+    width: 100%;
+    min-height: 10cqh;
+    padding: 8px 8px;
+  }
+
+  .home-intro-event:nth-child(1) {
+    margin-left: 0;
+  }
+
+  .home-intro-event:nth-child(2) {
+    margin-left: 8vw;
+  }
+
+  .home-intro-event:nth-child(3) {
+    margin-left: 2vw;
+  }
+
+  .home-intro-event-year-bg {
+    font-size: clamp(56px, 18cqw, 84px);
+  }
+
+  .home-intro-event-title {
+    font-size: 2.5cqh;
+  }
+
+  .home-intro-event-body {
+    width: auto;
+    margin-top: 0;
+    font-size: 1.7cqh;
+    line-height: var(--card-line-height);
+  }
+
+  .home-intro-fragments {
+    width: 100%;
+  }
+
+  .home-intro-fragments-body {
+    gap: var(--space-tight);
+    font-size: 1.85cqh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro-heading-group,
+  .home-intro-event,
+  .home-intro-fragments-body span {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}

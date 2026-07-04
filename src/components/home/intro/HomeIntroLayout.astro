@@ -1,0 +1,39 @@
+---
+import ChromeHeadbar from "../../chrome/ChromeHeadbar.astro";
+import HomeCoverCanvas from "./HomeCoverCanvas.astro";
+import HomeIntroControls from "./HomeIntroControls.astro";
+import HomeIntroTextStage from "./HomeIntroTextStage.astro";
+import { pageTimings } from "../../../data/pageTimings.js";
+import "../../../styles/home/intro/home-intro.css";
+
+const stepDelay = (step) =>
+  pageTimings.homeIntro.paragraphStartDelayMs +
+  (step - 1) * pageTimings.homeIntro.paragraphStepMs;
+
+const introTimingStyle = [
+  `--home-intro-overlay-delay: ${pageTimings.homeIntro.overlayStartDelayMs}ms`,
+  `--home-intro-overlay-duration: ${pageTimings.homeIntro.overlayDurationMs}ms`,
+  `--home-intro-step-duration: ${pageTimings.homeIntro.paragraphFadeDurationMs}ms`,
+  ...Array.from({ length: 12 }, (_, index) => (
+    `--home-intro-step-${index + 1}-delay: ${stepDelay(index + 1)}ms`
+  )),
+  `--home-intro-headbar-delay: ${pageTimings.homeIntro.headbarRevealDelayMs}ms`,
+].join("; ");
+---
+
+<section class="home-panel home-intro-page" style={introTimingStyle} aria-label="Home intro">
+  <div class="home-panel-headbar">
+    <ChromeHeadbar />
+  </div>
+
+  <div class="home-panel-stage home-intro-stage" data-home-intro-stage>
+    <HomeCoverCanvas variant="animated" />
+    <div class="home-intro-overlay-layer home-intro-overlay" aria-hidden="true"></div>
+    <div class="home-intro-overlay-layer home-intro-depth-overlay" aria-hidden="true"></div>
+    <div class="home-intro-overlay-layer home-intro-white-overlay" aria-hidden="true"></div>
+    <div class="home-intro-text-slot">
+      <HomeIntroTextStage />
+    </div>
+    <HomeIntroControls />
+  </div>
+</section>

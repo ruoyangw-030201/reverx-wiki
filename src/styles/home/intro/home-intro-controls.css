@@ -1,0 +1,97 @@
+.home-intro-controls {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-floating);
+  pointer-events: none;
+}
+
+.home-intro-next-page-trigger {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(8px, 1.2svh, 18px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  animation: home-intro-control-reveal 0.9s ease var(--home-intro-next-delay) forwards;
+}
+
+.home-intro-skip-button {
+  --active-arrow-button-arrow-size: var(--icon-median);
+  --active-arrow-button-label-letter-spacing: 0.16em;
+  position: absolute;
+  top: calc(var(--chrome-headbar-height) + clamp(12px, 1.2vw, 18px));
+  right: clamp(18px, 2.2vw, 34px);
+  opacity: 0;
+  visibility: hidden;
+  animation:
+    home-intro-control-reveal 0.9s ease var(--home-intro-skip-delay) forwards,
+    home-intro-control-dismiss 0.45s ease var(--home-intro-skip-hide-delay) forwards;
+}
+
+.home-intro-controls .home-intro-next-page-trigger,
+.home-intro-controls .home-intro-skip-button {
+  pointer-events: none;
+}
+
+.home-intro-is-skipped .home-intro-skip-button {
+  display: none;
+}
+
+@keyframes home-intro-control-reveal {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 8px;
+  }
+
+  1% {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  to {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    translate: 0 0;
+  }
+}
+
+@keyframes home-intro-control-dismiss {
+  from {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-intro-next-page-trigger {
+    bottom: clamp(10px, 2svh, 22px);
+  }
+
+  .home-intro-skip-button {
+    --active-arrow-button-arrow-size: var(--icon-median-mobile);
+    top: var(--space-small);
+    right: var(--space-compact);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro-next-page-trigger {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    animation: none;
+  }
+
+  .home-intro-skip-button {
+    display: none;
+  }
+}

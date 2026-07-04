@@ -54,8 +54,9 @@
 }
 
 .world-index-section-flow > .map-card {
-  flex: 0 0 clamp(260px, 20vw, 360px);
-  width: clamp(260px, 20vw, 360px);
+  --world-map-card-width: clamp(240px, 36vh, 360px);
+  flex: 0 0 var(--world-map-card-width);
+  width: var(--world-map-card-width);
 }
 
 .world-index-section-icons {
@@ -63,6 +64,12 @@
   min-width: 0;
   max-width: 100%;
 }
+
+.icon-card {
+  --icon-card-size: clamp(72px, 11vh, 96px);
+  --icon-frame-size: clamp(64px, 9vh, 80px);
+}
+
 
 @media (max-width: 980px) {
   .index-section.is-split {

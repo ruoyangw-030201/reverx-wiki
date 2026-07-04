@@ -48,17 +48,17 @@
   transform: translateY(18px);
   will-change: opacity, transform;
   animation-name: index-enter;
-  animation-duration: 520ms;
-  animation-timing-function: cubic-bezier(0.18, 0.82, 0.28, 1);
+  animation-duration: var(--index-enter-duration, var(--duration-enter));
+  animation-timing-function: var(--ease-enter);
   animation-fill-mode: forwards;
 }
 
 .index-animate-heading-intro {
-  animation-delay: 750ms;
+  animation-delay: var(--index-heading-delay);
 }
 
 .index-animate-grid {
-  animation-delay: 1500ms;
+  animation-delay: var(--index-grid-delay);
 }
 
 @keyframes index-enter {
@@ -96,7 +96,7 @@
 .index-page .index-tab-arrow.index-animate-marker,
 .index-page .index-page-arrow.index-animate-marker {
   opacity: 0;
-  animation: index-marker-enter 360ms ease 2020ms forwards;
+  animation: index-marker-enter var(--index-marker-enter-duration) ease var(--index-marker-delay) forwards;
 }
 
 @keyframes index-marker-enter {

@@ -1,6 +1,5 @@
 /* map页的layout。 */
 .world-map-page {
-  --world-map-scroll-marker-ready-delay: 1500ms;
   height: 200svh;
   min-height: 100svh;
 }
@@ -49,8 +48,8 @@ html:has(.world-map-page) {
   bottom: var(--space-shell);
   opacity: 0;
   transform: translateX(-50%);
-  animation: world-map-scroll-marker-in 360ms ease forwards;
-  animation-delay: var(--world-map-scroll-marker-ready-delay, 1500ms);
+  animation: world-map-scroll-marker-in var(--world-map-scroll-marker-enter-duration) ease forwards;
+  animation-delay: var(--world-map-scroll-marker-ready-delay);
 }
 
 .world-map-scroll-marker.world-map-scroll-marker--mobile {

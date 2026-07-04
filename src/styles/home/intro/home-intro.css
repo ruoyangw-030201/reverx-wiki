@@ -1,0 +1,104 @@
+.home-intro-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-intro-page > .home-panel-headbar {
+  opacity: 0;
+  visibility: hidden;
+  animation: home-intro-enter-item var(--home-intro-step-duration) ease var(--home-intro-headbar-delay) forwards;
+}
+
+.home-intro-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.home-intro-overlay {
+  z-index: var(--z-base);
+  background: var(--black-overlay);
+  animation: home-intro-overlay-reveal var(--home-intro-overlay-duration) ease var(--home-intro-overlay-delay) forwards;
+}
+
+.home-intro-depth-overlay {
+  z-index: var(--z-raised);
+  background: var(--black-overlay);
+  animation: home-intro-overlay-reveal var(--home-intro-step-duration) ease var(--home-intro-step-4-delay) forwards;
+}
+
+.home-intro-white-overlay {
+  z-index: var(--z-content);
+  background:
+    radial-gradient(
+      circle at center,
+      var(--white-readable) 0%,
+      var(--white-soft) 36%,
+      transparent 78%
+    );
+  animation: home-intro-overlay-reveal var(--home-intro-step-duration) ease var(--home-intro-step-8-delay) forwards;
+}
+
+.home-intro-text-slot {
+  position: absolute;
+  inset: var(--chrome-headbar-height) 0 0;
+  z-index: var(--z-content);
+  container-type: size;
+  pointer-events: none;
+}
+
+@media (max-width: 620px) {
+  .home-intro-text-slot {
+    inset: var(--chrome-headbar-height) 0 0;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+}
+
+@keyframes home-intro-overlay-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes home-intro-enter-item {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+  }
+
+  1% {
+    visibility: visible;
+  }
+
+  to {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.home-intro-is-skipped .home-intro-page > .home-panel-headbar,
+.home-intro-is-skipped .home-intro-overlay-layer {
+  opacity: 1;
+  visibility: visible;
+  animation: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro-page > .home-panel-headbar,
+  .home-intro-overlay-layer {
+    opacity: 1;
+    visibility: visible;
+    animation: none;
+    transform: none;
+  }
+}

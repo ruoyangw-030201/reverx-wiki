@@ -1,0 +1,58 @@
+---
+import ActiveArrowButton from "../../actions/ActiveArrowButton.astro";
+import { pageTimings } from "../../../data/pageTimings.js";
+import "../../../styles/home/intro/home-intro-controls.css";
+
+const nextHref = "#home-master-index";
+const nextReadyDelayMs = pageTimings.homeIntro.nextPageReadyDelayMs;
+const skipRevealDelayMs = pageTimings.homeIntro.skipIntroRevealDelayMs;
+const skipHideDelayMs = pageTimings.homeIntro.skipIntroHideDelayMs;
+const controlTimingStyle = [
+  `--home-intro-next-delay: ${nextReadyDelayMs}ms`,
+  `--home-intro-skip-delay: ${skipRevealDelayMs}ms`,
+  `--home-intro-skip-hide-delay: ${skipHideDelayMs}ms`,
+].join("; ");
+---
+
+<div class="home-intro-controls" style={controlTimingStyle}>
+  <ActiveArrowButton
+    direction="down"
+    label="SCROLL"
+    animated
+    class="home-intro-next-page-trigger"
+    href={nextHref}
+    ariaLabel="Enter master index"
+  />
+
+  <ActiveArrowButton
+    direction="right"
+    label="SKIP INTRO"
+    animated
+    button={true}
+    class="home-intro-skip-button"
+    ariaLabel="Skip home intro"
+  />
+</div>
+
+<script>
+  function setupHomeIntroSkip() {
+    document.querySelectorAll(".home-intro-skip-button").forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      if (button.dataset.homeIntroSkipBound === "true") return;
+      button.dataset.homeIntroSkipBound = "true";
+
+      button.addEventListener("click", () => {
+        document.documentElement.classList.add("home-intro-is-skipped");
+
+        try {
+          window.sessionStorage.setItem("reverx-home-intro-seen", "true");
+        } catch {
+          // Session storage can be unavailable in strict privacy contexts.
+        }
+      });
+    });
+  }
+
+  setupHomeIntroSkip();
+  document.addEventListener("astro:page-load", setupHomeIntroSkip);
+</script>

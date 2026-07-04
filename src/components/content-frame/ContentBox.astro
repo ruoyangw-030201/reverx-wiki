@@ -12,11 +12,13 @@ const {
   nextLinkMode,
   showLines = true,
   bodyType = "text",
+  proseVariant = "default",
 } = Astro.props;
 
 const isSimple = variant === "simple";
 const isSecret = variant === "secret";
 const isPanelBody = bodyType === "panel";
+const isTightProse = proseVariant === "tight";
 const style = minHeight ? `--content-box-min-height: ${minHeight};` : undefined;
 ---
 
@@ -46,7 +48,7 @@ const style = minHeight ? `--content-box-min-height: ${minHeight};` : undefined;
           <slot />
         </div>
       ) : (
-        <div class="content-box-body-text prose">
+        <div class:list={["content-box-body-text", "prose", isTightProse && "is-tight"]}>
           <slot />
         </div>
       )}

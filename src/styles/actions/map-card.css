@@ -1,8 +1,7 @@
-/* map的小卡。外框往内4px间距，2px装饰线。只提供min-width，width由父级提供。*/
+/* map的小卡。外框往内4px间距，2px装饰线。width由父级提供。*/
 .map-card {
   position: relative;
   display: block;
-  min-width: 200px;
   padding: var(--space-micro);
   border: 1px solid var(--blue-border);
   background: var(--white-faint);

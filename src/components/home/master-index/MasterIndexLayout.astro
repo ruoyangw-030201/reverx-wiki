@@ -1,0 +1,19 @@
+---
+import BackgroundLayer from "../../background/BackgroundLayer.astro";
+import ChromeHeadbar from "../../chrome/ChromeHeadbar.astro";
+import IndexDecor from "../../index/IndexDecor.astro";
+import "../../../styles/home/master-index/master-index.css";
+---
+
+<section class="home-panel home-master-index-page" id="home-master-index" aria-label="Master index">
+  <div class="home-panel-headbar">
+    <ChromeHeadbar />
+  </div>
+
+  <div class="home-panel-stage home-master-index-stage" data-master-index-stage>
+    <BackgroundLayer />
+    <IndexDecor number="00" label="MASTER INDEX" />
+
+    <main class="master-index-main" aria-label="Master index content"></main>
+  </div>
+</section>

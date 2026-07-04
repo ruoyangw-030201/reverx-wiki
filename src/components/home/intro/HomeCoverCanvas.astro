@@ -1,0 +1,23 @@
+---
+import { homeCoverFrames } from "../../../data/home/coverFrames.js";
+import "../../../styles/home/intro/home-cover.css";
+
+const {
+  variant = "animated",
+} = Astro.props;
+---
+
+<div class:list={["home-cover-canvas", `is-${variant}`]} aria-hidden="true">
+  <div class="home-cover-layer is-birds">
+    <img class="home-cover-image" src="/bg/bg-intro-1.webp" alt="" loading="eager" decoding="async" />
+  </div>
+
+  <div class="home-cover-layer is-frame">
+    {homeCoverFrames.map((box) => (
+      <span
+        class:list={["home-frame-box", `is-${box.type}`]}
+        style={`--x: ${box.x}%; --y: ${box.y}%; --w: ${box.w}%; --h: ${box.h}%; --frame-delay: ${box.delay}ms;`}
+      ></span>
+    ))}
+  </div>
+</div>
