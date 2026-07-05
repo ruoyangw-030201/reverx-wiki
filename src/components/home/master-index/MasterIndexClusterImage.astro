@@ -1,0 +1,22 @@
+---
+import "../../../styles/home/master-index/master-index-cluster-image.css";
+
+const {
+  clusterKey,
+  alt = "",
+} = Astro.props;
+
+const layers = ["decor", "net", "pattern", "icon", "upper"];
+---
+
+<span class="master-index-cluster-image" aria-hidden={alt ? "false" : "true"}>
+  {layers.map((layer) => (
+    <img
+      class:list={["master-index-cluster-image-layer", `is-${layer}`]}
+      src={`/cluster/${clusterKey}/${clusterKey}_${layer}.webp`}
+      alt={layer === "upper" ? alt : ""}
+      loading="eager"
+      decoding="async"
+    />
+  ))}
+</span>

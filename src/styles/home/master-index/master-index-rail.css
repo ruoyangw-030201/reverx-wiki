@@ -1,0 +1,302 @@
+.master-index-rail {
+  --master-index-rail-footer-width: 5svw;
+  position: absolute;
+  left: 2svw;
+  top: calc(var(--chrome-headbar-height) + 2.2svh);
+  bottom: 3.2svh;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-rows:
+    max-content
+    minmax(4svh, 1fr)
+    max-content
+    minmax(4svh, 1fr)
+    max-content
+    max-content
+    max-content
+    max-content;
+  justify-items: center;
+  width: 6svw;
+  color: var(--blue-main);
+  font-family: var(--font-latin);
+  pointer-events: none;
+}
+
+/* master index的标题 */
+.master-index-rail-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.5svw;
+  line-height: var(--basic-line-height);
+  letter-spacing: 0.4em;
+  font-weight: 900;
+}
+
+/* 线条 */
+.master-index-rail-line {
+  width: 1px;
+  min-height: 0;
+  background:
+    linear-gradient(180deg, transparent, var(--blue-line) 14%, var(--blue-line) 86%, transparent);
+}
+
+.master-index-rail-line.is-top {
+  margin-bottom: 1svh;
+}
+
+.master-index-rail-line.is-bottom {
+  margin-top: 1svh;
+}
+
+/* 菱形 */
+.master-index-rail-diamond {
+  width: 0.6svw;
+  aspect-ratio: 1;
+  background: var(--blue-main);
+  box-shadow: 0 0 1svw var(--blue-line);
+  transform: rotate(45deg);
+}
+
+/* 图标 */
+.master-index-rail-emblem {
+  position: relative;
+  display: block;
+  width: 4.5svw;
+  aspect-ratio: 1;
+  margin-bottom: 1.5svh;
+}
+
+.master-index-rail-emblem::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3.2svh;
+  bottom: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--blue-line) 18%, var(--blue-line));
+  transform: translateX(-50%);
+}
+
+.master-index-rail-emblem img {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.master-index-rail-malice {
+  width: 100%;
+}
+
+.master-index-rail-vestige {
+  width: 75%;
+}
+
+/* 下方文字 */
+.master-index-rail-title {
+  justify-self: center;
+  width: var(--master-index-rail-footer-width);
+  font-size: 0.8svw;
+  line-height: var(--basic-line-height);
+  letter-spacing: 0.18em;
+  font-weight: 900;
+}
+
+.master-index-rail-motto {
+  justify-self: center;
+  display: grid;
+  width: var(--master-index-rail-footer-width);
+  margin-top: 1.2svh;
+  color: var(--blue-line);
+  font-size: 0.45svw;
+  line-height: var(--prose-line-height);
+  letter-spacing: 0.2em;
+  font-weight: 900;
+}
+
+/* 点状装饰 */
+.master-index-rail-motto span {
+  white-space: nowrap;
+}
+
+.master-index-rail-dots {
+  justify-self: center;
+  display: flex;
+  width: var(--master-index-rail-footer-width);
+  gap: 0.5svw;
+  margin-top: 2.2svh;
+}
+
+.master-index-rail-dots span {
+  display: block;
+  width: 0.2svw;
+  aspect-ratio: 1;
+  border-radius: var(--radius-circle);
+  background: var(--blue-main);
+  opacity: 0.62;
+}
+
+/* 竖写条目 */
+.master-index-hint {
+  position: absolute;
+  left: 7.5svw;
+  top: 50%;
+  z-index: var(--z-content);
+  color: var(--blue-border);
+  font-family: var(--font-sans);
+  font-size: 0.9svw;
+  line-height: var(--basic-line-height);
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 1080px) {
+  .master-index-rail {
+    left: 2.6svw;
+    width: 7.6svw;
+    top: calc(var(--chrome-headbar-height) + 1svh);
+    --master-index-rail-footer-width: 7.6svw;
+    grid-template-rows:
+    max-content
+    minmax(2svh, 1fr)
+    max-content
+    minmax(2svh, 1fr)
+    max-content
+    max-content
+    max-content
+    max-content;
+  }
+
+  .master-index-rail-label {
+    font-size: 1.2svw;
+  }
+
+  .master-index-rail-diamond {
+    width: 1.5svw;
+  }
+
+  .master-index-rail-emblem {
+    width: 8svw;
+  }
+
+  .master-index-rail-title {
+    line-height: var(--card-line-height);
+    font-size: 1.4svw;
+  }
+
+  .master-index-rail-motto {
+    font-size: 1svw;
+  }
+
+  .master-index-rail-dots {
+    gap: 1svw;
+    margin-top: 1svh;
+  }
+
+.master-index-rail-dots span {
+    width: 0.4vw;
+  }
+
+  .master-index-hint {
+    left: 10.2svw;
+    font-size: 1.8svw;
+  }
+}
+
+@media (max-width: 620px) {
+  .master-index-rail {
+    display: none;
+  }
+
+  .master-index-hint {
+    left: 50%;
+    top: var(--chrome-headbar-height);
+    font-size: 3.6svw;
+    writing-mode: horizontal-tb;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+}
+
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-label,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-diamond,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-emblem,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-title,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-motto,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-dots,
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-hint {
+  opacity: 0;
+}
+
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-rail-line {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.home-page.is-master-index-entering .master-index-rail-label {
+  animation: master-index-fade-enter 440ms ease var(--master-index-rail-label-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-line.is-top {
+  animation:
+    master-index-rail-line-enter 640ms cubic-bezier(0.18, 0.82, 0.28, 1)
+    var(--master-index-rail-top-line-delay)
+    forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-diamond {
+  animation: master-index-fade-enter 360ms ease var(--master-index-rail-diamond-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-line.is-bottom {
+  animation:
+    master-index-rail-line-enter 680ms cubic-bezier(0.18, 0.82, 0.28, 1)
+    var(--master-index-rail-bottom-line-delay)
+    forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-emblem {
+  animation: master-index-fade-enter 440ms ease var(--master-index-rail-emblem-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-title {
+  animation: master-index-fade-enter 360ms ease var(--master-index-rail-title-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-motto {
+  animation: master-index-fade-enter 360ms ease var(--master-index-rail-motto-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-rail-dots {
+  animation: master-index-fade-enter 360ms ease var(--master-index-rail-dots-delay) forwards;
+}
+
+.home-page.is-master-index-entering .master-index-hint {
+  animation: master-index-fade-enter 420ms ease var(--master-index-rail-hint-delay) forwards;
+}
+
+@media (max-width: 620px) {
+  .home-page.is-master-index-entering .master-index-hint {
+    animation: master-index-fade-enter 360ms ease 760ms forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page.is-master-index-pending .master-index-rail-label,
+  .home-page.is-master-index-pending .master-index-rail-diamond,
+  .home-page.is-master-index-pending .master-index-rail-emblem,
+  .home-page.is-master-index-pending .master-index-rail-title,
+  .home-page.is-master-index-pending .master-index-rail-motto,
+  .home-page.is-master-index-pending .master-index-rail-dots,
+  .home-page.is-master-index-pending .master-index-hint,
+  .home-page.is-master-index-pending .master-index-rail-line {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}

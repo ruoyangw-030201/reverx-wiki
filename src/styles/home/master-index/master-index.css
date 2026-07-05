@@ -20,9 +20,128 @@
 
 /* 正文cluster等部分 */
 .master-index-main {
+  /* cluster起始xy点 */
+  --master-index-cluster-grid-x: 18.8svw;
+  --master-index-cluster-grid-y: var(--chrome-headbar-height);
+  /* 给grid一个默认宽高 */
+  --master-index-cluster-grid-width: 75svw;
+  --master-index-cluster-grid-height: calc(96svh - var(--chrome-headbar-height));
+  /* 每个cluster部件的宽高 */
+  --master-index-cluster-width: 48svw;
+  --master-index-cluster-height: 13.5svh;
+  /* 往右偏移数值 */
+  --master-index-cluster-shift-right: 6.4svw;
+  /* 文字框起始位置、宽度 */
+  --master-index-cluster-text-left: 1.6svw;
+  --master-index-cluster-text-width: 10.8svw;
+  /* 箭头的位置和大小 */
+  --master-index-cluster-arrow-left: 12.8svw;
+  --master-index-cluster-arrow-top: 80%;
+  --master-index-cluster-arrow-size: 1.3svw;
+  /* 图像起始位置和大小 */
+  --master-index-cluster-image-left: 14.6svw;
+  --master-index-cluster-image-width: max(34svw, 56svh);
   position: relative;
   z-index: var(--z-content);
   height: 100%;
   padding-top: var(--chrome-headbar-height);
   box-sizing: border-box;
+}
+
+.master-index-cluster-grid {
+  position: absolute;
+  left: var(--master-index-cluster-grid-x);
+  top: var(--master-index-cluster-grid-y);
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  width: var(--master-index-cluster-grid-width);
+  height: var(--master-index-cluster-grid-height);
+}
+
+.master-index-cluster-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+@media (max-width: 1080px) {
+  .master-index-main {
+    /* 移动端起始 */
+    --master-index-cluster-grid-x: 21.2svw;
+    /* 整个grid宽高 */
+    --master-index-cluster-grid-width: 72svw;
+    --master-index-cluster-grid-height: calc(92svh - var(--chrome-headbar-height));
+    /* cluster宽高 */
+    --master-index-cluster-width: 66svw;
+    --master-index-cluster-height: 12svh;
+    /* 右移 */
+    --master-index-cluster-shift-right: 5.2svw;
+    /* 文字block宽度 */
+    --master-index-cluster-text-width: 15svw;
+    /* 箭头 */
+    --master-index-cluster-arrow-left: 17.5svw;
+    --master-index-cluster-arrow-top: 85%;
+    /* 图像 */
+    --master-index-cluster-image-left: 18svw;
+    --master-index-cluster-image-width: 55svw;
+  }
+}
+
+@media (max-width: 620px) {
+  .master-index-main {
+    /* 手机端起始 */
+    --master-index-cluster-grid-x: 9svw;
+    /* 整个grid宽高 */
+    --master-index-cluster-grid-width: 90svw;
+    --master-index-cluster-grid-height: calc(96svh - var(--chrome-headbar-height));
+    /* cluster宽高 */
+    --master-index-cluster-width: 80svw;
+    --master-index-cluster-height: 14svh;
+    --master-index-cluster-shift-right: 5.2svw;
+    /* 文字block宽度 */
+    --master-index-cluster-text-left: 4svw;
+    --master-index-cluster-text-width: 70svw;
+    /* 箭头 */
+    --master-index-cluster-arrow-left: auto;
+    --master-index-cluster-arrow-top: 2.8svh;
+    --master-index-cluster-arrow-size: 3.6svw;
+    /* 图像 */
+    --master-index-cluster-image-left: 0svw;
+    --master-index-cluster-image-width: min(42svh, 85svw);
+  }
+}
+
+@keyframes master-index-fade-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes master-index-rail-line-enter {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes master-index-line-draw {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
 }

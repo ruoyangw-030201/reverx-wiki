@@ -1,0 +1,38 @@
+---
+import DirectionArrow from "../../primitives/DirectionArrow.astro";
+import MasterIndexClusterImage from "./MasterIndexClusterImage.astro";
+import "../../../styles/home/master-index/master-index-cluster.css";
+
+const {
+  cluster,
+  index = 0,
+} = Astro.props;
+
+const offsetClass = index % 2 === 0 ? null : "is-offset-right";
+---
+
+<a
+  class:list={["master-index-cluster", offsetClass]}
+  href={cluster.href}
+  data-master-index-cluster={cluster.key}
+  style={`--master-index-cluster-index: ${index};`}
+  aria-label={`${cluster.title} ${cluster.labelEn}`}
+>
+  <span class="master-index-cluster-frame" aria-hidden="true">
+    <span class="master-index-cluster-frame-dot"></span>
+  </span>
+
+  <span class="master-index-cluster-text">
+    <span class="master-index-cluster-title">{cluster.title}</span>
+    <span class="master-index-cluster-subtitle">{cluster.labelEn}</span>
+    <span class="master-index-cluster-description">{cluster.description}</span>
+  </span>
+
+  <span class="master-index-cluster-arrow" aria-hidden="true">
+    {Array.from({ length: 2 }).map(() => (
+      <DirectionArrow direction="right" class="master-index-cluster-arrow-icon" />
+    ))}
+  </span>
+
+  <MasterIndexClusterImage clusterKey={cluster.clusterKey} alt={`${cluster.title} cluster`} />
+</a>

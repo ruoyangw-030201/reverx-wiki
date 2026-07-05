@@ -1,0 +1,48 @@
+---
+import { masterIndexClusters } from "../../../data/home/masterIndex.js";
+import "../../../styles/system/connector.css";
+import "../../../styles/home/master-index/master-index-connector.css";
+
+const segments = [1, 2, 3];
+
+const segmentPath = (index, bendX = -120) => (
+  index % 2 === 0
+    ? `M 100 0 C ${bendX} 30 ${bendX} 70 0 100`
+    : `M 0 0 C ${bendX} 30 ${bendX} 70 100 100`
+);
+
+const desktopSegmentPath = (index) => segmentPath(index, -60);
+const mobileSegmentPath = (index) => segmentPath(index, -240);
+---
+
+<div class="system-connector master-index-connector" aria-hidden="true">
+  {segments.map((index) => (
+    <svg
+      class:list={[
+        "master-index-connector-curve",
+        `is-segment-${index}`,
+        index % 2 === 0 ? "is-backward" : "is-forward",
+      ]}
+      style={`--master-index-connector-index: ${index - 1};`}
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+    >
+      <path class="master-index-connector-curve-path is-main is-desktop" d={desktopSegmentPath(index)}></path>
+      <path class="master-index-connector-curve-path is-etch is-desktop" d={desktopSegmentPath(index)}></path>
+      <path class="master-index-connector-curve-path is-main is-mobile" d={mobileSegmentPath(index)}></path>
+      <path class="master-index-connector-curve-path is-etch is-mobile" d={mobileSegmentPath(index)}></path>
+    </svg>
+  ))}
+
+  {masterIndexClusters.map((cluster, index) => (
+    <span
+      class:list={["master-index-connector-node-group", `is-node-${index + 1}`]}
+      style={`--master-index-connector-index: ${index};`}
+    >
+      <span class="master-index-connector-number">{cluster.number}</span>
+      <span class="system-connector-node master-index-connector-node">
+        <span class="master-index-connector-node-core"></span>
+      </span>
+    </span>
+  ))}
+</div>

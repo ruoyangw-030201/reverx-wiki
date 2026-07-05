@@ -1,0 +1,236 @@
+.master-index-connector {
+  --system-connector-color: var(--blue-border);
+  --system-connector-node-color: var(--blue-border);
+  --system-connector-node-fill: transparent;
+  --system-connector-node-shadow: transparent;
+  --system-connector-node-size: 1svw;
+  --master-index-connector-node-offset-x: -2.8svw;
+  --master-index-connector-node-shift-x: var(--master-index-cluster-shift-right);
+  --master-index-connector-row-height: calc(var(--master-index-cluster-grid-height) / 4);
+  --master-index-connector-node-1-x: calc(
+    var(--master-index-cluster-grid-x) +
+    var(--master-index-connector-node-offset-x)
+  );
+  --master-index-connector-node-2-x: calc(
+    var(--master-index-connector-node-1-x) +
+    var(--master-index-connector-node-shift-x)
+  );
+  --master-index-connector-node-3-x: var(--master-index-connector-node-1-x);
+  --master-index-connector-node-4-x: var(--master-index-connector-node-2-x);
+  --master-index-connector-node-1-y: calc(
+    var(--master-index-cluster-grid-y) +
+    var(--master-index-connector-row-height) * 0.5
+  );
+  --master-index-connector-node-2-y: calc(
+    var(--master-index-cluster-grid-y) +
+    var(--master-index-connector-row-height) * 1.5
+  );
+  --master-index-connector-node-3-y: calc(
+    var(--master-index-cluster-grid-y) +
+    var(--master-index-connector-row-height) * 2.5
+  );
+  --master-index-connector-node-4-y: calc(
+    var(--master-index-cluster-grid-y) +
+    var(--master-index-connector-row-height) * 3.5
+  );
+  --master-index-connector-curve-width: max(var(--master-index-connector-node-shift-x), 1px);
+  z-index: var(--z-content);
+}
+
+.master-index-connector-curve,
+.master-index-connector-node-group {
+  position: absolute;
+}
+
+.master-index-connector-curve {
+  width: var(--master-index-connector-curve-width);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.master-index-connector-curve.is-segment-1 {
+  left: var(--master-index-connector-node-1-x);
+  top: var(--master-index-connector-node-1-y);
+  height: calc(var(--master-index-connector-node-2-y) - var(--master-index-connector-node-1-y));
+}
+
+.master-index-connector-curve.is-segment-2 {
+  left: var(--master-index-connector-node-3-x);
+  top: var(--master-index-connector-node-2-y);
+  height: calc(var(--master-index-connector-node-3-y) - var(--master-index-connector-node-2-y));
+}
+
+.master-index-connector-curve.is-segment-3 {
+  left: var(--master-index-connector-node-3-x);
+  top: var(--master-index-connector-node-3-y);
+  height: calc(var(--master-index-connector-node-4-y) - var(--master-index-connector-node-3-y));
+}
+
+.master-index-connector-curve-path {
+  fill: none;
+  stroke: var(--system-connector-color);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.master-index-connector-curve-path.is-main {
+  stroke-width: var(--system-connector-stroke-width);
+  stroke-opacity: 0.1;
+}
+
+.master-index-connector-curve-path.is-etch {
+  stroke-width: var(--system-connector-stroke-width);
+  stroke-opacity: 1;
+  stroke-dasharray: 4 8;
+}
+
+.master-index-connector-curve-path.is-mobile {
+  display: none;
+}
+
+.master-index-connector-node-group {
+  display: grid;
+  place-items: center;
+  color: var(--blue-main);
+  transform: translate(-50%, -50%);
+}
+
+.master-index-connector-node-group.is-node-1 {
+  left: var(--master-index-connector-node-1-x);
+  top: var(--master-index-connector-node-1-y);
+}
+
+.master-index-connector-node-group.is-node-2 {
+  left: var(--master-index-connector-node-2-x);
+  top: var(--master-index-connector-node-2-y);
+}
+
+.master-index-connector-node-group.is-node-3 {
+  left: var(--master-index-connector-node-3-x);
+  top: var(--master-index-connector-node-3-y);
+}
+
+.master-index-connector-node-group.is-node-4 {
+  left: var(--master-index-connector-node-4-x);
+  top: var(--master-index-connector-node-4-y);
+}
+
+.master-index-connector-number {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.45svh);
+  color: var(--blue-main);
+  font-family: var(--font-latin);
+  font-size: 1.1svw;
+  line-height: var(--basic-line-height);
+  letter-spacing: 0;
+  font-weight: 500;
+  transform: translateX(-50%);
+}
+
+.system-connector-node.master-index-connector-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--system-connector-node-size);
+  height: var(--system-connector-node-size);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(45deg);
+}
+
+.master-index-connector-node::after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  background: var(--system-connector-node-color);
+}
+
+.master-index-connector-node-core {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .master-index-connector {
+    --system-connector-node-size: 1.5svw;
+    --master-index-connector-node-offset-x: -3.2svw;
+  }
+
+  .master-index-connector-number {
+    font-size: 2svw;
+  }
+}
+
+@media (max-width: 620px) {
+  .master-index-connector-curve-path.is-desktop {
+    display: none;
+  }
+
+  .master-index-connector-curve-path.is-mobile {
+    display: inline;
+  }
+
+  .master-index-connector {
+    --system-connector-node-size: 3.2svw;
+    --master-index-connector-node-offset-x: -5svw;
+  }
+
+  .master-index-connector-number {
+    font-size: 3.6svw;
+  }
+}
+
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-connector-node-group {
+  opacity: 0;
+}
+
+.home-page.is-master-index-pending:not(.is-master-index-entered) .master-index-connector-curve {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+}
+
+.home-page.is-master-index-entering .master-index-connector-node-group {
+  animation:
+    master-index-fade-enter 420ms ease
+    calc(
+      var(--master-index-node-enter-base-delay) +
+      var(--master-index-connector-index) * var(--master-index-node-enter-step)
+    )
+    forwards;
+}
+
+.home-page.is-master-index-entering .master-index-connector-curve {
+  animation:
+    master-index-line-draw 620ms cubic-bezier(0.18, 0.82, 0.28, 1)
+    calc(
+      var(--master-index-connector-enter-base-delay) +
+      var(--master-index-connector-index) * var(--master-index-connector-enter-step)
+    )
+    forwards;
+}
+
+@media (max-width: 620px) {
+  .home-page.is-master-index-entering .master-index-connector-node-group {
+    animation:
+      master-index-fade-enter 360ms ease
+      calc(820ms + var(--master-index-connector-index) * 110ms)
+      forwards;
+  }
+
+  .home-page.is-master-index-entering .master-index-connector-curve {
+    animation:
+      master-index-line-draw var(--duration-enter) var(--ease-enter)
+      calc(940ms + var(--master-index-connector-index) * 120ms)
+      forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page.is-master-index-pending .master-index-connector-node-group,
+  .home-page.is-master-index-pending .master-index-connector-curve {
+    opacity: 1;
+    animation: none;
+    clip-path: none;
+  }
+}

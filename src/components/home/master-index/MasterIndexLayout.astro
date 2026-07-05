@@ -2,7 +2,30 @@
 import BackgroundLayer from "../../background/BackgroundLayer.astro";
 import ChromeHeadbar from "../../chrome/ChromeHeadbar.astro";
 import IndexDecor from "../../index/IndexDecor.astro";
+import MasterIndexCluster from "./MasterIndexCluster.astro";
+import MasterIndexConnector from "./MasterIndexConnector.astro";
+import MasterIndexRail from "./MasterIndexRail.astro";
+import { masterIndexClusters } from "../../../data/home/masterIndex.js";
+import { pageTimings } from "../../../data/pageTimings.js";
 import "../../../styles/home/master-index/master-index.css";
+
+const masterTimingStyle = [
+  `--master-index-cluster-enter-base-delay: ${pageTimings.homeMasterIndex.clusterEnterBaseDelayMs}ms`,
+  `--master-index-cluster-enter-step: ${pageTimings.homeMasterIndex.clusterEnterStepMs}ms`,
+  `--master-index-rail-label-delay: ${pageTimings.homeMasterIndex.railLabelDelayMs}ms`,
+  `--master-index-rail-top-line-delay: ${pageTimings.homeMasterIndex.railTopLineDelayMs}ms`,
+  `--master-index-rail-diamond-delay: ${pageTimings.homeMasterIndex.railDiamondDelayMs}ms`,
+  `--master-index-rail-bottom-line-delay: ${pageTimings.homeMasterIndex.railBottomLineDelayMs}ms`,
+  `--master-index-rail-emblem-delay: ${pageTimings.homeMasterIndex.railEmblemDelayMs}ms`,
+  `--master-index-rail-title-delay: ${pageTimings.homeMasterIndex.railTitleDelayMs}ms`,
+  `--master-index-rail-motto-delay: ${pageTimings.homeMasterIndex.railMottoDelayMs}ms`,
+  `--master-index-rail-dots-delay: ${pageTimings.homeMasterIndex.railDotsDelayMs}ms`,
+  `--master-index-rail-hint-delay: ${pageTimings.homeMasterIndex.railHintDelayMs}ms`,
+  `--master-index-node-enter-base-delay: ${pageTimings.homeMasterIndex.nodeEnterBaseDelayMs}ms`,
+  `--master-index-node-enter-step: ${pageTimings.homeMasterIndex.nodeEnterStepMs}ms`,
+  `--master-index-connector-enter-base-delay: ${pageTimings.homeMasterIndex.connectorEnterBaseDelayMs}ms`,
+  `--master-index-connector-enter-step: ${pageTimings.homeMasterIndex.connectorEnterStepMs}ms`,
+].join("; ");
 ---
 
 <section class="home-panel home-master-index-page" id="home-master-index" aria-label="Master index">
@@ -10,10 +33,21 @@ import "../../../styles/home/master-index/master-index.css";
     <ChromeHeadbar />
   </div>
 
-  <div class="home-panel-stage home-master-index-stage" data-master-index-stage>
+  <div class="home-panel-stage home-master-index-stage" data-master-index-stage style={masterTimingStyle}>
     <BackgroundLayer />
     <IndexDecor number="00" label="MASTER INDEX" />
+    <MasterIndexRail />
 
-    <main class="master-index-main" aria-label="Master index content"></main>
+    <main class="master-index-main" aria-label="Master index content">
+      <MasterIndexConnector />
+
+      <div class="master-index-cluster-grid" aria-label="Master index sections">
+        {masterIndexClusters.map((cluster, index) => (
+          <div class="master-index-cluster-slot">
+            <MasterIndexCluster cluster={cluster} index={index} />
+          </div>
+        ))}
+      </div>
+    </main>
   </div>
 </section>

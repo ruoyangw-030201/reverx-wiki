@@ -6,7 +6,41 @@ import "../styles/home/home.css";
 ---
 
 <BaseLayout>
-  <main class="home-page" aria-label="Home">
+  <script is:inline>
+    (() => {
+      const introSeenKey = "reverx-home-intro-seen";
+      const firstEntryPathKey = "reverx-first-entry-path";
+
+      function normalizePath(pathname) {
+        const normalized = pathname.replace(/\/+$/, "");
+        return normalized || "/";
+      }
+
+      try {
+        let firstEntryPath = window.sessionStorage.getItem(firstEntryPathKey);
+        if (!firstEntryPath) {
+          firstEntryPath = normalizePath(window.location.pathname);
+          window.sessionStorage.setItem(firstEntryPathKey, firstEntryPath);
+        }
+
+        const shouldPlayIntro =
+          firstEntryPath === "/" &&
+          window.sessionStorage.getItem(introSeenKey) !== "true";
+
+        if (!shouldPlayIntro) {
+          document.documentElement.classList.add("home-intro-is-skipped");
+          window.sessionStorage.setItem(introSeenKey, "true");
+          return;
+        }
+
+        window.sessionStorage.setItem(introSeenKey, "true");
+      } catch {
+        document.documentElement.classList.add("home-intro-is-skipped");
+      }
+    })();
+  </script>
+
+  <main class="home-page is-master-index-pending" aria-label="Home">
     <HomeIntroLayout />
     <MasterIndexLayout />
   </main>
@@ -17,6 +51,35 @@ import "../styles/home/home.css";
   import { pageTimings } from "../data/pageTimings.js";
 
   function setupHomePager() {
+    const page = document.querySelector(".home-page");
+    if (!(page instanceof HTMLElement)) return;
+
+    let hasPlayedMasterIntro = page.classList.contains("is-master-index-entered");
+    let masterIntroTimer = 0;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function finishMasterIndexIntro() {
+      window.clearTimeout(masterIntroTimer);
+      page.classList.remove("is-master-index-pending", "is-master-index-entering");
+      page.classList.add("is-master-index-entered");
+    }
+
+    function playMasterIndexIntro() {
+      if (hasPlayedMasterIntro) return;
+      hasPlayedMasterIntro = true;
+
+      if (prefersReducedMotion.matches) {
+        finishMasterIndexIntro();
+        return;
+      }
+
+      page.classList.add("is-master-index-entering");
+      masterIntroTimer = window.setTimeout(
+        finishMasterIndexIntro,
+        pageTimings.homeMasterIndex.introDurationMs
+      );
+    }
+
     setupTwoPanelPager({
       rootSelector: ".home-page",
       targetSelector: "#home-master-index",
@@ -25,10 +88,8 @@ import "../styles/home/home.css";
       readyDataset: "homePagerReady",
       nextSelector: ".home-intro-next-page-trigger",
       onPageChange(pageIndex) {
-        const page = document.querySelector(".home-page");
-        if (page instanceof HTMLElement) {
-          page.dataset.homePanel = pageIndex === 1 ? "master" : "intro";
-        }
+        page.dataset.homePanel = pageIndex === 1 ? "master" : "intro";
+        if (pageIndex === 1) playMasterIndexIntro();
       },
     });
   }

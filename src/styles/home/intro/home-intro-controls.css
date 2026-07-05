@@ -16,10 +16,11 @@
 }
 
 .home-intro-skip-button {
+  --active-arrow-button-color: var(--gold-light);
   --active-arrow-button-arrow-size: var(--icon-median);
   --active-arrow-button-label-letter-spacing: 0.16em;
   position: absolute;
-  top: calc(var(--chrome-headbar-height) + clamp(12px, 1.2vw, 18px));
+  top: clamp(12px, 1.2vw, 18px);
   right: clamp(18px, 2.2vw, 34px);
   opacity: 0;
   visibility: hidden;
@@ -35,6 +36,13 @@
 
 .home-intro-is-skipped .home-intro-skip-button {
   display: none;
+}
+
+.home-intro-is-skipped .home-intro-next-page-trigger {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  animation: none;
 }
 
 @keyframes home-intro-control-reveal {
